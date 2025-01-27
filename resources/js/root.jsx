@@ -20,6 +20,7 @@ import Modal from '@/components/modal';
 import CustomDialog from '@/components/dialog';
 import { Toaster } from "@/components/core/toaster";
 
+import { AuthProvider } from './contexts/auth-context.jsx';
 import { AppProvider } from "@/contexts/app-context"; 
 import { DataProvider } from '@/contexts/data-context';
 import { SettingsProvider } from "@/contexts/settings-context";
@@ -36,7 +37,7 @@ export function Root({ children }) {
 				<title>{metadata.title}</title>
 				<meta content={appConfig.themeColor} name="theme-color" />
 			</Helmet>
-			{/* <AuthProvider> */}
+			<AuthProvider>
 			  <AppProvider>
 				<DataProvider>
 					<Analytics>
@@ -58,7 +59,7 @@ export function Root({ children }) {
 						</Analytics>
 					</DataProvider>
 				</AppProvider>
-			{/* </AuthProvider> */}
+			</AuthProvider>
 		</HelmetProvider>
 	);
 }

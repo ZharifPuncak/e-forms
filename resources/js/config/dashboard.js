@@ -18,7 +18,7 @@ export const dashboardConfig = {
 				{
 					key: "settings",
 					title: "Settings",
-					href: paths.dashboard.settings.account,
+					href: paths.dashboard.settings.profile,
 					icon: "gear",
 					matcher: { type: "startsWith", href: "/dashboard/settings" },
 				},

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -20,29 +20,23 @@ import { RouterLink } from "@/components/core/link";
 // NOTE: First level elements are groups.
 
 const navItems = [
+
 	{
 		key: "personal",
 		title: "Personal",
 		items: [
-			{ key: "account", title: "Account", href: paths.dashboard.settings.account, icon: "user-circle" },
-			{ key: "notifications", title: "Notifications", href: paths.dashboard.settings.notifications, icon: "bell" },
-			{ key: "security", title: "Security", href: paths.dashboard.settings.security, icon: "lock-key" },
+			{ key: "profile", title: "Profile", href: paths.dashboard.settings.profile, icon: "user-circle" },
 		],
 	},
-	{
-		key: "organization",
-		title: "Organization",
+		{
+		key: "acl",
+		title: "Access Control List",
 		items: [
-			{ key: "billing", title: "Billing & plans", href: paths.dashboard.settings.billing, icon: "credit-card" },
-			{ key: "team", title: "Team", href: paths.dashboard.settings.team, icon: "users-three" },
-			{
-				key: "integrations",
-				title: "Integrations",
-				href: paths.dashboard.settings.integrations,
-				icon: "plugs-connected",
-			},
+			{ key: "users", title: "User List", href: paths.dashboard.settings.users, icon: "user-circle" },
+			{ key: "roles", title: "Roles", href: paths.dashboard.settings.roles, icon: "users-three" },
 		],
 	},
+
 ];
 
 const icons = {
@@ -87,15 +81,7 @@ export function SideNav() {
 						</Stack>
 					))}
 				</Stack>
-				<Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
-					<Avatar src="/assets/avatar.png">AV</Avatar>
-					<div>
-						<Typography variant="subtitle1">Sofia Rivers</Typography>
-						<Typography color="text.secondary" variant="caption">
-							sofia@devias.io
-						</Typography>
-					</div>
-				</Stack>
+	
 			</Stack>
 		</div>
 	);

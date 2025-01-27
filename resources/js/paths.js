@@ -12,12 +12,9 @@ export const paths = {
 	dashboard: {
 		overview: "/dashboard",
 		settings: {
-			account: "/dashboard/settings/account",
-			billing: "/dashboard/settings/billing",
-			integrations: "/dashboard/settings/integrations",
-			notifications: "/dashboard/settings/notifications",
-			security: "/dashboard/settings/security",
-			team: "/dashboard/settings/team",
+			profile: "/dashboard/settings/profile",
+			users: "/dashboard/settings/users",
+			roles: "/dashboard/settings/roles",		
 		},
 		academy: { browse: "/dashboard/academy", details: (courseId) => `/dashboard/academy/courses/${courseId}` },
 		analytics: "/dashboard/analytics",

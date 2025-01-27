@@ -6,7 +6,6 @@ import { Page as NotFoundPage } from "@/pages/not-found";
 import { Layout as MarketingLayout } from "@/components/marketing/layout/layout";
 
 import { route as authRoute } from "./auth";
-import { route as componentsRoute } from "./components";
 import { route as dashboardRoute } from "./dashboard";
 
 export const routes = [
@@ -25,7 +24,6 @@ export const routes = [
 					return { Component: Page };
 				},
 			},
-			componentsRoute,
 		],
 	},
 	{
@@ -53,27 +51,6 @@ export const routes = [
 				},
 			},
 		],
-	},
-	{
-		path: "checkout",
-		lazy: async () => {
-			const { Page } = await import("@/pages/checkout");
-			return { Component: Page };
-		},
-	},
-	{
-		path: "contact",
-		lazy: async () => {
-			const { Page } = await import("@/pages/contact");
-			return { Component: Page };
-		},
-	},
-	{
-		path: "pdf/invoices/:invoiceId",
-		lazy: async () => {
-			const { Page } = await import("@/pages/pdf/invoice");
-			return { Component: Page };
-		},
 	},
 	authRoute,
 	dashboardRoute,
