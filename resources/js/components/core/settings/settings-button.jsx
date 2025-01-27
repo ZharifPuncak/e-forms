@@ -9,7 +9,7 @@ import { GearSix as GearSixIcon } from "@phosphor-icons/react/dist/ssr/GearSix";
 import { appConfig } from "@/config/app";
 import { dashboardConfig } from "@/config/dashboard";
 import { setSettings as setPersistedSettings } from "@/lib/settings";
-import { useSettings } from "@/components/core/settings/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 
 import { SettingsDrawer } from "./settings-drawer";
 

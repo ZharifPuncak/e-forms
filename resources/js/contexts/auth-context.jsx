@@ -6,7 +6,8 @@ import axios from "@/utils/axios";
 let authStorage = localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')) : undefined;
 
 const initialState = {
-  isAuthenticated: authStorage?.isAuthenticated || false,
+  // isAuthenticated: authStorage?.isAuthenticated || false,
+  isAuthenticated: true,
   isInitialized: authStorage?.isInitialized || false,
   token: authStorage?.token || '',
   permissions: authStorage?.permissions || [],

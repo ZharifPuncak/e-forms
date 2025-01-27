@@ -9,7 +9,7 @@ import { DeleteAccount } from "@/components/dashboard/settings/delete-account";
 import { Privacy } from "@/components/dashboard/settings/privacy";
 import { ThemeSwitch } from "@/components/dashboard/settings/theme-switch";
 
-const metadata = { title: `Account | Settings | Dashboard | ${appConfig.name}` };
+const metadata = { title: `Settings | ACL | User List | ${appConfig.name}` };
 
 export function Page() {
 	return (
@@ -19,7 +19,7 @@ export function Page() {
 			</Helmet>
 			<Stack spacing={4}>
 				<div>
-					<Typography variant="h4">Account</Typography>
+					<Typography variant="h4">User List</Typography>
 				</div>
 				<Stack spacing={4}>
 					<AccountDetails />

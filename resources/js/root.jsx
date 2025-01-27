@@ -4,6 +4,7 @@ import * as React from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import "@/styles/global.css";
+import "nprogress/nprogress.css";
 
 import { appConfig } from "@/config/app";
 import { getSettings as getPersistedSettings } from "@/lib/settings";
@@ -13,7 +14,10 @@ import { Analytics } from "@/components/core/analytics";
 import { I18nProvider } from "@/components/core/i18n-provider";
 import { LocalizationProvider } from "@/components/core/localization-provider";
 import { Rtl } from "@/components/core/rtl";
-import { SettingsButton } from "@/components/core/settings/settings-button";
+
+import DrawerSlider from '@/components/drawer';
+import Modal from '@/components/modal';
+import CustomDialog from '@/components/dialog';
 import { Toaster } from "@/components/core/toaster";
 
 import { AppProvider } from "@/contexts/app-context"; 
@@ -42,8 +46,10 @@ export function Root({ children }) {
 										<Rtl>
 											<ThemeProvider>
 												{children}
-												<SettingsButton />
 												<Toaster position="bottom-right" />
+												<DrawerSlider />
+												<Modal />
+												<CustomDialog />
 											</ThemeProvider>
 										</Rtl>
 									</I18nProvider>

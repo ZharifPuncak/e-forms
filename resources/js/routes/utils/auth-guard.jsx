@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { paths } from "@/paths";
 import { logger } from "@/lib/default-logger";
-import { useAuth } from "@/components/auth/custom/auth-context";
+import useAuth from "../../hooks/use-auth";
 
 export function AuthGuard({ children }) {
 	
@@ -13,22 +13,28 @@ export function AuthGuard({ children }) {
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
-		// if (isLoading || isAuthenticated) {
-		// 	return;
-		// }
-		// if(!isAuthenticated){
 
-		// 	logger.debug("[AuthGuard] User is not authenticated, redirecting to sign in");
+	
+		if(!isAuthenticated){
 
-		// 	navigate(paths.auth.custom.signIn);
-		// }
+			logger.debug("[AuthGuard] User is not authenticated, redirecting to sign in");
+			navigate(paths.auth.signIn);
+
+		}else{
+
+
+			if (window.history.length <= 1) {
+				logger.debug("[AuthGuard] No previous route, redirecting to home page");
+				navigate(paths.home); 
+			  }
+		}
 
 
 	}, [isAuthenticated, isLoading, navigate]);
 
-	// if (isLoading || !isAuthenticated) {
-	// 	return null;
-	// }
+	if (isLoading || !isAuthenticated) {
+		return null;
+	}
 
 	return <React.Fragment>{children}</React.Fragment>;
 }

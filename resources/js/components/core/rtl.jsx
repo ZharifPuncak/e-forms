@@ -6,7 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 
 import { appConfig } from "@/config/app";
-import { useSettings } from "@/components/core/settings/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 
 function styleCache() {
 	return createCache({ key: "mui-rtl", prepend: true, stylisPlugins: [stylisRTLPlugin] });

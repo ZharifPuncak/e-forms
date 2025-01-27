@@ -26,25 +26,7 @@ export const route = {
 				return { Component: Page };
 			},
 		},
-		{
-			path: "academy",
-			children: [
-				{
-					index: true,
-					lazy: async () => {
-						const { Page } = await import("@/pages/dashboard/academy/browse");
-						return { Component: Page };
-					},
-				},
-				{
-					path: "courses/:courseId",
-					lazy: async () => {
-						const { Page } = await import("@/pages/dashboard/academy/courses/details");
-						return { Component: Page };
-					},
-				},
-			],
-		},
+	
 		{
 			path: "analytics",
 			lazy: async () => {

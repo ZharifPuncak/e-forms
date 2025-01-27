@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
 import { paths } from "@/paths";
-import { SplitLayout } from "@/components/auth/split-layout";
+import { CenteredLayout } from "./components/centered-layout";
 import { RouterLink } from "@/components/core/link";
 import { DynamicLogo } from "@/components/core/logo";
 
@@ -24,23 +24,12 @@ export function Page() {
 			<Helmet>
 				<title>{metadata.title}</title>
 			</Helmet>
-			<SplitLayout>
+			<CenteredLayout>
 				<Stack spacing={4}>
-					<div>
-						<Link
-							color="text.primary"
-							component={RouterLink}
-							href={paths.dashboard.overview}
-							sx={{ alignItems: "center", display: "inline-flex", gap: 1 }}
-							variant="subtitle2"
-						>
-							<ArrowLeftIcon fontSize="var(--icon-fontSize-md)" />
-							Dashboard
-						</Link>
-					</div>
+				
 					<div>
 						<Box component={RouterLink} href={paths.home} sx={{ display: "inline-block", fontSize: 0 }}>
-							<DynamicLogo colorDark="light" colorLight="dark" height={32} width={122} />
+							<DynamicLogo colorDark="light" colorLight="dark" height={100} width={100} />
 						</Box>
 					</div>
 					<Typography variant="h5">Update Password</Typography>
@@ -58,7 +47,7 @@ export function Page() {
 						</Button>
 					</Stack>
 				</Stack>
-			</SplitLayout>
+			</CenteredLayout>
 		</React.Fragment>
 	);
 }

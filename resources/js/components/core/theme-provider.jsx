@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 
 import { appConfig } from "@/config/app";
-import { useSettings } from "@/components/core/settings/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { createTheme } from "@/styles/theme/create-theme";
 
 function CustomThemeProvider({ children }) {
