@@ -10,7 +10,7 @@ import { appConfig } from "@/config/app";
 import { paths } from "@/paths";
 import { RouterLink } from "@/components/core/link";
 
-const metadata = { title: `Not found | ${appConfig.name}` };
+const metadata = { title: `Not found | Errors | ${appConfig.name}` };
 
 export function Page() {
 	return (

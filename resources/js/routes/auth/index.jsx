@@ -1,10 +1,41 @@
-import { route as auth0Route } from "./auth0";
-import { route as cognitoRoute } from "./cognito";
-import { route as customRoute } from "./custom";
-import { route as samplesRoute } from "./samples";
-import { route as supabaseRoute } from "./supabase";
 
 export const route = {
 	path: "auth",
-	children: [auth0Route, cognitoRoute, customRoute, samplesRoute, supabaseRoute],
+	children: [
+		{
+			path: "reset-password",
+			lazy: async () => {
+				const { Page } = await import("@/pages/auth/reset-password");
+				return { Component: Page };
+			},
+		},
+		{
+			path: "sign-in",
+			lazy: async () => {
+				const { Page } = await import("@/pages/auth/sign-in");
+				return { Component: Page };
+			},
+		},
+		{
+			path: "sign-up",
+			lazy: async () => {
+				const { Page } = await import("@/pages/auth/sign-up");
+				return { Component: Page };
+			},
+		},
+		{
+			path: "update-password",
+			lazy: async () => {
+				const { Page } = await import("@/pages/auth/update-password");
+				return { Component: Page };
+			},
+		},
+		{
+			path: "verify-code",
+			lazy: async () => {
+				const { Page } = await import("@/pages/auth/verify-code");
+				return { Component: Page };
+			},
+		},
+	],
 };

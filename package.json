@@ -50,6 +50,7 @@
     "embla-carousel": "8.5.2",
     "embla-carousel-react": "8.5.2",
     "i18next": "24.2.1",
+    "laravel-vite-plugin": "^1.2.0",
     "mapbox-gl": "3.9.2",
     "oidc-client-ts": "3.1.0",
     "openid-client": "6.1.7",

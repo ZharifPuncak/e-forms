@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Outlet } from "react-router-dom";
 
-import { AuthGuard } from "@/components/auth/auth-guard";
+import { AuthGuard } from "./utils/auth-guard";
 import { Layout as ChatLayout } from "@/components/dashboard/chat/layout";
 import { Layout as JobCompanyLayout } from "@/components/dashboard/jobs/company-layout";
 import { Layout as DashboardLayout } from "@/components/dashboard/layout/layout";
