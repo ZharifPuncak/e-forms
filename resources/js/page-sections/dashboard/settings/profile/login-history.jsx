@@ -7,6 +7,9 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import { Timer as TimerIcon } from "@phosphor-icons/react/dist/ssr/Timer";
+import Box  from "@mui/material/Box";
+import Button  from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 import { dayjs } from "@/lib/dayjs";
 import { DataTable } from "@/components/core/data-table";
@@ -18,7 +21,7 @@ const columns = [
 				<div>
 					<Typography variant="subtitle2">{row.type}</Typography>
 					<Typography color="text.secondary" variant="inherit">
-						on {dayjs(row.createdAt).format("hh:mm A MMM D, YYYY")}
+						on {dayjs(row.createdAt).format("hh:mm A MMM D, YYYY")} , <span style={{ color : '#22C668', fontWeight : 'bold'}}> This Device </span>
 					</Typography>
 				</div>
 			);
@@ -42,9 +45,14 @@ export function LoginHistory({ events }) {
 				title="Login history"
 			/>
 			<CardContent>
-				<Card sx={{ overflowX: "auto" }} variant="outlined">
-					<DataTable columns={columns} rows={events} />
-				</Card>
+		    	<Stack spacing={3}>
+					<Card sx={{ overflowX: "auto" }} variant="outlined">
+						<DataTable columns={columns} rows={events} />
+					</Card>
+					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+							<Button style={{ background : '#007FAB', borderColor : '#007FAB'}} variant="contained">LOGOUT OF OTHER SESSIONS</Button>
+				   </Box>
+			   </Stack>
 			</CardContent>
 		</Card>
 	);

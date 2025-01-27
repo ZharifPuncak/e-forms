@@ -33,7 +33,7 @@ const navItems = [
 		title: "Access Control List",
 		items: [
 			{ key: "users", title: "User List", href: paths.dashboard.settings.users, icon: "user-circle" },
-			{ key: "roles", title: "Roles", href: paths.dashboard.settings.roles, icon: "users-three" },
+			{ key: "roles", title: "Roles and Permissions", href: paths.dashboard.settings.roles, icon: "users-three" },
 		],
 	},
 

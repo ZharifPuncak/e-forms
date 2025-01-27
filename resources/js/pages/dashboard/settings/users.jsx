@@ -9,7 +9,7 @@ import { DeleteAccount } from "@/page-sections/dashboard/settings/delete-account
 import { Privacy } from "@/page-sections/dashboard/settings/privacy";
 import { ThemeSwitch } from "@/page-sections/dashboard/settings/theme-switch";
 
-const metadata = { title: `Settings | ACL | User List | ${appConfig.name}` };
+const metadata = { title: `User List | ${appConfig.name}` };
 
 export function Page() {
 	return (

@@ -5,10 +5,10 @@ import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
 import { dayjs } from "@/lib/dayjs";
-import { Invoices } from "@/page-sections/dashboard/settings/invoices";
-import { Plans } from "@/page-sections/dashboard/settings/plans";
+import { Roles } from "@/page-sections/dashboard/settings/acl/roles";
 
-const metadata = { title: `Billing | Settings | Dashboard | ${appConfig.name}` };
+
+const metadata = { title: `Roles | ${appConfig.name}` };
 
 export function Page() {
 	return (
@@ -18,15 +18,15 @@ export function Page() {
 			</Helmet>
 			<Stack spacing={4}>
 				<div>
-					<Typography variant="h4">Billing & plans</Typography>
+					<Typography variant="h4">Roles and Permissions</Typography>
 				</div>
 				<Stack spacing={4}>
-					<Plans />
-					<Invoices
-						invoices={[
-							{ id: "INV-003", currency: "USD", totalAmount: 14.99, issueDate: dayjs().subtract(1, "month").toDate() },
-							{ id: "INV-002", currency: "USD", totalAmount: 14.99, issueDate: dayjs().subtract(2, "months").toDate() },
-							{ id: "INV-001", currency: "USD", totalAmount: 14.99, issueDate: dayjs().subtract(3, "months").toDate() },
+				
+					<Roles
+						roles={[
+							{ id: "INV-003", name: "Superadmin", totalUser: 1 },
+							{ id: "INV-002", name: "Admin", totalUser: 5 },
+							{ id: "INV-001", name: "Staff", totalUser: 7 },
 						]}
 					/>
 				</Stack>

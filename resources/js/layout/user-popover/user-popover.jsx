@@ -20,9 +20,9 @@ import useAuth from "@/hooks/use-auth";
 
 const user = {
 	id: "USR-000",
-	name: "Sofia Rivers",
+	name: "AHMAD ARIF ROSLI",
 	avatar: "/assets/avatar.png",
-	email: "sofia@puncakniaga.com.my",
+	email: "arif@puncakniaga.com.my",
 };
 
 function SignOutButton() {
@@ -67,7 +67,7 @@ export function UserPopover({ anchorEl, onClose, open }) {
 			transformOrigin={{ horizontal: "right", vertical: "top" }}
 		>
 			<Box sx={{ p: 2 }}>
-				<Typography sx={{ mb : -1}}>{user.name}</Typography>
+				<Typography sx={{ mb : -1}} fontSize={14}>{user.name}</Typography>
 				<Typography color="text.secondary" variant="caption">
 					{user.email}
 				</Typography>

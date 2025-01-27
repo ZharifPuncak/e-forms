@@ -5,11 +5,10 @@ import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
 import { dayjs } from "@/lib/dayjs";
-import { LoginHistory } from "@/page-sections/dashboard/settings/login-history";
-import { MultiFactor } from "@/page-sections/dashboard/settings/multi-factor";
-import { PasswordForm } from "@/page-sections/dashboard/settings/password-form";
+import { LoginHistory } from "@/page-sections/dashboard/settings/profile/login-history";
+import { PasswordForm } from "@/page-sections/dashboard/settings/profile/password-form";
 
-const metadata = { title: `Security | Settings | Dashboard | ${appConfig.name}` };
+const metadata = { title: `Profile | ${appConfig.name}` };
 
 export function Page() {
 	return (
@@ -23,7 +22,6 @@ export function Page() {
 				</div>
 				<Stack spacing={4}>
 					<PasswordForm />
-					<MultiFactor />
 					<LoginHistory
 						events={[
 							{

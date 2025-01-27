@@ -152,7 +152,7 @@ function UserButton() {
 				ref={popover.anchorRef}
 				sx={{ border: "none", background: "transparent", cursor: "pointer", p: 0 }}
 			>
-				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>		
+				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',  color : 'grey' }}>		
 					<Typography variant='button'>PNM1352</Typography>
 					<Box sx={{ marginLeft: 1 }}>
 						<CaretDownIcon size={15} />

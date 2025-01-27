@@ -39,7 +39,7 @@ export function PasswordForm() {
 						</FormControl>
 					</Stack>
 					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-						<Button variant="contained">Update</Button>
+						<Button style={{ background : '#007FAB'}} variant="contained">UPDATE</Button>
 					</Box>
 				</Stack>
 			</CardContent>
