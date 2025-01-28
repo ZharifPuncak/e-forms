@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
+import "@fontsource/poppins"
 import "@/styles/global.css";
 import "nprogress/nprogress.css";
 

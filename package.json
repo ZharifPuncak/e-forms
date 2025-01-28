@@ -24,6 +24,7 @@
     "@emotion/react": "11.14.0",
     "@emotion/server": "11.11.0",
     "@emotion/styled": "11.14.0",
+    "@fontsource/poppins": "^5.1.1",
     "@fullcalendar/core": "6.1.15",
     "@fullcalendar/daygrid": "6.1.15",
     "@fullcalendar/interaction": "6.1.15",
