@@ -19,7 +19,9 @@ import { RoleDialog } from "./forms/role-dialog";
 export function Roles({ roles }) {
 
 	const dialog = useDialog();
-
+	const [title, setTitle] = React.useState('');
+	const [subTitle, setSubTitle] = React.useState('');
+	
 	return (
 		<Card>
 			<CardHeader
@@ -27,9 +29,12 @@ export function Roles({ roles }) {
 				subheader=""
 				title="Role List"
 				action={
-				<Button onClick={dialog.handleOpen}  size="medium" startIcon={<PlusIcon />} variant="contained">
-							ROLE
-				
+				<Button onClick={() => {
+					setTitle('Create Role');
+					setSubTitle('');
+					dialog.handleOpen();
+				}} size="small" startIcon={<PlusIcon />} variant="contained">
+					ROLE	
 				</Button>
 				}
 			/>
@@ -39,7 +44,7 @@ export function Roles({ roles }) {
 
 						
 							{/* Role Form  */}
-							<RoleDialog onClose={dialog.handleClose} open={dialog.open} />
+							<RoleDialog title={title} subtitle={subTitle} onClose={dialog.handleClose} open={dialog.open} />
 
 							{/* Role List */}
 							{ roles.map((item, index) => {
@@ -48,9 +53,16 @@ export function Roles({ roles }) {
 												amount={item.totalUser}
 												title={item.name} 
 												action={
-													<Button  color="secondary" endIcon={<ArrowRightIcon />} size="small">
-																		<Typography variant="subtitle2" sx={{  whiteSpace: "nowrap" }} fontSize={14}>
-																			View Permission
+													<Button onClick={() => {
+														setTitle('Permissions');
+														setSubTitle(item.name);
+														dialog.handleOpen();
+													}} 
+													 color="secondary" 
+													 endIcon={<ArrowRightIcon />} 
+													 size="small">
+																		<Typography   variant="subtitle2" sx={{  whiteSpace: "nowrap" }} fontSize={14}>
+																			 Permissions
 																		</Typography>
 																
 													</Button>

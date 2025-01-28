@@ -24,7 +24,8 @@ export function Users({ users }) {
 				subheader=""
 				title="User Details"
 				action={
-					<Button onClick={dialog.handleOpen}  size="medium" startIcon={<PlusIcon />} variant="contained">
+					<Button onClick={dialog.handleOpen} 
+					 size="small" startIcon={<PlusIcon />} variant="contained">
 						USER
 					</Button>
 					}
@@ -32,7 +33,7 @@ export function Users({ users }) {
 			<CardContent>
 				<Card>
 					<Box sx={{ overflowX: "auto" }}>
-						<UserDialog onClose={dialog.handleClose} open={dialog.open} />
+						<UserDialog onClose={dialog.handleClose} open={dialog.open} title='Create User' />
 						<UsersTable rows={users} />
 					</Box>
 				</Card>

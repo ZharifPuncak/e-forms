@@ -13,15 +13,31 @@ import { RouterLink } from "@/components/core/link";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 import { Minus as MinusIcon } from "@phosphor-icons/react/dist/ssr/Minus";
 
+import { UserDialog } from "../forms/user-dialog";
+import { useDialog } from "@/hooks/use-dialog";
 
 
+
+export function UsersTable({ rows }) {
+
+	const dialog = useDialog();
+	const [title, setTitle] = React.useState('');
+	const [subTitle, setSubTitle] = React.useState('');
+
+
+	
 const columns = [
 	{
 		formatter: (row) => (
 			<Box>
 				<Link 
-			        href={null}
-					component={RouterLink}
+					sx={{ cursor : 'pointer'}}
+			        onClick={() => {
+						setTitle('Edit User');
+						setSubTitle(row.name);
+						dialog.handleOpen();
+					}}
+					
 				>
 					<Typography variant="subtitle2" sx={{ mb : -1, whiteSpace: "nowrap", color : '#007FAB'}} fontSize={14}>{row.name}</Typography>
 				</Link>
@@ -64,6 +80,9 @@ const columns = [
 	}
 ];
 
-export function UsersTable({ rows }) {
-	return <DataTable columns={columns} rows={rows} />;
+
+	return <>
+		<UserDialog title={title} subtitle={subTitle} onClose={dialog.handleClose} open={dialog.open} />
+		<DataTable columns={columns} rows={rows} />
+	</>;
 }

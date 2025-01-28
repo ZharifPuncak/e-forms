@@ -45,7 +45,7 @@ export function LoginHistory({ events }) {
 						<DataTable columns={columns} rows={events} />
 					</Card>
 					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-							<Button size='medium' variant="contained" >LOGOUT OF OTHER SESSIONS</Button>
+							<Button size='small' variant="contained" >LOGOUT OF OTHER SESSIONS</Button>
 				   </Box>
 			   </Stack>
 			</CardContent>

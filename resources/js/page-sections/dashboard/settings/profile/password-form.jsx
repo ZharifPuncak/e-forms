@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
-import { Password as PasswordIcon } from "@phosphor-icons/react/dist/ssr/Password";
+
 
 export function PasswordForm() {
 	return (
@@ -34,7 +34,7 @@ export function PasswordForm() {
 						</FormControl>
 					</Stack>
 					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-						<Button size='medium' variant="contained">UPDATE</Button>
+						<Button size='small' variant="contained">UPDATE</Button>
 					</Box>
 				</Stack>
 			</CardContent>
