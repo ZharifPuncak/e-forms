@@ -51,7 +51,8 @@ function SignOutButton() {
 		<MenuItem onClick={handleSignOut} component="a" href={paths.home} >
 					<ListItemIcon>
 						<SignOutIcon  /> 
-					</ListItemIcon>	Sign out
+					</ListItemIcon>
+					<Typography  fontSize={14}>Sign out</Typography>	
 		</MenuItem>
 	);
 }
@@ -78,7 +79,7 @@ export function UserPopover({ anchorEl, onClose, open }) {
 					<ListItemIcon>
 						<UserIcon />
 					</ListItemIcon>
-					Profile
+					<Typography  fontSize={14}>Profile</Typography>
 				</MenuItem>
 			</List>
 			<Divider />

@@ -137,3 +137,18 @@ export const tomatoOrange = {
 	900: "#7e1110",
 	950: "#440608",
 };
+
+
+export const oceanBlue = {
+	50: "#e0f1f9",    // Very light blue
+	100: "#b3deeb",   // Light blue
+	200: "#80c2df",   // Light-medium blue
+	300: "#4da6d2",   // Medium blue
+	400: "#2688b6",   // Slightly darker medium blue
+	500: "#007FAB",   // Base blue (your original color)
+	600: "#006c8f",   // Darker blue
+	700: "#00577a",   // Even darker blue
+	800: "#004666",   // Darker still
+	900: "#00384f",   // Deep blue
+	950: "#002135",   // Very dark blue
+  };

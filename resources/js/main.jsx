@@ -7,7 +7,6 @@ import { Root } from "@/root";
 import { ScrollRestoration } from "@/components/core/scroll-restoration";
 
 const root = createRoot(document.querySelector("#root"));
-
 const router = createBrowserRouter([
 	{
 		path: "/",

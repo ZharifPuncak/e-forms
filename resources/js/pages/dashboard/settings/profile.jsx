@@ -18,7 +18,7 @@ export function Page() {
 			</Helmet>
 			<Stack spacing={4}>
 				<div>
-					<Typography variant="h4">Profile</Typography>
+					<Typography variant="h5">Profile</Typography>
 				</div>
 				<Stack spacing={4}>
 					<PasswordForm />

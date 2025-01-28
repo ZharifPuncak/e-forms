@@ -37,11 +37,6 @@ export function LoginHistory({ events }) {
 	return (
 		<Card>
 			<CardHeader
-				avatar={
-					<Avatar>
-						<TimerIcon fontSize="var(--Icon-fontSize)" />
-					</Avatar>
-				}
 				title="Login history"
 			/>
 			<CardContent>
@@ -50,7 +45,7 @@ export function LoginHistory({ events }) {
 						<DataTable columns={columns} rows={events} />
 					</Card>
 					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-							<Button style={{ background : '#007FAB', borderColor : '#007FAB'}} variant="contained">LOGOUT OF OTHER SESSIONS</Button>
+							<Button size='medium' variant="contained" >LOGOUT OF OTHER SESSIONS</Button>
 				   </Box>
 			   </Stack>
 			</CardContent>

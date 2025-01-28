@@ -15,11 +15,6 @@ export function PasswordForm() {
 	return (
 		<Card>
 			<CardHeader
-				avatar={
-					<Avatar>
-						<PasswordIcon fontSize="var(--Icon-fontSize)" />
-					</Avatar>
-				}
 				title="Change password"
 			/>
 			<CardContent>
@@ -39,7 +34,7 @@ export function PasswordForm() {
 						</FormControl>
 					</Stack>
 					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-						<Button style={{ background : '#007FAB'}} variant="contained">UPDATE</Button>
+						<Button size='medium' variant="contained">UPDATE</Button>
 					</Box>
 				</Stack>
 			</CardContent>

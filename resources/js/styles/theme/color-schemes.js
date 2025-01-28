@@ -11,6 +11,7 @@ import {
 	shakespeare,
 	stormGrey,
 	tomatoOrange,
+	oceanBlue
 } from "./colors";
 
 const primarySchemes = {
@@ -128,6 +129,7 @@ export function colorSchemes(config) {
 				common: { black: "#000000", white: "#ffffff" },
 				divider: "var(--mui-palette-neutral-700)",
 				dividerChannel: "50 56 62",
+			
 				error: {
 					...redOrange,
 					light: redOrange[300],
@@ -149,7 +151,16 @@ export function colorSchemes(config) {
 					selected: "rgba(var(--mui-palette-info-mainChannel) / var(--mui-palette-action-selectedOpacity))",
 				},
 				neutral: { ...nevada },
-				primary: primary.dark,
+				primary:  {
+					...oceanBlue,
+					light: oceanBlue[300],
+					main: oceanBlue[400],
+					dark: oceanBlue[500],
+					contrastText: "var(--mui-palette-common-black)",
+					activated: "rgba(var(--mui-palette-error-mainChannel) / var(--mui-palette-action-activatedOpacity))",
+					hovered: "rgba(var(--mui-palette-error-mainChannel) / var(--mui-palette-action-hoverOpacity))",
+					selected: "rgba(var(--mui-palette-error-mainChannel) / var(--mui-palette-action-selectedOpacity))",
+				},
 				secondary: {
 					...nevada,
 					light: nevada[100],
@@ -231,7 +242,16 @@ export function colorSchemes(config) {
 					selected: "rgba(var(--mui-palette-info-mainChannel) / var(--mui-palette-action-selectedOpacity))",
 				},
 				neutral: { ...stormGrey },
-				primary: primary.light,
+				primary:  {
+					...oceanBlue,
+					light: oceanBlue[200],
+					main: oceanBlue[300],
+					dark: oceanBlue[400],
+					contrastText: "var(--mui-palette-common-white)",
+					activated: "rgba(var(--mui-palette-secondary-mainChannel) / var(--mui-palette-action-activatedOpacity))",
+					hovered: "rgba(var(--mui-palette-secondary-mainChannel) / var(--mui-palette-action-hoverOpacity))",
+					selected: "rgba(var(--mui-palette-secondary-mainChannel) / var(--mui-palette-action-selectedOpacity))",
+				},
 				secondary: {
 					...nevada,
 					light: nevada[600],

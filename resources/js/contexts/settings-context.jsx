@@ -4,9 +4,7 @@ import * as React from "react";
 
 export const SettingsContext = React.createContext({
 	settings: {},
-	setSettings: () => {
-		// noop
-	},
+	setSettings: () => {},
 });
 
 export function SettingsProvider({ children, settings: initialSettings }) {

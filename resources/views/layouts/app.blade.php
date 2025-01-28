@@ -8,7 +8,7 @@
     <title>{{ config('app.name', 'Base App') }}</title>
 
     @viteReactRefresh
-    @vite(['resources/js/main.jsx'])
+    @vite(['resources/css/app.css','resources/js/main.jsx'])
 
     <script type="text/javascript">
         window.Laravel = {

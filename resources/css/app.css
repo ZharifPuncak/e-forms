@@ -1,0 +1,12 @@
+/* In src/index.css or any other CSS file */
+@font-face {
+    font-family: 'Roboto';
+    src: url('/js/assets/fonts/Poppins-Black.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+  }
