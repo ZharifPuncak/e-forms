@@ -1,88 +1,120 @@
 "use client";
 
 import * as React from "react";
-import Link from "@mui/material/Link";
-import Chip from "@mui/material/Chip";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
-import { DataTable } from "@/components/core/data-table";
-import { RouterLink } from "@/components/core/link";
-
-
-import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-import { Minus as MinusIcon } from "@phosphor-icons/react/dist/ssr/Minus";
-
-import { UserDialog } from "../forms/user-dialog";
-import { useDialog } from "@/hooks/use-dialog";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 
 
 
-export function UsersTable({ rows }) {
-
-	const dialog = useDialog();
-	const [title, setTitle] = React.useState('');
-	const [subTitle, setSubTitle] = React.useState('');
-
-
-	
-const columns = [
-	{
-		formatter: (row) => (
-			<Box>
-				<Link 
-					sx={{ cursor : 'pointer'}}
-			        onClick={() => {
-						setTitle('Edit User');
-						setSubTitle(row.name);
-						dialog.handleOpen();
-					}}
-					
-				>
-					<Typography variant="subtitle2" sx={{ mb : -1, whiteSpace: "nowrap", color : '#007FAB'}} fontSize={14}>{row.name}</Typography>
-				</Link>
-				<Typography color="text.secondary" variant="caption">
-					{row.email}
-				</Typography>
-			</Box>
-		),
-		name: "Name",
-		
-	},
-	{
-		formatter: (row) => {
-	
-			return <Chip  label={row.department} size="small" variant="soft"  />;
-		},
-		name: "Department",
-		width: "200px",
-	},
-	{
-		formatter: (row) => {
-	
-			return <Chip  label={row.role} size="small" variant="soft" />;
-		},
-		name: "Role",
-		width: "200px",
-	},
-	{
-		formatter: (row) => {
-			const mapping = {
-				active: { label: "Active", icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> },
-				inactive: { label: "Inactive", icon: <MinusIcon color="var(--mui-palette-error-main)" /> },
-			};
-			const { label, icon } = mapping[row.status] ?? { label: "Unknown", icon: null };
-
-			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
-		},
-		name: "Status",
-		width: "150px",
-	}
-];
+export function PermissionsTable({ 	columns,
+	hideHead,
+	hover,
+	onClick,
+	onDeselectAll,
+	onDeselectOne,
+	onSelectOne,
+	onSelectAll,
+	rows,
+	selectable,
+	selected,
+	uniqueRowId,
+	...props}) {
 
 
 	return <>
-		<UserDialog title={title} subtitle={subTitle} onClose={dialog.handleClose} open={dialog.open} />
-		<DataTable columns={columns} rows={rows} />
+	
+		<Table {...props}>
+			<TableHead>
+				<TableRow>
+							{/* {columns.map((column) => (
+								<TableCell
+									key={column.name}
+									sx={{
+										width: column.width,
+										minWidth: column.width,
+										maxWidth: column.width,
+										...(column.align && { textAlign: column.align }),
+									}}
+								>
+									{column.hideName ? null : column.name}
+								</TableCell>
+							))} */}
+							<TableCell>
+								Module
+							</TableCell>
+							<TableCell>
+								Action
+							</TableCell>
+				</TableRow>
+				<TableRow>
+							<TableCell>
+								View
+							</TableCell>
+							<TableCell>
+								Create
+							</TableCell>
+							<TableCell>
+								Update
+							</TableCell>
+							<TableCell>
+								Delete
+							</TableCell>
+				</TableRow>
+			</TableHead>
+			<TableBody>
+				{/* {rows.map((row, index) => {
+					const rowId = row.id ?? uniqueRowId?.(row);
+					const rowSelected = rowId ? selected?.has(rowId) : false;
+
+					return (
+						<TableRow
+							hover={hover}
+							key={rowId ?? index}
+							selected={rowSelected}
+							{...(onClick && {
+								onClick: (event) => {
+									onClick(event, row);
+								},
+							})}
+							sx={{ ...(onClick && { cursor: "pointer" }) }}
+						>
+							{selectable ? (
+								<TableCell padding="checkbox">
+									<Checkbox
+										checked={rowId ? rowSelected : false}
+										onChange={(event) => {
+											if (rowSelected) {
+												onDeselectOne?.(event, row);
+											} else {
+												onSelectOne?.(event, row);
+											}
+										}}
+										onClick={(event) => {
+											if (onClick) {
+												event.stopPropagation();
+											}
+										}}
+									/>
+								</TableCell>
+							) : null}
+							{columns.map((column) => (
+								<TableCell key={column.name} sx={{ ...(column.align && { textAlign: column.align }) }}>
+									{column.formatter ? column.formatter(row, index) : column.field ? row[column.field] : null}
+								</TableCell>
+							))}
+						</TableRow>
+					);
+				})} */}
+			</TableBody>
+		</Table>
 	</>;
 }
+
+
+
+
+

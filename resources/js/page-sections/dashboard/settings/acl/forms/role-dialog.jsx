@@ -17,6 +17,8 @@ import { X as XIcon } from "@phosphor-icons/react/dist/ssr/X";
 
 
 
+import { PermissionsTable } from "../views/permissions-table";
+
 
 export function RoleDialog({ onClose, open = false, title, subtitle }) {
 
@@ -37,7 +39,7 @@ export function RoleDialog({ onClose, open = false, title, subtitle }) {
 			</Stack>
 			<Divider />
 			<DialogContent>
-				
+				<PermissionsTable />
 			</DialogContent>
 			<Divider />
 			<DialogActions>
