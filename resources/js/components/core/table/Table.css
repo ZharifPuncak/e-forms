@@ -1,0 +1,15 @@
+/* Apply the custom font globally to AG Grid */
+.ag-theme-alpine {
+    font-family: 'Poppins', sans-serif; /* Change to your desired font family */
+  }
+  
+  /* If you want to target specific parts, like the header, you can do so as well */
+  .ag-header-cell {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color : grey;
+  }
+  
+  .ag-cell {
+    font-family: 'Poppins', sans-serif;
+  }

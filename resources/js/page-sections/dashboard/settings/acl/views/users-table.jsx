@@ -6,15 +6,16 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import { DataTable } from "@/components/core/data-table";
-import { RouterLink } from "@/components/core/link";
+import TableAG from "@/components/core/table/TableAG";
 
-
-import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-import { Minus as MinusIcon } from "@phosphor-icons/react/dist/ssr/Minus";
 
 import { UserDialog } from "../forms/user-dialog";
 import { useDialog } from "@/hooks/use-dialog";
+
+import { Minus as MinusIcon } from "@phosphor-icons/react/dist/ssr/Minus";
+import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
+import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
+import { Javascript } from "@mui/icons-material";
 
 
 
@@ -25,64 +26,66 @@ export function UsersTable({ rows }) {
 	const [subTitle, setSubTitle] = React.useState('');
 
 
-	
-const columns = [
-	{
-		formatter: (row) => (
-			<Box>
-				<Link 
-					sx={{ cursor : 'pointer'}}
-			        onClick={() => {
-						setTitle('Edit User');
-						setSubTitle(row.name);
-						dialog.handleOpen();
-					}}
-					
-				>
-					<Typography variant="subtitle2" sx={{ mb : -1, whiteSpace: "nowrap", color : '#007FAB'}} fontSize={14}>{row.name}</Typography>
-				</Link>
-				<Typography color="text.secondary" variant="caption">
-					{row.email}
-				</Typography>
-			</Box>
-		),
-		name: "Name",
+
+	const [rowData, setRowData] = React.useState([
+        { id: 1,name: "Aiman Hamzah", email: "aiman@pnb,com",          department : 'ICTD',         status : 'active', role: 'Admin', action: 1 },
+        { id: 2,name: "Hakim Roslan Taib", email: "superadmin@pnb.com",department : 'HR', status : 'inactive', role: 'Superadmin', action: 2 },
+    ]);
+
+    // Column Definitions: Defines the columns to be displayed.
+    const [colDefs, setColDefs] = React.useState([
+		{ field: "name", width: 300, cellRenderer : (params) => {
+			const rowData = params.data;
+			return 	<Box  sx={{ mt : 1 }}>
 		
-	},
-	{
-		formatter: (row) => {
-	
-			return <Chip  label={row.department} size="small" variant="soft"  />;
-		},
-		name: "Department",
-		width: "200px",
-	},
-	{
-		formatter: (row) => {
-	
-			return <Chip  label={row.role} size="small" variant="soft" />;
-		},
-		name: "Role",
-		width: "200px",
-	},
-	{
-		formatter: (row) => {
+				<Typography variant="subtitle2" sx={{ mb : -3, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
+			
+				<Typography color="text.secondary" variant="caption">
+					{rowData.email}
+				</Typography>
+
+		</Box>
+
+		}},
+		{ field: "department",width: 150, cellRenderer : ( params ) => {
+
+			const rowData = params.data;
+			return <Chip label={rowData.department}  variant="outlined" />
+		} },
+        { field: "role", width : 200, cellRenderer : ( params ) => {
+
+			const rowData = params.data;
+			return <Chip label={rowData.role}  variant="outlined" />
+		} },
+        { field: "status", width : 200,	cellRenderer : (params) => {
+
+			const rowData = params.data;
 			const mapping = {
-				active: { label: "Active", icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> },
+				active: {
+					label: "Active",
+					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
+				},
+				blocked: { label: "Blocked", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
 				inactive: { label: "Inactive", icon: <MinusIcon color="var(--mui-palette-error-main)" /> },
 			};
-			const { label, icon } = mapping[row.status] ?? { label: "Unknown", icon: null };
+			const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 
 			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
-		},
-		name: "Status",
-		width: "150px",
-	}
-];
-
+		}},
+		{ field: "action", cellRenderer : (params) => {
+			const rowData = params.data;
+			return <Link 
+			    sx={{ cursor : 'pointer'}}
+			    onClick={() => {
+				setTitle('View User');
+				setSubTitle(rowData.name);
+				dialog.handleOpen();
+			}}>View</Link>
+		} }
+    ]);
 
 	return <>
 		<UserDialog title={title} subtitle={subTitle} onClose={dialog.handleClose} open={dialog.open} />
-		<DataTable columns={columns} rows={rows} />
+		<TableAG row={rowData} column={colDefs} loading={false} title=''/>
 	</>;
 }
