@@ -6,7 +6,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
-import { Timer as TimerIcon } from "@phosphor-icons/react/dist/ssr/Timer";
+
 import Box  from "@mui/material/Box";
 import Button  from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -45,7 +45,7 @@ export function LoginHistory({ events }) {
 						<DataTable columns={columns} rows={events} />
 					</Card>
 					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-							<Button size='small' variant="contained" >LOGOUT OF OTHER SESSIONS</Button>
+							<Button size='small' variant="outlined" >LOGOUT OF OTHER SESSIONS</Button>
 				   </Box>
 			   </Stack>
 			</CardContent>

@@ -8,15 +8,15 @@ import CardHeader from "@mui/material/CardHeader";
 
 
 import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
-import { useDialog } from "@/hooks/use-dialog";
+import { useAppContext } from "@/contexts/app-context";
+import UserForm from "./forms/user-form";
 
 
 import { UsersTable } from "./views/users-table";
-import { UserDialog } from "./forms/user-dialog";
+
 export function Users({ users }) {
 
-	const dialog = useDialog();
-
+	const appContext = useAppContext();
 	return (
 		<Card>
 			<CardHeader
@@ -24,8 +24,8 @@ export function Users({ users }) {
 				subheader=""
 				title="User Details"
 				action={
-					<Button onClick={dialog.handleOpen} 
-					 size="small" startIcon={<PlusIcon />} variant="contained">
+					<Button onClick={() => appContext.setDialog({ isOpen : true , component : <UserForm /> , title : 'Create User', subtitle : ''})} 
+					 size="small"  startIcon={<PlusIcon />} variant="outlined">
 						USER
 					</Button>
 					}
@@ -33,7 +33,6 @@ export function Users({ users }) {
 			<CardContent>
 				<Card>
 					<Box sx={{ overflowX: "auto" }}>
-						<UserDialog onClose={dialog.handleClose} open={dialog.open} title='Create User' />
 						<UsersTable rows={users} />
 					</Box>
 				</Card>

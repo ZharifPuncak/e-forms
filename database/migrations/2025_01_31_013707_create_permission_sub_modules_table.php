@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permission_modules', function (Blueprint $table) {
+        Schema::create('permission_sub_modules', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('permission_module_id');
             $table->string('name');
-            $table->string('code')->nullable();
+            $table->string('prefix');
+            $table->enum('method', ['view', 'create', 'update', 'delete']);
             $table->string('description')->nullable();
-            $table->integer('isHidden')->default(0);
-            $table->integer('isRestricted')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permission_modules');
+        Schema::dropIfExists('permission_sub_modules');
     }
 };

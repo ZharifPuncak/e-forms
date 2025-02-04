@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->unsignedBigInteger('permission_module_id')->after('guard_name');
-            $table->string('sub_module')->after('permission_module_id'); 
-            $table->string('method')->after('sub_module'); 
+            $table->unsignedBigInteger('permission_sub_module_id')->after('guard_name');
         });
     }
 
@@ -24,9 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->dropColumn('permission_module_id');
-            $table->dropColumn('sub_module');
-            $table->dropColumn('method');
+            $table->dropColumn('permission_sub_module_id');
         });
     }
 };

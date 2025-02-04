@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 
 
 use App\Models\Shared\PermissionModule;
+use App\Models\Shared\PermissionSubModule;
 
 
 class PermissionSeeder extends Seeder
@@ -19,35 +20,43 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $module = PermissionModule::create(['name' => 'Access Control List','code' => 'acl', 'description' => 'Manage user, role and permissions']);
 
-        $arrayPermissions = [
+        // Create module
+        $acl = PermissionModule::create(['name' => 'Access Control List','code' => 'acl', 'description' => 'Manage user, role and permissions']);
 
-            //ACL - User
-            ['name' => 'acl.create_user', 'method' => 'create','sub_module' => 'user'],
-            ['name' => 'acl.update_user', 'method' => 'update','sub_module' => 'user'],
-            ['name' => 'acl.view_user', 'method' => 'view','sub_module' => 'user'],
-            ['name' => 'acl.delete_user', 'method' => 'delete','sub_module' => 'user'],
-         
-        
-            //ACL - Permissions
-            ['name' => 'acl.create_permission', 'method' => 'create','sub_module' => 'permission'],
-            ['name' => 'acl.update_permission', 'method' => 'update','sub_module' => 'permission'],
-            ['name' => 'acl.view_permission', 'method' => 'view','sub_module' => 'permission'],
-            ['name' => 'acl.delete_permission', 'method' => 'delete','sub_module' => 'permission'],
-      
+        // Create sub-modules
+         $acl->sub_modules()->create(['name' => 'User','prefix' => $acl->code.'.view_user','method' => 'view']);
+         $acl->sub_modules()->create(['name' => 'User','prefix' => $acl->code.'.create_user', 'method' => 'create']);
+         $acl->sub_modules()->create(['name' => 'User','prefix' => $acl->code.'.update_user', 'method' => 'update']);
+         $acl->sub_modules()->create(['name' => 'User','prefix' => $acl->code.'.delete_user', 'method' => 'delete']);
 
-            //ACL - Role
-            ['name' => 'acl.create_role', 'method' => 'create','sub_module' => 'role'],
-            ['name' => 'acl.update_role', 'method' => 'update','sub_module' => 'role'],
-            ['name' => 'acl.view_role', 'method' => 'view','sub_module' => 'role'],
-            ['name' => 'acl.delete_role', 'method' => 'delete','sub_module' => 'role'],
+         $acl->sub_modules()->create(['name' => 'Role','prefix' =>  $acl->code.'.view_role', 'method' => 'view']);
+         $acl->sub_modules()->create(['name' => 'Role','prefix' =>  $acl->code.'.create_role', 'method' => 'create']);
+         $acl->sub_modules()->create(['name' => 'Role','prefix' =>  $acl->code.'.update_role', 'method' => 'update']);
+         $acl->sub_modules()->create(['name' => 'Role','prefix' =>  $acl->code.'.delete_role', 'method' => 'delete']);
 
-        ];
+         $acl->sub_modules()->create(['name' => 'Permission','prefix' => $acl->code.'.view_permission', 'method' => 'view']);
+         $acl->sub_modules()->create(['name' => 'Permission','prefix' => $acl->code.'.create_permission', 'method' => 'create']);
+         $acl->sub_modules()->create(['name' => 'Permission','prefix' => $acl->code.'.update_permission', 'method' => 'update']);
+         $acl->sub_modules()->create(['name' => 'Permission','prefix' => $acl->code.'.delete_permission', 'method' => 'delete']);
 
-        $permissions = collect($arrayPermissions)->map(function($permission) use($module){
-            return [ "name" => $permission['name'] , "guard_name" => "web", "permission_module_id" => $module?->id, "method" => $permission['method'], "sub_module" => $permission['sub_module'] ];
+
+        // Create module
+        $profile = PermissionModule::create(['name' => 'Profile','code' => 'profile', 'description' => 'Update password, logout browser sessions']);
+
+        // Create sub-modules
+        $profile->sub_modules()->create(['name' => 'Password','prefix' => $profile->code.'.update_password', 'method' => 'update']);
+        $profile->sub_modules()->create(['name' => 'Session','prefix' => $profile->code.'.update_session', 'method' => 'delete']);
+
+
+        //Load all permissions
+        $arrayPermissions =  PermissionSubModule::with('module')->get();
+ 
+
+        $permissions = $arrayPermissions->map(function($permission){
+            return [ "name" => $permission['prefix'] , "guard_name" => "web", "permission_sub_module_id" => $permission?->id];
         });
+       
 
         Permission::insert($permissions->toArray());
         Role::firstOrCreate(['name' => 'Superadmin'])->givePermissionTo(Permission::all());

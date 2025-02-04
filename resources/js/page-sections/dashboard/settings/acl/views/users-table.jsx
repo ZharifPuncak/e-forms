@@ -8,24 +8,17 @@ import Typography from "@mui/material/Typography";
 
 import TableAG from "@/components/core/table/TableAG";
 
-
-import { UserDialog } from "../forms/user-dialog";
-import { useDialog } from "@/hooks/use-dialog";
-
 import { Minus as MinusIcon } from "@phosphor-icons/react/dist/ssr/Minus";
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-import { Javascript } from "@mui/icons-material";
+import { useAppContext } from "@/contexts/app-context";
+
 
 
 
 export function UsersTable({ rows }) {
 
-	const dialog = useDialog();
-	const [title, setTitle] = React.useState('');
-	const [subTitle, setSubTitle] = React.useState('');
-
-
+    const appContext = useAppContext();
 
 	const [rowData, setRowData] = React.useState([
         { id: 1,name: "Aiman Hamzah", email: "aiman@pnb,com",          department : 'ICTD',         status : 'active', role: 'Admin', action: 1 },
@@ -77,15 +70,12 @@ export function UsersTable({ rows }) {
 			return <Link 
 			    sx={{ cursor : 'pointer'}}
 			    onClick={() => {
-				setTitle('View User');
-				setSubTitle(rowData.name);
-				dialog.handleOpen();
+			
 			}}>View</Link>
 		} }
     ]);
 
 	return <>
-		<UserDialog title={title} subtitle={subTitle} onClose={dialog.handleClose} open={dialog.open} />
 		<TableAG row={rowData} column={colDefs} loading={false} title=''/>
 	</>;
 }

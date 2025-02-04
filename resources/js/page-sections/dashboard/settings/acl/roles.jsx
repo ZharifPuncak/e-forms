@@ -12,15 +12,13 @@ import { CardSummary } from "@/components/widgets/card/card-summary";
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
 
-import { useDialog } from "@/hooks/use-dialog";
-
-import { RoleDialog } from "./forms/role-dialog";
+import { useAppContext } from "@/contexts/app-context";
+import { PermissionsList } from "./views/permissions-list";
+import RoleForm from "./forms/role-form";
 
 export function Roles({ roles }) {
 
-	const dialog = useDialog();
-	const [title, setTitle] = React.useState('');
-	const [subTitle, setSubTitle] = React.useState('');
+	const appContext = useAppContext();
 	
 	return (
 		<Card>
@@ -30,11 +28,9 @@ export function Roles({ roles }) {
 				title="Role List"
 				action={
 				<Button onClick={() => {
-					setTitle('Create Role');
-					setSubTitle('');
-					dialog.handleOpen();
-				}} size="small" startIcon={<PlusIcon />} variant="contained">
-					ROLE	
+					appContext.setDialog({ isOpen : true, isAction : true, subtitle : '', title : 'Create Role' , component : <RoleForm /> });
+				}} size="small" startIcon={<PlusIcon />} variant="outlined">
+					ROLE 
 				</Button>
 				}
 			/>
@@ -42,11 +38,6 @@ export function Roles({ roles }) {
 					<Box >
 						<Grid  container={true} spacing={2}>
 
-						
-							{/* Role Form  */}
-							<RoleDialog title={title} subtitle={subTitle} onClose={dialog.handleClose} open={dialog.open} />
-
-							{/* Role List */}
 							{ roles.map((item, index) => {
 								  return <Grid  key={index}  size={{ xs: 6, md: 4 }} >
 											<CardSummary 
@@ -54,17 +45,20 @@ export function Roles({ roles }) {
 												title={item.name} 
 												action={
 													<Button onClick={() => {
-														setTitle('Permissions');
-														setSubTitle(item.name);
-														dialog.handleOpen();
+														 appContext.setDialog({ 
+															isOpen : true, 
+															title : 'Permissions', 
+															isAction : false, 
+															subtitle : item.name,
+															component : <PermissionsList /> 
+														});
 													}} 
 													 color="secondary" 
 													 endIcon={<ArrowRightIcon />} 
 													 size="small">
-																		<Typography   variant="subtitle2" sx={{  whiteSpace: "nowrap" }} fontSize={14}>
-																			 Permissions
-																		</Typography>
-																
+														<Typography   variant="subtitle2" sx={{  whiteSpace: "nowrap" }} fontSize={14}>
+																Permissions
+														</Typography>
 													</Button>
 												}
 											 />

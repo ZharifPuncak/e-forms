@@ -7,12 +7,13 @@ const initialState = {
     dialog: {
       isDisabled : false,
       maxWidth : 'xs',
-      confirmText : 'Proceed',
+      confirmText : 'PROCEED',
       isOpen: false,
       title : 'Are you sure ?',
       content : '',
       description : '',
       cancel : '',
+      isAction : true,
       action : () => {  },
     },
     
@@ -21,11 +22,6 @@ const initialState = {
       position : 'right',
       data : null
     },
-    modal:{
-      title:'',
-      isOpen : false,
-      component : '',
-    }
   };
 
 const reducer = (state, action) => {
@@ -39,15 +35,6 @@ const reducer = (state, action) => {
             ...action.payload,
           },
         };
-
-        case 'SET_MODAL':
-            return {
-              ...state,
-              modal: {
-                ...state.modal,
-                ...action.payload,
-              },
-            };
 
         case 'SET_DIALOG':
           return {
@@ -68,8 +55,6 @@ export const  AppProvider = ({ children }) => {
 
 
     const [state, dispatch] = useReducer(reducer, initialState);
-
-     // //Data update
      const [needUpdate, setNeedUpdate] = useState(false);
 
     const setDrawer = (drawerState) => {
@@ -79,13 +64,6 @@ export const  AppProvider = ({ children }) => {
         });
     };
 
-
-    const setModal = (modalState) => {
-        dispatch({
-            type: 'SET_MODAL',
-            payload: modalState,
-        });
-    };
 
     const setDialog = (dialogState) => {
       dispatch({
@@ -97,7 +75,7 @@ export const  AppProvider = ({ children }) => {
     
       
  
-  return <AppContext.Provider value={{ needUpdate, setNeedUpdate ,state, setModal, setDrawer, setDialog}}>
+  return <AppContext.Provider value={{ needUpdate, setNeedUpdate ,state, setDrawer, setDialog}}>
     {children}
     </AppContext.Provider>;
 };

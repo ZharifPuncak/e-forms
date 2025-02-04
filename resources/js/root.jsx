@@ -17,7 +17,6 @@ import { LocalizationProvider } from "@/components/core/localization-provider";
 import { Rtl } from "@/components/core/rtl";
 
 import DrawerSlider from '@/components/drawer';
-import Modal from '@/components/modal';
 import CustomDialog from '@/components/dialog';
 import { Toaster } from "@/components/core/toaster";
 
@@ -50,7 +49,6 @@ export function Root({ children }) {
 												{children}
 												<Toaster position="bottom-right" />
 												<DrawerSlider />
-												<Modal />
 												<CustomDialog />
 											</ThemeProvider>
 										</Rtl>
