@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import Stack  from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
@@ -8,22 +9,27 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
-const UserForm = ({ props })  => {
+const UserForm = ({ data })  => {
 
-   const theme = useTheme();
+  const theme = useTheme();
   const [initialValues,setInitialValues] = useState({
-    name: props?.name || '',
-    email: props?.email || '',
-    role: props?.role || [],
-    department: props?.department || [],
+    name: data?.name || '',
+    email: data?.email || '',
+    role:  data?.role ? [data?.role] : [],
   }); 
 
   const validationSchema = Yup.object().shape({
-    role: Yup.string().min(3).max(255).required("Role is required"),
+    name: Yup.string().min(3).max(255).required("Name is required").label('Name'),
+    email: Yup.string().email("Must be a valid email").max(255).required("Email is required").label('Email'),
+    role: Yup.array().required("Role is required").label('Ro;e'),
   });
 
-  const methods = ['view','edit'];
+  const roles = ['Admin','Admin-HR'];
+ 
+
+  const mdDown = useMediaQuery("down", "md");
   
 
   const {
@@ -39,30 +45,31 @@ const UserForm = ({ props })  => {
         initialValues,
         validationSchema,
     onSubmit: async (values) => { 
-
+        
       
      } 
     });
 
 
   return (
-    <form onSubmit={handleSubmit}>
-        <Box sx={{  justifyContent:"center", alignItems:"center" }}  >
+  <form onSubmit={handleSubmit}>
+
         <Grid container={true} spacing={2}  >
-            <Grid  size={{xs : 12, sm: 12, md : 12}}>
+            <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
               <TextField
                         fullWidth
-                        name="role"
-                        label="Name"
-                        placeholder="Please key in name"
+                        name="name"
+                        label='Name'
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
-                        value={values.role}  
-                        helperText={touched.role && errors.role} 
-                        error={Boolean(touched.role && errors.role)} 
+                        value={values.name}  
+                        helperText={touched.name && errors.name} 
+                        error={Boolean(touched.name && errors.name)} 
                         type={'text'}
                         InputProps={{
+                     
                             sx: {
                                 '& input::placeholder': {
                                     fontSize: '0.8rem',  // Adjust size here
@@ -72,21 +79,22 @@ const UserForm = ({ props })  => {
                         }}
                     />
             </Grid>
-            <Grid  size={{xs : 12, sm: 12, md : 5 }}>
+            <Grid  size={{xs : 12, sm: 12, md : 12 }}>
                
                <TextField
                    fullWidth
-                   name="role"
-                   label="Email"
-                   placeholder="Please key in email"
+                   label='Email'
+                   name="email"
+                   placeholder=""
                    autoComplete="off"
                    onBlur={handleBlur} 
                    onChange={handleChange} 
-                   value={values.role}  
-                   helperText={touched.role && errors.role} 
-                   error={Boolean(touched.role && errors.role)} 
-                   type={'text'}
+                   value={values.email}  
+                   helperText={touched.email && errors.email} 
+                   error={Boolean(touched.email && errors.email)} 
+                   type={'email'}
                    InputProps={{
+                
                        sx: {
                            '& input::placeholder': {
                                fontSize: '0.8rem',  // Adjust size here
@@ -97,44 +105,51 @@ const UserForm = ({ props })  => {
                />
            
        </Grid>
-       <Grid  size={{xs : 12, sm: 12, md : 5 }}>
+       <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 
                   multiple
                   freeSolo
-                  id="user"
-                  value={values.user || []}
-                  name="user"
+                  id="role"
+                  value={values.role || []}
+                  name="role"
                   onChange={(e, v) => {
-                    setFieldValue("user", v || []);
+                    setFieldValue("role", v || []);
                   }}
                   isOptionEqualToValue={(option, newValue) => {
                     return option.id === newValue;
                   }}
                   getOptionLabel={(option) => option || ""}
-                  options={methods}
+                  options={roles}
                   renderInput={(params) => (
                     <TextField
-                    helperText={touched.user && errors.user}      error={Boolean(touched.user && errors.user)}  {...params} label="User" 
+                    helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params}      label='Role'
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
                         '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.user) ? 'red' : 'inherit',
+                          color: Boolean(errors.role) ? 'red' : 'inherit',
                         },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                   
                       }}
                     />
                   )}
                 />
-
-           
-           
               </Stack>         
           </Grid>
+     
+            <Grid  size={{xs : 12, sm: 12, md : 12 }}>
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button size='small' variant="outlined">SUBMIT</Button>
+              </Box>
+            </Grid>
         </Grid>
-        </Box>
+       
     </form>
   );
 }

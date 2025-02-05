@@ -8,7 +8,7 @@ import { dayjs } from "@/lib/dayjs";
 import { LoginHistory } from "@/page-sections/dashboard/settings/profile/login-history";
 import { PasswordForm } from "@/page-sections/dashboard/settings/profile/password-form";
 
-const metadata = { title: `Profile | ${appConfig.name}` };
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 	return (

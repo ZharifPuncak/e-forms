@@ -10,9 +10,9 @@ import Typography from "@mui/material/Typography";
 import { TrendDown as TrendDownIcon } from "@phosphor-icons/react/dist/ssr/TrendDown";
 import { TrendUp as TrendUpIcon } from "@phosphor-icons/react/dist/ssr/TrendUp";
 
-export function CardSummary({ amount , icon: Icon , title, action }) {
-	return (
-		<Card>
+export function CardSummary({ amount , icon: Icon , title, action, active }) {
+	return (<>
+		<Card elevation={active ? 6 : 1} sx={{  backgroundColor : active ? '#007FAB' : 'inherit' }}>
 			<CardContent>
 				<Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
 					{Icon && <Avatar
@@ -26,19 +26,21 @@ export function CardSummary({ amount , icon: Icon , title, action }) {
 						<Icon fontSize="var(--icon-fontSize-lg)" />
 					</Avatar>}
 					<div>
-						<Typography color="text.secondary" variant="body1">
+						<Typography sx={{ color : active ? 'white' :'text.secondary'}}  variant="body1">
 							{title}
 						</Typography>
-						<Typography variant="h3">{new Intl.NumberFormat("en-US").format(amount)}</Typography>
+						<Typography sx={{ color : active ? 'white' :'text.secondary'}} variant="h3">{new Intl.NumberFormat("en-US").format(amount)}</Typography>
 					</div>
 				</Stack>
 			</CardContent>
 			<Divider />
-			<Box sx={{ p: "16px" }}>
+			{action && <Box sx={{ p: "16px" }}>
 				<Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>	
 						{ action }
 				</Stack>
-			</Box>
+			</Box>}
 		</Card>
+		
+		</>
 	);
 }

@@ -11,32 +11,38 @@ import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
 import { useAppContext } from "@/contexts/app-context";
 import UserForm from "./forms/user-form";
 
-
 import { UsersTable } from "./views/users-table";
 
 export function Users({ users }) {
 
 	const appContext = useAppContext();
-	return (
-		<Card>
+	return (<>
+	  <Card>
 			<CardHeader
-				
 				subheader=""
-				title="User Details"
-				action={
-					<Button onClick={() => appContext.setDialog({ isOpen : true , component : <UserForm /> , title : 'Create User', subtitle : ''})} 
-					 size="small"  startIcon={<PlusIcon />} variant="outlined">
-						USER
-					</Button>
-					}
+				title="Create User"
+				action={''}
 			/>
 			<CardContent>
-				<Card>
+					<Box sx={{ overflowX: "auto" }}>
+						<UserForm />
+					</Box>
+			</CardContent>
+		</Card>
+		<Card>
+			<CardHeader
+				subheader=""
+				title="User Table"
+				action={''}
+			/>
+			<CardContent>
 					<Box sx={{ overflowX: "auto" }}>
 						<UsersTable rows={users} />
 					</Box>
-				</Card>
 			</CardContent>
 		</Card>
+		
+		
+		</>
 	);
 }

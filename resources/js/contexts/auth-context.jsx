@@ -158,13 +158,13 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
 
-    dispatch({
-      type: "LOGOUT"
-    });
-    await localStorage.removeItem("auth");
-    await axios.post("/api/logout", {});
-   
- 
+      dispatch({
+        type: "LOGOUT"
+      });
+
+      await localStorage.removeItem("auth");
+      await axios.post("/api/logout", {});
+
   };
 
 

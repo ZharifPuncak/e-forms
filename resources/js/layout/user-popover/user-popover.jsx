@@ -30,25 +30,20 @@ function SignOutButton() {
 		const auth = useAuth();
 	
 		const handleSignOut = React.useCallback(async () => {
+
 			try {
-				const { error } = await authClient.signOut();
-	
-				if (error) {
-					logger.error("Sign out error", error);
-					toast.error("Something went wrong, unable to sign out");
-					return;
-				}
-	
-				await authClient.signOut();
-				auth.setUser(null);
+				
+
+				// auth.setUser(null);
+				
 			} catch (error) {
-				logger.error("Sign out error", error);
-				toast.error("Something went wrong, unable to sign out");
+				
 			}
+
 		}, [auth]);
 
 	return (
-		<MenuItem onClick={handleSignOut} component="a" href={paths.home} >
+		<MenuItem onClick={handleSignOut} component="a" href={paths.auth.signIn} >
 					<ListItemIcon>
 						<SignOutIcon  /> 
 					</ListItemIcon>

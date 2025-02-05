@@ -7,7 +7,7 @@ import { appConfig } from "@/config/app";
 import { Roles } from "@/page-sections/dashboard/settings/acl/roles";
 
 
-const metadata = { title: `Roles | ${appConfig.name}` };
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 	return (
@@ -24,7 +24,7 @@ export function Page() {
 					<Roles
 						roles={[
 							{ id: "INV-002", name: "Admin", totalUser: 5 },
-							{ id: "INV-001", name: "Staff", totalUser: 7 },
+							{ id: "INV-001", name: "Admin-HR", totalUser: 7 },
 						]}
 					/>
 				</Stack>

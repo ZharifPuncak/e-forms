@@ -37,7 +37,7 @@ export function LoginHistory({ events }) {
 	return (
 		<Card>
 			<CardHeader
-				title="Login history"
+				title="Sessions"
 			/>
 			<CardContent>
 		    	<Stack spacing={3}>

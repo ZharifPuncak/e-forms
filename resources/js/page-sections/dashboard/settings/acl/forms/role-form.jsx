@@ -1,15 +1,17 @@
-import { useState,useEffect } from 'react';
+import { useState  } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
-
+import InputAdornment from '@mui/material/InputAdornment';
+import Button from '@mui/material/Button';
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 const RoleForm = ({ props })  => {
 
-
+  const mdDown = useMediaQuery("down", "md");
   const [initialValues,setInitialValues] = useState({
     role: props?.role || '',
   }); 
@@ -40,20 +42,20 @@ const RoleForm = ({ props })  => {
 
   return (
     <form onSubmit={handleSubmit}>
-        <Grid container={true}  justifyContent="center" alignItems="center" sx={{ mt : 10}}>
-            <Grid  size={{xs : 12, sm: 12, md : 8 }}>
+        <Grid container={true} spacing={2}>
+            <Grid  size={{xs : 12, sm: 12, md : 12 }}>
                 <Box  sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <TextField
                         fullWidth
                         name="role"
-                        label="Role Name"
-                        placeholder="Please key in role"
+                        label="Role"
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
                         value={values.role}  
-                        helperText={touched.role && errors.role} 
-                        error={Boolean(touched.role && errors.role)} 
+                        helperText={errors.role} 
+                        error={Boolean(errors.role)} 
                         type={'text'}
                         InputProps={{
                             sx: {
@@ -63,10 +65,17 @@ const RoleForm = ({ props })  => {
                                 },
                             },
                         }}
+                        
                     />
                 </Box>
             </Grid>
-        </Grid>
+            <Grid  size={{xs : 12, sm: 12, md : 12 }}>
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button size='small' variant="outlined">SUBMIT</Button>
+              </Box>
+            </Grid>
+          </Grid>
+       
     </form>
   );
 }

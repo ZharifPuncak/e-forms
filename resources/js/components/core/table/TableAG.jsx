@@ -100,7 +100,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                                 maxWidth: '320px', // Adjust max width as needed
                                 mt: 2,
                                 mb: 2,
-                                mr:2
+                            
                                 }}
                             />
                         </Box>

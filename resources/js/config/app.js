@@ -2,7 +2,7 @@ import { AuthStrategy } from "@/lib/auth-strategy";
 import { LogLevel } from "@/lib/logger";
 
 export const appConfig = {
-	name: "Policy Management System",
+	name: "E-form Management System",
 	description: "",
 	direction: "ltr",
 	language: "en",

@@ -21,18 +21,29 @@ export function Roles({ roles }) {
 	const appContext = useAppContext();
 	
 	return (
+		<>  
+	
+			<Card>
+				<CardHeader
+					subheader=""
+					title="Create Role"
+					action={''}
+				/>
+				<CardContent>
+						<Box sx={{ overflowX: "auto" }}>
+							<RoleForm />
+						</Box>
+				</CardContent>
+			</Card>
+		
+
+
 		<Card>
 			<CardHeader
 				
 				subheader=""
 				title="Role List"
-				action={
-				<Button onClick={() => {
-					appContext.setDialog({ isOpen : true, isAction : true, subtitle : '', title : 'Create Role' , component : <RoleForm /> });
-				}} size="small" startIcon={<PlusIcon />} variant="outlined">
-					ROLE 
-				</Button>
-				}
+				action={''}
 			/>
 			<CardContent>
 					<Box >
@@ -70,5 +81,6 @@ export function Roles({ roles }) {
 			
 			</CardContent>
 		</Card>
+		</>
 	);
 }

@@ -1,32 +1,25 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid2";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
-import { Briefcase as BriefcaseIcon } from "@phosphor-icons/react/dist/ssr/Briefcase";
-import { FileCode as FileCodeIcon } from "@phosphor-icons/react/dist/ssr/FileCode";
-import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
-import { ListChecks as ListChecksIcon } from "@phosphor-icons/react/dist/ssr/ListChecks";
-import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
+
 import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
-import { Warning as WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
+import { PenNibStraight as PenNibStraightIcon } from "@phosphor-icons/react/dist/ssr/PenNibStraight";
+import { Table as TableIcon } from "@phosphor-icons/react/dist/ssr/Table";
 import { Helmet } from "react-helmet-async";
-
 import { appConfig } from "@/config/app";
-import { dayjs } from "@/lib/dayjs";
-import { AppChat } from "@/components/dashboard/overview/app-chat";
-import { AppLimits } from "@/components/dashboard/overview/app-limits";
-import { AppUsage } from "@/components/dashboard/overview/app-usage";
-import { Events } from "@/components/dashboard/overview/events";
-import { HelperWidget } from "@/components/dashboard/overview/helper-widget";
-import { Subscriptions } from "@/components/dashboard/overview/subscriptions";
-import { Summary } from "@/components/dashboard/overview/summary";
+ 
+import { CardSummary } from "@/components/widgets/card/card-summary";
+import { CardChart } from "@/components/widgets/card/card-chart";
 
-const metadata = { title: `Overview | Dashboard | ${appConfig.name}` };
+
+const metadata = { title: `Overview | ${appConfig.name}` };
 
 export function Page() {
+
+	const [tab, setTab] = React.useState('acknowledgement');
+
 	return (
 		<React.Fragment>
 			<Helmet>
@@ -45,38 +38,59 @@ export function Page() {
 						<Box sx={{ flex: "1 1 auto" }}>
 							<Typography variant="h5">Overview</Typography>
 						</Box>
-						<div>
+						{/* <div>
 							<Button startIcon={<PlusIcon />} variant="contained">
 								Dashboard
 							</Button>
-						</div>
+						</div> */}
 					</Stack>
 					<Grid container spacing={4}>
-						<Grid
+						<Grid 
+							onClick={() => setTab('acknowledgement')}
+							sx={{ cursor : 'pointer' }}
 							size={{
 								md: 4,
 								xs: 12,
 							}}
 						>
-							<Summary amount={31} diff={15} icon={ListChecksIcon} title="Tickets" trend="up" />
+							<CardSummary active={tab == 'acknowledgement'} amount={31} diff={15} icon={PenNibStraightIcon} title="Total Acknowledgement" />
 						</Grid>
 						<Grid
+							onClick={() => setTab('forms')}
+							sx={{ cursor : 'pointer' }}
 							size={{
 								md: 4,
 								xs: 12,
 							}}
 						>
-							<Summary amount={240} diff={5} icon={UsersIcon} title="Sign ups" trend="down" />
+							<CardSummary active={tab == 'forms'} amount={240} diff={5} icon={TableIcon} title="Total Forms"  />
 						</Grid>
 						<Grid
+							onClick={() => setTab('staff')}
+							sx={{ cursor : 'pointer' }}
 							size={{
 								md: 4,
 								xs: 12,
 							}}
 						>
-							<Summary amount={21} diff={12} icon={WarningIcon} title="Open issues" trend="up" />
+							<CardSummary active={tab == 'staff'} amount={21} diff={12} icon={UsersIcon} title="Total Staff" />
 						</Grid>
+
 						<Grid
+							size={{
+								lg: 4,
+								xs: 12,
+							}}
+						>
+							<CardChart
+								title='Acknowledgement Status'
+								data={[
+									{ name: "Pending", value: 80, color: "var(--mui-palette-warning-main)" },
+									{ name: "Completed", value: 20, color: "var(--mui-palette-success-main)" },
+								]}
+							/>
+						</Grid>
+						{/* <Grid
 							size={{
 								md: 8,
 								xs: 12,
@@ -287,7 +301,7 @@ export function Page() {
 								label="Documentation"
 								title="Explore documentation"
 							/>
-						</Grid>
+						</Grid> */}
 					</Grid>
 				</Stack>
 			</Box>

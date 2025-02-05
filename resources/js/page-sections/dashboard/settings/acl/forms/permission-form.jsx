@@ -1,12 +1,9 @@
 import React, {  useState } from 'react';
 
-import { Box, Skeleton,  Autocomplete, TextField, Stack, Button, Typography} from "@mui/material";
-import ButtonBase from '@mui/material/ButtonBase';
+import { Box, Skeleton,  Autocomplete, TextField, Stack, Button, Typography, Chip} from "@mui/material";
+import InputAdornment from '@mui/material/InputAdornment';
 import Grid from '@mui/material/Grid2';
 
-import { Paragraph, Small } from '@/components/typography';
-import {  FlexBetween } from '@/components/flexbox';
-import FlexBox from '@/components/flexbox/FlexBox';
 
 // import useAxios  from "@/hooks/useAxios";
 import { useFormik } from "formik";
@@ -118,7 +115,7 @@ const PermissionForm = (props) => {
                   options={methods}
                   renderInput={(params) => (
                     <TextField
-                    helperText={touched.user && errors.user}      error={Boolean(touched.user && errors.user)}  {...params} label="User" 
+                    helperText={touched.user && errors.user}      error={Boolean(touched.user && errors.user)}  {...params} label="Role Permissions" 
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
@@ -126,6 +123,9 @@ const PermissionForm = (props) => {
                         '& .MuiInputBase-input::placeholder': {
                           color: Boolean(errors.user) ? 'red' : 'inherit',
                         },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
                       }}
                     />
                   )}
@@ -154,7 +154,7 @@ const PermissionForm = (props) => {
                   options={methods}
                   renderInput={(params) => (
                     <TextField
-                    helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params} label="Role" 
+                    helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params} label="User Permissions" 
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
@@ -163,6 +163,9 @@ const PermissionForm = (props) => {
                           color: Boolean(errors.role) ? 'red' : 'inherit',
                         },
                    
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
                       }}
                     />
                   )}

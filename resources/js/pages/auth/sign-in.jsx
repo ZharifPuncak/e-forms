@@ -16,9 +16,16 @@ import { CenteredLayout } from "./components/centered-layout";
 import { RouterLink } from "@/components/core/link";
 import { DynamicLogo } from "@/components/core/logo";
 
-const metadata = { title: `Sign in | Samples | Auth | ${appConfig.name}` };
+import { useNavigate } from "react-router-dom";
+
+
+const metadata = { title: `Sign in | ${appConfig.name}` };
+
+
 
 export function Page() {
+
+	const navigate = useNavigate();
 	return (
 		<React.Fragment>
 			<Helmet>
@@ -28,7 +35,7 @@ export function Page() {
 				<Stack spacing={4}>
 			
 					<div>
-						<Box component={RouterLink} href={paths.home}   sx={{
+						<Box component={RouterLink} href={paths.dashboard.overview}   sx={{
 								display: "inline-block",
 								fontSize: 0,
 							}}>
@@ -36,7 +43,7 @@ export function Page() {
 						</Box>
 					</div>
 					<Stack spacing={1}>
-						<Typography variant="h5">Sign in</Typography>
+						<Typography variant="h5">E-form Management System</Typography>
 						<Typography color="text.secondary" variant="body2">
 							Don&apos;t have an account? <Link variant="subtitle2">Sign up</Link>
 						</Typography>
@@ -45,13 +52,15 @@ export function Page() {
 						<Stack spacing={2}>
 							<FormControl>
 								<InputLabel>Email address</InputLabel>
-								<OutlinedInput name="email" type="email" />
+								<OutlinedInput name="email" value="arif@puncakniaga.com.my" type="email" />
 							</FormControl>
 							<FormControl>
 								<InputLabel>Password</InputLabel>
-								<OutlinedInput name="password" type="password" />
+								<OutlinedInput name="password" value="123456" type="password" />
 							</FormControl>
-							<Button type="submit" variant="contained">
+							<Button onClick={() => {
+								navigate('/dashboard');
+							}}  type="submit" variant="contained">
 								Sign in
 							</Button>
 						</Stack>

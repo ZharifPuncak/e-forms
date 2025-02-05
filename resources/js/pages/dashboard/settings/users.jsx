@@ -7,7 +7,7 @@ import { appConfig } from "@/config/app";
 import { Users } from "@/page-sections/dashboard/settings/acl/users";
 
 
-const metadata = { title: `User List | ${appConfig.name}` };
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 	return (
@@ -17,7 +17,7 @@ export function Page() {
 			</Helmet>
 			<Stack spacing={4}>
 				<div>
-					<Typography variant="h5">User List</Typography>
+					<Typography variant="h5">Users</Typography>
 				</div>
 				<Stack spacing={4}>
 
@@ -26,7 +26,7 @@ export function Page() {
 						{ id: "INV-003", name: "Arif Aiman", email: 'arif@puncakniaga.com.my', role : 'Admin', 'department' : 'ICTD', status : 'active' },
 						{ id: "INV-002", name: "Wan Zack", email: 'wan@puncakniaga.com.my', role : 'Staff', 'department' : 'HR', status : 'inactive' },
 					]}
-				/>
+					/>
 				</Stack>
 			</Stack>
 		</React.Fragment>

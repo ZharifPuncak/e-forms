@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -32,7 +31,7 @@ const navItems = [
 		key: "acl",
 		title: "Access Control List",
 		items: [
-			{ key: "users", title: "User List", href: paths.dashboard.settings.users, icon: "user-circle" },
+			{ key: "users", title: "Users", href: paths.dashboard.settings.users, icon: "user-circle" },
 			{ key: "roles", title: "Roles and Permissions", href: paths.dashboard.settings.roles, icon: "users-three" },
 		],
 	},
