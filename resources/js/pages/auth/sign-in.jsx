@@ -7,7 +7,6 @@ import Link from "@mui/material/Link";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { ArrowLeft as ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr/ArrowLeft";
 import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
@@ -18,10 +17,7 @@ import { DynamicLogo } from "@/components/core/logo";
 
 import { useNavigate } from "react-router-dom";
 
-
 const metadata = { title: `Sign in | ${appConfig.name}` };
-
-
 
 export function Page() {
 
@@ -59,8 +55,9 @@ export function Page() {
 								<OutlinedInput name="password" value="123456" type="password" />
 							</FormControl>
 							<Button onClick={() => {
-								navigate('/dashboard');
-							}}  type="submit" variant="contained">
+								  navigate('/dashboard');
+							   }}  
+							   type="submit" variant="contained">
 								Sign in
 							</Button>
 						</Stack>

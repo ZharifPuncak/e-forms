@@ -4,13 +4,11 @@ import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
-import { dayjs } from "@/lib/dayjs";
-import { LoginHistory } from "@/page-sections/dashboard/settings/profile/login-history";
 import { PasswordForm } from "@/page-sections/dashboard/settings/profile/password-form";
 
 const metadata = { title: `${appConfig.name}` };
 
-export function Page() {
+export function DeclarationStatusPage() {
 	return (
 		<React.Fragment>
 			<Helmet>
@@ -18,7 +16,7 @@ export function Page() {
 			</Helmet>
 			<Stack spacing={4}>
 				<div>
-					<Typography variant="h5">Profile</Typography>
+					<Typography variant="h5">Declaration Status</Typography>
 				</div>
 				<Stack spacing={4}>
 					<PasswordForm />

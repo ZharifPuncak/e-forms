@@ -18,7 +18,7 @@ const metadata = { title: `Overview | ${appConfig.name}` };
 
 export function Page() {
 
-	const [tab, setTab] = React.useState('acknowledgement');
+	const [tab, setTab] = React.useState('declaration');
 
 	return (
 		<React.Fragment>
@@ -46,14 +46,14 @@ export function Page() {
 					</Stack>
 					<Grid container spacing={4}>
 						<Grid 
-							onClick={() => setTab('acknowledgement')}
+							onClick={() => setTab('declaration')}
 							sx={{ cursor : 'pointer' }}
 							size={{
 								md: 4,
 								xs: 12,
 							}}
 						>
-							<CardSummary active={tab == 'acknowledgement'} amount={31} diff={15} icon={PenNibStraightIcon} title="Total Acknowledgement" />
+							<CardSummary active={tab == 'declaration'} amount={31} diff={15} icon={PenNibStraightIcon} title="Total Declarations" />
 						</Grid>
 						<Grid
 							onClick={() => setTab('forms')}
@@ -63,7 +63,7 @@ export function Page() {
 								xs: 12,
 							}}
 						>
-							<CardSummary active={tab == 'forms'} amount={240} diff={5} icon={TableIcon} title="Total Forms"  />
+							 <CardSummary active={tab == 'forms'} amount={240} diff={5} icon={TableIcon} title="Total Forms"  />
 						</Grid>
 						<Grid
 							onClick={() => setTab('staff')}
@@ -73,7 +73,7 @@ export function Page() {
 								xs: 12,
 							}}
 						>
-							<CardSummary active={tab == 'staff'} amount={21} diff={12} icon={UsersIcon} title="Total Staff" />
+							  <CardSummary active={tab == 'staff'} amount={21} diff={12} icon={UsersIcon} title="Total Staff" />
 						</Grid>
 
 						<Grid
@@ -83,7 +83,7 @@ export function Page() {
 							}}
 						>
 							<CardChart
-								title='Acknowledgement Status'
+								title='Declaration Status'
 								data={[
 									{ name: "Pending", value: 80, color: "var(--mui-palette-warning-main)" },
 									{ name: "Completed", value: 20, color: "var(--mui-palette-success-main)" },

@@ -10,7 +10,8 @@ import { useFormik } from "formik";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 const RoleForm = ({ props })  => {
-
+   
+  const [isSubmit,setIsSubmit] = useState(false);
   const mdDown = useMediaQuery("down", "md");
   const [initialValues,setInitialValues] = useState({
     role: props?.role || '',
@@ -71,7 +72,7 @@ const RoleForm = ({ props })  => {
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small' variant="outlined">SUBMIT</Button>
+                <Button size='small' variant="outlined" >SUBMIT</Button>
               </Box>
             </Grid>
           </Grid>

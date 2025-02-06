@@ -12,37 +12,26 @@ export const dashboardConfig = {
 			],
 		},
 		{
-			key: "acknowledgement",
-			title: "Acknowledgements",
+			key: "forms",
+			title: "Forms",
 			items: [
 				{
 					key: "forms",
 					title: "Forms",
-					icon: "forms",
+					icon: "file",
 					items: [
-						{ key: "forms:list", title: "List forms", href: '#' },
+						{ key: "forms:list", title: "List forms", href: '#', },
 						{ key: "forms:create", title: "Create form", href: '#' },
 					],
 				},
-				{
-					key: "status",
-					title: "Status",
-					icon: "forms",
-					items: [
-						{ key: "status:pending", title: "Pending", href: '#' },
-						{ key: "status:completed", title: "Completed", href: '#' },
-					],
-				},
-				{
-					key: "staff",
-					title: "Staff",
-					icon: "staff",
-					items: [
-						{ key: "staff:list", title: "List staff", href: '#' },
-						{ key: "staff:add", title: "Create Staff", href: '#' },
-					],
-				},
-			
+				
+			]
+		},
+		{
+			key: "declaration",
+			title: "Declarations",
+			items: [
+				{ key: "status", title: "Status", href: '#', icon : "hourglass" },
 			]
 		},
 	
@@ -50,6 +39,15 @@ export const dashboardConfig = {
 			key: "general",
 			title: "General",
 			items: [
+				{
+					key: "staff",
+					title: "Staff",
+					icon: "users",
+					items: [
+						{ key: "staff:list", title: "List staff", href: '#' },
+						{ key: "staff:add", title: "Create Staff", href: '#' },
+					],
+				},
 				{
 					key: "settings",
 					title: "Settings",

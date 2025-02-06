@@ -24,6 +24,37 @@ export const route = {
 			},
 		},
 		{
+			path: "forms",
+			children: [
+				{
+					index: true,
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/forms/list");
+						return { Component: Page };
+					},
+				},
+				{
+					path: "create",
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/forms/create");
+						return { Component: Page };
+					},
+				},
+			],
+		},
+		{
+			path: "declarations",
+			children: [
+				{
+					index: true,
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/declarations/status");
+						return { Component: Page };
+					},
+				},
+			],
+		},
+		{
 			path: "settings",
 			element: (
 				<SettingsLayout>
