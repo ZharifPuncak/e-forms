@@ -1,45 +1,42 @@
 import * as React from "react";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid2";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+
+
 import { Helmet } from "react-helmet-async";
-
 import { appConfig } from "@/config/app";
-import { PasswordForm } from "@/page-sections/dashboard/settings/profile/password-form";
-
+ 
 const metadata = { title: `${appConfig.name}` };
 
-export function StaffPage() {
+export function Page() {
+
 	return (
 		<React.Fragment>
 			<Helmet>
 				<title>{metadata.title}</title>
 			</Helmet>
-			<Stack spacing={4}>
-				<div>
-					<Typography variant="h5">Create Form</Typography>
-				</div>
+			<Box
+				sx={{
+					maxWidth: "var(--Content-maxWidth)",
+					m: "var(--Content-margin)",
+					p: "var(--Content-padding)",
+					width: "var(--Content-width)",
+				}}
+			>
 				<Stack spacing={4}>
-					<PasswordForm />
-					{/* <LoginHistory
-						events={[
-							{
-								id: "EV-002",
-								type: "Credential login",
-								ip: "95.130.17.84",
-								userAgent: "Chrome, Mac OS 10.15.7",
-								createdAt: dayjs().subtract(1, "day").subtract(1, "hour").subtract(5, "minute").toDate(),
-							},
-							{
-								id: "EV-001",
-								type: "Credential login",
-								ip: "95.130.17.84",
-								userAgent: "Chrome, Mac OS 10.15.7",
-								createdAt: dayjs().subtract(1, "day").subtract(1, "hour").subtract(25, "minute").toDate(),
-							},
-						]}
-					/> */}
+					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
+						<Box sx={{ flex: "1 1 auto" }}>
+							<Typography variant="h5">Create Form</Typography>
+						</Box>
+					</Stack>
+					<Grid container spacing={4}>
+						
+						
+					</Grid>
 				</Stack>
-			</Stack>
+			</Box>
 		</React.Fragment>
 	);
 }

@@ -43,6 +43,25 @@ export const route = {
 			],
 		},
 		{
+			path: "staff",
+			children: [
+				{
+					index: true,
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/staff/list");
+						return { Component: Page };
+					},
+				},
+				{
+					path: "create",
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/staff/create");
+						return { Component: Page };
+					},
+				},
+			],
+		},
+		{
 			path: "declarations",
 			children: [
 				{
@@ -54,6 +73,7 @@ export const route = {
 				},
 			],
 		},
+		
 		{
 			path: "settings",
 			element: (

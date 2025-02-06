@@ -1,3 +1,5 @@
+import { declaration } from "stylis";
+
 export const paths = {
 	home: "/",
 	checkout: "/checkout",
@@ -16,6 +18,19 @@ export const paths = {
 			users: "/dashboard/settings/users",
 			roles: "/dashboard/settings/roles",		
 		},
+		staff: {
+			list: "/dashboard/staff",
+			create: "/dashboard/staff/create",
+		},
+		declarations:{
+			status: "/dashboard/declarations"
+		},
+		forms : {
+			list: "/dashboard/forms",
+			create: "/dashboard/forms/create",
+		},
+
+		
 		academy: { browse: "/dashboard/academy", details: (courseId) => `/dashboard/academy/courses/${courseId}` },
 		analytics: "/dashboard/analytics",
 		blank: "/dashboard/blank",

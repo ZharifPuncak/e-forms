@@ -20,8 +20,8 @@ export const dashboardConfig = {
 					title: "Forms",
 					icon: "file",
 					items: [
-						{ key: "forms:list", title: "List forms", href: '#', },
-						{ key: "forms:create", title: "Create form", href: '#' },
+						{ key: "forms:list", title: "List forms", href: paths.dashboard.forms.list, },
+						{ key: "forms:create", title: "Create form", href: paths.dashboard.forms.create },
 					],
 				},
 				
@@ -31,7 +31,7 @@ export const dashboardConfig = {
 			key: "declaration",
 			title: "Declarations",
 			items: [
-				{ key: "status", title: "Status", href: '#', icon : "hourglass" },
+				{ key: "status", title: "Status", href: paths.dashboard.declarations.status ,icon : "hourglass" },
 			]
 		},
 	
@@ -44,8 +44,8 @@ export const dashboardConfig = {
 					title: "Staff",
 					icon: "users",
 					items: [
-						{ key: "staff:list", title: "List staff", href: '#' },
-						{ key: "staff:add", title: "Create Staff", href: '#' },
+						{ key: "staff:list", title: "List staff", href: paths.dashboard.staff.list },
+						{ key: "staff:create", title: "Create Staff", href: paths.dashboard.staff.create },
 					],
 				},
 				{
