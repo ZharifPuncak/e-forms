@@ -21,7 +21,7 @@ export function Page() {
 					<Typography variant="h5">Profile</Typography>
 				</div>
 				<Stack spacing={4}>
-					<PasswordForm />
+					 <PasswordForm />
 					{/* <LoginHistory
 						events={[
 							{

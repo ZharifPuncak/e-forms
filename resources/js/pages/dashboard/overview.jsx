@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
 import { PenNibStraight as PenNibStraightIcon } from "@phosphor-icons/react/dist/ssr/PenNibStraight";
 import { Table as TableIcon } from "@phosphor-icons/react/dist/ssr/Table";
+
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
  

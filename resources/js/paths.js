@@ -28,6 +28,7 @@ export const paths = {
 		forms : {
 			list: "/dashboard/forms",
 			create: "/dashboard/forms/create",
+			details: (code) => `/dashboard/forms/${code}`,
 		},
 
 		

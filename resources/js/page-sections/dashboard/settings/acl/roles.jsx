@@ -10,7 +10,6 @@ import { Typography } from "@mui/material";
 
 import { CardSummary } from "@/components/widgets/card/card-summary";
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
-import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
 
 import { useAppContext } from "@/contexts/app-context";
 import { PermissionsList } from "./views/permissions-list";
@@ -23,24 +22,21 @@ export function Roles({ roles }) {
 	return (
 		<>  
 	
-			<Card>
-				<CardHeader
-					subheader=""
-					title="Create Role"
-					action={''}
-				/>
-				<CardContent>
-						<Box sx={{ overflowX: "auto" }}>
-							<RoleForm />
-						</Box>
-				</CardContent>
-			</Card>
-		
-
+		<Card>
+			<CardHeader
+				subheader=""
+				title="Create Role"
+				action={''}
+			/>
+			<CardContent>
+					<Box sx={{ overflowX: "auto" }}>
+						<RoleForm />
+					</Box>
+			</CardContent>
+		</Card>
 
 		<Card>
 			<CardHeader
-				
 				subheader=""
 				title="Role List"
 				action={''}

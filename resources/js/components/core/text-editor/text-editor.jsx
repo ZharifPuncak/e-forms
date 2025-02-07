@@ -58,12 +58,15 @@ export function TextEditor({
 					"&:focus-visible": { outline: "none" },
 					"&.resize-cursor": { cursor: "ew-resize", "& table": { cursor: "col-resize" } },
 					"& .is-editor-empty:before": {
-						color: "var(--mui-palette-text-secondary)",
-						content: "attr(data-placeholder)",
-						float: "left",
-						height: 0,
-						pointerEvents: "none",
-					},
+							color: "var(--mui-palette-text-secondary)",
+							content: "attr(data-placeholder)",
+							float: "left",
+							height: 0,
+							pointerEvents: "none",
+							fontSize: "12px", 
+							opacity : 0.9,
+						},
+
 				},
 			}}
 		>

@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { Grid } from "@mui/system";
 
 
 
@@ -57,11 +58,11 @@ export function PasswordForm() {
 				title="Change password"
 			/>
 			<CardContent>
-				<Stack spacing={3}>
-					<Stack spacing={3}>
-						<FormControl>
+						<Grid container={true} spacing={4}  >
+        		  		  <Grid   size={{ xs : 12, sm: 12, md : 12 }}>
+						
+								<Chip sx={{ mb : 1 }} label='Old password' color='soft'/>
 							    <TextField
-								    label='Old Password'
 									fullWidth
 									name="name"
 									placeholder=""
@@ -82,10 +83,10 @@ export function PasswordForm() {
 										},
 									}}
 								/>
-						</FormControl>
-						<FormControl>
+				    	  </Grid>
+						  <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
+							<Chip sx={{ mb : 1 }} label='New password' color='soft'/>
 							<TextField
-							    label='New Password'
 								fullWidth
 								name="name"
 								placeholder=""
@@ -106,10 +107,10 @@ export function PasswordForm() {
 									},
 								}}
 							/>
-						</FormControl>
-						<FormControl>
+					     </Grid>
+						 <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
+								<Chip sx={{ mb : 1 }} label='Confirm password' color='soft'/>
 								<TextField
-								 label='Confirm Password'
 								fullWidth
 								name="name"
 								placeholder=""
@@ -130,12 +131,13 @@ export function PasswordForm() {
 									},
 								}}
 							/>
-						</FormControl>
-					</Stack>
-					<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-						<Button size='small' variant="outlined">UPDATE</Button>
-					</Box>
-				</Stack>
+				      </Grid>
+					   <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
+							<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+								<Button  variant="contained">UPDATE</Button>
+							</Box>
+					  </Grid>
+					</Grid>
 			</CardContent>
 		</Card>
 	);

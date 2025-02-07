@@ -40,6 +40,13 @@ export const route = {
 						return { Component: Page };
 					},
 				},
+				{
+					path: "details/:code",
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/forms/view");
+						return { Component: Page };
+					},
+				},
 			],
 		},
 		{
@@ -103,7 +110,6 @@ export const route = {
 						return { Component: Page };
 					},
 				},
-				
 			],
 		},
 	],
