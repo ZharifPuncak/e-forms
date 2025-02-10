@@ -2,7 +2,7 @@ import { useState  } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
+import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 
 import * as Yup from "yup";
@@ -45,12 +45,14 @@ const RoleForm = ({ props })  => {
     <form onSubmit={handleSubmit}>
         <Grid container={true} spacing={2}>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
+            <Chip sx={{ mb : 1 }} label='Role'  color='soft'/>
                 <Box  sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                 
                     <TextField
                         fullWidth
                         name="role"
-                        label="Role"
-                        placeholder=""
+                     
+                        placeholder="Enter Role"
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
@@ -59,12 +61,22 @@ const RoleForm = ({ props })  => {
                         error={Boolean(errors.role)} 
                         type={'text'}
                         InputProps={{
-                            sx: {
-                                '& input::placeholder': {
-                                    fontSize: '0.8rem',  // Adjust size here
-                                    opacity: 0.8, // Optional: Adjust transparency if needed
-                                },
+								
+                          sx: {
+                            '& input::placeholder': {
+                              fontSize: '0.8rem',  // Adjust size here
+                              opacity: 0.8, // Optional: Adjust transparency if needed
                             },
+                            "& .MuiOutlinedInput-root": {
+                              height: "50px", // Set the height of the whole input
+                              display: "flex",
+                              alignItems: "center", // Ensure text is centered
+                              },
+                            
+                              "& .MuiOutlinedInput-input": {
+                              paddingY : '10px'
+                              },
+                          },
                         }}
                         
                     />
@@ -72,7 +84,7 @@ const RoleForm = ({ props })  => {
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small' variant="outlined" >SUBMIT</Button>
+                <Button variant="contained" >SUBMIT</Button>
               </Box>
             </Grid>
           </Grid>

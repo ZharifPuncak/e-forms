@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('alias')->nullable();
             $table->string('code');
             $table->unsignedBigInteger('form_category_id');
             $table->unsignedBigInteger('form_type_id');
-            $table->text('description')->nullable();
-            $table->text('instructions')->nullable();
-            $table->text('status')->default('new');
+            $table->longText('description')->nullable();
+            $table->longText('instructions')->nullable();
+            $table->text('status')->default('new')->comment('new','pending','confirm','ongoing','completed');
             $table->timestamps();
         });
     }

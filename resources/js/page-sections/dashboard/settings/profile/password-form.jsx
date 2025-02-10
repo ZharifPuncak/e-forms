@@ -65,7 +65,7 @@ export function PasswordForm() {
 							    <TextField
 									fullWidth
 									name="name"
-									placeholder=""
+									placeholder="Enter old password"
 									autoComplete="off"
 									onBlur={handleBlur} 
 									onChange={handleChange} 
@@ -80,6 +80,15 @@ export function PasswordForm() {
 												fontSize: '0.8rem',  // Adjust size here
 												opacity: 0.8, // Optional: Adjust transparency if needed
 											},
+											"& .MuiOutlinedInput-root": {
+												height: "50px", // Set the height of the whole input
+												display: "flex",
+												alignItems: "center", // Ensure text is centered
+											  },
+										  
+											  "& .MuiOutlinedInput-input": {
+												paddingY : '10px'
+											  },
 										},
 									}}
 								/>
@@ -89,7 +98,7 @@ export function PasswordForm() {
 							<TextField
 								fullWidth
 								name="name"
-								placeholder=""
+								placeholder="Enter new password"
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
@@ -104,16 +113,25 @@ export function PasswordForm() {
 											fontSize: '0.8rem',  // Adjust size here
 											opacity: 0.8, // Optional: Adjust transparency if needed
 										},
+										"& .MuiOutlinedInput-root": {
+											height: "50px", // Set the height of the whole input
+											display: "flex",
+											alignItems: "center", // Ensure text is centered
+										  },
+									  
+										  "& .MuiOutlinedInput-input": {
+											paddingY : '10px'
+										  },
 									},
 								}}
 							/>
 					     </Grid>
 						 <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-								<Chip sx={{ mb : 1 }} label='Confirm password' color='soft'/>
+								<Chip sx={{ mb : 1 }} label='Confirm password'  color='soft'/>
 								<TextField
 								fullWidth
 								name="name"
-								placeholder=""
+								placeholder="Enter confirm password"
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
@@ -128,6 +146,15 @@ export function PasswordForm() {
 											fontSize: '0.8rem',  // Adjust size here
 											opacity: 0.8, // Optional: Adjust transparency if needed
 										},
+										"& .MuiOutlinedInput-root": {
+											height: "50px", // Set the height of the whole input
+											display: "flex",
+											alignItems: "center", // Ensure text is centered
+										  },
+									  
+										  "& .MuiOutlinedInput-input": {
+											paddingY : '10px'
+										  },
 									},
 								}}
 							/>

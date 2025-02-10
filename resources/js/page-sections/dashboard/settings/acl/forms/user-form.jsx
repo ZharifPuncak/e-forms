@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Stack  from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 
 import { useTheme } from '@mui/material/styles';
 import * as Yup from "yup";
@@ -56,11 +57,11 @@ const UserForm = ({ data })  => {
 
         <Grid container={true} spacing={2}  >
             <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
+            <Chip sx={{ mb : 1 }} label='Name'  color='soft'/>
               <TextField
                         fullWidth
                         name="name"
-                        label='Name'
-                        placeholder=""
+                        placeholder="Enter name"
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
@@ -69,23 +70,31 @@ const UserForm = ({ data })  => {
                         error={Boolean(touched.name && errors.name)} 
                         type={'text'}
                         InputProps={{
-                     
-                            sx: {
-                                '& input::placeholder': {
-                                    fontSize: '0.8rem',  // Adjust size here
-                                    opacity: 0.8, // Optional: Adjust transparency if needed
-                                },
+								
+                          sx: {
+                            '& input::placeholder': {
+                              fontSize: '0.8rem',  // Adjust size here
+                              opacity: 0.8, // Optional: Adjust transparency if needed
                             },
+                            "& .MuiOutlinedInput-root": {
+                              height: "50px", // Set the height of the whole input
+                              display: "flex",
+                              alignItems: "center", // Ensure text is centered
+                              },
+                            
+                              "& .MuiOutlinedInput-input": {
+                              paddingY : '10px'
+                              },
+                          },
                         }}
                     />
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
-               
+              <Chip sx={{ mb : 1 }} label='Email'  color='soft'/>
                <TextField
                    fullWidth
-                   label='Email'
                    name="email"
-                   placeholder=""
+                   placeholder="Enter email"
                    autoComplete="off"
                    onBlur={handleBlur} 
                    onChange={handleChange} 
@@ -94,18 +103,28 @@ const UserForm = ({ data })  => {
                    error={Boolean(touched.email && errors.email)} 
                    type={'email'}
                    InputProps={{
-                
-                       sx: {
-                           '& input::placeholder': {
-                               fontSize: '0.8rem',  // Adjust size here
-                               opacity: 0.8, // Optional: Adjust transparency if needed
-                           },
-                       },
-                   }}
+								
+                    sx: {
+                      '& input::placeholder': {
+                        fontSize: '0.8rem',  // Adjust size here
+                        opacity: 0.8, // Optional: Adjust transparency if needed
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        height: "50px", // Set the height of the whole input
+                        display: "flex",
+                        alignItems: "center", // Ensure text is centered
+                        },
+                      
+                        "& .MuiOutlinedInput-input": {
+                        paddingY : '10px'
+                        },
+                    },
+                  }}
                />
            
        </Grid>
        <Grid  size={{xs : 12, sm: 12, md : 12 }}>
+       <Chip sx={{ mb : 1 }} label='Role'  color='soft'/>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 
@@ -124,13 +143,19 @@ const UserForm = ({ data })  => {
                   options={roles}
                   renderInput={(params) => (
                     <TextField
-                    helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params}      label='Role'
+                    placeholder='Select role'
+                    helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params}      
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
                         '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.role) ? 'red' : 'inherit',
+                          color: Boolean(errors.category) ? 'red' : 'inherit',
+                        },
+                        "& .MuiInputBase-input::placeholder": {
+                          color: "grey", // Change placeholder color
+                          fontSize: "12px", // Custom font size
+                          opacity : 0.9
                         },
                       }}
                       InputProps={{
@@ -145,7 +170,7 @@ const UserForm = ({ data })  => {
      
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small' variant="outlined">SUBMIT</Button>
+                <Button  variant="contained">SUBMIT</Button>
               </Box>
             </Grid>
         </Grid>

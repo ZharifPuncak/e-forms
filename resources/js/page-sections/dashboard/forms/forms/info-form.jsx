@@ -19,6 +19,7 @@ const InfoForm = ({ data })  => {
   const theme = useTheme();
   const [initialValues,setInitialValues] = useState({
     name:  '',
+    alias: '',
     type:  '',
     category: '',
     descriptions: '',
@@ -27,6 +28,7 @@ const InfoForm = ({ data })  => {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().min(3).max(100).required("Name is required").label('Name'),
+    alias: Yup.string().min(3).max(100).required("Alias is required").label('Alias'),
     category: Yup.object().required("Category is required").label('Category'),
     type: Yup.object().required("Type is required").label('Type'),
     descriptions: Yup.string().required("Description is required").label('Description'),
@@ -59,7 +61,7 @@ const InfoForm = ({ data })  => {
 
         <Grid container={true} spacing={4}  >
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-             <Chip sx={{ mb : 1 }} label={'Name'} color='soft'/>
+             <Chip sx={{ mb : 1 }}  label={'Name'} color='soft'/>
               <TextField
                         fullWidth
                         name="name"
@@ -70,6 +72,39 @@ const InfoForm = ({ data })  => {
                         value={values.name}  
                         helperText={touched.name && errors.name} 
                         error={Boolean(touched.name && errors.name)} 
+                        type={'text'}
+                        InputProps={{
+                     
+                            sx: {
+                                '& input::placeholder': {
+                                    fontSize: '12px',  // Adjust size here
+                                    opacity: 0.9, // Optional: Adjust transparency if needed
+                                },
+                                "& .MuiOutlinedInput-root": {
+                                  height: "50px", // Set the height of the whole input
+                                  display: "flex",
+                                  alignItems: "center", // Ensure text is centered
+                                },
+                            
+                                "& .MuiOutlinedInput-input": {
+                                  paddingY : '10px'
+                                },
+                            },
+                        }}
+                    />
+            </Grid>
+            <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
+             <Chip sx={{ mb : 1 }} label={'Alias'} color='soft'/>
+              <TextField
+                        fullWidth
+                        name="alias"
+                        placeholder="Enter form alias"
+                        autoComplete="off"
+                        onBlur={handleBlur} 
+                        onChange={handleChange} 
+                        value={values.alias}  
+                        helperText={touched.alias && errors.alias} 
+                        error={Boolean(touched.alias && errors.alias)} 
                         type={'text'}
                         InputProps={{
                      

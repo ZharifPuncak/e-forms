@@ -1,7 +1,7 @@
 import React, {  useState } from 'react';
 
-import { Box, Skeleton,  Autocomplete, TextField, Stack, Button, Typography, Chip} from "@mui/material";
-import InputAdornment from '@mui/material/InputAdornment';
+import { Box, Skeleton,  Autocomplete, TextField, Stack, Button, Typography } from "@mui/material";
+import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid2';
 
 
@@ -97,6 +97,7 @@ const PermissionForm = (props) => {
       { true ?  
         <Grid container={true} spacing={2}  >
           <Grid sx={{ p : 2 }} size={{xs : 2, sm : 2, md : 6}}>
+              <Chip sx={{ mb : 1 }} label='Role Permissions'  color='soft'/>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 
@@ -115,13 +116,19 @@ const PermissionForm = (props) => {
                   options={methods}
                   renderInput={(params) => (
                     <TextField
-                    helperText={touched.user && errors.user}      error={Boolean(touched.user && errors.user)}  {...params} label="Role Permissions" 
+                    placeholder={_.isEmpty(values.user) ? 'Select permission' : ''}
+                    helperText={touched.user && errors.user}      error={Boolean(touched.user && errors.user)}  {...params} 
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
                         '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.user) ? 'red' : 'inherit',
+                          color: Boolean(errors.category) ? 'red' : 'inherit',
+                        },
+                        "& .MuiInputBase-input::placeholder": {
+                          color: "grey", // Change placeholder color
+                          fontSize: "12px", // Custom font size
+                          opacity : 0.9
                         },
                       }}
                       InputProps={{
@@ -136,6 +143,7 @@ const PermissionForm = (props) => {
               </Stack>         
           </Grid>
           <Grid sx={{ p : 2 }} size={{xs : 2, sm : 2, md : 6}}>
+             <Chip sx={{ mb : 1 }} label='User Permissions'  color='soft'/>  
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 
@@ -154,13 +162,19 @@ const PermissionForm = (props) => {
                   options={methods}
                   renderInput={(params) => (
                     <TextField
-                    helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params} label="User Permissions" 
+                    placeholder={_.isEmpty(values.role) ? 'Select permission' : ''}
+                    helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params} 
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
                         '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.role) ? 'red' : 'inherit',
+                          color: Boolean(errors.category) ? 'red' : 'inherit',
+                        },
+                        "& .MuiInputBase-input::placeholder": {
+                          color: "grey", // Change placeholder color
+                          fontSize: "12px", // Custom font size
+                          opacity : 0.9
                         },
                    
                       }}

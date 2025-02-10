@@ -17,7 +17,7 @@ export function Page() {
 			</Helmet>
 			<Stack spacing={4}>
 				<div>
-					<Typography variant="h5">Roles and Permissions</Typography>
+					<Typography variant="h5" sx={{ fontWeight : 'bold' }}>Roles and Permissions</Typography>
 				</div>
 				<Stack spacing={4}>
 				

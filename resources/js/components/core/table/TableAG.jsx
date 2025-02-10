@@ -1,10 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { themeQuartz,ModuleRegistry, ClientSideRowModelModule   } from 'ag-grid-community'; 
+import { themeQuartz,ModuleRegistry, ClientSideRowModelModule, PaginationModule,   } from 'ag-grid-community'; 
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'; 
 import Box from '@mui/material/Box';
-
 
 import './Table.css';
 
@@ -13,21 +12,30 @@ import './Table.css';
 import logoPuncak from "@/assets/images/logo/logo-puncak.png";
 
 
-export default function TableAG({ row, column, pagination = true, loading = true , title = ''}){  
+export default function TableAG({ row, column, pagination = true, loading = true , title = '', search = true}){  
     
     const [searchTerm, setSearchTerm] = useState('');
-
+    const gridRef = useRef(null);
   
+
     // sets 10 rows per page (default is 100)
     const paginationPageSize = 10;
 
     // allows the user to select the page size from a predefined list of page sizes
     const paginationPageSizeSelector = [10, 20, 50, 100];
 
+
+    const autoGroupColumnDef = useMemo(() => {
+      return {
+        flex: 1,
+        minWidth: 180,
+      };
+    }, []);
+
    
 
     // Register the required modules
-    ModuleRegistry.registerModules([ClientSideRowModelModule]);
+    ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule]);
     // Theme config
     const myTheme = themeQuartz.withParams({
         /* Low spacing = very compact */
@@ -46,17 +54,13 @@ export default function TableAG({ row, column, pagination = true, loading = true
         theme: myTheme,
         loading: loading,
         quickFilterText: "",
-        paginationPageSize: 20,  // Set number of rows per page
-        pagination: true,  
-        paginationPageSizeSelector: paginationPageSizeSelector,
         onGridSizeChanged: (params) => {
             // Resize columns to fit the grid width
             // params.api.sizeColumnsToFit();
           }
     }
 
-    // Autosize
-    const gridRef = useRef(null);
+ 
   
     //Onclicked Cell
     const onCellClicked = (params) => {
@@ -72,8 +76,6 @@ export default function TableAG({ row, column, pagination = true, loading = true
       };
 
 
-      
-   
 
     return (
         <div style={{  width: 'auto' }}>
@@ -82,7 +84,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                             <Box sx={{ ml : 2, fontWeight: 'bold' }}>{title}</Box>
                         
                             {/* TextField on the right */}
-                            <TextField
+                            {search && <TextField
                                 value={searchTerm}
                                 onChange={onSearchChange}
                                 type="text"
@@ -102,7 +104,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                                 mb: 2,
                             
                                 }}
-                            />
+                            />}
                         </Box>
                 <div>
                 <AgGridReact  
@@ -112,6 +114,15 @@ export default function TableAG({ row, column, pagination = true, loading = true
                         columnDefs={column} 
                         domLayout='autoHeight' 
                         onCellClicked={onCellClicked}
+                        pagination={true}
+                        paginationPageSize={10} // Fixed page size, user can't change it
+                        paginationPageSizeSelector={false}
+                        autoGroupColumnDef={autoGroupColumnDef}
+                        defaultColDef={{
+                          flex: 1, // Distributes available space evenly
+                          minWidth: 200, // Prevents columns from becoming too small
+                          resizable: true, // Allows manual resizing
+                        }}
                         overlayLoadingTemplate={`
                             <div style="text-align: center;">
                               <img src="${logoPuncak}" alt="Logo" style="width: 100px; height: 100px; margin-bottom: 10px;" />
@@ -119,7 +130,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                             </div>
                           `}
                           overlayNoRowsTemplate={
-                                '<span class="ag-overlay-loading-center">No Data Available</span>'
+                                '<span>No Data Available</span>'
                           }> 
                     </AgGridReact> 
             
