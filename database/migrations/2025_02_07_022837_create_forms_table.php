@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('alias')->nullable();
             $table->string('code');
             $table->unsignedBigInteger('form_category_id');
-            $table->unsignedBigInteger('form_type_id');
             $table->longText('description')->nullable();
             $table->longText('instructions')->nullable();
             $table->text('status')->default('new')->comment('new','pending','confirm','ongoing','completed');

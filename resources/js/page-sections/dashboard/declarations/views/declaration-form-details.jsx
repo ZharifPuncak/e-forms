@@ -12,7 +12,7 @@ import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
 
-
+import SubmitDeclarationForm from "../forms/submit-form";
 import { useAppContext } from '@/contexts/app-context';
 
 export function DeclarationFormDetails() {
@@ -66,7 +66,7 @@ export function DeclarationFormDetails() {
                                                     </> },
                                                      { key: "Action", value:  	<Grid container spacing={1}>
                                                      <Button size="small" onClick={() => {
-                                                         appContext.setDialog({ isOpen : true , title : 'Personal Data Protection Act', subtitle:'ACK001'})
+                                                         appContext.setDialog({ isOpen : true , title : 'Personal Data Protection Act', subtitle:'ACK001', component : <SubmitDeclarationForm />})
                                                      }}>View </Button>
                                              </Grid> }
 												

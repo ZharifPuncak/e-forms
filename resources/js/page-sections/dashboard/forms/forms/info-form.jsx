@@ -31,14 +31,11 @@ const InfoForm = ({ data })  => {
     name: Yup.string().min(3).max(100).required("Name is required").label('Name'),
     alias: Yup.string().min(3).max(100).required("Alias is required").label('Alias'),
     category: Yup.object().required("Category is required").label('Category'),
-    type: Yup.object().required("Type is required").label('Type'),
     descriptions: Yup.string().required("Description is required").label('Description'),
     instructions: Yup.string().required("Instruction is required").label('Instruction'),
   });
 
   const categories = ['IT Security Compliance','HR Policy','Onboarding Policy'];
-  const types = ['pledge','acknowledgement'];
-
   const {
         values,
         errors,
@@ -173,51 +170,6 @@ const InfoForm = ({ data })  => {
                 />
               </Stack>         
           </Grid>
-
-          <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-          <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Type </Typography>
-              <Stack spacing={1}>
-                  <Autocomplete
-                  sx={{
-                    "& .MuiInputBase-root": { height: 45 }, // Adjust input height
-                  }}
-                  id="type"
-                  value={values.type}
-                  name="type"
-                  onChange={(e, v) => {
-                    setFieldValue("type", v || '');
-                  }}
-                  isOptionEqualToValue={(option, newValue) => {
-                    return option.id === newValue;
-                  }}
-                  getOptionLabel={(option) => option || ""}
-                  options={types}
-                  renderInput={(params) => (
-                    <TextField
-                       placeholder="Select form type"
-                    helperText={touched.type && errors.type}      error={Boolean(touched.type && errors.type)}  {...params}  
-                      sx={{
-                        '& .MuiAutocomplete-input.Mui-disabled': {
-                          WebkitTextFillColor: theme.palette.text.primary,
-                        },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.type) ? 'red' : 'inherit',
-                        },
-                        "& .MuiInputBase-input::placeholder": {
-                          color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
-                          opacity : 0.9
-                        },
-                      }}
-                      InputProps={{
-                        ...params.InputProps,
-                   
-                      }}
-                    />
-                  )}
-                />
-              </Stack>         
-            </Grid>
 
             
           	<Grid size={{xs : 12, sm: 12, md : 12 }}> 
