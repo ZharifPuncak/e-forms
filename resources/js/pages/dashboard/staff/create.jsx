@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
+
+import StaffForm from "@/page-sections/dashboard/staff/forms/staff-form";
  
 const metadata = { title: `${appConfig.name}` };
 
@@ -31,10 +33,8 @@ export function Page() {
 							<Typography variant="h5" sx={{ fontWeight : 'bold' }}>Create Staff</Typography>
 						</Box>
 					</Stack>
-					<Grid container spacing={4}>
-						
-						
-					</Grid>
+					
+					<StaffForm />
 				</Stack>
 			</Box>
 		</React.Fragment>

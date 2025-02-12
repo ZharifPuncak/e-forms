@@ -22,7 +22,7 @@ import { paths } from "@/paths";
 // import UserForm from "../forms/user-form"
 
 
-export function FormTable() {
+export function DeclarationStaffTable() {
 
     const appContext = useAppContext();
 	const navigate = useNavigate();
@@ -30,27 +30,28 @@ export function FormTable() {
 	const [rowData, setRowData] = React.useState([
         {
 			 id: 1,
-			 name: "Personal Data Protection Act",
-			 alias : "PDPA", 
-			 code: "ACK01", 
-			 type : "Acknowledgement",
-			 category : "HR Compliance",
-			 status : 'pending', 
-			 role: 'Admin',
-			 created_at : '9 Jan, 2025',
+			 name: "Ahmad Naqib",
+			 staffID: 'PNMS001',
+			 email : "naqib@puncakniaga.com.my", 
+			 company: "PNMS", 
+			 department : "ICTD",
+			 position : "Programmer",
+			 pending : 1, 
+			 completed: 2,
 			 action: 1 
 		},
-        {    id: 2,
-			 name: "Integrity Pledge",
-			 alias: "PL",
-			 code: "PL01", 
-			 type : "Pledge",
-			 category : "Onboarding policy",
-			 status : 'completed', 
-			 role: 'Admin-HR',
-			 created_at : '9 Jan, 2025', 
-			 action: 2 
-		},
+        {
+			id: 2,
+			name: "Azrif Roslan",
+			staffID: 'TRI001',
+			email : "azrif@triplc.com.my", 
+			company: "TRIPLC", 
+			department : "HR",
+			position : "Admin",
+			pending : 0, 
+			completed: 2,
+			action: 1 
+	   },
     ]);
 
     // Column Definitions: Defines the columns to be displayed.
@@ -61,29 +62,16 @@ export function FormTable() {
 				<Typography variant="subtitle2" sx={{ mb : -3, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
 			
 				<Typography color="text.secondary" sx={{ mb : 1}} variant="caption">
-					{rowData.alias}
+					{rowData.email}
 				</Typography>
 		</Box>
 
 		}},
-		{ field: "code"},
-        { field: "category"},
-		{ field: "type"},
-        { field: "status", 	cellRenderer : (params) => {
-
-			const rowData = params.data;
-			const mapping = {
-				completed: {
-					label: "Completed",
-					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
-				},
-				new: { label: "New", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
-				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-error-main)" /> },
-			};
-			const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
-
-			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
-		}},
+		{ field: "company"},
+        { field: "department"},
+		{ field: "pending"},
+		{ field: "completed"},
+     
 	
 		{ field: "action", cellRenderer : (params) => {
 			const rowData = params.data;
@@ -92,7 +80,7 @@ export function FormTable() {
 				<Link 
 				sx={{ cursor : 'pointer', mr : 2 }}
 				onClick={() => {
-					navigate(paths.dashboard.forms.details(rowData.code))
+					navigate(paths.dashboard.declarations.staff.details(rowData.staffID))
 				}}>
 					Details
 				</Link>

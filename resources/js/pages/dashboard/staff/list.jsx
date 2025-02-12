@@ -4,9 +4,10 @@ import Grid from "@mui/material/Grid2";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
+
+import { StaffTable } from "@/page-sections/dashboard/staff/views/staff-table";
  
 const metadata = { title: `${appConfig.name}` };
 
@@ -31,10 +32,9 @@ export function Page() {
 							<Typography variant="h5" sx={{ fontWeight : 'bold' }}>List Staff</Typography>
 						</Box>
 					</Stack>
-					<Grid container spacing={4}>
-						
-						
-					</Grid>
+
+					
+					 <StaffTable />
 				</Stack>
 			</Box>
 		</React.Fragment>

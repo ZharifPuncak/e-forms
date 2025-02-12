@@ -14,8 +14,10 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Typography } from '@mui/material';
 
+import integrityPDF from "@/assets/docs/Integrity Pledge.pdf";
 
-const InfoForm = ({ data })  => {
+
+const SubmitDeclarationForm = ()  => {
 
   const theme = useTheme();
   const [initialValues,setInitialValues] = useState({
@@ -263,6 +265,6 @@ const InfoForm = ({ data })  => {
   );
 }
 
-export default InfoForm;
+export default SubmitDeclarationForm;
 
 

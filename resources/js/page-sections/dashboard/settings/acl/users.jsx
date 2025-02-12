@@ -1,7 +1,7 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
@@ -20,7 +20,9 @@ export function Users({ users }) {
 	  <Card>
 			<CardHeader
 				subheader=""
-				title="Create User"
+				title={	<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+				Create User
+			</Typography>}
 				action={''}
 			/>
 			<CardContent>
@@ -32,7 +34,11 @@ export function Users({ users }) {
 		<Card>
 			<CardHeader
 				subheader=""
-				title="User Table"
+				title={
+					<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+					User Table
+				</Typography>
+				}
 				action={''}
 			/>
 			<CardContent>

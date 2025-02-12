@@ -16,13 +16,7 @@ import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/C
 
 import { useAppContext } from "@/contexts/app-context";
 
-import { paths } from "@/paths";
-
-
-// import UserForm from "../forms/user-form"
-
-
-export function FormTable() {
+export function DeclarationTable() {
 
     const appContext = useAppContext();
 	const navigate = useNavigate();
@@ -37,8 +31,9 @@ export function FormTable() {
 			 category : "HR Compliance",
 			 status : 'pending', 
 			 role: 'Admin',
-			 created_at : '9 Jan, 2025',
-			 action: 1 
+			 assigned : '8 Jan, 2025',
+			 submitted : '',
+	
 		},
         {    id: 2,
 			 name: "Integrity Pledge",
@@ -48,8 +43,9 @@ export function FormTable() {
 			 category : "Onboarding policy",
 			 status : 'completed', 
 			 role: 'Admin-HR',
-			 created_at : '9 Jan, 2025', 
-			 action: 2 
+			 assigned : '9 Jan, 2025', 
+			 submitted :'10 Jan, 2025',
+			
 		},
     ]);
 
@@ -67,8 +63,8 @@ export function FormTable() {
 
 		}},
 		{ field: "code"},
-        { field: "category"},
-		{ field: "type"},
+        {field: "assigned"},
+		{field: "submitted"},
         { field: "status", 	cellRenderer : (params) => {
 
 			const rowData = params.data;
@@ -85,24 +81,11 @@ export function FormTable() {
 			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
 		}},
 	
-		{ field: "action", cellRenderer : (params) => {
-			const rowData = params.data;
-			return <>
-
-				<Link 
-				sx={{ cursor : 'pointer', mr : 2 }}
-				onClick={() => {
-					navigate(paths.dashboard.forms.details(rowData.code))
-				}}>
-					Details
-				</Link>
-			</>
-		} }
     ]);
 
 	return <>
 	
-			<TableAG row={rowData} column={colDefs} loading={false} title=''/>
+			<TableAG row={rowData} column={colDefs} loading={false} title='' search={false} />
 	
 	</>;
 }

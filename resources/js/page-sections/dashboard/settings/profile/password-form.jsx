@@ -4,10 +4,7 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import FormControl from "@mui/material/FormControl";
-import Chip from "@mui/material/Chip";
-import InputAdornment from "@mui/material/InputAdornment";
-import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
 import * as Yup from "yup";
@@ -55,13 +52,15 @@ export function PasswordForm() {
 	return (
 		<Card>
 			<CardHeader
-				title="Change password"
+				title={	<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+				Change Password
+			</Typography>}
 			/>
 			<CardContent>
 						<Grid container={true} spacing={4}  >
         		  		  <Grid   size={{ xs : 12, sm: 12, md : 12 }}>
 						
-								<Chip sx={{ mb : 1 }} label='Old password' color='soft'/>
+							<Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Old Password </Typography>
 							    <TextField
 									fullWidth
 									name="name"
@@ -94,7 +93,7 @@ export function PasswordForm() {
 								/>
 				    	  </Grid>
 						  <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-							<Chip sx={{ mb : 1 }} label='New password' color='soft'/>
+						    <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >New Password </Typography>
 							<TextField
 								fullWidth
 								name="name"
@@ -127,7 +126,7 @@ export function PasswordForm() {
 							/>
 					     </Grid>
 						 <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-								<Chip sx={{ mb : 1 }} label='Confirm password'  color='soft'/>
+						        <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
 								<TextField
 								fullWidth
 								name="name"
@@ -161,7 +160,7 @@ export function PasswordForm() {
 				      </Grid>
 					   <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
 							<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-								<Button  variant="contained">UPDATE</Button>
+								<Button size='small' variant="contained">UPDATE</Button>
 							</Box>
 					  </Grid>
 					</Grid>

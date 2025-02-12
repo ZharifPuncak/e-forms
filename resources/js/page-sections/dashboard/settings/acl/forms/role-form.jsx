@@ -2,7 +2,7 @@ import { useState  } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import * as Yup from "yup";
@@ -45,7 +45,7 @@ const RoleForm = ({ props })  => {
     <form onSubmit={handleSubmit}>
         <Grid container={true} spacing={2}>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
-            <Chip sx={{ mb : 1 }} label='Role'  color='soft'/>
+            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Role </Typography>
                 <Box  sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                  
                     <TextField
@@ -84,7 +84,7 @@ const RoleForm = ({ props })  => {
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="contained" >SUBMIT</Button>
+                <Button size='small' variant="contained" >SUBMIT</Button>
               </Box>
             </Grid>
           </Grid>

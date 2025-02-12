@@ -66,19 +66,10 @@ export function Page() {
 						>
 							 <CardSummary active={tab == 'forms'} amount={240} diff={5} icon={TableIcon} title="Total Forms"  />
 						</Grid>
-						<Grid
-							onClick={() => setTab('staff')}
-							sx={{ cursor : 'pointer' }}
-							size={{
-								md: 4,
-								xs: 12,
-							}}
-						>
-							  <CardSummary active={tab == 'staff'} amount={21} diff={12} icon={UsersIcon} title="Total Staff" />
-						</Grid>
+						<br></br>
+					
 
-						<Grid
-							size={{
+						<Grid size={{
 								lg: 4,
 								xs: 12,
 							}}

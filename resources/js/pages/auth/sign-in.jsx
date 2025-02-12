@@ -40,15 +40,12 @@ export function Page() {
 					</div>
 					<Stack spacing={1}>
 						<Typography variant="h5">E-form Management System</Typography>
-						<Typography color="text.secondary" variant="body2">
-							Don&apos;t have an account? <Link variant="subtitle2">Sign up</Link>
-						</Typography>
 					</Stack>
 					<Stack spacing={2}>
 						<Stack spacing={2}>
 							<FormControl>
-								<InputLabel>Email address</InputLabel>
-								<OutlinedInput name="email" value="arif@puncakniaga.com.my" type="email" />
+								<InputLabel>Staff IC No</InputLabel>
+								<OutlinedInput name="ic_no" value="790192012225" type="text" />
 							</FormControl>
 							<FormControl>
 								<InputLabel>Password</InputLabel>
@@ -61,9 +58,9 @@ export function Page() {
 								Sign in
 							</Button>
 						</Stack>
-						<div>
+						{/* <div>
 							<Link variant="subtitle2">Forgot password?</Link>
-						</div>
+						</div> */}
 					</Stack>
 				</Stack>
 			</CenteredLayout>

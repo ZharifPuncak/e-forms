@@ -188,7 +188,7 @@ const PermissionForm = (props) => {
           </Grid>
           <Grid sx={{ p : 2 }} size={{ xs : 12 }}>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button size='small' variant='outlined'>UPDATE</Button>
+              <Button size='small' variant='contained'>UPDATE</Button>
             </Box>
           </Grid>
           </Grid>

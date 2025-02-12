@@ -4,12 +4,11 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Link from "@mui/material/Link";
-import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
 
 import TableAG from "@/components/core/table/TableAG";
-
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
@@ -19,10 +18,8 @@ import { useAppContext } from "@/contexts/app-context";
 import { paths } from "@/paths";
 
 
-// import UserForm from "../forms/user-form"
 
-
-export function FormTable() {
+export function DeclarationFormTable() {
 
     const appContext = useAppContext();
 	const navigate = useNavigate();
@@ -30,27 +27,13 @@ export function FormTable() {
 	const [rowData, setRowData] = React.useState([
         {
 			 id: 1,
-			 name: "Personal Data Protection Act",
-			 alias : "PDPA", 
-			 code: "ACK01", 
-			 type : "Acknowledgement",
-			 category : "HR Compliance",
-			 status : 'pending', 
-			 role: 'Admin',
-			 created_at : '9 Jan, 2025',
+			 name: "Personal Data Protection",
+			 alias: 'PDPA',
+			 code : 'ACK001',
+			 status : "pending",
 			 action: 1 
 		},
-        {    id: 2,
-			 name: "Integrity Pledge",
-			 alias: "PL",
-			 code: "PL01", 
-			 type : "Pledge",
-			 category : "Onboarding policy",
-			 status : 'completed', 
-			 role: 'Admin-HR',
-			 created_at : '9 Jan, 2025', 
-			 action: 2 
-		},
+
     ]);
 
     // Column Definitions: Defines the columns to be displayed.
@@ -67,9 +50,7 @@ export function FormTable() {
 
 		}},
 		{ field: "code"},
-        { field: "category"},
-		{ field: "type"},
-        { field: "status", 	cellRenderer : (params) => {
+		{ field: "status", 	cellRenderer : (params) => {
 
 			const rowData = params.data;
 			const mapping = {
@@ -78,13 +59,13 @@ export function FormTable() {
 					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 				},
 				new: { label: "New", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
-				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-error-main)" /> },
+				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
 			};
 			const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 
 			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
 		}},
-	
+
 		{ field: "action", cellRenderer : (params) => {
 			const rowData = params.data;
 			return <>
@@ -92,9 +73,9 @@ export function FormTable() {
 				<Link 
 				sx={{ cursor : 'pointer', mr : 2 }}
 				onClick={() => {
-					navigate(paths.dashboard.forms.details(rowData.code))
+					navigate(paths.dashboard.declarations.form.details(rowData.code))
 				}}>
-					Details
+					Click here
 				</Link>
 			</>
 		} }

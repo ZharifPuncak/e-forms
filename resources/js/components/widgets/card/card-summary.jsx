@@ -15,7 +15,7 @@ export function CardSummary({ amount , icon: Icon , title, action, active }) {
 		<Card elevation={active ? 6 : 1} sx={{  backgroundColor : active ? '#007FAB' : 'inherit' }}>
 			<CardContent>
 				<Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
-					{Icon && <Avatar
+					{/* {Icon && <Avatar
 						sx={{
 							"--Avatar-size": "48px",
 							bgcolor: "var(--mui-palette-background-paper)",
@@ -24,12 +24,12 @@ export function CardSummary({ amount , icon: Icon , title, action, active }) {
 						}}
 					>
 						<Icon fontSize="var(--icon-fontSize-lg)" />
-					</Avatar>}
+					</Avatar>} */}
 					<div>
-						<Typography sx={{ color : active ? 'white' :'text.secondary'}}  variant="body1">
+						<Typography sx={{ color : active ? 'white' :'inherit', }}  variant="body1">
 							{title}
 						</Typography>
-						<Typography sx={{ color : active ? 'white' :'text.secondary'}} variant="h3">{new Intl.NumberFormat("en-US").format(amount)}</Typography>
+						<Typography sx={{ color : active ? 'white' :'inherit'}} variant="h3">{new Intl.NumberFormat("en-US").format(amount)}</Typography>
 					</div>
 				</Stack>
 			</CardContent>

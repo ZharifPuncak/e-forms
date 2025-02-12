@@ -1,4 +1,3 @@
-import { declaration } from "stylis";
 
 export const paths = {
 	home: "/",
@@ -21,14 +20,21 @@ export const paths = {
 		staff: {
 			list: "/dashboard/staff",
 			create: "/dashboard/staff/create",
+			details: (code) => `/dashboard/staff/details/${code}`,
 		},
 		declarations:{
-			status: "/dashboard/declarations"
+			status: "/dashboard/declarations",
+			staff: {
+				details : (code) => `/dashboard/declarations/staff/details/${code}`,
+			},
+			form : {
+				details : (code) => `/dashboard/declarations/form/details/${code}`,
+			}
 		},
 		forms : {
 			list: "/dashboard/forms",
 			create: "/dashboard/forms/create",
-			details: (code) => `/dashboard/forms/${code}`,
+			details: (code) => `/dashboard/forms/details/${code}`,
 		},
 
 		

@@ -43,7 +43,7 @@ export const route = {
 				{
 					path: "details/:code",
 					lazy: async () => {
-						const { Page } = await import("@/pages/dashboard/forms/view");
+						const { Page } = await import("@/pages/dashboard/forms/details");
 						return { Component: Page };
 					},
 				},
@@ -56,6 +56,13 @@ export const route = {
 					index: true,
 					lazy: async () => {
 						const { Page } = await import("@/pages/dashboard/staff/list");
+						return { Component: Page };
+					},
+				},
+				{
+					path: "details/:code",
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/staff/details");
 						return { Component: Page };
 					},
 				},
@@ -78,6 +85,21 @@ export const route = {
 						return { Component: Page };
 					},
 				},
+				{
+					path: "staff/details/:code",
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/declarations/staff-details");
+						return { Component: Page };
+					},
+				},
+				{
+					path: "form/details/:code",
+					lazy: async () => {
+						const { Page } = await import("@/pages/dashboard/declarations/form-details");
+						return { Component: Page };
+					},
+				},
+			
 			],
 		},
 		

@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Stack  from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
+import Typography from '@mui/material/Typography';
 
 import { useTheme } from '@mui/material/styles';
 import * as Yup from "yup";
@@ -57,7 +57,7 @@ const UserForm = ({ data })  => {
 
         <Grid container={true} spacing={2}  >
             <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-            <Chip sx={{ mb : 1 }} label='Name'  color='soft'/>
+            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Name </Typography>
               <TextField
                         fullWidth
                         name="name"
@@ -90,7 +90,7 @@ const UserForm = ({ data })  => {
                     />
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
-              <Chip sx={{ mb : 1 }} label='Email'  color='soft'/>
+            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Email </Typography>
                <TextField
                    fullWidth
                    name="email"
@@ -124,7 +124,7 @@ const UserForm = ({ data })  => {
            
        </Grid>
        <Grid  size={{xs : 12, sm: 12, md : 12 }}>
-       <Chip sx={{ mb : 1 }} label='Role'  color='soft'/>
+       <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Role </Typography>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 
@@ -170,7 +170,7 @@ const UserForm = ({ data })  => {
      
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button  variant="contained">SUBMIT</Button>
+                <Button size='small' variant="contained">SUBMIT</Button>
               </Box>
             </Grid>
         </Grid>

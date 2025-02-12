@@ -11,9 +11,7 @@ import { appConfig } from "@/config/app";
 import { useParams } from "react-router"
 import { paths } from "@/paths";
 
-import { FormView } from "@/page-sections/dashboard/forms/views/form-view";
-import { FormTabs } from "@/page-sections/dashboard/forms/views/form-tabs";
-
+import { DeclarationStaffDetails } from "@/page-sections/dashboard/declarations/views/declaration-staff-details";
 
 const metadata = { title: `${appConfig.name}` };
 
@@ -44,19 +42,19 @@ export function Page() {
 				<div>
 						<Link
 							color="text.primary"
-							href={paths.dashboard.forms.list}
+							href={paths.dashboard.declarations.status}
 							sx={{ alignItems: "center", display: "inline-flex", gap: 1 }}
 							variant="subtitle2"
 						>
 							<ArrowLeftIcon fontSize="var(--icon-fontSize-md)" />
-							List Form
+							List Declarations
 						</Link>
 					</div>
 
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Personal Data Protection Act</Typography>
+							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Ahmad Naqib</Typography>
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>
@@ -64,12 +62,11 @@ export function Page() {
 				
 					</Stack>
 
-					{/* Form View */}
-					<FormView />
+					{/* Declaration Details */}
+					<DeclarationStaffDetails />
 
 
-					{/* Form Tabs */}
-					<FormTabs />
+			
 				
 				</Stack>
 			</Box>
