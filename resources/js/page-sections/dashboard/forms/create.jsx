@@ -18,7 +18,7 @@ export function CreateForm({ users }) {
 			<CardHeader
 				subheader=""
 				title={          
-					<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+					<Typography variant="h6">
 						Basic Information
 					</Typography>
                 }

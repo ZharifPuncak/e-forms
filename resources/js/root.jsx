@@ -13,7 +13,10 @@ import { getSettings as getPersistedSettings } from "@/lib/settings";
 import { ThemeProvider } from "@/components/core//theme-provider";
 import { Analytics } from "@/components/core/analytics";
 import { I18nProvider } from "@/components/core/i18n-provider";
-import { LocalizationProvider } from "@/components/core/localization-provider";
+// import { LocalizationProvider } from "@/components/core/localization-provider";
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { Rtl } from "@/components/core/rtl";
 
 import DrawerSlider from '@/components/drawer';
@@ -41,7 +44,7 @@ export function Root({ children }) {
 			  <AppProvider>
 				<DataProvider>
 					<Analytics>
-							<LocalizationProvider>
+							<LocalizationProvider dateAdapter={AdapterDayjs}>
 								<SettingsProvider settings={settings}>
 									<I18nProvider>
 										<Rtl>

@@ -63,7 +63,7 @@ export function TextEditor({
 							float: "left",
 							height: 0,
 							pointerEvents: "none",
-							fontSize: "12px", 
+							fontSize: "14px", 
 							opacity : 0.9,
 						},
 

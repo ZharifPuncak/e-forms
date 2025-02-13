@@ -21,7 +21,6 @@ import { useTheme } from '@mui/material/styles';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import Accordion1 from "@/components/widgets/accordions/accordion-1";
 
 import integrityPDF from "@/assets/docs/Integrity Pledge.pdf";
 
@@ -81,11 +80,15 @@ const SubmitAcknowledgementForm = ()  => {
            
                 </Box>
             </Grid> */}
+
+
             <Grid 	size={{ md: 12, xs: 12 }} >
 						<Card sx={{ borderRadius: 1 }} variant="outlined">
 												<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
 													{[
-														{ key: "Doc", value: <embed src={integrityPDF} type="application/pdf" width="100%%" height="600px" class="pdf-container" /> },
+														{ key: "Doc", value: <Box>
+                                     <embed  src={integrityPDF + '#zoom=100'} type="application/pdf" width="100%" height="800px"  /> 
+                              </Box>},
                           	{ key: "Action", value:  	<Grid container spacing={1}>
 															{/* <Button size="small" >Edit </Button> */}
 													</Grid> },

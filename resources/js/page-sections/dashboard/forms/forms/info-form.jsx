@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Stack  from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { TextEditor } from "@/components/core/text-editor/text-editor";
 
@@ -13,6 +13,8 @@ import { useTheme } from '@mui/material/styles';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Typography } from '@mui/material';
+
+import dayjs from "dayjs";
 
 
 const InfoForm = ({ data })  => {
@@ -25,6 +27,9 @@ const InfoForm = ({ data })  => {
     category: '',
     descriptions: '',
     instructions: '',
+    effective_from: null,
+    effective_to: null,
+    
   }); 
 
   const validationSchema = Yup.object().shape({
@@ -75,7 +80,7 @@ const InfoForm = ({ data })  => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -108,7 +113,7 @@ const InfoForm = ({ data })  => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -157,7 +162,7 @@ const InfoForm = ({ data })  => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -170,9 +175,64 @@ const InfoForm = ({ data })  => {
                 />
               </Stack>         
           </Grid>
+          <Grid size={{xs : 12, sm: 6, md : 3 }}>
+            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Effective From </Typography>
+            <DatePicker
+                  sx={{ height : 45}}
+                  minDate={dayjs()}
+                  name="effective_from"  
+                  format="DD/MM/YYYY"
+                  onChange={(value) => {
+
+                        setFieldValue("effective_from", value);
+                        
+                        if(values.effective_to && dayjs(value).format("DD/MM/YYYY") > dayjs(values.effective_to).format("DD/MM/YYYY")){
+                          setFieldValue("effective_to", null);
+                        }
+                      
+                    }}
+                    slotProps={{ textField: { 
+                      sx: {
+                        height: "45px", // Adjust height
+                        "& .MuiInputBase-root": { height: "100%" }, // Ensure full height
+                        "& .MuiInputBase-input": { padding: "10px" }, // Adjust padding
+                      },
+                      placeholder: "Select date" , size: 'small',  fullWidth: true, variant : "outlined",
+                      helperText: touched.effective_from && errors.effective_from, error : Boolean(touched.effective_from && errors.effective_from) 
+                    } }}
+                    onBlur={handleBlur} 
+                    value={values.effective_from}  
+                 />
+            </Grid>
+
+            <Grid size={{xs : 12, sm: 6, md : 3 }}>
+            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Effective To </Typography>
+            <DatePicker 
+                    fullWidth
+                    minDate={dayjs()}
+                    format="DD/MM/YYYY"
+                    name="effective_to"  
+                    onChange={(value) => {
+                          setFieldValue("effective_to", value);
+                    }}
+                    // minDate={moment().toDate()}  
+                    slotProps={{ textField: { 
+                      sx: {
+                        height: "45px", // Adjust height
+                        "& .MuiInputBase-root": { height: "100%" }, // Ensure full height
+                        "& .MuiInputBase-input": { padding: "10px" }, // Adjust padding
+                      },
+                      placeholder: "Select date" ,  
+                      size: 'small',  fullWidth: true, variant : "outlined",
+                      helperText: touched.effective_to && errors.effective_to, error : Boolean(touched.effective_to && errors.effective_to) } }}
+                    onBlur={handleBlur} 
+                    value={values.effective_to}  
+                 />
+            </Grid>
+
 
             
-          	<Grid size={{xs : 12, sm: 12, md : 12 }}> 
+          	<Grid size={{xs : 12, sm: 12, md : 6 }}> 
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Description </Typography>
                   <TextEditor
                           content={""}
@@ -184,7 +244,7 @@ const InfoForm = ({ data })  => {
 					  </Grid>
 
             
-          	<Grid size={{xs : 12, sm: 12, md : 12 }}> 
+          	<Grid size={{xs : 12, sm: 12, md : 6 }}> 
 
                   <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Instructions </Typography>
                   <TextEditor
@@ -193,13 +253,7 @@ const InfoForm = ({ data })  => {
                             // editor.getText()
                           }}
                           placeholder="Instructions here..."
-                          sx={{
-                            "& .placeholder-class": { 
-                              fontSize: "18px", 
-                              color: "gray",
-                              fontStyle: "italic"
-                            },
-                          }}
+
                     />
 					  </Grid>
 
