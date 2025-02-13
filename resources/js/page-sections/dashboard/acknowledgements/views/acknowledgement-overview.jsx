@@ -11,7 +11,7 @@ import { PenNibStraight as PenNibStraightIcon } from "@phosphor-icons/react/dist
 import { Table as TableIcon } from "@phosphor-icons/react/dist/ssr/Table";
 
 
-export function DeclarationOverview() {
+export function AcknowledgementOverview() {
 
 
 	return <Grid container spacing={4}>
@@ -21,7 +21,7 @@ export function DeclarationOverview() {
 							xs: 12,
 						}}
 					>
-						<CardSummary  amount={5}  icon={TableIcon} title="Total"  />
+						<CardSummary  amount={1}  icon={TableIcon} title="Total"  />
 					</Grid>
 					<Grid
 						size={{
@@ -37,7 +37,7 @@ export function DeclarationOverview() {
 							xs: 12,
 						}}
 					>
-						<CardSummary  amount={4} icon={UsersIcon} title="Total Completed" />
+						<CardSummary  amount={0} icon={UsersIcon} title="Total Completed" />
 					</Grid>
 				</Grid>				
 					

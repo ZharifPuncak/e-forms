@@ -33,8 +33,7 @@ export function FormTable() {
 			 name: "Personal Data Protection Act",
 			 alias : "PDPA", 
 			 code: "ACK01", 
-			 type : "Acknowledgement",
-			 category : "HR Compliance",
+			 category : "Yearly Policy",
 			 status : 'pending', 
 			 role: 'Admin',
 			 created_at : '9 Jan, 2025',
@@ -44,7 +43,6 @@ export function FormTable() {
 			 name: "Integrity Pledge",
 			 alias: "PL",
 			 code: "PL01", 
-			 type : "Pledge",
 			 category : "Onboarding policy",
 			 status : 'completed', 
 			 role: 'Admin-HR',
@@ -68,7 +66,6 @@ export function FormTable() {
 		}},
 		{ field: "code"},
         { field: "category"},
-		{ field: "type"},
         { field: "status", 	cellRenderer : (params) => {
 
 			const rowData = params.data;

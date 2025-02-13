@@ -6,18 +6,27 @@ import Stack  from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import Divider from "@mui/material/Divider";
+
+import Card from "@mui/material/Card";
+
+
+import { PropertyItem } from "@/components/core/property-item";
+import { PropertyList } from "@/components/core/property-list";
+import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 
 import { TextEditor } from "@/components/core/text-editor/text-editor";
 
 import { useTheme } from '@mui/material/styles';
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Typography } from '@mui/material';
+
+import Accordion1 from "@/components/widgets/accordions/accordion-1";
 
 import integrityPDF from "@/assets/docs/Integrity Pledge.pdf";
 
 
-const SubmitDeclarationForm = ()  => {
+const SubmitAcknowledgementForm = ()  => {
 
   const theme = useTheme();
   const [initialValues,setInitialValues] = useState({
@@ -63,20 +72,38 @@ const SubmitDeclarationForm = ()  => {
   <form onSubmit={handleSubmit}>
 
         <Grid container={true} spacing={4}  >
-            <Grid  size={{xs : 12, sm: 12, md : 12 }}>
+          
+            {/* <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <embed src={integrityPDF} type="application/pdf" width="100%%" height="600px" class="pdf-container" />
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
                 <Box>
-                  {/* <Button size='small'  variant="contained">SUBMIT</Button> */}
+           
                 </Box>
-            </Grid>
+            </Grid> */}
+            <Grid 	size={{ md: 12, xs: 12 }} >
+						<Card sx={{ borderRadius: 1 }} variant="outlined">
+												<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
+													{[
+														{ key: "Doc", value: <embed src={integrityPDF} type="application/pdf" width="100%%" height="600px" class="pdf-container" /> },
+                          	{ key: "Action", value:  	<Grid container spacing={1}>
+															{/* <Button size="small" >Edit </Button> */}
+													</Grid> },
+                            { key: "Signature", value: null },
+									
+													,
+													].map((item) => (
+														<PropertyItem key={item.key} name={item.key} value={item.value} />
+													))}
+												</PropertyList>
+						</Card>
+					</Grid>
         </Grid>
        
     </form>
   );
 }
 
-export default SubmitDeclarationForm;
+export default SubmitAcknowledgementForm;
 
 

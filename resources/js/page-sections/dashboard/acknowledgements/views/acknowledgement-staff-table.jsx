@@ -19,10 +19,7 @@ import { useAppContext } from "@/contexts/app-context";
 import { paths } from "@/paths";
 
 
-// import UserForm from "../forms/user-form"
-
-
-export function DeclarationStaffTable() {
+export function AcknowledgementStaffTable() {
 
     const appContext = useAppContext();
 	const navigate = useNavigate();
@@ -80,7 +77,7 @@ export function DeclarationStaffTable() {
 				<Link 
 				sx={{ cursor : 'pointer', mr : 2 }}
 				onClick={() => {
-					navigate(paths.dashboard.declarations.staff.details(rowData.staffID))
+					navigate(paths.dashboard.acknowledgements.staff.details(rowData.staffID))
 				}}>
 					Details
 				</Link>

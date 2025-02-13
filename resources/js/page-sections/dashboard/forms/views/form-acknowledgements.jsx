@@ -1,51 +1,48 @@
 "use client";
 
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
-
 import Link from "@mui/material/Link";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid2";
 
 import TableAG from "@/components/core/table/TableAG";
 
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
+import { PenNibStraight as PenNibStraightIcon } from "@phosphor-icons/react/dist/ssr/PenNibStraight";
+
+import { CardSummary } from "@/components/widgets/card/card-summary";
 
 import { useAppContext } from "@/contexts/app-context";
+// import UserForm from "../forms/user-form"
 
-export function DeclarationTable() {
+
+export function FormAcknowledgements() {
 
     const appContext = useAppContext();
-	const navigate = useNavigate();
 
 	const [rowData, setRowData] = React.useState([
         {
 			 id: 1,
-			 name: "Personal Data Protection Act",
-			 alias : "PDPA", 
-			 code: "ACK01", 
-			 type : "Acknowledgement",
-			 category : "HR Compliance",
+			 name: "Arif Aiman",
+             email: 'arif@pnhb.com.my',
+             department : 'IT',
+             company : 'PNMS',
 			 status : 'pending', 
 			 role: 'Admin',
-			 assigned : '8 Jan, 2025',
-			 submitted : '',
-	
+			 action: 1 
 		},
         {    id: 2,
-			 name: "Integrity Pledge",
-			 alias: "PL",
-			 code: "PL01", 
-			 type : "Pledge",
-			 category : "Onboarding policy",
+             name: "Hadi Fayyadh",
+             email: 'fayyadh@pnhb.com.my',
+             department : 'HR',
+             company : 'TRIPLC',
 			 status : 'completed', 
 			 role: 'Admin-HR',
-			 assigned : '9 Jan, 2025', 
-			 submitted :'10 Jan, 2025',
-			
+			 action: 2 
 		},
     ]);
 
@@ -57,14 +54,15 @@ export function DeclarationTable() {
 				<Typography variant="subtitle2" sx={{ mb : -3, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
 			
 				<Typography color="text.secondary" sx={{ mb : 1}} variant="caption">
-					{rowData.alias}
+					{rowData.email}
 				</Typography>
 		</Box>
 
 		}},
-		{ field: "code"},
-        {field: "assigned"},
-		{field: "submitted"},
+		{ field: "company"},
+        { field: "department"},
+        { field: "role"},
+	
         { field: "status", 	cellRenderer : (params) => {
 
 			const rowData = params.data;
@@ -81,11 +79,36 @@ export function DeclarationTable() {
 			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
 		}},
 	
+		{ field: "action", cellRenderer : (params) => {
+			const rowData = params.data;
+			return <>
+				<Link 
+
+			    sx={{ cursor : 'pointer', mr : 2 }}
+			    onClick={() => {
+					// appContext.setDialog({ 	isOpen : true, title : 'Update user', subtitle : rowData.email, component : <UserForm data={rowData} /> })
+				}}>Details
+				</Link>
+		
+			</>
+		} }
     ]);
 
 	return <>
-	
-			<TableAG row={rowData} column={colDefs} loading={false} title='' search={false} />
+		<Grid container={true} spacing={4}>
+				<Grid size={{ xs : 12, sm: 6, md : 4}}>
+					<CardSummary  amount={30}  icon={null} title="Total" />
+				</Grid>
+				<Grid size={{ xs : 12, sm: 6, md : 4}}>
+					<CardSummary  amount={10}  icon={null} title="Pending" />
+				</Grid>
+				<Grid size={{ xs : 12, sm: 6, md : 4}}>
+					<CardSummary  amount={20}  icon={null} title="Completed" />
+				</Grid>
+				<Grid size={{ xs : 12, sm: 12, md : 12 }}>
+					<TableAG row={rowData} column={colDefs} loading={false} title=''/>
+				</Grid>
+		</Grid>
 	
 	</>;
 }

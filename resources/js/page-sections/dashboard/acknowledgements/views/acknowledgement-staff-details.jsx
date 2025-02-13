@@ -11,10 +11,10 @@ import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 
-import { DeclarationFormTable } from "./declaration-form-table";
+import { AcknowledgementFormTable } from "./acknowledgement-form-table";
 
 
-export function DeclarationStaffDetails() {
+export function AcknowledgementStaffDetails() {
 
 
 	return  <Grid container spacing={4}>
@@ -51,7 +51,7 @@ export function DeclarationStaffDetails() {
 										</Card>
 					</Grid>
                     <Grid size={{ md: 12, xs: 12 }} >
-                           <DeclarationFormTable />
+                           <AcknowledgementFormTable />
                     </Grid>
 				</Grid>				
 					

@@ -52,7 +52,7 @@ export function Page() {
 								<OutlinedInput name="password" value="123456" type="password" />
 							</FormControl>
 							<Button onClick={() => {
-								  navigate('/dashboard');
+								  navigate('/dashboard/acknowledgements');
 							   }}  
 							   type="submit" variant="contained">
 								Sign in

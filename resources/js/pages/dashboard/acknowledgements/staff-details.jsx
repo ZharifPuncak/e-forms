@@ -11,14 +11,14 @@ import { appConfig } from "@/config/app";
 import { useParams } from "react-router"
 import { paths } from "@/paths";
 
-import { DeclarationFormDetails } from "@/page-sections/dashboard/declarations/views/declaration-form-details";
+import { AcknowledgementStaffDetails } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-staff-details";
 
 const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 
 	const { code } = useParams();
-	const [tab, setTab] = React.useState('declaration');
+	const [tab, setTab] = React.useState('acknowledgement');
 
 	return (
 		<React.Fragment>
@@ -42,19 +42,19 @@ export function Page() {
 				<div>
 						<Link
 							color="text.primary"
-							href={paths.dashboard.declarations.status}
+							href={paths.dashboard.acknowledgements.status}
 							sx={{ alignItems: "center", display: "inline-flex", gap: 1 }}
 							variant="subtitle2"
 						>
 							<ArrowLeftIcon fontSize="var(--icon-fontSize-md)" />
-							List Declarations
+							List Acknowledgements
 						</Link>
 					</div>
 
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Personal Data Protection Act</Typography>
+							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Ahmad Naqib</Typography>
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>
@@ -63,8 +63,11 @@ export function Page() {
 					</Stack>
 
 					{/* Declaration Details */}
-					<DeclarationFormDetails />
+					<AcknowledgementStaffDetails />
 
+
+			
+				
 				</Stack>
 			</Box>
 		</React.Fragment>

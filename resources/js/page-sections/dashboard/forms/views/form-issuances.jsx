@@ -16,7 +16,7 @@ import { useAppContext } from "@/contexts/app-context";
 // import UserForm from "../forms/user-form"
 
 
-export function FormAssignment() {
+export function FormIssuances() {
 
     const appContext = useAppContext();
 
@@ -26,7 +26,7 @@ export function FormAssignment() {
 			 company : 'PNMS',
 			 to: "ICTD",
 			 deadline: "09 September, 2025",
-			 assigned : "09 January, 2025",
+			 issued : "09 January, 2025",
 			 action: 1 
 		},
     ]);
@@ -36,7 +36,7 @@ export function FormAssignment() {
 		
 		{ field: "company"},
         { field: "to"},
-		{ field: "assigned", label : 'Assigned'},
+		{ field: "issued", label : 'Issued'},
 		{ field: "deadline"},
 		{ field: "action", cellRenderer : (params) => {
 			const rowData = params.data;

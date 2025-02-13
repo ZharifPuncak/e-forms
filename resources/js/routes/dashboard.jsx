@@ -76,26 +76,26 @@ export const route = {
 			],
 		},
 		{
-			path: "declarations",
+			path: "acknowledgements",
 			children: [
 				{
 					index: true,
 					lazy: async () => {
-						const { Page } = await import("@/pages/dashboard/declarations/status");
+						const { Page } = await import("@/pages/dashboard/acknowledgements/status");
 						return { Component: Page };
 					},
 				},
 				{
 					path: "staff/details/:code",
 					lazy: async () => {
-						const { Page } = await import("@/pages/dashboard/declarations/staff-details");
+						const { Page } = await import("@/pages/dashboard/acknowledgements/staff-details");
 						return { Component: Page };
 					},
 				},
 				{
 					path: "form/details/:code",
 					lazy: async () => {
-						const { Page } = await import("@/pages/dashboard/declarations/form-details");
+						const { Page } = await import("@/pages/dashboard/acknowledgements/form-details");
 						return { Component: Page };
 					},
 				},

@@ -19,7 +19,7 @@ import { paths } from "@/paths";
 
 
 
-export function DeclarationFormTable() {
+export function AcknowledgementFormTable() {
 
     const appContext = useAppContext();
 	const navigate = useNavigate();
@@ -27,8 +27,8 @@ export function DeclarationFormTable() {
 	const [rowData, setRowData] = React.useState([
         {
 			 id: 1,
-			 name: "Personal Data Protection",
-			 alias: 'PDPA',
+			 name: "Integrity Pledge",
+			 alias: 'IP',
 			 code : 'ACK001',
 			 status : "pending",
 			 action: 1 
@@ -73,7 +73,7 @@ export function DeclarationFormTable() {
 				<Link 
 				sx={{ cursor : 'pointer', mr : 2 }}
 				onClick={() => {
-					navigate(paths.dashboard.declarations.form.details(rowData.code))
+					navigate(paths.dashboard.acknowledgements.form.details(rowData.code))
 				}}>
 					Click here
 				</Link>

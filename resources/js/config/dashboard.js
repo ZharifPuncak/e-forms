@@ -28,10 +28,10 @@ export const dashboardConfig = {
 			]
 		},
 		{
-			key: "declaration",
-			title: "Declarations",
+			key: "acknowledgement",
+			title: "Acknowledgements",
 			items: [
-				{ key: "status", title: "Status", href: paths.dashboard.declarations.status ,icon : "hourglass" },
+				{ key: "status", title: "Status", href: paths.dashboard.acknowledgements.status ,icon : "hourglass" },
 			]
 		},
 	

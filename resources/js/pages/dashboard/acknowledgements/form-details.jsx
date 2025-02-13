@@ -11,15 +11,13 @@ import { appConfig } from "@/config/app";
 import { useParams } from "react-router"
 import { paths } from "@/paths";
 
-import { DeclarationStaffDetails } from "@/page-sections/dashboard/declarations/views/declaration-staff-details";
+import { AcknowledgementFormDetails } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-form-details";
 
 const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 
 	const { code } = useParams();
-	const [tab, setTab] = React.useState('declaration');
-
 	return (
 		<React.Fragment>
 			<Helmet>
@@ -42,19 +40,19 @@ export function Page() {
 				<div>
 						<Link
 							color="text.primary"
-							href={paths.dashboard.declarations.status}
+							href={paths.dashboard.acknowledgements.status}
 							sx={{ alignItems: "center", display: "inline-flex", gap: 1 }}
 							variant="subtitle2"
 						>
 							<ArrowLeftIcon fontSize="var(--icon-fontSize-md)" />
-							List Declarations
+							List Acknowledgements
 						</Link>
 					</div>
 
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Ahmad Naqib</Typography>
+							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Integrity Pledge</Typography>
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>
@@ -63,11 +61,8 @@ export function Page() {
 					</Stack>
 
 					{/* Declaration Details */}
-					<DeclarationStaffDetails />
+					<AcknowledgementFormDetails />
 
-
-			
-				
 				</Stack>
 			</Box>
 		</React.Fragment>

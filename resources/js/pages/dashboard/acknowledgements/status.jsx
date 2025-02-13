@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { DeclarationOverview } from "@/page-sections/dashboard/declarations/views/declaration-overview";
-import { DeclarationStaffTable } from "@/page-sections/dashboard/declarations/views/declaration-staff-table";
-import { DeclarationFormTable } from "@/page-sections/dashboard/declarations/views/declaration-form-table";
+import { AcknowledgementOverview } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-overview";
+import { AcknowledgementStaffTable } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-staff-table";
+import { AcknowledgementFormTable } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-form-table";
 
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
@@ -30,13 +30,13 @@ export function Page() {
 				<Stack spacing={4}>
 						<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 							<Box sx={{ flex: "1 1 auto" }}>
-								<Typography variant="h5" sx={{ fontWeight : 'bold' }}>List Declarations</Typography>
+								<Typography variant="h5" sx={{ fontWeight : 'bold' }}>List Acknowledgements</Typography>
 							</Box>
 						</Stack>
 	
-						<DeclarationOverview />
-						<DeclarationStaffTable />
-						<DeclarationFormTable />
+						<AcknowledgementOverview />
+						{/* <AcknowledgementStaffTable /> */}
+						<AcknowledgementFormTable />
 				</Stack>
 			</Box>
 		</React.Fragment>
