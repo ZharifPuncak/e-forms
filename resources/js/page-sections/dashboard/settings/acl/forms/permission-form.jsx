@@ -127,7 +127,7 @@ const PermissionForm = (props) => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: '14px',  // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -173,7 +173,7 @@ const PermissionForm = (props) => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: '14px',  // Custom font size
                           opacity : 0.9
                         },
                    

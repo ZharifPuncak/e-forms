@@ -82,7 +82,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -115,7 +115,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -148,7 +148,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -181,7 +181,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -231,7 +231,7 @@ const StaffForm = () => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -279,7 +279,7 @@ const StaffForm = () => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -326,7 +326,7 @@ const StaffForm = () => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -371,7 +371,7 @@ const StaffForm = () => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}

@@ -73,7 +73,7 @@ const UserForm = ({ data })  => {
 								
                           sx: {
                             '& input::placeholder': {
-                              fontSize: '0.8rem',  // Adjust size here
+                              fontSize: '14px',   // Adjust size here
                               opacity: 0.8, // Optional: Adjust transparency if needed
                             },
                             "& .MuiOutlinedInput-root": {
@@ -106,7 +106,7 @@ const UserForm = ({ data })  => {
 								
                     sx: {
                       '& input::placeholder': {
-                        fontSize: '0.8rem',  // Adjust size here
+                        fontSize: '14px',   // Adjust size here
                         opacity: 0.8, // Optional: Adjust transparency if needed
                       },
                       "& .MuiOutlinedInput-root": {
@@ -154,7 +154,7 @@ const UserForm = ({ data })  => {
                         },
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: '14px',  // Custom font size
                           opacity : 0.9
                         },
                       }}
