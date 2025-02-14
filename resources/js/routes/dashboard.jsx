@@ -102,7 +102,6 @@ export const route = {
 			
 			],
 		},
-		
 		{
 			path: "settings",
 			element: (

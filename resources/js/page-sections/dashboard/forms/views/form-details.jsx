@@ -48,8 +48,7 @@ export function FormDetails() {
 																	<li><strong>Accountability</strong> – Companies must follow PDPA rules and be responsible for compliance.</li>
 																</ul>
 															</>
-														} title={<Typography sx={{ color : '#4DADDE' }} variant="subtitle2">Details</Typography>} />},
-														{ key: "Instructions", value:  <Accordion1 title={<Typography  sx={{ color : '#4DADDE' }} variant="subtitle2">Instructions</Typography>} /> },
+														} title={<Typography sx={{ color : '#4DADDE' }} variant="subtitle2">View Details</Typography>} />},
 														{
 															key: "Status",
 															value: (

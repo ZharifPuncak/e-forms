@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_declarations', function (Blueprint $table) {
+        Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('form_id');
+            $table->string('name');
+            $table->enum('gender', ['Male', 'Female']);
+            $table->string('staff_no');
+            $table->string('staff_ic_no');
+            $table->string('status')->default('active')->comment('active | inactive');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_declarations');
+        Schema::dropIfExists('staff');
     }
 };

@@ -172,7 +172,7 @@ const SubmitAcknowledgementForm = ()  => {
                                                           }
                                                           label={
                                                               <Typography variant="subtitle2">
-                                                                  I hereby acknowledge that I have reviewed all the contents of all the report and acted accordingly.
+                                                                  <p>I hereby acknowledge that I have carefully read and fully understand the contents of the document(s) provided to me. I confirm that I have reviewed all relevant information and accept the responsibilities, terms, and conditions outlined therein.</p> 
                                                               </Typography>
                                                                   }
                                                               />
@@ -212,7 +212,7 @@ const SubmitAcknowledgementForm = ()  => {
 
                         <Box sx={{ mb: 2 }}>
                             <Button
-                            size="small"
+                            
                             variant="contained"
                             onClick={handleNext}
                             sx={{ mt: 1, mr: 1 }}
@@ -220,7 +220,7 @@ const SubmitAcknowledgementForm = ()  => {
                             {index === steps.length - 1 ? 'Submit' : 'Continue'}
                             </Button>
                             {index !== 0 &&  <Button
-                              size="small"
+                              
                                variant="outlined"
                             disabled={index === 0}
                             onClick={handleBack}

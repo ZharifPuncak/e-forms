@@ -30,6 +30,7 @@ export const dashboardConfig = {
 		{
 			key: "acknowledgement",
 			title: "Acknowledgements",
+			permission : "view-acknowledgements",
 			items: [
 				{ key: "status", title: "Status", href: paths.dashboard.acknowledgements.status ,icon : "hourglass" },
 			]

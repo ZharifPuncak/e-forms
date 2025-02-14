@@ -84,7 +84,7 @@ const RoleForm = ({ props })  => {
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small' variant="contained" >SUBMIT</Button>
+                <Button  variant="contained" >SUBMIT</Button>
               </Box>
             </Grid>
           </Grid>

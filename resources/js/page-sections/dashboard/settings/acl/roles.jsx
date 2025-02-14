@@ -26,7 +26,7 @@ export function Roles({ roles }) {
 			<CardHeader
 				subheader=""
 				title={
-						<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+						<Typography variant="h6" >
 										Create Role
 									</Typography>
 				}
@@ -42,7 +42,7 @@ export function Roles({ roles }) {
 		<Card>
 			<CardHeader
 				subheader=""
-				title={	<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+				title={	<Typography variant="h6" >
 				Role List
 			</Typography>}
 				action={''}

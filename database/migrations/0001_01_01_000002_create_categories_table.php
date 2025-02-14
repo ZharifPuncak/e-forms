@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_files', function (Blueprint $table) {
+        Schema::create('shared_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('form_id');
-            $table->string('title');
-            $table->unsignedBigInteger('form_fileable_id');
-            $table->string('form_fileable_type');
+            $table->string('name');
+            $table->integer('is_hide')->default(0);
+            $table->integer('sorting')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_files');
+        Schema::dropIfExists('shared_categories');
     }
 };

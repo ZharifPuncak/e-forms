@@ -20,7 +20,7 @@ export function Users({ users }) {
 	  <Card>
 			<CardHeader
 				subheader=""
-				title={	<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+				title={	<Typography variant="h6">
 				Create User
 			</Typography>}
 				action={''}
@@ -35,7 +35,7 @@ export function Users({ users }) {
 			<CardHeader
 				subheader=""
 				title={
-					<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+					<Typography variant="h6" >
 					User Table
 				</Typography>
 				}

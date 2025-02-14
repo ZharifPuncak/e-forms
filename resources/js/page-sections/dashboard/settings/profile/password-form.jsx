@@ -52,9 +52,7 @@ export function PasswordForm() {
 	return (
 		<Card>
 			<CardHeader
-				title={	<Typography variant="h6" sx={{ fontWeight: "bold" }}>
-				Change Password
-			</Typography>}
+				title={'Change Password'}
 			/>
 			<CardContent>
 						<Grid container={true} spacing={4}  >
@@ -160,7 +158,7 @@ export function PasswordForm() {
 				      </Grid>
 					   <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
 							<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-								<Button size='small' variant="contained">UPDATE</Button>
+								<Button variant="contained">UPDATE</Button>
 							</Box>
 					  </Grid>
 					</Grid>

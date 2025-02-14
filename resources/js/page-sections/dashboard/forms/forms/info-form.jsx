@@ -26,7 +26,6 @@ const InfoForm = ({ data })  => {
     type:  '',
     category: '',
     descriptions: '',
-    instructions: '',
     effective_from: null,
     effective_to: null,
     
@@ -37,7 +36,6 @@ const InfoForm = ({ data })  => {
     alias: Yup.string().min(3).max(100).required("Alias is required").label('Alias'),
     category: Yup.object().required("Category is required").label('Category'),
     descriptions: Yup.string().required("Description is required").label('Description'),
-    instructions: Yup.string().required("Instruction is required").label('Instruction'),
   });
 
   const categories = ['IT Security Compliance','HR Policy','Onboarding Policy'];
@@ -157,9 +155,7 @@ const InfoForm = ({ data })  => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.category) ? 'red' : 'inherit',
-                        },
+                    
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
                           fontSize: "14px", // Custom font size
@@ -232,9 +228,10 @@ const InfoForm = ({ data })  => {
 
 
             
-          	<Grid size={{xs : 12, sm: 12, md : 6 }}> 
+          	<Grid size={{xs : 12, sm: 12, md : 12 }}> 
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Description </Typography>
                   <TextEditor
+                          rows={5}
                           content={""}
                           onUpdate={({ editor }) => {
                             // editor.getText()
@@ -243,24 +240,9 @@ const InfoForm = ({ data })  => {
                   />
 					  </Grid>
 
-            
-          	<Grid size={{xs : 12, sm: 12, md : 6 }}> 
-
-                  <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Instructions </Typography>
-                  <TextEditor
-                          content={""}
-                          onUpdate={({ editor }) => {
-                            // editor.getText()
-                          }}
-                          placeholder="Instructions here..."
-
-                    />
-					  </Grid>
-
-
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small'  variant="contained">SUBMIT</Button>
+                <Button size='medium'  variant="contained">SUBMIT</Button>
               </Box>
             </Grid>
         </Grid>

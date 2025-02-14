@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_assignments', function (Blueprint $table) {
+        Schema::create('form_issuances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('form_id');
             $table->string('applied_to')->default('all')->comment('all | specific');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('form_issuance_id')->nullable()->comment('User ID | Department ID | Category ID');
             $table->unsignedBigInteger('form_issuance_type')->nullable();
-            $table->unsignedBigInteger('assigned_by');
-            $table->timestamps('assigned_at');
-            $table->timestamps('deadline')->nullable();
+            $table->timestamp ('issued_at');
+            $table->timestamp ('deadline_at')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_assignments');
+        Schema::dropIfExists('form_issuances');
     }
 };

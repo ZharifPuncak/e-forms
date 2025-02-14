@@ -149,9 +149,7 @@ const UserForm = ({ data })  => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.category) ? 'red' : 'inherit',
-                        },
+                       
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
                           fontSize: '14px',  // Custom font size
@@ -170,7 +168,7 @@ const UserForm = ({ data })  => {
      
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small' variant="contained">SUBMIT</Button>
+                <Button  variant="contained">SUBMIT</Button>
               </Box>
             </Grid>
         </Grid>

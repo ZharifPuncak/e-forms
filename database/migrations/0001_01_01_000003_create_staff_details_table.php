@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_files', function (Blueprint $table) {
+        Schema::create('staff_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('form_id');
-            $table->string('title');
-            $table->unsignedBigInteger('form_fileable_id');
-            $table->string('form_fileable_type');
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('position_id');
+            $table->unsignedBigInteger('category_id');
+            $table->timestamp('date_joined')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_files');
+        Schema::dropIfExists('staff_details');
     }
 };

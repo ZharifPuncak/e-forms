@@ -97,7 +97,7 @@ const PermissionForm = (props) => {
       { true ?  
         <Grid container={true} spacing={2}  >
           <Grid sx={{ p : 2 }} size={{xs : 2, sm : 2, md : 6}}>
-              <Chip sx={{ mb : 1 }} label='Role Permissions'  color='soft'/>
+              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Role Permissions </Typography>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 
@@ -122,9 +122,7 @@ const PermissionForm = (props) => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.category) ? 'red' : 'inherit',
-                        },
+                  
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
                           fontSize: '14px',  // Custom font size
@@ -143,7 +141,8 @@ const PermissionForm = (props) => {
               </Stack>         
           </Grid>
           <Grid sx={{ p : 2 }} size={{xs : 2, sm : 2, md : 6}}>
-             <Chip sx={{ mb : 1 }} label='User Permissions'  color='soft'/>  
+          <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >User Permissions </Typography>
+    
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 
@@ -168,9 +167,7 @@ const PermissionForm = (props) => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.category) ? 'red' : 'inherit',
-                        },
+                       
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
                           fontSize: '14px',  // Custom font size
@@ -188,7 +185,7 @@ const PermissionForm = (props) => {
           </Grid>
           <Grid sx={{ p : 2 }} size={{ xs : 12 }}>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button size='small' variant='contained'>UPDATE</Button>
+              <Button  variant='contained'>UPDATE</Button>
             </Box>
           </Grid>
           </Grid>

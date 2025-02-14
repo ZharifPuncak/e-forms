@@ -17,13 +17,15 @@ import { Logo } from "@/components/core/logo";
 import { icons } from "../nav-icons";
 import { navColorStyles } from "./styles";
 
+import useAuth from "@/hooks/use-auth";
+
 const logoColors = {
 	dark: { blend_in: "light", discrete: "light", evident: "light" },
 	light: { blend_in: "dark", discrete: "dark", evident: "light" },
 };
 
 export function SideNav({ color = "evident", items = [] }) {
-	
+
 	const pathname = usePathname();
 
 	const { colorScheme = "light" } = useColorScheme();
@@ -81,20 +83,26 @@ export function SideNav({ color = "evident", items = [] }) {
 }
 
 function renderNavGroups({ items, pathname }) {
-	
+
+	const { can } = useAuth();
+
 	const children = items.reduce((acc, curr) => {
-		acc.push(
-			<Stack component="li" key={curr.key} spacing={1.5}>
-				{curr.title ? (
-					<div>
-						<Typography sx={{ color: "var(--NavGroup-title-color)", fontSize: "0.875rem", fontWeight: 500 }}>
-							{curr.title}
-						</Typography>
-					</div>
-				) : null}
-				<div>{renderNavItems({ depth: 0, items: curr.items, pathname })}</div>
-			</Stack>
-		);
+	
+		// if(can(curr?.permission)){
+			acc.push(
+				<Stack component="li" key={curr.key} spacing={1.5}>
+					{curr.title ? (
+						<div>
+							<Typography sx={{ color: "var(--NavGroup-title-color)", fontSize: "0.875rem", fontWeight: 500 }}>
+								{curr.title}
+							</Typography>
+						</div>
+					) : null}
+					<div>{renderNavItems({ depth: 0, items: curr.items, pathname })}</div>
+				</Stack>
+			);
+		// }
+		
 
 		return acc;
 	}, []);
@@ -109,11 +117,7 @@ function renderNavGroups({ items, pathname }) {
 function renderNavItems({ depth = 0, items = [], pathname }) {
 	const children = items.reduce((acc, curr) => {
 
-	
-
 		const { items: childItems, key, ...item } = curr;
-
-		
 
 		const forceOpen = childItems
 			? childItems.some((childItem) => childItem.href && pathname.startsWith(childItem.href))
