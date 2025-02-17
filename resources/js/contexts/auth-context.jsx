@@ -6,8 +6,7 @@ import axios from "@/utils/axios";
 let authStorage = localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')) : undefined;
 
 const initialState = {
-  // isAuthenticated: authStorage?.isAuthenticated || false,
-  isAuthenticated: true,
+  isAuthenticated: authStorage?.isAuthenticated || false,
   isInitialized: authStorage?.isInitialized || false,
   token: authStorage?.token || '',
   permissions: authStorage?.permissions || [],
@@ -114,29 +113,30 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const login = async (email, password) => {
+  const login = async (staffIcNo, password) => {
 
     const { data } = await axios.post("/api/login", {
-      email,
+      staff_ic_no : staffIcNo,
       password
     }); 
 
     //Payload
     let payload = {
       isAuthenticated: true,
-      user: data.user,
-      token: data.token,
-      permissions : data.permissions,
+      user: data.data.user,
+      token: data.data.token,
+      permissions : data.data.permissions,
     }
 
+   
     dispatch({
       type: "LOGIN",
       payload: payload
     });
+
     setUserAuth(payload);
 
-  
- 
+
   };
 
   const register = async (name, email, password, confirm_password) => {

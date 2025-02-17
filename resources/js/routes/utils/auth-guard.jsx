@@ -4,12 +4,14 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { paths } from "@/paths";
-import { logger } from "@/lib/default-logger";
-import useAuth from "../../hooks/use-auth";
+
+import useAuth from "@/hooks/use-auth";
+import useLocation from "@/hooks/use-location";
 
 export function AuthGuard({ children }) {
 	
 	const { isAuthenticated, isLoading } = useAuth();
+	const { state } = useLocation();
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
@@ -17,16 +19,18 @@ export function AuthGuard({ children }) {
 	
 		if(!isAuthenticated){
 
-			logger.debug("[AuthGuard] User is not authenticated, redirecting to sign in");
+		
 			navigate(paths.auth.signIn);
 
 		}else{
 
-
+	
 			if (window.history.length <= 1) {
-				logger.debug("[AuthGuard] No previous route, redirecting to home page");
+			
 				navigate(paths.home); 
-			  }
+			 }else{
+				navigate(state.from); 
+			 }
 		}
 
 

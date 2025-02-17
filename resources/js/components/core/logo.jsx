@@ -9,7 +9,7 @@ import { NoSsr } from "@/components/core/no-ssr";
 const HEIGHT = 60;
 const WIDTH = 60;
 
-export function Logo({ color = "dark", emblem, height = HEIGHT, width = WIDTH }) {
+export function Logo({ color = "dark", emblem, height = HEIGHT, width = WIDTH, isSignInPage = false }) {
 	let url;
 
 	// if (emblem) {
@@ -17,8 +17,12 @@ export function Logo({ color = "dark", emblem, height = HEIGHT, width = WIDTH })
 	// } else {
 	// 	url = color === "light" ? "/assets/logo.svg" : "/assets/logo--dark.svg";
 	// }
-
-	url = "/assets/logo/logo-puncak.png";
+	if(isSignInPage){
+		url = "/assets/logo/e-FORM.png";
+	}else{
+		url = "/assets/logo/logo-puncak.png";
+	}
+	
 
 	return <Box alt="logo" component="img" height={height} src={url} width={width} />;
 }

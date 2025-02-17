@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('staff_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('position_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('grade_id')->nullable();
+            $table->unsignedBigInteger('position_id')->nullable();
             $table->timestamp('date_joined')->nullable();
             $table->timestamps();
         });

@@ -2,6 +2,7 @@ import * as React from "react";
 import { Outlet } from "react-router-dom";
 
 import { AuthGuard } from "./utils/auth-guard";
+
 import { Layout as DashboardLayout } from "@/layout/layout";
 import { Layout as SettingsLayout } from "@/layout/setting-layout";
 

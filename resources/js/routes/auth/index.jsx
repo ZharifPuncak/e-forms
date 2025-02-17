@@ -1,4 +1,4 @@
-
+import GuestGuard from "../utils/guest-guard";
 export const route = {
 	path: "auth",
 	children: [
@@ -6,14 +6,14 @@ export const route = {
 			path: "reset-password",
 			lazy: async () => {
 				const { Page } = await import("@/pages/auth/reset-password");
-				return { Component: Page };
+				return { Component:   Page };
 			},
 		},
 		{
 			path: "sign-in",
 			lazy: async () => {
 				const { Page } = await import("@/pages/auth/sign-in");
-				return { Component: Page };
+				return { Component:  Page  };
 			},
 		},
 		{

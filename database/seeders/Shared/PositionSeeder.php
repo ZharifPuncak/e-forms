@@ -15,30 +15,12 @@ class PositionSeeder extends Seeder
      */
     public function run(): void
     {
-            // Path to the CSV file inside storage/app directory
-            $filePath = storage_path('seeder/shared/positions.csv');
+    
+            ImportData('seeder/shared/positions.csv',  function ($row) {
+                Position::create([
+                    'name' => $row[0],
+                ]);
+            });
 
-            // Open the file and read contents
-            $file = fopen($filePath, 'r');
-    
-            // Skip the first row (header)
-            $firstRow = true;
-            while (($row = fgetcsv($file, 1000, ',')) !== false) {
-                if ($firstRow) {
-                    $firstRow = false;
-                    continue;
-                }
-    
-                // Insert into the database
-                if($row[0]){
-                    Position::create([
-                        'name'  => $row[0],
-                    ]);
-                }
-             
-            }
-    
-            // Close file
-            fclose($file);
     }
 }
