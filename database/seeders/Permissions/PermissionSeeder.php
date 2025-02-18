@@ -50,7 +50,7 @@ class PermissionSeeder extends Seeder
 
         // 1. Profile
         $profilePermission = $permissionModule->clone()->whereHas('module',function($query){
-            $query->where('name','Forms');
+            $query->where('name','Profile');
         })->pluck('prefix');
 
 
