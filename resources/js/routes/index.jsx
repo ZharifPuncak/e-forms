@@ -1,11 +1,18 @@
 import * as React from "react";
-import { Outlet } from "react-router-dom";
+import GuestGuard from "./utils/guest-guard";
 
 import { Page as NotFoundPage } from "@/pages/not-found";
 import { route as authRoute } from "./auth";
 import { route as dashboardRoute } from "./dashboard";
 
 export const routes = [
+	{
+		path: '/',
+		lazy: async () => {
+					const { Page } = await import("@/pages/auth/sign-in");
+					return { Component: (props) => <GuestGuard><Page {...props} /></GuestGuard> };
+		},
+	},
 	{
 		path: "errors",
 		children: [

@@ -15,7 +15,7 @@ import { CardSummary } from "@/components/widgets/card/card-summary";
 import { CardChart } from "@/components/widgets/card/card-chart";
 
 
-const metadata = { title: `Overview | ${appConfig.name}` };
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 
