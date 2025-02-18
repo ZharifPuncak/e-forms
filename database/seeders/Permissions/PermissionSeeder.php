@@ -87,7 +87,7 @@ class PermissionSeeder extends Seeder
 
         $admin->givePermissionTo($formsPermissions);
         $HR->givePermissionTo($formsPermissions);
-        $staff->givePermissionTo($formsPermissions)->revokePermissionTo(['form.update_form','form.create_form','form.delete_form']);
+        $staff->givePermissionTo($formsPermissions)->revokePermissionTo(['form.view_form','form.update_form','form.create_form','form.delete_form']);
 
 
         //5. Acknowledgement

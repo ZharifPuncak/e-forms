@@ -22,11 +22,10 @@ class AcknowledgementSeeder extends Seeder
           $ack = PermissionModule::create(['name' => 'Acknowledgements','code' => 'ack', 'description' => 'Acknowledgements operations']);
 
 
-            // Create sub-modules
-            $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.view_ack','method' => 'view']);
-            $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.update_ack','method' => 'update']);
+          // Create sub-modules
+          $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.view_acknowledgement','method' => 'view']);
+          $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.update_acknowledgement','method' => 'update']);
 
 
-  
     }
 }

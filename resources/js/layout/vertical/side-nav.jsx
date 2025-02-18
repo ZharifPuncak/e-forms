@@ -28,6 +28,7 @@ export function SideNav({ color = "evident", items = [] }) {
 
 	const pathname = usePathname();
 
+
 	const { colorScheme = "light" } = useColorScheme();
 
 	const styles = navColorStyles[colorScheme][color];
@@ -84,11 +85,12 @@ export function SideNav({ color = "evident", items = [] }) {
 
 function renderNavGroups({ items, pathname }) {
 
-	const { can } = useAuth();
+	const { cans } = useAuth();
 
 	const children = items.reduce((acc, curr) => {
 	
-		// if(can(curr?.permission)){
+	
+		if(cans(curr?.permissions) || curr?.permissions?.includes('all')){
 			acc.push(
 				<Stack component="li" key={curr.key} spacing={1.5}>
 					{curr.title ? (
@@ -98,10 +100,11 @@ function renderNavGroups({ items, pathname }) {
 							</Typography>
 						</div>
 					) : null}
+
 					<div>{renderNavItems({ depth: 0, items: curr.items, pathname })}</div>
 				</Stack>
 			);
-		// }
+		}
 		
 
 		return acc;
@@ -115,19 +118,34 @@ function renderNavGroups({ items, pathname }) {
 }
 
 function renderNavItems({ depth = 0, items = [], pathname }) {
+
+	let formatedChildItems = false;
+	const { cans } = useAuth();
 	const children = items.reduce((acc, curr) => {
 
 		const { items: childItems, key, ...item } = curr;
 
-		const forceOpen = childItems
+	
+
+			const forceOpen = childItems
 			? childItems.some((childItem) => childItem.href && pathname.startsWith(childItem.href))
 			: false;
 
-		acc.push(
-			<NavItem depth={depth} forceOpen={forceOpen} key={key} pathname={pathname} {...item}>
-				{childItems ? renderNavItems({ depth: depth + 1, pathname, items: childItems }) : null}
-			</NavItem>
-		);
+		    if(childItems){
+				 formatedChildItems = childItems.filter((el) => cans(el?.permissions) || curr?.permissions?.includes('all'));
+			}
+			
+			if(cans(curr?.permissions) || curr?.permissions?.includes('all')){
+				acc.push(
+					<NavItem depth={depth} forceOpen={forceOpen} key={key} pathname={pathname} {...item}>
+						{formatedChildItems ? renderNavItems({ depth: depth + 1, pathname, items: formatedChildItems }) : null}
+					</NavItem>
+				);
+			}
+			
+	
+	
+	
 
 		return acc;
 	}, []);

@@ -82,15 +82,16 @@ const AuthContext = createContext({ ...initialState,
 
 export const AuthProvider = ({ children }) => {
   
- 
-  
   const [state, dispatch] = useReducer(reducer, initialState);
   const { data: auth, storeData: setUserAuth } = useLocalStorage("auth", state);
   
+  const can = (permission) => { 
+      let result = (auth?.permissions).find((p) =>  p === permission ) ? true : false;
+      return result;
+  }
 
-  const can = (permission) => {
-    let result = (auth?.permissions).find((p) =>  p === permission ) ? true : false;
-    return result;
+  const cans = (permissions) => { 
+      return permissions.some(item => auth?.permissions.includes(item));
   }
 
   const is = (role) => {
@@ -177,6 +178,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     profile,
     can,
+    cans,
     is
   }}>
       {children}

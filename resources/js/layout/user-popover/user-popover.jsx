@@ -26,10 +26,8 @@ function SignOutButton() {
 	
 		const handleSignOut = React.useCallback(async () => {
 
-		  try {
-				
+		   try {
 				await logout();
-			
 			} catch (error) {
 				
 			}

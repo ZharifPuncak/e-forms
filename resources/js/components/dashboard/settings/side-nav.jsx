@@ -16,23 +16,25 @@ import { isNavItemActive } from "@/lib/is-nav-item-active";
 import { usePathname } from "@/hooks/use-pathname";
 import { RouterLink } from "@/components/core/link";
 
-// NOTE: First level elements are groups.
+import useAuth from "@/hooks/use-auth";
 
 const navItems = [
 
 	{
 		key: "personal",
 		title: "Personal",
+		permissions : ['all'],
 		items: [
-			{ key: "profile", title: "Profile", href: paths.dashboard.settings.profile, icon: "user-circle" },
+			{ key: "profile", title: "Profile", href: paths.dashboard.settings.profile, icon: "user-circle", permissions : ['all'] },
 		],
 	},
 		{
 		key: "acl",
 		title: "Access Control List",
+		permissions : ['acl.view_user','acl.view_permission','acl.view_role'],
 		items: [
-			{ key: "users", title: "Users", href: paths.dashboard.settings.users, icon: "user-circle" },
-			{ key: "roles", title: "Roles and Permissions", href: paths.dashboard.settings.roles, icon: "users-three" },
+			{ key: "users", title: "Users", href: paths.dashboard.settings.users, icon: "user-circle",permissions : ['acl.view_user'] },
+			{ key: "roles", title: "Roles and Permissions", href: paths.dashboard.settings.roles, icon: "users-three",permissions : ['acl.view_permission','acl.view_role'] },
 		],
 	},
 
@@ -48,6 +50,8 @@ const icons = {
 };
 
 export function SideNav() {
+
+	const { cans  } = useAuth();
 	const pathname = usePathname();
 
 	return (
@@ -62,9 +66,10 @@ export function SideNav() {
 					width: { xs: "100%", md: "240px" },
 				}}
 			>
+					{/* if(cans(curr?.permissions) || curr?.permissions?.includes('all')){ */}
 				<Stack component="ul" spacing={3} sx={{ listStyle: "none", m: 0, p: 0 }}>
-					{navItems.map((group) => (
-						<Stack component="li" key={group.key} spacing={2}>
+					{navItems.map((group) => 
+						 {return cans(group?.permissions) || group?.permissions?.includes('all') ?  <Stack component="li" key={group.key} spacing={2}>
 							{group.title ? (
 								<div>
 									<Typography color="text.secondary" variant="caption">
@@ -73,12 +78,12 @@ export function SideNav() {
 								</div>
 							) : null}
 							<Stack component="ul" spacing={1} sx={{ listStyle: "none", m: 0, p: 0 }}>
-								{group.items.map((item) => (
-									<NavItem {...item} key={item.key} pathname={pathname} />
-								))}
+								{group.items.map((item) => {
+									{return cans(item?.permissions) || item?.permissions?.includes('all') ?	<NavItem {...item} key={item.key} pathname={pathname} /> : null}
+								})}
 							</Stack>
-						</Stack>
-					))}
+						</Stack> : null}
+   						)}
 				</Stack>
 	
 			</Stack>
