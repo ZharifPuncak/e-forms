@@ -124,7 +124,7 @@ const UserForm = ({ data })  => {
            
        </Grid>
        <Grid  size={{xs : 12, sm: 12, md : 12 }}>
-       <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Role </Typography>
+              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Role </Typography>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{  '& .MuiInputBase-root': { height: 45 } }} 

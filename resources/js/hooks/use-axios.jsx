@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import axios from "@/utils/axios";
-import useAuth from "./useAuth";
+import useAuth from "./use-auth";
 import { useQuery, useMutation } from "react-query";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 
 const useAxios = () => {
   const { logout, isAuthenticated, token } = useAuth();
@@ -27,7 +27,7 @@ const useAxios = () => {
 
     useEffect(() => {
       if (!isFileDownload && isSuccess && data) {
-        toast.success(data?.status, { duration: 2000, position: "top-center", style: { color: "black" } });
+        toast(data?.status);
       }
     }, [isSuccess]);
 
@@ -35,7 +35,12 @@ const useAxios = () => {
       if (isError) {
         if (error?.message === "Unauthenticated.") return logout();
         if (error?.message || error?.status) {
-          toast.error(error?.message || error?.status, { duration: 2000, position: "top-center", style: { color: "black" } });
+          toast(error?.message || error?.status,{
+            style: {
+              background: 'red',
+              color: 'white'
+            },
+          });
         }
       }
     }, [isError]);

@@ -3,7 +3,17 @@
 import * as React from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-import "@fontsource/poppins"
+import "@fontsource/poppins/100.css"
+import "@fontsource/poppins/200.css"
+import "@fontsource/poppins/300.css"
+import "@fontsource/poppins/400.css"
+import "@fontsource/poppins/500.css"
+import "@fontsource/poppins/600.css"
+import "@fontsource/poppins/700.css"
+import "@fontsource/poppins/800.css"
+import "@fontsource/poppins/900.css"
+
+
 import "@/styles/global.css";
 import "nprogress/nprogress.css";
 
@@ -28,6 +38,9 @@ import { AppProvider } from "@/contexts/app-context";
 import { DataProvider } from '@/contexts/data-context';
 import { SettingsProvider } from "@/contexts/settings-context";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
+
 const metadata = { title: appConfig.name };
 
 
@@ -35,33 +48,35 @@ export function Root({ children }) {
 	const settings = getPersistedSettings();
 
 	return (
-		<HelmetProvider>
-			<Helmet>
-				<title>{metadata.title}</title>
-				<meta content={appConfig.themeColor} name="theme-color" />
-			</Helmet>
-			<AuthProvider>
-			  <AppProvider>
-				<DataProvider>
-					<Analytics>
-							<LocalizationProvider dateAdapter={AdapterDayjs}>
-								<SettingsProvider settings={settings}>
-									<I18nProvider>
-										<Rtl>
-											<ThemeProvider>
-												{children}
-												<Toaster position="bottom-right" />
-												<DrawerSlider />
-												<CustomDialog />
-											</ThemeProvider>
-										</Rtl>
-									</I18nProvider>
-								</SettingsProvider>
-							</LocalizationProvider>
-						</Analytics>
-					</DataProvider>
-				</AppProvider>
-			</AuthProvider>
-		</HelmetProvider>
+		<QueryClientProvider client={queryClient}>
+			<HelmetProvider>
+				<Helmet>
+					<title>{metadata.title}</title>
+					<meta content={appConfig.themeColor} name="theme-color" />
+				</Helmet>
+				<AuthProvider>
+				<AppProvider>
+					<DataProvider>
+						<Analytics>
+								<LocalizationProvider dateAdapter={AdapterDayjs}>
+									<SettingsProvider settings={settings}>
+										<I18nProvider>
+											<Rtl>
+												<ThemeProvider>
+													{children}
+													<Toaster position="bottom-right" />
+													<DrawerSlider />
+													<CustomDialog />
+												</ThemeProvider>
+											</Rtl>
+										</I18nProvider>
+									</SettingsProvider>
+								</LocalizationProvider>
+							</Analytics>
+						</DataProvider>
+					</AppProvider>
+				</AuthProvider>
+			</HelmetProvider>
+		</QueryClientProvider>
 	);
 }

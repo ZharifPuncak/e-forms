@@ -6,17 +6,20 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import InputLabel  from "@mui/material/InputLabel";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import useAxios  from "@/hooks/use-axios";
 import { Grid } from "@mui/system";
 
+import toast from "react-hot-toast";
 
 
 
 export function PasswordForm() {
 
-
+	const {  axiosMutate } = useAxios();
 	const [initialValues,setInitialValues] = React.useState({
 		password:  '',
 		new_password : '',
@@ -24,12 +27,12 @@ export function PasswordForm() {
 	  }); 
 	
 	  const validationSchema = Yup.object().shape({
-		password: Yup.string().min(3).max(255).required("Password is required").label('Password'),
-		new_password: Yup.string().min(3).required("New password is required").label('New Password'),
-		confirm_new_password: Yup.array().required("Password is required").label('Password'),
-		
+		password: Yup.string().min(6).required("Password is required").label('Password'),
+		new_password: Yup.string().min(6).required("New password is required").label('New Password'),
+		confirm_new_password: Yup.string().min(6).required("Confirm Password is required").label('Confirm Password'),
 	  });
 
+	 
 	const {
         values,
         errors,
@@ -42,11 +45,13 @@ export function PasswordForm() {
     } = useFormik({
         initialValues,
         validationSchema,
-    onSubmit: async (values) => { 
-        
-      
+     onSubmit: async (values) => { 
+		
+			 mutate();
      } 
     });
+
+	const { mutate, isLoading : updateLoading, isSuccess  } =  axiosMutate({ id: 'profile-update', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/password/update', payload : {...values} });
 
 
 	return (
@@ -55,23 +60,23 @@ export function PasswordForm() {
 				title={'Change Password'}
 			/>
 			<CardContent>
+		    	<form onSubmit={handleSubmit}>
 						<Grid container={true} spacing={4}  >
         		  		  <Grid   size={{ xs : 12, sm: 12, md : 12 }}>
 						
-							<Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Old Password </Typography>
+							<Typography variant='subtitle2' sx={{ fontWeight : '500', mb : 0.5, ml : 0.5 }} >Old Password </Typography>
 							    <TextField
 									fullWidth
-									name="name"
-									placeholder="Enter old password"
+									name="password"
+									placeholder=""
 									autoComplete="off"
 									onBlur={handleBlur} 
 									onChange={handleChange} 
-									value={values.name}  
-									helperText={touched.name && errors.name} 
-									error={Boolean(touched.name && errors.name)} 
-									type={'text'}
-									InputProps={{
-										
+									value={values.password}  
+									helperText={touched.password && errors.password} 
+									error={Boolean(touched.password && errors.password)} 
+									type={'password'}
+									InputProps={{									
 										sx: {
 											'& input::placeholder': {
 												fontSize: '14px',   // Adjust size here
@@ -91,18 +96,18 @@ export function PasswordForm() {
 								/>
 				    	  </Grid>
 						  <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-						    <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >New Password </Typography>
+						  <Typography variant='subtitle2' sx={{ fontWeight : '500', mb : 0.5, ml : 0.5 }} >New Password </Typography>
 							<TextField
 								fullWidth
-								name="name"
-								placeholder="Enter new password"
+								name="new_password"
+								placeholder=""
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
-								value={values.name}  
-								helperText={touched.name && errors.name} 
-								error={Boolean(touched.name && errors.name)} 
-								type={'text'}
+								value={values.new_password}  
+								helperText={touched.new_password && errors.new_password} 
+								error={Boolean(touched.new_password && errors.new_password)} 
+								type={'password'}
 								InputProps={{
 								
 									sx: {
@@ -124,18 +129,18 @@ export function PasswordForm() {
 							/>
 					     </Grid>
 						 <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-						        <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
+						 <Typography variant='subtitle2' sx={{ fontWeight : '500', mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
 								<TextField
 								fullWidth
-								name="name"
-								placeholder="Enter confirm password"
+								name="confirm_new_password"
+								placeholder=""
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
-								value={values.name}  
-								helperText={touched.name && errors.name} 
-								error={Boolean(touched.name && errors.name)} 
-								type={'text'}
+								value={values.confirm_new_password}  
+								helperText={touched.confirm_new_password && errors.confirm_new_password} 
+								error={Boolean(touched.confirm_new_password && errors.confirm_new_password)} 
+								type={'password'}
 								InputProps={{
 								
 									sx: {
@@ -158,10 +163,11 @@ export function PasswordForm() {
 				      </Grid>
 					   <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
 							<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-								<Button variant="contained">UPDATE</Button>
+								<Button type="submit" variant="contained">UPDATE</Button>
 							</Box>
 					  </Grid>
 					</Grid>
+					</form>
 			</CardContent>
 		</Card>
 	);
