@@ -25,5 +25,6 @@ class FormSeeder extends Seeder
             $form->sub_modules()->create(['name' => 'Form','prefix' => $form->code.'.create_form','method' => 'create']);
             $form->sub_modules()->create(['name' => 'Form','prefix' => $form->code.'.update_form','method' => 'update']);
             $form->sub_modules()->create(['name' => 'Form','prefix' => $form->code.'.delete_form','method' => 'delete']);
+
     }
 }

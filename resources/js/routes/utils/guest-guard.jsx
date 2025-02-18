@@ -1,36 +1,32 @@
-import { Fragment } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 import useAuth from '@/hooks/use-auth';
-import useLocation from '@/hooks/use-location';
+import { paths } from "@/paths"; // Ensure correct import path
 
 export default function GuestGuard({ children }) {
 
-const { state } = useLocation();
-const { isAuthenticated } = useAuth();
-const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
+  useEffect(() => {
 
-    React.useEffect(() => {
+    if (isAuthenticated) {
+      if (location.state?.from) {
+        navigate(location.state.from);
+      } else if (window.history.length > 1) {
+        navigate(-1); 
+      } else {
+        navigate(paths.dashboard.home);
+      }
+    }
 
-    
-        if(!isAuthenticated){
+  },[isAuthenticated]);
 
-        
-            navigate(paths.auth.signIn);
+  if (isAuthenticated) {
+		return null;
+	}
 
-        }else{
-
-
-            if (window.history.length <= 1) {
-            
-                navigate(paths.home); 
-             }else{
-                return <>{children || <Outlet />}</>;
-             }
-        }
-
-
-    }, [isAuthenticated, isLoading, navigate]);
-
+  return <>{children || <Outlet />}</>;
 }

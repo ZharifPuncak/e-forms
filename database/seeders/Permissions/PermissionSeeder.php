@@ -20,29 +20,82 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-
+        //Run seeder for respective permissions
         $this->call([
-            ACLSeeder::class,
             ProfileSeeder::class,
+            ACLSeeder::class,
+            StaffSeeder::class,
             FormSeeder::class,
-            AcknowledgementSeeder::class,
-            StaffSeeder::class
+            AcknowledgementSeeder::class
         ]);
             
         //Load all permissions
-        $arrayPermissions =  PermissionSubModule::with('module')->get();
-        $permissions = $arrayPermissions->map(function($permission){
+        $permissionModule = PermissionSubModule::with('module');
+        $arrayPermissions =  $permissionModule->clone()->get();
+        $permissions = $arrayPermissions?->map(function($permission){
             return [ "name" => $permission['prefix'] , "guard_name" => "api", "permission_sub_module_id" => $permission?->id];
         });
 
+
+        // Insert permission into table
         Permission::insert($permissions->toArray());
 
   
-        // ->givePermissionTo(Permission::all())->revokePermissionTo(['create.enquiry','edit.enquiry','delete.enquiry']);
-        // ->revokePermissionTo(['']);
-        // ->givePermissionTo(['create.quotation','edit.quotation','delete.quotation']);
-        // Role::firstOrCreate(['name' => 'Management']);
-        // Role::firstOrCreate(['name' => 'System Coordinator'])->givePermissionTo(['view.dashboard','view.profilling','add.profilling','edit.profilling','delete.profilling','view.schedule']);
-        // Role::firstOrCreate(['name' => 'Inspector'])->givePermissionTo(['view.dashboard','view.info','edit.info','view.appointment','cancel.job']);
+        //#Assignments for permissions by modules. Load Role first
+        $admin = Role::where('name','Admin')->first();
+        $HR    = Role::where('name','Admin-HR')->first();
+        $staff = Role::where('name','Staff')->first();
+
+        
+
+        // 1. Profile
+        $profilePermission = $permissionModule->clone()->whereHas('module',function($query){
+            $query->where('name','Forms');
+        })->pluck('prefix');
+
+
+        $admin->givePermissionTo($profilePermission);
+        $HR->givePermissionTo($profilePermission);
+        $staff->givePermissionTo($profilePermission);
+
+
+        // 2. ACL
+
+        $aclPermissions = $permissionModule->clone()->whereHas('module',function($query){
+            $query->where('name','Access Control List');
+        })->pluck('prefix');
+
+        $admin->givePermissionTo($aclPermissions);
+        $HR->givePermissionTo($aclPermissions);
+
+
+        // 3.StaffSeeder
+
+        $staffPermissions = $permissionModule->clone()->whereHas('module',function($query){
+            $query->where('name','Staffs');
+        })->pluck('prefix');
+
+        $admin->givePermissionTo($staffPermissions);
+        $HR->givePermissionTo($staffPermissions);
+
+
+        // 4. Forms
+        $formsPermissions = $permissionModule->clone()->whereHas('module',function($query){
+            $query->where('name','Forms');
+        })->pluck('prefix');
+
+
+        $admin->givePermissionTo($formsPermissions);
+        $HR->givePermissionTo($formsPermissions);
+        $staff->givePermissionTo($formsPermissions)->revokePermissionTo(['form.update_form','form.create_form','form.delete_form']);
+
+
+        //5. Acknowledgement
+        $acknowledgementPermissions = $permissionModule->clone()->whereHas('module',function($query){
+            $query->where('name','Acknowledgements');
+        })->pluck('prefix');
+
+        $staff->givePermissionTo($acknowledgementPermissions);
+
     }
 }

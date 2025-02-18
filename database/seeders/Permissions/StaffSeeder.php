@@ -25,6 +25,7 @@ class StaffSeeder extends Seeder
             $staff->sub_modules()->create(['name' => 'Staff','prefix' => $staff->code.'.create_staff','method' => 'create']);
             $staff->sub_modules()->create(['name' => 'Staff','prefix' => $staff->code.'.update_staff','method' => 'update']);
             $staff->sub_modules()->create(['name' => 'Staff','prefix' => $staff->code.'.delete_staff','method' => 'delete']);
-
+            
+            //Give access to Admin, Admin-HR
     }
 }

@@ -24,9 +24,8 @@ class AcknowledgementSeeder extends Seeder
 
             // Create sub-modules
             $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.view_ack','method' => 'view']);
-            $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.create_ack','method' => 'create']);
             $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.update_ack','method' => 'update']);
-            $ack->sub_modules()->create(['name' => 'Acknowledgement','prefix' => $ack->code.'.delete_ack','method' => 'delete']);
+
 
   
     }

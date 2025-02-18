@@ -25,5 +25,7 @@ class ProfileSeeder extends Seeder
         // Create sub-modules
         $profile->sub_modules()->create(['name' => 'Password','prefix' => $profile->code.'.update_password', 'method' => 'update']);
         $profile->sub_modules()->create(['name' => 'Session','prefix' => $profile->code.'.update_session', 'method' => 'delete']);
+
+      
     }
 }

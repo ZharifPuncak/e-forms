@@ -12,7 +12,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
-import { paths } from "@/paths";
 import { CenteredLayout } from "./components/centered-layout";
 import { DynamicLogo } from "@/components/core/logo";
 
@@ -35,6 +34,7 @@ export function Page() {
 	const [errMessage,setErrMessage] = React.useState('');
 	const [showPassword, setShowPassword] = React.useState(false);
 	const [isLoading,setIsLoading] = React.useState(false);
+	const navigate = useNavigate();
 
 
 
@@ -66,6 +66,9 @@ export function Page() {
 			setErrMessage('');
 			setIsLoading(true);
 			await login( values.staffIcNo,values.password);
+			//Refresh page
+			navigate(0);
+
 
 		  } catch (error) {
 

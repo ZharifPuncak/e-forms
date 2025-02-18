@@ -2,41 +2,26 @@
 
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-
 import { paths } from "@/paths";
-
 import useAuth from "@/hooks/use-auth";
-import useLocation from "@/hooks/use-location";
+
 
 export function AuthGuard({ children }) {
 	
-	const { isAuthenticated, isLoading } = useAuth();
-	const { state } = useLocation();
+	const { isAuthenticated } = useAuth();
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
 
-	
-		if(!isAuthenticated){
-
-		
+		if(!isAuthenticated ){
 			navigate(paths.auth.signIn);
-
-		}else{
-
-	
-			if (window.history.length <= 1) {
-			
-				navigate(paths.home); 
-			 }else{
-				navigate(state.from); 
-			 }
+		}else if(isAuthenticated && window.history.length <= 1){
+			navigate(paths.dashboard.overview);
 		}
 
+	}, [isAuthenticated]);
 
-	}, [isAuthenticated, isLoading, navigate]);
-
-	if (isLoading || !isAuthenticated) {
+	if (!isAuthenticated) {
 		return null;
 	}
 
