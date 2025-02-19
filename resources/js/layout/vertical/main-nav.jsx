@@ -137,8 +137,10 @@ function LanguageSwitch() {
 
 
 function UserButton() {
+
 	const popover = usePopover();
 	const { user } = useAuth();
+
 	return (
 		<React.Fragment>
 			<Box

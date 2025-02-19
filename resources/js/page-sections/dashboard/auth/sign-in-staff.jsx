@@ -115,6 +115,7 @@ export function SignInStaff() {
 									<TextField 
 									    autoComplete='off'
 										fullWidth  
+										placeholder='Please enter staff IC' 
 										inputProps={{ maxLength: 12 }}
 										type="text" 
 										name="staffIcNo"
@@ -123,8 +124,9 @@ export function SignInStaff() {
 										onChange={handleChange} 
 										value={values.staffIcNo}  
 										helperText={touched.staffIcNo && errors.staffIcNo} 
-										error={Boolean(touched.staffIcNo && errors.staffIcNo)}  
-									
+										FormHelperTextProps={{
+											sx: { color: "#f05344" }, // ✅ Change helper text color
+										  }}
 									InputProps={{
 											
 										sx: {
@@ -151,12 +153,14 @@ export function SignInStaff() {
 									<InputLabel sx={{ mb : 0.3 }}>Password</InputLabel>
 									<TextField fullWidth  type={showPassword ? 'text' : 'password'} name="password"
 									autoComplete="off"
+									placeholder='Please enter password' 
 									onBlur={handleBlur} 
 									onChange={handleChange} 
 									value={values.password}  
 									helperText={touched.password && errors.password} 
-									error={Boolean(touched.password && errors.password)}  
-									
+									FormHelperTextProps={{
+										sx: { color: "#f05344" }, // ✅ Change helper text color
+									  }}
 									InputProps={{
 											
 										sx: {

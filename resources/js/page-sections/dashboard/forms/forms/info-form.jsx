@@ -57,9 +57,7 @@ const InfoForm = ({ item })  => {
         initialValues,
         validationSchema,
         onSubmit: async (values) => { 
-
-          await  mutate();
-         
+          await  mutate();  
         } 
     });
 
@@ -68,7 +66,9 @@ const InfoForm = ({ item })  => {
   
     useEffect(() => {
       if(isSuccess){
-        navigate(paths.dashboard.forms.list);
+        setTimeout(() =>{
+          navigate(paths.dashboard.forms.list);
+        },250)
       }
     },[isSuccess])
 
@@ -241,6 +241,10 @@ const InfoForm = ({ item })  => {
                     name="effective_to"  
                     onChange={(value) => {
                           setFieldValue("effective_to", value);
+
+                          if(values.effective_from && dayjs(value).format("DD/MM/YYYY") < dayjs(values.effective_from).format("DD/MM/YYYY")){
+                            setFieldValue("effective_from", null);
+                          }
                     }}
                     // minDate={moment().toDate()}  
                     slotProps={{ textField: { 

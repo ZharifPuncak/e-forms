@@ -60,7 +60,7 @@ export function UserPopover({ anchorEl, onClose, open }) {
 			<Box sx={{ p: 2 }}>
 				<Typography sx={{ mb : -1}} fontSize={14}>{user.name}</Typography>
 				<Typography color="text.secondary" variant="caption">
-					{user?.staff_ic_no}
+					{user?.staff_ic_no ?? user?.email}
 				</Typography>
 			</Box>
 			<Divider />

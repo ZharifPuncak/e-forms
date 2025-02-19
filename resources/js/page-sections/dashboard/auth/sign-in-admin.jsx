@@ -114,7 +114,8 @@ export function SignInAdmin() {
 									<InputLabel sx={{ mb : 0.3 }}>Email</InputLabel>
 									<TextField 
 									    autoComplete='off'
-										fullWidth  
+										fullWidth 
+										placeholder='Please enter email' 
 										type="email" 
 										name="email"
 										autoFocus
@@ -122,7 +123,9 @@ export function SignInAdmin() {
 										onChange={handleChange} 
 										value={values.email}  
 										helperText={touched.email && errors.email} 
-										error={Boolean(touched.email && errors.email)}  
+										FormHelperTextProps={{
+											sx: { color: "#f05344" }, // ✅ Change helper text color
+										  }}
 									
 									InputProps={{
 											
@@ -150,11 +153,14 @@ export function SignInAdmin() {
 									<InputLabel sx={{ mb : 0.3 }}>Password</InputLabel>
 									<TextField fullWidth  type={showPassword ? 'text' : 'password'} name="password"
 									autoComplete="off"
+									placeholder='Please enter password' 
 									onBlur={handleBlur} 
 									onChange={handleChange} 
 									value={values.password}  
 									helperText={touched.password && errors.password} 
-									error={Boolean(touched.password && errors.password)}  
+									FormHelperTextProps={{
+										sx: { color: "#f05344" }, // ✅ Change helper text color
+									  }}
 									
 									InputProps={{
 											

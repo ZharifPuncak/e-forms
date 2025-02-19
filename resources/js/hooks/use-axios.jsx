@@ -27,7 +27,16 @@ const useAxios = () => {
 
     useEffect(() => {
       if (!isFileDownload && isSuccess && data) {
-        toast(data?.status);
+
+        if(data?.message){
+          toast.success(data?.message,{
+            style: {
+              background: 'green',
+              color: 'white'
+            },
+          });
+        }
+      
       }
     }, [isSuccess]);
 
@@ -35,7 +44,7 @@ const useAxios = () => {
       if (isError) {
         if (error?.message === "Unauthenticated.") return logout();
         if (error?.message || error?.status) {
-          toast(error?.message || error?.status,{
+          toast.error(error?.message || error?.status,{
             style: {
               background: 'red',
               color: 'white'

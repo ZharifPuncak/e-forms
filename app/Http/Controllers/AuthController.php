@@ -16,7 +16,8 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\Auth\LoginRequest;
 
-use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\AdminResource;
+use App\Http\Resources\User\StaffResource;
 use Spatie\Permission\Models\Permission;
 
 
@@ -39,12 +40,11 @@ class AuthController extends Controller
             return $this->error('', 'Credentials do not match', 401);
         }
 
-    
         // Log the staff in manually
         Auth::login($staff->user);
 
         return $this->success([
-            'user' => new UserResource($staff),
+            'user' => new StaffResource($staff),
             'permissions' => auth()->user()->getPermissionsViaRoles()->pluck("name"),
             'token' => $staff?->user?->createToken('API Token '.$staff?->user?->name)->plainTextToken,
         ]);
@@ -68,7 +68,7 @@ class AuthController extends Controller
         $user = User::where('email',$request->email)->first();
 
         return $this->success([
-            'user' => new UserResource($user),
+            'user' => new AdminResource($user),
             'permissions' => auth()->user()->getPermissionsViaRoles()->pluck("name"),
             'token' => $user->createToken('API Token '.$user->name)->plainTextToken,
             'roles' => $user->roles->pluck('name')->toArray()
@@ -85,9 +85,8 @@ class AuthController extends Controller
             // Revoke current user token
             $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
         }
-        return $this->success([
-            'message' => 'Logged out',
-        ]);
+  
+        return response()->json(['message' => 'Logged out.'],200);
     }
 
     public function update(Request $request){
@@ -109,7 +108,7 @@ class AuthController extends Controller
 
         Auth::user()->update(['password' => Hash::make($request->new_password)]);
 
-        return response()->json(['status' => 'Password updated.'],200);
+        return response()->json(['message' => 'Password updated.'],200);
 
       }
 }

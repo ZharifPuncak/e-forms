@@ -21,7 +21,7 @@ class FormController extends Controller
     
     public function index(){
 
-        $forms = Form::with('category')->get();
+        $forms = Form::with('category')->orderBy('id','desc')->get();
 
         return $this->success([
             'data' =>  FormListResource::collection($forms),
@@ -47,9 +47,7 @@ class FormController extends Controller
             'effective_to'   => Carbon::parse($request->effective_to)->format('y-m-d')
         ]);
 
-        return $this->success([
-            'status' =>  'Success',
-        ]);
+        return response()->json(['message' => 'Form created.'],200);
 
     }
 

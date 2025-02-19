@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Skeleton from "@mui/material/Skeleton";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -50,13 +51,19 @@ export function PasswordForm() {
 	const { mutate, isLoading : updateLoading, isSuccess  } =  axiosMutate({ id: 'profile-update', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/password/update', payload : {...values} });
 
 
+	React.useEffect(() => {
+		if(isSuccess){
+			resetForm();
+		}
+	},[isSuccess])
+
 	return (
 		<Card>
 			<CardHeader
 				title={'Change Password'}
 			/>
 			<CardContent>
-		    	<form onSubmit={handleSubmit}>
+		        	{!updateLoading && <form onSubmit={handleSubmit}>
 						<Grid container={true} spacing={4}  >
         		  		  <Grid   size={{ xs : 12, sm: 12, md : 12 }}>
 						
@@ -64,13 +71,15 @@ export function PasswordForm() {
 							    <TextField
 									fullWidth
 									name="password"
-									placeholder=""
+									placeholder="Please enter old password"
 									autoComplete="off"
 									onBlur={handleBlur} 
 									onChange={handleChange} 
 									value={values.password}  
 									helperText={touched.password && errors.password} 
-									error={Boolean(touched.password && errors.password)} 
+									FormHelperTextProps={{
+										sx: { color: "#f05344" }, // ✅ Change helper text color
+									  }}
 									type={'password'}
 									InputProps={{									
 										sx: {
@@ -96,13 +105,15 @@ export function PasswordForm() {
 							<TextField
 								fullWidth
 								name="new_password"
-								placeholder=""
+								placeholder="Please enter new password"
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
 								value={values.new_password}  
 								helperText={touched.new_password && errors.new_password} 
-								error={Boolean(touched.new_password && errors.new_password)} 
+								FormHelperTextProps={{
+									sx: { color: "#f05344" }, // ✅ Change helper text color
+								  }}
 								type={'password'}
 								InputProps={{
 								
@@ -129,13 +140,15 @@ export function PasswordForm() {
 								<TextField
 								fullWidth
 								name="confirm_new_password"
-								placeholder=""
+								placeholder="Please enter confirm password"
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
 								value={values.confirm_new_password}  
 								helperText={touched.confirm_new_password && errors.confirm_new_password} 
-								error={Boolean(touched.confirm_new_password && errors.confirm_new_password)} 
+								FormHelperTextProps={{
+									sx: { color: "#f05344" }, // ✅ Change helper text color
+								  }}
 								type={'password'}
 								InputProps={{
 								
@@ -163,7 +176,7 @@ export function PasswordForm() {
 							</Box>
 					  </Grid>
 					</Grid>
-					</form>
+					</form>}
 			</CardContent>
 		</Card>
 	);
