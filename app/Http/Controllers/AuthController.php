@@ -14,6 +14,7 @@ use App\Models\Staff\Staff;
 use App\Traits\HttpResponses;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\LoginUserRequest;
+use App\Http\Requests\Auth\LoginRequest;
 
 use App\Http\Resources\User\UserResource;
 use Spatie\Permission\Models\Permission;
@@ -26,7 +27,7 @@ class AuthController extends Controller
 {
     use HttpResponses;
 
-    public function login(LoginUserRequest $request){
+    public function staffLogin(LoginUserRequest $request){
 
         $request->validated($request->all());
 
@@ -46,6 +47,31 @@ class AuthController extends Controller
             'user' => new UserResource($staff),
             'permissions' => auth()->user()->getPermissionsViaRoles()->pluck("name"),
             'token' => $staff?->user?->createToken('API Token '.$staff?->user?->name)->plainTextToken,
+        ]);
+
+    }
+
+
+    public function adminLogin(LoginRequest $request){
+
+       
+        $request->validated($request->all());
+
+        if(!Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            return $this->error('','Credentials do not match',401);
+        };
+
+        if(!User::where('email',$request->email)->first()){
+            return $this->error('','Email is not found',401);
+        }
+        
+        $user = User::where('email',$request->email)->first();
+
+        return $this->success([
+            'user' => new UserResource($user),
+            'permissions' => auth()->user()->getPermissionsViaRoles()->pluck("name"),
+            'token' => $user->createToken('API Token '.$user->name)->plainTextToken,
+            'roles' => $user->roles->pluck('name')->toArray()
         ]);
 
     }

@@ -12,15 +12,9 @@ export default function GuestGuard({ children }) {
 
   useEffect(() => {
 
-    if (isAuthenticated) {
-      if (location.state?.from) {
-        navigate(location.state.from);
-      } else if (window.history.length > 1) {
-        navigate(-1); 
-      } else {
-        navigate(paths.dashboard.home);
+      if(isAuthenticated ){
+            navigate(paths.dashboard.overview);
       }
-    }
 
   },[isAuthenticated]);
 

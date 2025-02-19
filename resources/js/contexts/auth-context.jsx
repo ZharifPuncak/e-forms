@@ -114,15 +114,22 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const login = async (staffIcNo, password) => {
+  const login = async (loginCred, password, role) => {
 
-    const { data } = await axios.post("/api/login", {
-      staff_ic_no : staffIcNo,
-      password
-    }); 
+    let loadedData = {};
+
+    const endpoint = role === "staff" ? "/api/login" : "/api/login/admin";
+    const payload = role === "staff" 
+      ? { staff_ic_no: loginCred, password } 
+      : { email: loginCred, password };
+    
+    const { data } = await axios.post(endpoint, payload);
+    
+    loadedData = data;
+    
 
     //Payload
-    let payload = {
+    let formattedData = {
       isAuthenticated: true,
       user: data.data.user,
       token: data.data.token,
@@ -132,10 +139,10 @@ export const AuthProvider = ({ children }) => {
    
     dispatch({
       type: "LOGIN",
-      payload: payload
+      payload: formattedData
     });
 
-    setUserAuth(payload);
+    setUserAuth(formattedData);
 
 
   };

@@ -17,10 +17,12 @@ return new class extends Migration
             $table->string('alias')->nullable();
             $table->string('code');
             $table->unsignedBigInteger('form_category_id');
-            $table->longText('description')->nullable();
+            $table->longText('descriptions')->nullable();
             $table->enum('status', ['new', 'pending', 'confirm', 'ongoing', 'completed','closed'])
             ->default('new')
             ->comment('Status of the forms: new, pending, confirm, ongoing, completed','closed');
+            $table->timestamp('effective_from');
+            $table->timestamp('effective_to');
             $table->timestamps();
         });
     }

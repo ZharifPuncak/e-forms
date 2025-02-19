@@ -13,50 +13,31 @@ import TableAG from "@/components/core/table/TableAG";
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-
-import { useAppContext } from "@/contexts/app-context";
-
+import { CardsThree as CardsThreeIcon } from "@phosphor-icons/react/dist/ssr/CardsThree";
+ 
 import { paths } from "@/paths";
 
-
-// import UserForm from "../forms/user-form"
+import useAxios  from "@/hooks/use-axios";
 
 
 export function FormTable() {
 
-    const appContext = useAppContext();
+    const { axiosGet } = useAxios();
 	const navigate = useNavigate();
 
-	const [rowData, setRowData] = React.useState([
-        {
-			 id: 1,
-			 name: "Personal Data Protection Act",
-			 alias : "PDPA", 
-			 code: "ACK01", 
-			 category : "Yearly Policy",
-			 status : 'pending', 
-			 role: 'Admin',
-			 created_at : '9 Jan, 2025',
-			 action: 1 
-		},
-        {    id: 2,
-			 name: "Integrity Pledge",
-			 alias: "PL",
-			 code: "PL01", 
-			 category : "Onboarding policy",
-			 status : 'completed', 
-			 role: 'Admin-HR',
-			 created_at : '9 Jan, 2025', 
-			 action: 2 
-		},
-    ]);
+	const { isLoading, data : forms, refetch   }  = axiosGet({  id : 'forms', url : import.meta.env.VITE_API_BASE_URL + '/forms', cacheTime : 2 * 60 * 1000, staleTime :  2 * 60 * 1000 });
+	const [rowData, setRowData] = React.useState([]);
+
+	React.useEffect(() => {
+		setRowData(forms?.data?.data)
+	},[forms])
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
 		{ field: "name", cellRenderer : (params) => {
 			const rowData = params.data;
 			return 	<Box  sx={{ mt : 1 }}>
-				<Typography variant="subtitle2" sx={{ mb : -3, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
+				<Typography  sx={{ mb : -2, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
 			
 				<Typography color="text.secondary" sx={{ mb : 1}} variant="caption">
 					{rowData.alias}
@@ -74,8 +55,9 @@ export function FormTable() {
 					label: "Completed",
 					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 				},
-				new: { label: "New", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
+				closed: { label: "Closed", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
 				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-error-main)" /> },
+				new: { label: "New", icon: <CardsThreeIcon color="var(--mui-palette-warning-main)" weight="fill" /> },
 			};
 			const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 
@@ -91,7 +73,7 @@ export function FormTable() {
 				onClick={() => {
 					navigate(paths.dashboard.forms.details(rowData.code))
 				}}>
-					Details
+					View details
 				</Link>
 			</>
 		} }
@@ -99,7 +81,7 @@ export function FormTable() {
 
 	return <>
 	
-			<TableAG row={rowData} column={colDefs} loading={false} title=''/>
+			<TableAG row={rowData} column={colDefs} loading={isLoading} title=''/>
 	
 	</>;
 }

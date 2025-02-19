@@ -6,14 +6,11 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import InputLabel  from "@mui/material/InputLabel";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import useAxios  from "@/hooks/use-axios";
 import { Grid } from "@mui/system";
-
-import toast from "react-hot-toast";
 
 
 
@@ -21,15 +18,15 @@ export function PasswordForm() {
 
 	const {  axiosMutate } = useAxios();
 	const [initialValues,setInitialValues] = React.useState({
-		password:  '',
-		new_password : '',
-		confirm_new_password: '',
+			password:  '',
+			new_password : '',
+			confirm_new_password: '',
 	  }); 
 	
 	  const validationSchema = Yup.object().shape({
-		password: Yup.string().min(6).required("Password is required").label('Password'),
-		new_password: Yup.string().min(6).required("New password is required").label('New Password'),
-		confirm_new_password: Yup.string().min(6).required("Confirm Password is required").label('Confirm Password'),
+			password: Yup.string().min(6).required("Password is required").label('Password'),
+			new_password: Yup.string().min(6).required("New password is required").label('New Password'),
+			confirm_new_password: Yup.string().oneOf([Yup.ref("new_password"), null], "Does not match new password").min(6).required("Confirm Password is required").label('Confirm Password'),
 	  });
 
 	 
@@ -46,8 +43,7 @@ export function PasswordForm() {
         initialValues,
         validationSchema,
      onSubmit: async (values) => { 
-		
-			 mutate();
+		mutate();
      } 
     });
 
@@ -64,7 +60,7 @@ export function PasswordForm() {
 						<Grid container={true} spacing={4}  >
         		  		  <Grid   size={{ xs : 12, sm: 12, md : 12 }}>
 						
-							<Typography variant='subtitle2' sx={{ fontWeight : '500', mb : 0.5, ml : 0.5 }} >Old Password </Typography>
+							<Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Old Password </Typography>
 							    <TextField
 									fullWidth
 									name="password"
@@ -96,7 +92,7 @@ export function PasswordForm() {
 								/>
 				    	  </Grid>
 						  <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-						  <Typography variant='subtitle2' sx={{ fontWeight : '500', mb : 0.5, ml : 0.5 }} >New Password </Typography>
+						  <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >New Password </Typography>
 							<TextField
 								fullWidth
 								name="new_password"
@@ -129,7 +125,7 @@ export function PasswordForm() {
 							/>
 					     </Grid>
 						 <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
-						 <Typography variant='subtitle2' sx={{ fontWeight : '500', mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
+						 <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
 								<TextField
 								fullWidth
 								name="confirm_new_password"

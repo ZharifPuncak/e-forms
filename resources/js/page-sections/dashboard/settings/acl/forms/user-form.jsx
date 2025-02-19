@@ -61,7 +61,7 @@ const UserForm = ({ data })  => {
               <TextField
                         fullWidth
                         name="name"
-                        placeholder="Enter name"
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
@@ -94,7 +94,7 @@ const UserForm = ({ data })  => {
                <TextField
                    fullWidth
                    name="email"
-                   placeholder="Enter email"
+                   placeholder=""
                    autoComplete="off"
                    onBlur={handleBlur} 
                    onChange={handleChange} 
@@ -143,7 +143,7 @@ const UserForm = ({ data })  => {
                   options={roles}
                   renderInput={(params) => (
                     <TextField
-                    placeholder='Select role'
+                    placeholder=''
                     helperText={touched.role && errors.role}      error={Boolean(touched.role && errors.role)}  {...params}      
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {

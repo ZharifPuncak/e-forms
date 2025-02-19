@@ -17,7 +17,7 @@ export function Users({ users }) {
 
 	const appContext = useAppContext();
 	return (<>
-	  <Card>
+	  {/* <Card>
 			<CardHeader
 				subheader=""
 				title={	<Typography variant="h6">
@@ -30,7 +30,7 @@ export function Users({ users }) {
 						<UserForm />
 					</Box>
 			</CardContent>
-		</Card>
+		</Card> */}
 		<Card>
 			<CardHeader
 				subheader=""

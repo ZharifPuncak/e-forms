@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -15,30 +15,35 @@ import { useFormik } from "formik";
 import { Typography } from '@mui/material';
 
 import dayjs from "dayjs";
+import useAxios  from "@/hooks/use-axios";
+import { useNavigate } from 'react-router-dom';
 
+import { paths } from "@/paths";
 
-const InfoForm = ({ data })  => {
+const InfoForm = ({ item })  => {
 
+  const { axiosGet, axiosMutate } = useAxios();
+  const navigate = useNavigate();
   const theme = useTheme();
   const [initialValues,setInitialValues] = useState({
-    name:  '',
-    alias: '',
-    type:  '',
-    category: '',
-    descriptions: '',
-    effective_from: null,
-    effective_to: null,
-    
+    name:  item?.name || '',
+    alias: item?.alias || '',
+    category: item?.category || '',
+    descriptions: item?.descriptions || '',
+    effective_from: item?.effective_from ? dayjs(effective_from) : null || null,
+    effective_to: item?.effective_to ? dayjs(effective_from) : null || null,
   }); 
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().min(3).max(100).required("Name is required").label('Name'),
     alias: Yup.string().min(3).max(100).required("Alias is required").label('Alias'),
     category: Yup.object().required("Category is required").label('Category'),
-    descriptions: Yup.string().required("Description is required").label('Description'),
+    descriptions: Yup.string().max(3000).required("Description is required").label('Description'),
+    effective_from : Yup.string().required("Effective from required").label('Effective from date'),
+    effective_to :Yup.string().required("Effective to required").label('Effective to date'),
   });
 
-  const categories = ['IT Security Compliance','HR Policy','Onboarding Policy'];
+ 
   const {
         values,
         errors,
@@ -52,15 +57,25 @@ const InfoForm = ({ data })  => {
         initialValues,
         validationSchema,
         onSubmit: async (values) => { 
-        
+
+          await  mutate();
+         
         } 
     });
 
+    const { isLoading, data : fetchedCategories, refetch   }  = axiosGet({  id : 'forms-categories', url : import.meta.env.VITE_API_BASE_URL + '/forms/categories', cacheTime : 3 * 60 * 1000, staleTime :  3 * 60 * 1000 });
+    const { mutate, isLoading : updateLoading, isSuccess  } =  axiosMutate({ id: 'forms-store', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/store', payload : {...values} });
+  
+    useEffect(() => {
+      if(isSuccess){
+        navigate(paths.dashboard.forms.list);
+      }
+    },[isSuccess])
 
   return (
   <form onSubmit={handleSubmit}>
 
-        <Grid container={true} spacing={4}  >
+        <Grid container={true} sx={{ p : 1 }} spacing={4}  >
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
               <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Name </Typography>
               <TextField
@@ -72,7 +87,9 @@ const InfoForm = ({ data })  => {
                         onChange={handleChange} 
                         value={values.name}  
                         helperText={touched.name && errors.name} 
-                        error={Boolean(touched.name && errors.name)} 
+                        FormHelperTextProps={{
+                          sx: { color: "#f05344" }, // ✅ Change helper text color
+                        }}
                         type={'text'}
                         InputProps={{
                      
@@ -85,11 +102,14 @@ const InfoForm = ({ data })  => {
                                   height: "50px", // Set the height of the whole input
                                   display: "flex",
                                   alignItems: "center", // Ensure text is centered
+                                  
                                 },
                             
                                 "& .MuiOutlinedInput-input": {
                                   paddingY : '10px'
                                 },
+                                
+                           
                             },
                         }}
                     />
@@ -105,7 +125,9 @@ const InfoForm = ({ data })  => {
                         onChange={handleChange} 
                         value={values.alias}  
                         helperText={touched.alias && errors.alias} 
-                        error={Boolean(touched.alias && errors.alias)} 
+                        FormHelperTextProps={{
+                          sx: { color: "#f05344" }, // ✅ Change helper text color
+                        }}
                         type={'text'}
                         InputProps={{
                      
@@ -131,26 +153,29 @@ const InfoForm = ({ data })  => {
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Category </Typography>
               <Stack spacing={1}>
                  <Autocomplete
-          
-                  sx={{
-                    "& .MuiInputBase-root": { height: 45 }, // Adjust input height
-                    // "& .MuiInputLabel-root": { fontWeight: "bold" }, // Make label bold
-                  }}
+
                   id="category"
+                  sx={{
+                    "& .MuiInputBase-root": { height: 45 }, 
+                  }}
                   value={values.category}
                   name="category"
                   onChange={(e, v) => {
                     setFieldValue("category", v || '');
                   }}
                   isOptionEqualToValue={(option, newValue) => {
-                    return option.id === newValue;
+                    return option.id === newValue.id;
                   }}
-                  getOptionLabel={(option) => option || ''}
-                  options={categories}
+                  getOptionLabel={(option) => option.name || ''}
+                  options={fetchedCategories?.data?.categories ?? []}
                   renderInput={(params) => (
                     <TextField
                       placeholder="Select form category"
-                      helperText={touched.category && errors.category}      error={Boolean(touched.category && errors.category)}  {...params}     
+                      helperText={touched.category && errors.category}   
+                         FormHelperTextProps={{
+                          sx: { color: "#f05344" }, // ✅ Change helper text color
+                        }}
+                        {...params}     
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
@@ -193,8 +218,14 @@ const InfoForm = ({ data })  => {
                         "& .MuiInputBase-root": { height: "100%" }, // Ensure full height
                         "& .MuiInputBase-input": { padding: "10px" }, // Adjust padding
                       },
-                      placeholder: "Select date" , size: 'small',  fullWidth: true, variant : "outlined",
-                      helperText: touched.effective_from && errors.effective_from, error : Boolean(touched.effective_from && errors.effective_from) 
+                      placeholder: "Select date", fullWidth: true, variant : "outlined",
+                      helperText: touched.effective_from && errors.effective_from, 
+                      FormHelperTextProps: {
+                        sx: {
+                          color: touched.effective_from && errors.effective_from ? "#f05344" : "inherit", // ✅ Dynamic error color
+                        },
+                      },
+                     
                     } }}
                     onBlur={handleBlur} 
                     value={values.effective_from}  
@@ -219,8 +250,15 @@ const InfoForm = ({ data })  => {
                         "& .MuiInputBase-input": { padding: "10px" }, // Adjust padding
                       },
                       placeholder: "Select date" ,  
-                      size: 'small',  fullWidth: true, variant : "outlined",
-                      helperText: touched.effective_to && errors.effective_to, error : Boolean(touched.effective_to && errors.effective_to) } }}
+                      fullWidth: true, variant : "outlined",
+                      helperText: touched.effective_to && errors.effective_to, 
+                      FormHelperTextProps: {
+                        sx: {
+                          color: touched.effective_to && errors.effective_to ? "#f05344" : "inherit", // ✅ Dynamic error color
+                        },
+                      },
+                
+                    } }}
                     onBlur={handleBlur} 
                     value={values.effective_to}  
                  />
@@ -234,15 +272,18 @@ const InfoForm = ({ data })  => {
                           rows={5}
                           content={""}
                           onUpdate={({ editor }) => {
-                            // editor.getText()
+                              setFieldValue('descriptions',editor.getText());
                           }}
                           placeholder="Description here..."
                   />
+                    {errors.descriptions && <Typography variant="caption"  sx={{ ml: 0.5, mt: 0.5, display: "block", color : '#F05344' }}>
+                      {errors.descriptions}
+                    </Typography>}
 					  </Grid>
 
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='medium'  variant="contained">SUBMIT</Button>
+                <Button type="submit" size='medium'  variant="contained">SUBMIT</Button>
               </Box>
             </Grid>
         </Grid>

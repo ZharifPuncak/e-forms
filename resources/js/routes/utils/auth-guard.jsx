@@ -15,10 +15,8 @@ export function AuthGuard({ children }) {
 
 		if(!isAuthenticated ){
 			navigate(paths.auth.signIn);
-		}else if(isAuthenticated && window.history.length <= 1){
-			navigate(paths.dashboard.overview);
 		}
-
+		
 	}, [isAuthenticated]);
 
 	if (!isAuthenticated) {

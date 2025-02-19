@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 
 use Database\Seeders\Permissions\PermissionSeeder;
 use Database\Seeders\Shared\SharedSeeder;
+use Database\Seeders\Form\FormSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +18,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             SharedSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            FormSeeder::class
         ]);
     }
 }

@@ -25,11 +25,11 @@ class UserSeeder extends Seeder
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
         
         //Create User Admin
-        $user1 = User::create(['name' => 'Mr.Admin','password' => '$2y$10$9SVgshmudNbixCWH4v4g7Oa0rLBgec65Z37tLOs9.HIyocvVPHRMW']);
+        $user1 = User::create(['name' => 'Mr.Admin', 'email' => 'admin@test.com','password' => '$2y$10$9SVgshmudNbixCWH4v4g7Oa0rLBgec65Z37tLOs9.HIyocvVPHRMW']);
         $user1->assignRole('Admin');
 
         //Create User Admin-HR
-        $user2 = User::create(['name' => 'Mr.HR','password' => '$2y$10$9SVgshmudNbixCWH4v4g7Oa0rLBgec65Z37tLOs9.HIyocvVPHRMW']);
+        $user2 = User::create(['name' => 'Mr.HR','email' => 'hr@test.com','password' => '$2y$10$9SVgshmudNbixCWH4v4g7Oa0rLBgec65Z37tLOs9.HIyocvVPHRMW']);
         $user2->assignRole('Admin-HR');
 
 
