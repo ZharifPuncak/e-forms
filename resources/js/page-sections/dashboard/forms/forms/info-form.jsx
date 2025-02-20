@@ -16,22 +16,23 @@ import { Typography } from '@mui/material';
 
 import dayjs from "dayjs";
 import useAxios  from "@/hooks/use-axios";
-import { useNavigate } from 'react-router-dom';
+import { useAppContext } from "@/contexts/app-context";
 
-import { paths } from "@/paths";
 
-const InfoForm = ({ item })  => {
+const InfoForm = ({ item, update })  => {
 
   const { axiosGet, axiosMutate } = useAxios();
-  const navigate = useNavigate();
+  const appContext = useAppContext(); 
   const theme = useTheme();
+  const [indexUI,setIndexUI] = useState(0);
   const [initialValues,setInitialValues] = useState({
+    id : item?.id || '',
     name:  item?.name || '',
     alias: item?.alias || '',
     category: item?.category || '',
     descriptions: item?.descriptions || '',
-    effective_from: item?.effective_from ? dayjs(effective_from) : null || null,
-    effective_to: item?.effective_to ? dayjs(effective_from) : null || null,
+    effective_from: item?.effective_from ? dayjs(item?.effective_from) : null || null,
+    effective_to: item?.effective_to ? dayjs(item?.effective_to) : null || null,
   }); 
 
   const validationSchema = Yup.object().shape({
@@ -42,6 +43,7 @@ const InfoForm = ({ item })  => {
     effective_from : Yup.string().required("Effective from required").label('Effective from date'),
     effective_to :Yup.string().required("Effective to required").label('Effective to date'),
   });
+
 
  
   const {
@@ -57,25 +59,41 @@ const InfoForm = ({ item })  => {
         initialValues,
         validationSchema,
         onSubmit: async (values) => { 
-          await  mutate();  
+
+       
+          if(!item?.id){
+            await  createForm();  
+          }else{
+            await updateForm();
+          }
+        
         } 
     });
 
-    const { isLoading, data : fetchedCategories, refetch   }  = axiosGet({  id : 'forms-categories', url : import.meta.env.VITE_API_BASE_URL + '/forms/categories', cacheTime : 3 * 60 * 1000, staleTime :  3 * 60 * 1000 });
-    const { mutate, isLoading : updateLoading, isSuccess  } =  axiosMutate({ id: 'forms-store', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/store', payload : {...values} });
+    const { isLoading, data : fetchedCategories, refetch   }  = axiosGet({  id : 'forms-categories', url : import.meta.env.VITE_API_BASE_URL + '/forms/categories', cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
+    const { mutate : createForm , isLoading : submitLoading, isSuccess  } =  axiosMutate({ id: 'forms-store', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/store', payload : {...values,  effective_from : dayjs(values.effective_from).format('YYYY-MM-DD'),effective_to : dayjs(values.effective_to).format('YYYY-MM-DD')} });
+    const { mutate : updateForm, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/update', payload : {...values, effective_from : dayjs(values.effective_from).format('YYYY-MM-DD'),effective_to : dayjs(values.effective_to).format('YYYY-MM-DD')} });
   
-    useEffect(() => {
+   useEffect(() => {
       if(isSuccess){
-        setTimeout(() =>{
-          navigate(paths.dashboard.forms.list);
-        },250)
+         resetForm();
+         setIndexUI(Date.now());
       }
-    },[isSuccess])
+   },[isSuccess])
+
+
+   useEffect(() => {
+      if(updateSuccess){
+        update();
+        appContext.setDialog({ title : '', subtitle : '', isOpen : false, component : null});
+      }
+   },[updateSuccess])
 
   return (
   <form onSubmit={handleSubmit}>
 
         <Grid container={true} sx={{ p : 1 }} spacing={4}  >
+ 
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
               <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Name </Typography>
               <TextField
@@ -200,7 +218,7 @@ const InfoForm = ({ item })  => {
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Effective From </Typography>
             <DatePicker
                   sx={{ height : 45}}
-                  minDate={dayjs()}
+                  minDate={item?.id ? dayjs(item?.effective_from)  : dayjs()}
                   name="effective_from"  
                   format="DD/MM/YYYY"
                   onChange={(value) => {
@@ -236,11 +254,11 @@ const InfoForm = ({ item })  => {
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Effective To </Typography>
             <DatePicker 
                     fullWidth
-                    minDate={dayjs()}
+                    minDate={item?.id ? dayjs(item?.effective_from)  : dayjs()}
                     format="DD/MM/YYYY"
                     name="effective_to"  
                     onChange={(value) => {
-                          setFieldValue("effective_to", value);
+                          setFieldValue("effective_to",value);
 
                           if(values.effective_from && dayjs(value).format("DD/MM/YYYY") < dayjs(values.effective_from).format("DD/MM/YYYY")){
                             setFieldValue("effective_from", null);
@@ -273,14 +291,15 @@ const InfoForm = ({ item })  => {
           	<Grid size={{xs : 12, sm: 12, md : 12 }}> 
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Description </Typography>
                   <TextEditor
+                          key={indexUI}
                           rows={5}
-                          content={""}
+                          content={values.descriptions}
                           onUpdate={({ editor }) => {
                               setFieldValue('descriptions',editor.getText());
                           }}
                           placeholder="Description here..."
                   />
-                    {errors.descriptions && <Typography variant="caption"  sx={{ ml: 0.5, mt: 0.5, display: "block", color : '#F05344' }}>
+                    {errors.descriptions && touched.descriptions && <Typography variant="caption"  sx={{ ml: 0.5, mt: 0.5, display: "block", color : '#F05344' }}>
                       {errors.descriptions}
                     </Typography>}
 					  </Grid>

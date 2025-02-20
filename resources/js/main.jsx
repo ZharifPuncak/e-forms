@@ -6,6 +6,9 @@ import { routes } from "@/routes";
 import { Root } from "@/root";
 import { ScrollRestoration } from "@/components/core/scroll-restoration";
 
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 const root = createRoot(document.querySelector("#root"));
 const router = createBrowserRouter([
 	{

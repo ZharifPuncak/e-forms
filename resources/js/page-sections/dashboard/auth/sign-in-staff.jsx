@@ -46,7 +46,7 @@ export function SignInStaff() {
 
 	const validationSchema = Yup.object().shape({
 		staffIcNo: Yup.string().matches(/^\d+$/, "Staff IC must be a valid number").length(12, "Staff IC must be exactly 12 digits").required('Staff IC is required'),
-		password:  Yup.string().min(6, 'Password should be of minimum 6 characters length').required('Password is required')
+		password:  Yup.string().required('Password is required')
 	});
 
 
@@ -115,7 +115,7 @@ export function SignInStaff() {
 									<TextField 
 									    autoComplete='off'
 										fullWidth  
-										placeholder='Please enter staff IC' 
+										placeholder='' 
 										inputProps={{ maxLength: 12 }}
 										type="text" 
 										name="staffIcNo"
@@ -124,28 +124,29 @@ export function SignInStaff() {
 										onChange={handleChange} 
 										value={values.staffIcNo}  
 										helperText={touched.staffIcNo && errors.staffIcNo} 
+									
 										FormHelperTextProps={{
 											sx: { color: "#f05344" }, // ✅ Change helper text color
 										  }}
-									InputProps={{
+										  
+									   InputProps={{			
+											sx: {
+												'& input::placeholder': {
+													fontSize: '14px',  // Adjust size here
+													opacity: 0.9, // Optional: Adjust transparency if needed
+												},
+												"& .MuiOutlinedInput-root": {
+												height: "50px", // Set the height of the whole input
+												display: "flex",
+												alignItems: "center", // Ensure text is centered
+												},
 											
-										sx: {
-											'& input::placeholder': {
-												fontSize: '14px',  // Adjust size here
-												opacity: 0.9, // Optional: Adjust transparency if needed
+												"& .MuiOutlinedInput-input": {
+												paddingY : '10px'
+												},
 											},
-											"& .MuiOutlinedInput-root": {
-											height: "50px", // Set the height of the whole input
-											display: "flex",
-											alignItems: "center", // Ensure text is centered
-											},
-										
-											"& .MuiOutlinedInput-input": {
-											paddingY : '10px'
-											},
-										},
 								
-									}} />
+										}} />
 
 
 							</FormControl>
@@ -153,7 +154,7 @@ export function SignInStaff() {
 									<InputLabel sx={{ mb : 0.3 }}>Password</InputLabel>
 									<TextField fullWidth  type={showPassword ? 'text' : 'password'} name="password"
 									autoComplete="off"
-									placeholder='Please enter password' 
+									placeholder='' 
 									onBlur={handleBlur} 
 									onChange={handleChange} 
 									value={values.password}  

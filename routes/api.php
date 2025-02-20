@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
         Route::put('/update',[FormController::class,'update']);
         Route::delete('/delete',[FormController::class,'delete']);
         Route::get('/categories',[FormController::class,'categories']);
+        Route::get('/details/{code}',[FormController::class,'details']);
     });
 
 

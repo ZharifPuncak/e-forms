@@ -46,7 +46,7 @@ export function SignInAdmin() {
 
 	const validationSchema = Yup.object().shape({
 		email: Yup.string().email('Invalid email').required('Email is required').label('Email'),
-		password:  Yup.string().min(6, 'Password should be of minimum 6 characters length').required('Password is required').label('Password')
+		password:  Yup.string().required('Password is required').label('Password')
 	});
 
 
@@ -115,7 +115,7 @@ export function SignInAdmin() {
 									<TextField 
 									    autoComplete='off'
 										fullWidth 
-										placeholder='Please enter email' 
+										placeholder='' 
 										type="email" 
 										name="email"
 										autoFocus
@@ -153,7 +153,7 @@ export function SignInAdmin() {
 									<InputLabel sx={{ mb : 0.3 }}>Password</InputLabel>
 									<TextField fullWidth  type={showPassword ? 'text' : 'password'} name="password"
 									autoComplete="off"
-									placeholder='Please enter password' 
+									placeholder='' 
 									onBlur={handleBlur} 
 									onChange={handleChange} 
 									value={values.password}  
@@ -188,7 +188,7 @@ export function SignInAdmin() {
 							</FormControl>
 							{isError && <Alert severity="error">{ errMessage }</Alert>}
 							<div >
-							<LoadingButton sx={{ letterSpacing : '1.2px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
+							<LoadingButton color="secondary" sx={{ letterSpacing : '1.2px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
 								SIGN IN
 							</LoadingButton>
 

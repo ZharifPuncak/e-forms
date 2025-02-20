@@ -37,6 +37,7 @@ import { AuthProvider } from './contexts/auth-context.jsx';
 import { AppProvider } from "@/contexts/app-context"; 
 import { DataProvider } from '@/contexts/data-context';
 import { SettingsProvider } from "@/contexts/settings-context";
+import { ConfirmProvider } from "material-ui-confirm";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ export function Root({ children }) {
 					<title>{metadata.title}</title>
 					<meta content={appConfig.themeColor} name="theme-color" />
 				</Helmet>
+				<ConfirmProvider >
 				<AuthProvider>
 				<AppProvider>
 					<DataProvider>
@@ -76,6 +78,7 @@ export function Root({ children }) {
 						</DataProvider>
 					</AppProvider>
 				</AuthProvider>
+			 </ConfirmProvider>
 			</HelmetProvider>
 		</QueryClientProvider>
 	);

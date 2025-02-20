@@ -9,6 +9,7 @@ const useAxios = () => {
   
   const getAuthHeaders = (isFileUpload = false, isFileDownload = false) => {
     let headers = isAuthenticated ? { Authorization: `Bearer ${token}` } : {};
+    headers["Accept"] = "application/json";
     if (isFileUpload) headers["Content-Type"] = "multipart/form-data";
     return isFileDownload ? { ...headers, responseType: "arraybuffer" } : headers;
   };
@@ -16,27 +17,25 @@ const useAxios = () => {
   const mutationFn = async ({ method, url, payload, isFileUpload, isFileDownload }) => {
     const options = { headers: getAuthHeaders(isFileUpload, isFileDownload) };
     const response = await axios[method](url, payload, options);
+   
     return response.data;
   };
 
   const axiosMutate = ({ id = null, method, url, payload = {}, isFileDownload = false, isFileUpload = false }) => {
     const { isLoading, isError, isSuccess, error, data, mutate } = useMutation(
-      () => mutationFn({ method, url, payload, isFileUpload, isFileDownload }),
+      async () => mutationFn({ method, url, payload, isFileUpload, isFileDownload })
+      ,
       { cacheTime: Infinity, mutationKey: id }
     );
 
     useEffect(() => {
       if (!isFileDownload && isSuccess && data) {
-
-        if(data?.message){
           toast.success(data?.message,{
             style: {
               background: 'green',
               color: 'white'
             },
           });
-        }
-      
       }
     }, [isSuccess]);
 
