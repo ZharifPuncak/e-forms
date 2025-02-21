@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('form_id');
             $table->string('title');
-            $table->unsignedBigInteger('form_fileable_id');
-            $table->string('form_fileable_type');
+            $table->string('file_name');
+            $table->string('file_path');
+            $table->decimal('file_size',8,2);
+            $table->string('file_ext');
             $table->timestamps();
         });
     }

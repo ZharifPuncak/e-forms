@@ -16,8 +16,14 @@ import useAxios  from "@/hooks/use-axios";
 export function FormOverview() {
 
 	const { axiosGet } = useAxios();
-	const { isLoading, data : info, refetch }  = axiosGet({  id : 'form-info', url : import.meta.env.VITE_API_BASE_URL + '/forms/info'  });
+	const { data : info, refetch }  = axiosGet({  id : 'form-info' , url : import.meta.env.VITE_API_BASE_URL + '/forms/info'  });
 
+
+    // useEffect
+	React.useEffect(() => {
+		refetch();
+	},[]);
+	
 	return <Grid container spacing={4}>
 					<Grid 	
 						size={{

@@ -4,6 +4,8 @@ import useAuth from "./use-auth";
 import { useQuery, useMutation } from "react-query";
 import { toast } from 'sonner';
 
+
+
 const useAxios = () => {
   const { logout, isAuthenticated, token } = useAuth();
   
@@ -14,8 +16,13 @@ const useAxios = () => {
     return isFileDownload ? { ...headers, responseType: "arraybuffer" } : headers;
   };
 
-  const mutationFn = async ({ method, url, payload, isFileUpload, isFileDownload }) => {
-    const options = { headers: getAuthHeaders(isFileUpload, isFileDownload) };
+  const mutationFn = async ({ method, url, payload, isFileUpload, isFileDownload, onProgress }) => {
+    const options = { headers: getAuthHeaders(isFileUpload, isFileDownload),  onUploadProgress: (progressEvent) => {
+      if (onProgress) {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          onProgress(percentCompleted); // Update progress in state
+      }
+  }};
     const response = await axios[method](url, payload, options);
    
     return response.data;
@@ -23,9 +30,9 @@ const useAxios = () => {
 
   const axiosMutate = ({ id = null, method, url, payload = {}, isFileDownload = false, isFileUpload = false }) => {
     const { isLoading, isError, isSuccess, error, data, mutate } = useMutation(
-      async () => mutationFn({ method, url, payload, isFileUpload, isFileDownload })
-      ,
-      { cacheTime: Infinity, mutationKey: id }
+      async () => mutationFn({ method, url, payload, isFileUpload, isFileDownload }),
+      { cacheTime: Infinity, mutationKey: id },
+      
     );
 
     useEffect(() => {

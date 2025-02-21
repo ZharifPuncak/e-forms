@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('form_id');
             $table->string('applied_to')->default('all')->comment('all | specific');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->unsignedBigInteger('form_issuance_id')->nullable()->comment('User ID | Department ID | Category ID');
             $table->unsignedBigInteger('form_issuance_type')->nullable();
             $table->timestamp ('issued_at');

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "@mui/material/Link";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,58 +9,39 @@ import Grid from "@mui/material/Grid2";
 import TableAG from "@/components/core/table/TableAG";
 
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
-import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-import { PenNibStraight as PenNibStraightIcon } from "@phosphor-icons/react/dist/ssr/PenNibStraight";
 
 import { CardSummary } from "@/components/widgets/card/card-summary";
-
 import { useAppContext } from "@/contexts/app-context";
-// import UserForm from "../forms/user-form"
-
+import { useParams } from "react-router-dom";
+import useAxios  from "@/hooks/use-axios";
 
 export function FormAcknowledgements() {
+    
+    const { code } = useParams();
 
+	const { axiosGet } = useAxios();
     const appContext = useAppContext();
 
-	const [rowData, setRowData] = React.useState([
-        {
-			 id: 1,
-			 name: "Arif Aiman",
-             email: 'arif@pnhb.com.my',
-             department : 'IT',
-             company : 'PNMS',
-			 status : 'pending', 
-			 role: 'Admin',
-			 action: 1 
-		},
-        {    id: 2,
-             name: "Hadi Fayyadh",
-             email: 'fayyadh@pnhb.com.my',
-             department : 'HR',
-             company : 'TRIPLC',
-			 status : 'completed', 
-			 role: 'Admin-HR',
-			 action: 2 
-		},
-    ]);
-
+	const { isLoading : infoLoading, data : fetchedInfo, refetch : getInfo }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/info/' + code  });
+	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/' + code  });
+    
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
 		{ field: "name", cellRenderer : (params) => {
 			const rowData = params.data;
 			return 	<Box  sx={{ mt : 1 }}>
-				<Typography variant="subtitle2" sx={{ mb : -3, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
+				<Typography variant="body2" sx={{ mb : -2.5, whiteSpace: "nowrap"}} fontSize={14}>{rowData?.name}</Typography>
 			
 				<Typography color="text.secondary" sx={{ mb : 1}} variant="caption">
-					{rowData.email}
+					{rowData?.email}
 				</Typography>
 		</Box>
 
 		}},
 		{ field: "company"},
         { field: "department"},
-        { field: "role"},
+        { field: "position"},
 	
         { field: "status", 	cellRenderer : (params) => {
 
@@ -71,42 +51,29 @@ export function FormAcknowledgements() {
 					label: "Completed",
 					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 				},
-				new: { label: "New", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
-				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-error-main)" /> },
+				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
 			};
 			const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 
 			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
 		}},
 	
-		{ field: "action", cellRenderer : (params) => {
-			const rowData = params.data;
-			return <>
-				<Link 
-
-			    sx={{ cursor : 'pointer', mr : 2 }}
-			    onClick={() => {
-					// appContext.setDialog({ 	isOpen : true, title : 'Update user', subtitle : rowData.email, component : <UserForm data={rowData} /> })
-				}}>Details
-				</Link>
 		
-			</>
-		} }
     ]);
 
 	return <>
 		<Grid container={true} spacing={4}>
 				<Grid size={{ xs : 12, sm: 6, md : 4}}>
-					<CardSummary  amount={30}  icon={null} title="Total" />
+					<CardSummary  amount={fetchedInfo?.data?.total ?? 0}  icon={null} title="Total" />
 				</Grid>
 				<Grid size={{ xs : 12, sm: 6, md : 4}}>
-					<CardSummary  amount={10}  icon={null} title="Pending" />
+					<CardSummary  amount={fetchedInfo?.data?.pending ?? 0}  icon={null} title="Pending" />
 				</Grid>
 				<Grid size={{ xs : 12, sm: 6, md : 4}}>
-					<CardSummary  amount={20}  icon={null} title="Completed" />
+					<CardSummary  amount={fetchedInfo?.data?.completed ?? 0}  icon={null} title="Completed" />
 				</Grid>
 				<Grid size={{ xs : 12, sm: 12, md : 12 }}>
-					<TableAG row={rowData} column={colDefs} loading={false} title=''/>
+					<TableAG row={fetchedAcknowledgements?.data?.acknowledgements} column={colDefs} loading={false} title=''/>
 				</Grid>
 		</Grid>
 	

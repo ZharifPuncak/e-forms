@@ -13,6 +13,7 @@ import { useTheme } from '@mui/material/styles';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Typography } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import dayjs from "dayjs";
 import useAxios  from "@/hooks/use-axios";
@@ -45,7 +46,7 @@ const InfoForm = ({ item, update })  => {
   });
 
 
- 
+
   const {
         values,
         errors,
@@ -225,7 +226,7 @@ const InfoForm = ({ item, update })  => {
 
                         setFieldValue("effective_from", value);
                         
-                        if(values.effective_to && dayjs(value).format("DD/MM/YYYY") > dayjs(values.effective_to).format("DD/MM/YYYY")){
+                        if(values.effective_to && dayjs(value) > dayjs(values.effective_to)){
                           setFieldValue("effective_to", null);
                         }
                       
@@ -260,8 +261,8 @@ const InfoForm = ({ item, update })  => {
                     onChange={(value) => {
                           setFieldValue("effective_to",value);
 
-                          if(values.effective_from && dayjs(value).format("DD/MM/YYYY") < dayjs(values.effective_from).format("DD/MM/YYYY")){
-                            setFieldValue("effective_from", null);
+                          if(values.effective_from && dayjs(value) < dayjs(values.effective_from)){
+                             setFieldValue("effective_from", null);
                           }
                     }}
                     // minDate={moment().toDate()}  
@@ -295,7 +296,7 @@ const InfoForm = ({ item, update })  => {
                           rows={5}
                           content={values.descriptions}
                           onUpdate={({ editor }) => {
-                              setFieldValue('descriptions',editor.getText());
+                              setFieldValue('descriptions',editor.getHTML());
                           }}
                           placeholder="Description here..."
                   />
@@ -306,7 +307,7 @@ const InfoForm = ({ item, update })  => {
 
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button type="submit" size='medium'  variant="contained">SUBMIT</Button>
+                <LoadingButton loading={submitLoading || updateLoading} type="submit" size='medium'  variant="contained">SUBMIT</LoadingButton>
               </Box>
             </Grid>
         </Grid>

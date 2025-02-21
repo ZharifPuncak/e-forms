@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\IssuanceController;
 use App\Http\Controllers\AcknowledgementController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\NotificationController;
@@ -26,12 +28,27 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
         Route::delete('/delete',[FormController::class,'delete']);
         Route::get('/categories',[FormController::class,'categories']);
         Route::get('/details/{code}',[FormController::class,'details']);
-    });
 
+         //Files
+        Route::prefix('files')->group(function () { 
+            Route::get('/{code}',[FileController::class,'index']);
+            Route::post('/upload',[FileController::class,'upload']);
+            Route::delete('/delete',[FileController::class,'delete']);
+        });
+
+        //Issuances
+        Route::prefix('issuances')->group(function () { 
+            Route::get('/{code}',[IssuanceController::class,'index']);
+            Route::post('/create',[IssuanceController::class,'create']);
+            Route::put('/update',[IssuanceController::class,'update']);
+            Route::delete('/delete',[IssuanceController::class,'delete']);
+        });
+    });
 
     // Acknowledgements 
     Route::prefix('acknowledgements')->group(function () { 
-        Route::get('/',[AcknowledgementController::class,'index']);
+        Route::get('/{code}',[AcknowledgementController::class,'index']);
+        Route::get('/info/{code}',[AcknowledgementController::class,'info']);
     });
 
     // Staffs

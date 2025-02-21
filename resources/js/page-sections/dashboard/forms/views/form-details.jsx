@@ -24,7 +24,14 @@ import { useParams } from "react-router-dom";
 import InfoForm from "../forms/info-form";
 import { useAppContext } from "@/contexts/app-context";
 import { useConfirm } from "material-ui-confirm";
+
 import _ from 'lodash';
+
+const HTMLParse = ({ htmlContent })  => {
+    return (
+        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+    );
+}
 
 export function FormDetails() {
     
@@ -50,11 +57,7 @@ export function FormDetails() {
 														{ key: "Category", value: <Typography sx={{ ml : 1 }} variant="body2">{ data?.category?.name }</Typography> },
 														{ key: "Effective", value: <Typography sx={{ ml : 1 }} variant="body2">{ data?.effective_from } - { data?.effective_to }</Typography> },
 														{ key: "Details", value: <Accordion1 details={
-															<p>
-															{ data?.descriptions }
-															</p>
-																
-														
+															<HTMLParse htmlContent={data?.descriptions} />
 														} title={<Typography sx={{ color : '#4DADDE' }} variant="body2">View details</Typography>} />},
 														{
 															key: "Status",

@@ -24,13 +24,12 @@ export function FormTable() {
 
     const { axiosGet } = useAxios();
 	const navigate = useNavigate();
-
-	const { isLoading, data : forms, refetch   }  = axiosGet({  id : 'forms', url : import.meta.env.VITE_API_BASE_URL + '/forms', cacheTime : 2 * 60 * 1000, staleTime :  2 * 60 * 1000 });
-	const [rowData, setRowData] = React.useState([]);
-
+	const { isLoading, data : forms, refetch   }  = axiosGet({  id : 'forms' , url : import.meta.env.VITE_API_BASE_URL + '/forms' });
+	
+	//useEffect
 	React.useEffect(() => {
-		setRowData(forms?.data?.data)
-	},[forms])
+		refetch();
+	},[]);
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
@@ -81,7 +80,7 @@ export function FormTable() {
 
 	return <>
 	
-			<TableAG row={rowData} column={colDefs} loading={isLoading} title=''/>
+			<TableAG row={forms?.data?.data} column={colDefs} loading={isLoading} title=''/>
 	
 	</>;
 }

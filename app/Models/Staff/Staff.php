@@ -3,6 +3,7 @@
 namespace App\Models\Staff;
 
 use Illuminate\Database\Eloquent\Model;
+
 use App\Models\User;
 
 class Staff extends Model
@@ -11,5 +12,9 @@ class Staff extends Model
     
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function details(){
+        return $this->hasOne(StaffDetail::class);
     }
 }

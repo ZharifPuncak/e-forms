@@ -16,10 +16,10 @@ use App\Http\Requests\Form\FormStoreRequest;
 
 use Carbon\Carbon;
 
+
 class FormController extends Controller
 {
     use HttpResponses;
-    
     public function index(){
 
         $forms = Form::with('category')->orderBy('id','desc')->get();
@@ -121,7 +121,5 @@ class FormController extends Controller
             'categories' => $categories,
         ]);
     }
-
-
-    
+   
 }

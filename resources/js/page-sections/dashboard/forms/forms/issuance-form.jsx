@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-const UploadForm = ({ data })  => {
+const IssuanceForm = ({ data })  => {
 
   const theme = useTheme();
   const [initialValues,setInitialValues] = useState({
@@ -145,7 +145,7 @@ const UploadForm = ({ data })  => {
      
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small' variant="outlined">SUBMIT</Button>
+                <Button size='small' type='submit' variant="outlined">SUBMIT</Button>
               </Box>
             </Grid>
         </Grid>
@@ -154,6 +154,6 @@ const UploadForm = ({ data })  => {
   );
 }
 
-export default UploadForm;
+export default IssuanceForm;
 
 
