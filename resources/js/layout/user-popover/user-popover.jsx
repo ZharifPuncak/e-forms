@@ -18,32 +18,24 @@ import { RouterLink } from "@/components/core/link";
 import useAuth from "@/hooks/use-auth";
 
 
-const user = {
-	id: "USR-000",
-	name: "AHMAD ARIF ROSLI",
-	avatar: "/assets/avatar.png",
-	email: "arif@puncakniaga.com.my",
-};
+
 
 function SignOutButton() {
 
-		const auth = useAuth();
+		const { logout } = useAuth();
 	
 		const handleSignOut = React.useCallback(async () => {
 
-			try {
-				
-
-				// auth.setUser(null);
-				
+		   try {
+				await logout();
 			} catch (error) {
 				
 			}
 
-		}, [auth]);
+		}, []);
 
 	return (
-		<MenuItem onClick={handleSignOut} component="a" href={paths.auth.signIn} >
+		<MenuItem onClick={handleSignOut}  >
 					<ListItemIcon>
 						<SignOutIcon  /> 
 					</ListItemIcon>
@@ -53,6 +45,9 @@ function SignOutButton() {
 }
 
 export function UserPopover({ anchorEl, onClose, open }) {
+
+	const { user } = useAuth();
+
 	return (
 		<Popover
 			anchorEl={anchorEl}
@@ -65,7 +60,7 @@ export function UserPopover({ anchorEl, onClose, open }) {
 			<Box sx={{ p: 2 }}>
 				<Typography sx={{ mb : -1}} fontSize={14}>{user.name}</Typography>
 				<Typography color="text.secondary" variant="caption">
-					{user.email}
+					{user?.staff_ic_no ?? user?.email}
 				</Typography>
 			</Box>
 			<Divider />

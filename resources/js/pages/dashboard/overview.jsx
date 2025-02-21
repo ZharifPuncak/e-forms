@@ -15,11 +15,11 @@ import { CardSummary } from "@/components/widgets/card/card-summary";
 import { CardChart } from "@/components/widgets/card/card-chart";
 
 
-const metadata = { title: `Overview | ${appConfig.name}` };
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 
-	const [tab, setTab] = React.useState('declaration');
+	const [tab, setTab] = React.useState('acknowledgement');
 
 	return (
 		<React.Fragment>
@@ -47,14 +47,14 @@ export function Page() {
 					</Stack>
 					<Grid container spacing={4}>
 						<Grid 
-							onClick={() => setTab('declaration')}
+							onClick={() => setTab('acknowledgement')}
 							sx={{ cursor : 'pointer' }}
 							size={{
 								md: 4,
 								xs: 12,
 							}}
 						>
-							<CardSummary active={tab == 'declaration'} amount={31} diff={15} icon={PenNibStraightIcon} title="Total Declarations" />
+							<CardSummary active={tab == 'acknowledgement'} amount={31} diff={15} icon={PenNibStraightIcon} title="Total Acknowledgements" />
 						</Grid>
 						<Grid
 							onClick={() => setTab('forms')}
@@ -75,7 +75,7 @@ export function Page() {
 							}}
 						>
 							<CardChart
-								title='Declaration Status'
+								title='Acknowledgement Status'
 								data={[
 									{ name: "Pending", value: 80, color: "var(--mui-palette-warning-main)" },
 									{ name: "Completed", value: 20, color: "var(--mui-palette-success-main)" },

@@ -6,8 +6,7 @@ import axios from "@/utils/axios";
 let authStorage = localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')) : undefined;
 
 const initialState = {
-  // isAuthenticated: authStorage?.isAuthenticated || false,
-  isAuthenticated: true,
+  isAuthenticated: authStorage?.isAuthenticated || false,
   isInitialized: authStorage?.isInitialized || false,
   token: authStorage?.token || '',
   permissions: authStorage?.permissions || [],
@@ -83,15 +82,16 @@ const AuthContext = createContext({ ...initialState,
 
 export const AuthProvider = ({ children }) => {
   
- 
-  
   const [state, dispatch] = useReducer(reducer, initialState);
   const { data: auth, storeData: setUserAuth } = useLocalStorage("auth", state);
   
+  const can = (permission) => { 
+      let result = (auth?.permissions).find((p) =>  p === permission ) ? true : false;
+      return result;
+  }
 
-  const can = (permission) => {
-    let result = (auth?.permissions).find((p) =>  p === permission ) ? true : false;
-    return result;
+  const cans = (permissions) => { 
+      return permissions.some(item => auth?.permissions.includes(item));
   }
 
   const is = (role) => {
@@ -114,29 +114,37 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const login = async (email, password) => {
+  const login = async (loginCred, password, role) => {
 
-    const { data } = await axios.post("/api/login", {
-      email,
-      password
-    }); 
+    let loadedData = {};
+
+    const endpoint = role === "staff" ? "/api/login" : "/api/login/admin";
+    const payload = role === "staff" 
+      ? { staff_ic_no: loginCred, password } 
+      : { email: loginCred, password };
+    
+    const { data } = await axios.post(endpoint, payload);
+    
+    loadedData = data;
+    
 
     //Payload
-    let payload = {
+    let formattedData = {
       isAuthenticated: true,
-      user: data.user,
-      token: data.token,
-      permissions : data.permissions,
+      user: data.data.user,
+      token: data.data.token,
+      permissions : data.data.permissions,
     }
 
+   
     dispatch({
       type: "LOGIN",
-      payload: payload
+      payload: formattedData
     });
-    setUserAuth(payload);
 
-  
- 
+    setUserAuth(formattedData);
+
+
   };
 
   const register = async (name, email, password, confirm_password) => {
@@ -177,6 +185,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     profile,
     can,
+    cans,
     is
   }}>
       {children}

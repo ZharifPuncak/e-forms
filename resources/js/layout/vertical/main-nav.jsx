@@ -8,11 +8,9 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
-import { Bell as BellIcon } from "@phosphor-icons/react/dist/ssr/Bell";
 import { List as ListIcon } from "@phosphor-icons/react/dist/ssr/List";
 import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 import { CaretDown as CaretDownIcon } from "@phosphor-icons/react/dist/ssr/CaretDown";
-import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
 import { useTranslation } from "react-i18next";
 import { Typography } from "@mui/material";
 
@@ -22,12 +20,15 @@ import { usePopover } from "@/hooks/use-popover";
 
 import { languageFlags, LanguagePopover } from "../language-popover";
 import { MobileNav } from "../mobile-nav";
-import { NotificationsPopover } from "../notifications-popover";
 import { SearchDialog } from "../search-dialog";
 import { UserPopover } from "../user-popover/user-popover";
 
+import useAuth from "@/hooks/use-auth";
+
 export function MainNav({ items }) {
+
 	const [openNav, setOpenNav] = React.useState(false);
+
 
 	return (
 		<React.Fragment>
@@ -134,15 +135,11 @@ function LanguageSwitch() {
 	);
 }
 
-const user = {
-	id: "USR-000",
-	name: "Sofia Rivers",
-	avatar: "/assets/avatar.png",
-	email: "sofia@devias.io",
-};
 
 function UserButton() {
+
 	const popover = usePopover();
+	const { user } = useAuth();
 
 	return (
 		<React.Fragment>
@@ -153,29 +150,13 @@ function UserButton() {
 				sx={{ border: "none", background: "transparent", cursor: "pointer", p: 0 }}
 			>
 				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',  color : 'grey' }}>		
-					<Typography variant='button'>PNM1352</Typography>
+					<Typography variant='button'>{ user?.staff_no ?? user?.role }</Typography>
 					<Box sx={{ marginLeft: 1 }}>
 						<CaretDownIcon size={15} />
 					</Box>
 				</Box>
 		
-				{/* <Badge
-					anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-					color="success"
-					sx={{
-						"& .MuiBadge-dot": {
-							border: "2px solid var(--MainNav-background)",
-							borderRadius: "50%",
-							bottom: "6px",
-							height: "12px",
-							right: "6px",
-							width: "12px",
-						},
-					}}
-					variant="dot"
-				>
-					<Avatar src={user.avatar} />
-				</Badge> */}
+			
 			</Box>
 			<UserPopover anchorEl={popover.anchorRef.current} onClose={popover.handleClose} open={popover.open} />
 		</React.Fragment>

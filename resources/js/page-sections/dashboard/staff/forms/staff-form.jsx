@@ -82,7 +82,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -115,7 +115,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -148,7 +148,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -181,7 +181,7 @@ const StaffForm = () => {
                      
                             sx: {
                                 '& input::placeholder': {
-                                    fontSize: '12px',  // Adjust size here
+                                    fontSize: '14px',  // Adjust size here
                                     opacity: 0.9, // Optional: Adjust transparency if needed
                                 },
                                 "& .MuiOutlinedInput-root": {
@@ -226,12 +226,10 @@ const StaffForm = () => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.company) ? 'red' : 'inherit',
-                        },
+                        
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -274,12 +272,10 @@ const StaffForm = () => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.department) ? 'red' : 'inherit',
-                        },
+              
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -321,12 +317,10 @@ const StaffForm = () => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.category) ? 'red' : 'inherit',
-                        },
+                  
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -366,12 +360,10 @@ const StaffForm = () => {
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
                         },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: Boolean(errors.position) ? 'red' : 'inherit',
-                        },
+                 
                         "& .MuiInputBase-input::placeholder": {
                           color: "grey", // Change placeholder color
-                          fontSize: "12px", // Custom font size
+                          fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
                       }}
@@ -387,7 +379,7 @@ const StaffForm = () => {
 
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small'  variant="contained">SUBMIT</Button>
+                <Button variant="contained">SUBMIT</Button>
               </Box>
             </Grid>
         </Grid>

@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('form_files', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('form_id');
-            $table->string('type')->default('main')->comment('main | supplementary');
-            $table->unsignedBigInteger('form_fileable_id');
-            $table->string('form_fileable_type');
+            $table->string('title');
+            $table->string('file_name');
+            $table->string('file_path');
+            $table->decimal('file_size',8,2);
+            $table->string('file_ext');
             $table->timestamps();
         });
     }

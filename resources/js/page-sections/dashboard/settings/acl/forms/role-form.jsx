@@ -64,7 +64,7 @@ const RoleForm = ({ props })  => {
 								
                           sx: {
                             '& input::placeholder': {
-                              fontSize: '0.8rem',  // Adjust size here
+                              fontSize: '14px',  // Adjust size here
                               opacity: 0.8, // Optional: Adjust transparency if needed
                             },
                             "& .MuiOutlinedInput-root": {
@@ -84,7 +84,7 @@ const RoleForm = ({ props })  => {
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size='small' variant="contained" >SUBMIT</Button>
+                <Button  variant="contained" >SUBMIT</Button>
               </Box>
             </Grid>
           </Grid>

@@ -9,6 +9,6 @@ class PermissionSubModule extends Model
     protected $fillable = ['permission_module_id','name','prefix','method','description'];
 
     public function module(){
-        return $this->belongsTo(PermissionModule::class);
+        return $this->belongsTo(PermissionModule::class,'permission_module_id','id');
      }
 }

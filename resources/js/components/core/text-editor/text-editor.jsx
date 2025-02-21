@@ -42,6 +42,7 @@ export function TextEditor({
 		<Box
 			className="tiptap-root"
 			sx={{
+				height : '250px',
 				display: "flex",
 				flexDirection: "column",
 				...(editable && {
@@ -63,7 +64,7 @@ export function TextEditor({
 							float: "left",
 							height: 0,
 							pointerEvents: "none",
-							fontSize: "12px", 
+							fontSize: "14px", 
 							opacity : 0.9,
 						},
 

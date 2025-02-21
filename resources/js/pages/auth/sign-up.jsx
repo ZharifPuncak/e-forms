@@ -18,7 +18,7 @@ import { CenteredLayout } from "./components/centered-layout";
 import { RouterLink } from "@/components/core/link";
 import { DynamicLogo } from "@/components/core/logo";
 
-const metadata = { title: `Sign up | Samples | Auth | ${appConfig.name}` };
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 	return (

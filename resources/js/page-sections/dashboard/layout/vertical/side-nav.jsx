@@ -15,7 +15,6 @@ import { RouterLink } from "@/components/core/link";
 import { Logo } from "@/components/core/logo";
 
 import { icons } from "../nav-icons";
-import { WorkspacesSwitch } from "../workspaces-switch";
 import { navColorStyles } from "./styles";
 
 const logoColors = {
@@ -26,7 +25,6 @@ const logoColors = {
 export function SideNav({ color = "evident", items = [] }) {
 	
 	const pathname = usePathname();
-
 	const { colorScheme = "light" } = useColorScheme();
 
 	const styles = navColorStyles[colorScheme][color];

@@ -22,13 +22,13 @@ export const paths = {
 			create: "/dashboard/staff/create",
 			details: (code) => `/dashboard/staff/details/${code}`,
 		},
-		declarations:{
-			status: "/dashboard/declarations",
+		acknowledgements:{
+			status: "/dashboard/acknowledgements",
 			staff: {
-				details : (code) => `/dashboard/declarations/staff/details/${code}`,
+				details : (code) => `/dashboard/acknowledgements/staff/details/${code}`,
 			},
 			form : {
-				details : (code) => `/dashboard/declarations/form/details/${code}`,
+				details : (code) => `/dashboard/acknowledgements/form/details/${code}`,
 			}
 		},
 		forms : {

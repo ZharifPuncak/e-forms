@@ -17,10 +17,10 @@ export function Users({ users }) {
 
 	const appContext = useAppContext();
 	return (<>
-	  <Card>
+	  {/* <Card>
 			<CardHeader
 				subheader=""
-				title={	<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+				title={	<Typography variant="h6">
 				Create User
 			</Typography>}
 				action={''}
@@ -30,12 +30,12 @@ export function Users({ users }) {
 						<UserForm />
 					</Box>
 			</CardContent>
-		</Card>
+		</Card> */}
 		<Card>
 			<CardHeader
 				subheader=""
 				title={
-					<Typography variant="h6" sx={{ fontWeight: "bold" }}>
+					<Typography variant="h6" >
 					User Table
 				</Typography>
 				}
