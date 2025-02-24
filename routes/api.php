@@ -10,6 +10,7 @@ use App\Http\Controllers\IssuanceController;
 use App\Http\Controllers\AcknowledgementController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SharedController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -39,7 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
         //Issuances
         Route::prefix('issuances')->group(function () { 
             Route::get('/{code}',[IssuanceController::class,'index']);
-            Route::post('/create',[IssuanceController::class,'create']);
+            Route::post('/store',[IssuanceController::class,'store']);
             Route::put('/update',[IssuanceController::class,'update']);
             Route::delete('/delete',[IssuanceController::class,'delete']);
         });
@@ -49,6 +50,11 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
     Route::prefix('acknowledgements')->group(function () { 
         Route::get('/{code}',[AcknowledgementController::class,'index']);
         Route::get('/info/{code}',[AcknowledgementController::class,'info']);
+    });
+
+    // Shared
+    Route::prefix('shared')->group(function () { 
+        Route::get('/companies',[SharedController::class,'companies']);
     });
 
     // Staffs

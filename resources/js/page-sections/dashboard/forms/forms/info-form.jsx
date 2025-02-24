@@ -42,7 +42,10 @@ const InfoForm = ({ item, update })  => {
     category: Yup.object().required("Category is required").label('Category'),
     descriptions: Yup.string().max(3000).required("Description is required").label('Description'),
     effective_from : Yup.string().required("Effective from required").label('Effective from date'),
-    effective_to :Yup.string().required("Effective to required").label('Effective to date'),
+    effective_to :Yup.string().required("Effective to required").test("is-after-two-days", "Effective to must be at least 2 gap days after effective from", (value, context) => {
+          const effectiveFrom = dayjs(context.parent.effective_from);
+          return dayjs(value).isAfter(effectiveFrom.add(2, "day"), "day");
+      }).label('Effective to date'),
   });
 
 

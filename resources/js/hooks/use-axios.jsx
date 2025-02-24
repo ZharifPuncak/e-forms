@@ -79,6 +79,8 @@ const useAxios = () => {
 
     useEffect(() => {
       if (isError && error?.message === "Unauthenticated.") logout();
+      if(isError && error?.code == 404 ) window.location.href = window.location.origin + "/404"
+  
     }, [isError]);
 
     return { data: data?.data, error: error?.message, isLoading, isSuccess, isError, refetch, dataUpdatedAt };

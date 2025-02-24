@@ -2,42 +2,43 @@
 
 import * as React from "react";
 import Link from "@mui/material/Link";
-import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Chip from "@mui/material/Chip";
 
 import TableAG from "@/components/core/table/TableAG";
 
-import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
-import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
-import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-
+import _ from 'lodash';
 import { useAppContext } from "@/contexts/app-context";
-// import UserForm from "../forms/user-form"
+import { useParams } from "react-router-dom";
+
+import IssuanceForm from "../forms/issuance-form";
+import useAxios  from "@/hooks/use-axios";
 
 
 export function FormIssuances() {
 
+	const { code } = useParams();
     const appContext = useAppContext();
+	const { axiosGet } = useAxios();
+	const { isLoading, data : fetchedIssuance, refetch : getIssuance }  = axiosGet({  id : 'form-issuances' + code , url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/' + code  });
 
-	const [rowData, setRowData] = React.useState([
-        {
-			 id: 1,
-			 company : 'PNMS',
-			 to: "ICTD",
-			 deadline: "09 September, 2025",
-			 issued : "09 January, 2025",
-			 action: 1 
-		},
-    ]);
 
-    // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
 		
-		{ field: "company"},
-        { field: "to"},
-		{ field: "issued", label : 'Issued'},
-		{ field: "deadline"},
+		{ field: "companies", cellRenderer : (params) => {
+			const rowData = params.data;
+			console.log(params.data)
+				return <>
+				{ rowData?.companies?.map((item) => {
+					return <Chip sx={{ ml : 0.5 }} label={item.code} />;
+				})}
+		
+		
+			</>
+		} },
+		{ field: "issued_at", headerName : 'Issued Date'},
+		{ field: "deadlined_at", headerName : 'Deadline Date'},
 		{ field: "action", cellRenderer : (params) => {
 			const rowData = params.data;
 			return <>
@@ -45,8 +46,16 @@ export function FormIssuances() {
 
 			    sx={{ cursor : 'pointer', mr : 2 }}
 			    onClick={() => {
+					appContext.setDialog({ 	isOpen : true, title : 'Edit issuance', subtitle :   ' ('+ code + ')', component : <IssuanceForm update={getIssuance} code={code} end={fetchedIssuance?.data?.form_end} item={rowData} /> })
+				}}>Edit
+				</Link>
+
+				<Link 
+
+			    sx={{ cursor : 'pointer', mr : 2 }}
+			    onClick={() => {
 					// appContext.setDialog({ 	isOpen : true, title : 'Update user', subtitle : rowData.email, component : <UserForm data={rowData} /> })
-				}}>Details
+				}}>Delete
 				</Link>
 		
 			</>
@@ -54,8 +63,14 @@ export function FormIssuances() {
     ]);
 
 	return <>
-	
-			<TableAG row={rowData} column={colDefs} loading={false} title='' search={false}/>
+
+		{ !isLoading  && <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+				<Button variant="outlined" onClick={() => {
+					appContext.setDialog({ title : 'Add issuance', subtitle : fetchedIssuance?.data?.form_name + ' ('+ code + ')', component : <IssuanceForm update={getIssuance} code={code} end={fetchedIssuance?.data?.form_end} />, isOpen: true})
+				}}>+ Add issuance </Button>
+			</Box>}
+
+			<TableAG row={fetchedIssuance?.data?.issuances} column={colDefs} loading={isLoading} title='' search={false}/>
 	
 	</>;
 }
