@@ -13,57 +13,73 @@ import _ from 'lodash';
 import UploadFile from "../forms/upload-file";
 import useAxios  from "@/hooks/use-axios";
 
-export function FormFile() {
+
+export function FormFile({ status, update }) {
 
     const appContext = useAppContext();
 	const { code } = useParams();
-	const { axiosGet } = useAxios();
+
+	const { axiosGet, axiosMutate } = useAxios();
 	const { isLoading, data : fetchedFile, refetch : getFile }  = axiosGet({  id : 'form-file' + code , url : import.meta.env.VITE_API_BASE_URL + '/forms/files/' + code  });
-
-
+    const { mutate : deleteFile, isLoading : deleteFileLoading } =  axiosMutate({ id: 'forms-file-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/files/delete', payload : { code } });
+  
 
     // Column Definitions: Defines the columns to be displayed.
-    const [colDefs, setColDefs] = React.useState([
+    const [colDefs, setColDefs] = React.useState([]);
+    React.useEffect(() => {
+		setColDefs([
+
+			{ field: "title", label : "Title"},
+			{ field: "name", label : "Name"},
+			{ field: 'size' ,label: "Size", cellRenderer : ( params ) => {
+
+				const rowData = params.data;
+				return rowData?.size + ' MB';
+			}},
+			{ field: "extension", label : "Extension"},
+			{ field: "action", cellRenderer : (params) => {
+				
+				const rowData = params.data;
+				return <>
+				   {status == 'pending' && <Box>
+
+						<Link  sx={{ cursor : 'pointer', mr : 2 }} > 
+						     	View
+						</Link>
+						<Link 
 	
-		{ field: "title", label : "Title"},
+						  sx={{ cursor : 'pointer', mr : 2 }}
+						  onClick={() => {
+							appContext.setDialog({ title : 'Upload file', subtitle : code, component : <UploadFile data={rowData} update={getFile} code={code} />, isOpen: true})}}
+						>Edit
+						</Link>
+						<Link 
+	
+						sx={{ cursor : 'pointer', mr : 2 }}
+						onClick={async () => {
+							await deleteFile();
+							getFile();
+							update();
+						}}> Delete
+						</Link>
+					</Box>}
 			
-		{ field: "name", label : "Name"},
-		{ field: 'size' ,label: "Size", cellRenderer : ( params ) => {
-
-			const rowData = params.data;
-			return rowData?.size + ' MB';
-		}},
-		{ field: "extension", label : "Extension"},
-		{ field: "action", cellRenderer : (params) => {
-			
-			const rowData = params.data;
-			return <>
-				<Link 
-
-			    sx={{ cursor : 'pointer', mr : 2 }}
-			    onClick={() => {
-					appContext.setDialog({ title : 'Upload file', subtitle : code, component : <UploadFile data={rowData} update={getFile} code={code} />, isOpen: true})				}}>Edit
-				</Link>
-				<Link 
-
-				sx={{ cursor : 'pointer', mr : 2 }}
-				onClick={() => {
-					// appContext.setDialog({ 	isOpen : true, title : 'Update user', subtitle : rowData.email, component : <UserForm data={rowData} /> })
-				}}>Delete
-				</Link>
-		
-			</>
-		} }
-    ]);
+				</>
+			} }
+		])
+	},[status])
 
 	return <>
 			{_.isEmpty(fetchedFile?.data?.files) && !isLoading  && <Box style={{ display: "flex", justifyContent: "flex-end" }}>
 				<Button variant="outlined" onClick={() => {
-					appContext.setDialog({ title : 'Upload file', subtitle : code, component : <UploadFile update={getFile} code={code} />, isOpen: true})
+					appContext.setDialog({ title : 'Upload file', subtitle : code, component : <UploadFile update={() => {
+						getFile();
+						update();
+					}} code={code} />, isOpen: true})
 				}}>+ Upload</Button>
 			</Box>}
 
-			<TableAG row={fetchedFile?.data?.files} column={colDefs} loading={isLoading} title='' search={false}/>
+			<TableAG row={fetchedFile?.data?.files} column={colDefs} loading={isLoading || deleteFileLoading} title='' search={false}/>
 	
 	</>;
 }

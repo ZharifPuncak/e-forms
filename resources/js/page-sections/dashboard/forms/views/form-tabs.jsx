@@ -26,18 +26,12 @@ export function FormTabs() {
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                        <Tab label="Acknowledgements" value="1" />
-                        <Tab label="Issuances" value="2" />
-                        <Tab label="Files" value="3" />
-              
-                      
+                         <Tab label="Issuances" value="1" />
+                        <Tab label="Acknowledgements" value="2" />  
                     </TabList>
                     </Box>
-                    <TabPanel value="1"><FormAcknowledgements /></TabPanel>
-                    <TabPanel value="2"><FormIssuances /></TabPanel>
-                    <TabPanel value="3"><FormFile /></TabPanel>
-           
-            
+                        <TabPanel value="1"><FormIssuances /></TabPanel>
+                        <TabPanel value="2"><FormAcknowledgements /></TabPanel>
                 </TabContext>
             </Box>
             </Stack>

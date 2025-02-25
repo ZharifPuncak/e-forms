@@ -27,6 +27,7 @@ class FormResource extends JsonResource
             'descriptions' => $this->descriptions,
             'effective_from' => Carbon::parse($this->effective_from)->format('d M, Y'),
             'effective_to' => Carbon::parse($this->effective_to)->format('d M, Y'),
+            'isFileReady' => !empty($this->file)
 
         ];
     }

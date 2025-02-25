@@ -22,7 +22,9 @@ import _ from 'lodash';
 import { useAppContext } from "@/contexts/app-context";
 
 
-const IssuanceForm = ({ item, update, code, end })  => {
+const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
+
+
 
   const { axiosGet, axiosMutate } = useAxios();
   const appContext = useAppContext(); 
@@ -38,15 +40,17 @@ const IssuanceForm = ({ item, update, code, end })  => {
   const validationSchema = Yup.object().shape({
 
     companies: Yup.array().min(1, 'At least one company required').required("Company is required").label('Company'),
-    issued_at : Yup.string().required("Issue date required").test("is-before-one-days", "Issued date must be at least 2 day before form effective end date", (value, context) => {
+    issued_at : Yup.string().required("Issue date required").test("is-before-one-days", "Issued date must be at least 1 day before form effective end date", (value, context) => {
   
       return dayjs(value).isBefore(dayjs(end).subtract(1, "day"), "day");
+
    }).label('Issued at date'),
     deadlined_at :Yup.string().required("Deadline date required").test("is-after-one-days", "Deadline date must be at least 1 day after Issued date", (value, context) => {
     
       const issuedAt = dayjs(context.parent.issued_at);
        return dayjs(value).isAfter(issuedAt, "day");
-    }).test("is-before-one-days", "Deadline must be at least 1 day before form effective end date", (value, context) => {
+
+    }).test("is-before-one-day", "Deadline must be at least 1 day before form effective end date", (value, context) => {
   
        return dayjs(value).isBefore(dayjs(end), "day");
     }).label('Deadlined at date'),
@@ -78,7 +82,7 @@ const IssuanceForm = ({ item, update, code, end })  => {
 
     const { isLoading, data : fetchedCompanies, refetch   }  = axiosGet({  id : 'shared-companies-issuance', url : import.meta.env.VITE_API_BASE_URL + '/shared/companies', cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
     const { mutate : createIssuance , isLoading : submitLoading, isSuccess  } =  axiosMutate({ id: 'issuance-store' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/store', payload : {...values, code ,issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
-    const { mutate : updateIssuance, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/update', payload : {...values, code,  issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
+    const { mutate : updateIssuance, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/update', payload : {...values,  code,  issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
   
    useEffect(() => {
       if(isSuccess){
@@ -90,10 +94,10 @@ const IssuanceForm = ({ item, update, code, end })  => {
 
 
    useEffect(() => {
-      if(updateSuccess){
+      if(updateSuccess || updateSuccess){
         update();
       }
-   },[updateSuccess])
+   },[updateSuccess,updateSuccess])
 
   return (
   <form onSubmit={handleSubmit}>
@@ -165,7 +169,6 @@ const IssuanceForm = ({ item, update, code, end })  => {
             <DatePicker
                   sx={{ height : 45}}
                   minDate={item?.id ? dayjs(item?.issued_at)  : dayjs()}
-                  maxDate={dayjs(end).subtract(2,'day')}
                   name="issued_at"  
                   format="DD/MM/YYYY"
                   onChange={(value) => {
@@ -202,7 +205,6 @@ const IssuanceForm = ({ item, update, code, end })  => {
             <DatePicker 
                     fullWidth
                     minDate={values?.issued_at ? dayjs(values?.issued_at).add(1,'day')  : dayjs()}
-                    maxDate={dayjs(end).subtract(1,'day')}
                     format="DD/MM/YYYY"
                     name="deadlined_at"  
                     onChange={(value) => {

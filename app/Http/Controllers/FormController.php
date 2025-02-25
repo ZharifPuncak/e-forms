@@ -8,6 +8,10 @@ use App\Models\Form\Form;
 use App\Models\Form\FormCategory;
 
 use App\Traits\HttpResponses;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+
 
 use App\Http\Resources\Form\FormResource;
 use App\Http\Resources\Form\FormListResource;
@@ -66,7 +70,7 @@ class FormController extends Controller
         $form = Form::where('id', $request->id)->first();
 
         if($form->status != 'new'){
-
+            return $this->error(null, 'Cannot update. Form already confirmed', 422);
         }
 
 
@@ -88,25 +92,77 @@ class FormController extends Controller
 
     public function delete(Request $request){
 
+        $form = Form::where('code', $request->code)->first();
+
+        if(!$form){
+            return $this->error(null, 'Form do not exists', 404);
+        }
+
+        if($form->status != 'pending'){
+            return $this->error(null, 'Cannot confirm. Form already '.$form?->status, 422);
+        }
+
+        //Check for file upload. If exist, delete file directory
+        if($form->file){
+            $path = storage_path().'/app/public/forms/'.$form->code;
+
+            if(File::exists($path)) {
+                File::deleteDirectory($path);
+            }
+    
+           $form->file()->delete();
+        }
+    
+        //Delete form
+        $form->delete();
+
+        return $this->success([], 'Form Deleted.');
+    }
+
+    public function confirm(Request $request){
+
+        $form = Form::where('code', $request->code)->first();
+        
+        if(!$form){
+            return $this->error(null, 'form not found', 404);
+        }
+
+        if($form->status != 'pending'){
+            return $this->error(null, 'Cannot confirm. Form already '.$form?->status, 422);
+        }
+
+        if(empty($form->file)){
+            return $this->error(null, 'Cannot confirm. Form file not exist', 422);
+        }
+    
+        $form->update(['status' => 'confirmed']);
+
+        return $this->success([], 'Form Confirmed.');
     }
 
     public function info(){
 
         $forms = Form::orderBy('id','desc');
-        $newCount = $forms->where('status','new')->count();
-        $pendingCount = $forms->where('status','pending')->count();
-        $completedCount = $forms->where('status','completed')->count();
+        $pendingCount = $forms->clone()->where('status','pending')->count();
+        $ongoingCount = $forms->clone()->where('status','ongoing')->count();
+        $closedCount = $forms->clone()->where('status','closed')->count();
+        $confirmedCount = $forms->clone()->where('status','confirmed')->count();
 
         return $this->success([
-            'new' => $newCount,
+            'ongoing' => $ongoingCount,
             'pending' => $pendingCount,
-            'completed' => $completedCount
+            'closed' => $closedCount,
+            'confirmed' => $confirmedCount
         ]);
     }
 
     public function details(Request $request, $code){
         
         $form = Form::with('category:id,name')->where('code',$code)->first();
+
+        if(!$form){
+            return $this->error(null, 'Form do not exists', 404);
+        }
 
         return $this->success([
             'data' =>  new FormResource($form),

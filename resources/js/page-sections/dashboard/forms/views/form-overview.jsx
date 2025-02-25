@@ -24,30 +24,10 @@ export function FormOverview() {
 		refetch();
 	},[]);
 	
-	return <Grid container spacing={4}>
-					<Grid 	
+	return <Grid container spacing={2}>
+				    <Grid
 						size={{
-							md: 4,
-							xs: 12,
-						}}
-					>
-						{info?.data?.new === undefined ? (<>
-							<Skeleton height={30} width="100%" /> 
-							<Skeleton height={40} width="60%" /> 
-							<Skeleton height={40} width="60%" /> 
-						</>
-					
-							) : (
-							<CardSummary 
-								amount={info.data.new} 
-								icon={PenNibStraightIcon} 
-								title="Total New"  
-							/>
-							)}
-			       </Grid>
-					<Grid
-						size={{
-							md: 4,
+							md: 3,
 							xs: 12,
 						}}
 					>
@@ -66,13 +46,13 @@ export function FormOverview() {
 							)}
 												
 						</Grid>
-					<Grid
+						<Grid
 						size={{
-							md: 4,
+							md: 3,
 							xs: 12,
 						}}
 					>
-						{info?.data?.completed === undefined ? (<>
+						{info?.data?.confirmed === undefined ? (<>
 							<Skeleton height={30} width="100%" /> 
 							<Skeleton height={40} width="60%" /> 
 							<Skeleton height={40} width="60%" /> 
@@ -80,9 +60,51 @@ export function FormOverview() {
 					
 							) : (
 							<CardSummary 
-								amount={info.data.completed} 
+								amount={info.data.confirmed} 
+								icon={TableIcon} 
+								title="Total Confirmed"  
+							/>
+							)}
+												
+						</Grid>
+					<Grid 	
+						size={{
+							md: 3,
+							xs: 12,
+						}}
+					>
+						{info?.data?.ongoing === undefined ? (<>
+							<Skeleton height={30} width="100%" /> 
+							<Skeleton height={40} width="60%" /> 
+							<Skeleton height={40} width="60%" /> 
+						</>
+					
+							) : (
+							<CardSummary 
+								amount={info.data.ongoing} 
+								icon={PenNibStraightIcon} 
+								title="Total Ongoing"  
+							/>
+							)}
+			       </Grid>
+				
+					<Grid
+						size={{
+							md: 3,
+							xs: 12,
+						}}
+					>
+						{info?.data?.closed === undefined ? (<>
+							<Skeleton height={30} width="100%" /> 
+							<Skeleton height={40} width="60%" /> 
+							<Skeleton height={40} width="60%" /> 
+						</>
+					
+							) : (
+							<CardSummary 
+								amount={info.data.closed} 
 								icon={UsersIcon} 
-								title="Total Completed"  
+								title="Total Closed"  
 							/>
 							)}
 					</Grid>

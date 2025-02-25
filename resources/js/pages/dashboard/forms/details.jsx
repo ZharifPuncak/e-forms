@@ -20,7 +20,11 @@ const metadata = { title: `${appConfig.name}` };
 export function Page() {
 
 	const { code } = useParams();
-	const [tab, setTab] = React.useState('declaration');
+	const [isReady,  setIsReady] = React.useState(false);
+
+	const updateReady = (value) => {
+		setIsReady(value);
+	}
 
 	return (
 		<React.Fragment>
@@ -65,11 +69,11 @@ export function Page() {
 					</Stack>
 
 					{/* Form View */}
-					<FormDetails />
+					<FormDetails updateReady={updateReady} />
 
 
 					{/* Form Tabs */}
-					<FormTabs />
+					{isReady && <FormTabs />}
 				
 				</Stack>
 			</Box>

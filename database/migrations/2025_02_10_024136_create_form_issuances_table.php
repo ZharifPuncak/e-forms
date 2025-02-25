@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('form_issuances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('form_id');
+            $table->enum('status', ['pending','dispatched'])
+            ->default('pending');
             $table->timestamp('issued_at');
             $table->timestamp('deadlined_at')->nullable();
             $table->timestamps();

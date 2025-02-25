@@ -22,10 +22,10 @@ import useAxios  from "@/hooks/use-axios";
 
 export function FormTable() {
 
-    const { axiosGet } = useAxios();
+    const { axiosGet, axiosMutate } = useAxios();
 	const navigate = useNavigate();
 	const { isLoading, data : forms, refetch   }  = axiosGet({  id : 'forms' , url : import.meta.env.VITE_API_BASE_URL + '/forms' });
-	
+  
 	//useEffect
 	React.useEffect(() => {
 		refetch();
@@ -50,13 +50,12 @@ export function FormTable() {
 
 			const rowData = params.data;
 			const mapping = {
-				completed: {
-					label: "Completed",
+				confirmed: {
+					label: "Confirmed",
 					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 				},
 				closed: { label: "Closed", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
 				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-error-main)" /> },
-				new: { label: "New", icon: <CardsThreeIcon color="var(--mui-palette-warning-main)" weight="fill" /> },
 			};
 			const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 

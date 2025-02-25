@@ -34,6 +34,10 @@ class FileController extends Controller
         $form = Form::where('code',$request->code)->first();
 
         if($form){
+
+            if($form->status != 'pending'){
+                return $this->error(null, 'Cannot upload file. Form already '.$form?->status, 422);
+            }
             
             $path = storage_path().'/app/public/forms/'.$form->code;
              
@@ -57,14 +61,18 @@ class FileController extends Controller
 
     public function delete(Request $request){
 
-        $form = Form::find($request->id);
-        
+        $form = Form::where('code',$request->code)->first();
+    
         if($form){
+
+            if($form->status != 'pending'){
+                return $this->error(null, 'Cannot delete file. Form already '.$form?->status, 422);
+            }
             
             $path = storage_path().'/app/public/forms/'.$form->code;
 
             if(File::exists($path)) {
-                File::delete($path);
+                File::deleteDirectory($path);
             }
 
            $form->file()->delete();
@@ -72,7 +80,7 @@ class FileController extends Controller
            return $this->success([], 'Form file deleted.');
         }
 
-        return $this->error('Form do not found.');
+        return $this->error(null, 'Form do not found', 422);
     }
 
 }

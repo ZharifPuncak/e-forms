@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FormIssuance extends Model
 {
-    protected $fillable = ['form_id','issued_at','deadlined_at'];
+    protected $fillable = ['form_id','status','issued_at','deadlined_at'];
 
     public function form(){
         return $this->belongsTo(Form::class);

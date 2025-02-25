@@ -20,7 +20,9 @@ class IssuanceResource extends JsonResource
     
         $loadedCompanyIds = $this?->companies?->pluck('company_id');
         return [
+            'id' => $this?->id,
             'companies' =>  Company::whereIn('id',$loadedCompanyIds)->select('id','code','name')->get(),
+            'status' => $this->status,
             'issued_at' => Carbon::parse($this->issued_at)->format('d M, Y'),
             'deadlined_at'   => Carbon::parse($this->deadlined_at)->format('d M, Y')
         ];
