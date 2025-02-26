@@ -11,15 +11,18 @@ use App\Models\Shared\Position;
 
 class StaffDetail extends Model
 {
+
+   protected $table = 'staff_details';
+   
    public function company(){
-      $this->belongsTo(Company::class);
+      $this->belongsTo(Company::class,'company_id');
    }
 
    public function department(){
-      $this->belongsTo(Department::class);
+      $this->belongsTo(Department::class,'department_id');
    }
 
    public function position(){
-      $this->belongsTo(Position::class);
+      $this->belongsTo(Position::class,'position_id');
    }
 }

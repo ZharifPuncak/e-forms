@@ -10,6 +10,7 @@ use App\Http\Controllers\IssuanceController;
 use App\Http\Controllers\AcknowledgementController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SharedController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -24,8 +25,9 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
         Route::get('/',[FormController::class,'index']);
         Route::get('/info',[FormController::class,'info']);
         Route::post('/store',[FormController::class,'store']);
+        Route::put('/confirm',[FormController::class,'confirm']);
         Route::put('/update',[FormController::class,'update']);
-        Route::delete('/delete',[FormController::class,'delete']);
+        Route::post('/delete',[FormController::class,'delete']);
         Route::get('/categories',[FormController::class,'categories']);
         Route::get('/details/{code}',[FormController::class,'details']);
 
@@ -33,22 +35,29 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
         Route::prefix('files')->group(function () { 
             Route::get('/{code}',[FileController::class,'index']);
             Route::post('/upload',[FileController::class,'upload']);
-            Route::delete('/delete',[FileController::class,'delete']);
+            Route::post('/delete',[FileController::class,'delete']);
         });
 
         //Issuances
         Route::prefix('issuances')->group(function () { 
             Route::get('/{code}',[IssuanceController::class,'index']);
-            Route::post('/create',[IssuanceController::class,'create']);
+            Route::post('/store',[IssuanceController::class,'store']);
             Route::put('/update',[IssuanceController::class,'update']);
-            Route::delete('/delete',[IssuanceController::class,'delete']);
+            Route::post('/delete',[IssuanceController::class,'delete']);
+            Route::put('/dispatch',[IssuanceController::class,'dispatch']);
         });
     });
 
     // Acknowledgements 
     Route::prefix('acknowledgements')->group(function () { 
-        Route::get('/{code}',[AcknowledgementController::class,'index']);
         Route::get('/info/{code}',[AcknowledgementController::class,'info']);
+        Route::get('/{code}',[AcknowledgementController::class,'index']);
+
+    });
+
+    // Shared
+    Route::prefix('shared')->group(function () { 
+        Route::get('/companies',[SharedController::class,'companies']);
     });
 
     // Staffs

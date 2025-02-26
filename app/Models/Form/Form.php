@@ -2,6 +2,7 @@
 
 namespace App\Models\Form;
 
+use App\Models\Form\FormAcknowledgement;
 use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
@@ -12,8 +13,16 @@ class Form extends Model
         return $this->belongsTo(FormCategory::class,'form_category_id','id');
     }
 
+    public function issuance(){
+        return $this->hasMany(FormIssuance::class);
+    }
+
     public function file(){
         return $this->hasOne(FormFile::class);
+    }
+
+    public function acknowledgements(){
+        return $this->hasMany(FormAcknowledgement::class);
     }
 
 }

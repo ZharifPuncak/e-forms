@@ -10,7 +10,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { FormAcknowledgements } from "./form-acknowledgements";
 import { FormIssuances } from "./form-issuances";
 import { FormFile } from "./form-file";
-import { FormNotifications } from "./form-notifications";
+
 
 export function FormTabs() {
 
@@ -26,16 +26,12 @@ export function FormTabs() {
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                        <Tab label="Acknowledgements" value="1" />
-                        <Tab label="Files" value="2" />
-                        <Tab label="Issuances" value="3" />
-                        <Tab label="Notifications" value="4" />
+                         <Tab label="Issuances" value="1" />
+                        <Tab label="Acknowledgements" value="2" />  
                     </TabList>
                     </Box>
-                    <TabPanel value="1"><FormAcknowledgements /></TabPanel>
-                    <TabPanel value="2"><FormFile /></TabPanel>
-                    <TabPanel value="3"><FormIssuances /></TabPanel>
-                    <TabPanel value="4"><FormNotifications /></TabPanel>
+                        <TabPanel value="1"><FormIssuances /></TabPanel>
+                        <TabPanel value="2"><FormAcknowledgements /></TabPanel>
                 </TabContext>
             </Box>
             </Stack>

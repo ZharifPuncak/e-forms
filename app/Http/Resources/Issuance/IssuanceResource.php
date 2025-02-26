@@ -5,6 +5,9 @@ namespace App\Http\Resources\Issuance;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Models\Shared\Company;
+use Carbon\Carbon;
+
 class IssuanceResource extends JsonResource
 {
     /**
@@ -13,7 +16,16 @@ class IssuanceResource extends JsonResource
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
-    {
-        return parent::toArray($request);
+    { 
+    
+        $loadedCompanyIds = $this?->companies?->pluck('company_id');
+        return [
+            'id' => $this?->id,
+            'companies' =>  Company::whereIn('id',$loadedCompanyIds)->select('id','code','name')->get(),
+            'status' => $this->status,
+            'issued_at' => Carbon::parse($this->issued_at)->format('d M, Y'),
+            'deadlined_at'   => Carbon::parse($this->deadlined_at)->format('d M, Y')
+        ];
+
     }
 }

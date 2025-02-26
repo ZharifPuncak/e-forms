@@ -15,10 +15,10 @@ class AcknowledgementController extends Controller
 {
     use HttpResponses;
     public function index($code){
-
-        $acknowledgements = FormAcknowledgement::with('staff.user')->whereHas('form',function($query) use($code){
-            $query->where('code',$code);
-        })->get();
+        
+        $acknowledgements = FormAcknowledgement::with('staff.user','staff.details')->whereHas('form',function($query) use($code){
+              $query->where('code',$code);
+        })->orderBy('status', 'asc')->get();
 
         return $this->success(['acknowledgements' => AcknowledgementResource::collection($acknowledgements)]);
     }

@@ -5,6 +5,7 @@ namespace App\Models\Staff;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
+use App\Models\Form\FormAcknowledgement;
 
 class Staff extends Model
 {
@@ -15,6 +16,12 @@ class Staff extends Model
     }
 
     public function details(){
-        return $this->hasOne(StaffDetail::class);
+        return $this->hasOne(StaffDetail::class,'staff_id');
     }
+
+    public function acknowledgements(){
+        return $this->belongsToMany(FormAcknowledgement::class,'form_acknowledgements','form_id');
+    }
+
+    
 }
