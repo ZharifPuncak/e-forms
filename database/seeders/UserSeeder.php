@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             $user?->assignRole('Staff');
 
             // Create Staff
-            Staff::create([
+            $staff = Staff::create([
                 'user_id'      => $user->id,
                 'gender'       => $row[1],
                 'staff_no'     => $row[2],
@@ -62,6 +62,7 @@ class UserSeeder extends Seeder
 
             // Create Staff Details
             StaffDetail::create([
+                'staff_id' => $staff->id,
                 'company_id' => $company?->id,
                 'department_id' => $department?->id,
                 'category_id' => $category?->id,

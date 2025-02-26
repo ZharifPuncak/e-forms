@@ -14,6 +14,9 @@ use App\Http\Requests\Form\IssuanceRequest;
 use App\Traits\HttpResponses;
 use Carbon\Carbon;
 
+use App\Events\IssuanceDispatched;
+
+
 class IssuanceController extends Controller
 {
     use HttpResponses;
@@ -27,24 +30,19 @@ class IssuanceController extends Controller
 
         $issuances = FormIssuance::whereHas('form',function($query) use($code){
             $query->where('code',$code);
-        })->get();
+        })->orderBy('id','desc')->get();
 
 
         //Get IDs for company
-        $companyIds = [];
-        foreach($issuances as $issuance){
-            array_merge($issuance->companies()->pluck('id')->toArray(),$companyIds);
-        }
-       
-     
-        // $companies = Company::whereNotIn('id',$companyIds)->get();
-
+        $companyIds = $issuances->flatMap(fn($issuance) => $issuance->companies()->pluck('company_id'))->toArray();
+        $companies = Company::whereNotIn('id',$companyIds)->select('id','code','name')->get();
+  
         return $this->success([  
             'form_name' => $form->name,
             'form_alias' => $form->alias,
             'form_end'   => Carbon::parse($form->effective_to)->format('d M, Y'),
             'issuances' =>  IssuanceResource::collection($issuances),
-            'loaded_companies' => $companyIds
+            'loaded_companies' => $companies
         ]);
     }
 
@@ -53,7 +51,6 @@ class IssuanceController extends Controller
             // Validate
             $request->validated($request->all());
 
-      
             // Check if form status is not closed.
             $form = Form::where('code',$request->code)->first();
     
@@ -81,6 +78,7 @@ class IssuanceController extends Controller
     }
 
     public function store(IssuanceRequest $request){
+        
 
         //Create the issuance   
         $form = $this->checkingIssuance($request);  
@@ -96,7 +94,7 @@ class IssuanceController extends Controller
    
         foreach($filteredIssuances as $obj){
             if($obj->companies->whereIn('company_id',$ids)->first()){
-                return $this->error(null, 'Cannot issued to same company', 422);
+                return $this->error(null, 'Company already in issuance list.', 422);
             }
         }
        
@@ -117,14 +115,13 @@ class IssuanceController extends Controller
         $ids = array_column($request->companies,'id');
 
         //Get all ID of loaded company ID
-
         $filteredIssuances = $form->issuance->reject(function ($el) use($request) {
             return $el->id === $request->id; // Change $someId to the ID you want to exclude
         });
 
         foreach($filteredIssuances as $obj){
             if($obj->companies->whereIn('company_id',$ids)->first()){
-                return $this->error(null, 'Cannot issued to same company', 422);
+                return $this->error(null, 'Company already in issuance list.', 422);
             }
         }
     
@@ -139,13 +136,13 @@ class IssuanceController extends Controller
             $issuance->update(['form_id' => $form->id,'issued_at' =>  Carbon::parse($request->issued_at)->format('y-m-d'), 'deadlined_at' => Carbon::parse($request->deadlined_at)->format('y-m-d')]);
         }
 
-        //Delete records list
+        // Delete records list
         $issuance->companies()->delete();
 
         // Insert or update the new ones
-            foreach($ids as $id){
-                $issuance->companies()->create(['company_id' => $id]);
-            }
+        foreach($ids as $id){
+            $issuance->companies()->create(['company_id' => $id]);
+        }
 
         return $this->success([], 'Issuance updated.');
 
@@ -154,53 +151,48 @@ class IssuanceController extends Controller
 
     public function delete(Request $request){
 
-        $issuance = FormIssuance::with('form')->where('id',$request->id)->first();
+            $issuance = FormIssuance::with('form')->where('id',$request->id)->first();
 
-        if($issuance->status == 'dispatched'){
-              return $this->error(null, 'Cannot delete. Issuance already dispatched.', 422);
-        }
+            if($issuance->status == 'dispatched'){
+                return $this->error(null, 'Cannot delete. Issuance already dispatched.', 422);
+            }
 
-        if($issuance->form->status == 'closed'){
-            return $this->error(null, 'Cannot delete. Form already closed.', 422);
-        }
+            if($issuance->form->status == 'closed'){
+                return $this->error(null, 'Cannot delete. Form already closed.', 422);
+            }
 
-        $issuance->companies()->delete();
-        $issuance->delete();
+            $issuance->companies()->delete();
+            $issuance->delete();
 
-        return $this->success([], 'Issuance Deleted.');
+            return $this->success([], 'Issuance Deleted.');
     }
 
 
     public function dispatch(Request $request){
 
-        $issuance = FormIssuance::with('form')->where('id',$request->id)->first();
+            $issuance = FormIssuance::with('form')->where('id',$request->id)->first();
 
-        if($issuance->status == 'dispatched'){
-            return $this->error(null, 'Issuance already dispatched.', 422);
-        }
+            if($issuance->status == 'dispatched'){
+                return $this->error(null, 'Issuance already dispatched.', 422);
+            }
 
-        if($issuance->form->status == 'closed'){
-            return $this->error(null, 'Cannot dispatched. Form already closed.', 422);
-        }
+            if($issuance->form->status == 'closed'){
+                return $this->error(null, 'Cannot dispatched. Form already closed.', 422);
+            }
 
-        if(Carbon::now() > $issuance->form->effective_to){
-            return $this->error(null, 'Cannot dispatched. Form already effective ended.', 422);
-        }
+            if(Carbon::now() > $issuance->form->effective_to){
+                return $this->error(null, 'Cannot dispatched. Form already effective ended.', 422);
+            }
 
-        $issuance->update(['status' => 'dispatched']);
+            event(new IssuanceDispatched($issuance->id));
 
+            $issuance->update(['status' => 'dispatched']);
 
-        if($issuance->form->status == 'confirmed'){
-            $issuance->form()->update(['status' => 'ongoing']);
-        }
+            if($issuance->form->status == 'confirmed'){
+                $issuance->form()->update(['status' => 'ongoing']);
+            }
     
-
         return $this->success([], 'Issuance Dispatched.');
     }
-    
-    
-
-
-
-    
+      
 }

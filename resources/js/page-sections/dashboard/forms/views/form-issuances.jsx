@@ -20,6 +20,7 @@ import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 
 
+
 export function FormIssuances() {
      
 	const [selectedId,setSelectedId] = React.useState(null);
@@ -34,7 +35,7 @@ export function FormIssuances() {
     const [colDefs, setColDefs] = React.useState([]);
     React.useEffect(() => {
 
-		console.log(fetchedIssuance?.data);
+
 		setColDefs([
 
 		
@@ -43,7 +44,7 @@ export function FormIssuances() {
 			
 					return <>
 					{ rowData?.companies?.map((item) => {
-						return <Chip sx={{ ml : 0.5 }} label={item.code} />;
+						return <Chip key={item.code} sx={{ ml : 0.5 }} label={item.code} />;
 					})}
 			
 			
@@ -59,11 +60,11 @@ export function FormIssuances() {
 						label: "Dispatched",
 						icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 					},
-					pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-error-main)" /> },
+					pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
 				};
 				const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 	
-				return <Chip icon={icon} label={label} size="small" variant="outlined" />;
+				return <Chip key={label} icon={icon} label={label} size="small" variant="outlined" />;
 			}},
 			{ field: "action", cellRenderer : (params) => {
 				const rowData = params.data;
@@ -72,7 +73,7 @@ export function FormIssuances() {
 						<Button 
 							disabled={rowData?.status == 'dispatched'} 	
 							onClick={() => {
-								appContext.setDialog({ 	isOpen : true, title : 'Edit issuance', subtitle :   ' ('+ code + ')', component : <IssuanceForm loadedCompanies={fetchedIssuance?.data?.loadedCompanies} update={getIssuance} code={code} end={fetchedIssuance?.data?.form_end} item={rowData} /> })
+								appContext.setDialog({ 	isOpen : true, title : 'Edit issuance', subtitle :   ' ('+ code + ')', component : <IssuanceForm loadedCompanies={fetchedIssuance?.data?.loaded_companies} update={getIssuance} code={code} end={fetchedIssuance?.data?.form_end} item={rowData} /> })
 							}}  
 							size="small">
 							Edit 
@@ -106,13 +107,15 @@ export function FormIssuances() {
 			} }
 		])
 
-	},[fetchedIssuance?.data])
+	},[fetchedIssuance?.data]);
 
+	
 	return <>
+	
 
-		{ !isLoading  && <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+		{ !isLoading   && <Box style={{ display: "flex", justifyContent: "flex-end" }}>
 				<Button variant="outlined" onClick={() => {
-					appContext.setDialog({ title : 'Add issuance', subtitle : fetchedIssuance?.data?.form_name + ' ('+ code + ')', component : <IssuanceForm loadedCompanies={fetchedIssuance?.data?.loadedCompanies} update={getIssuance} code={code} end={fetchedIssuance?.data?.form_end} />, isOpen: true})
+					appContext.setDialog({ title : 'Add issuance', subtitle : fetchedIssuance?.data?.form_name + ' ('+ code + ')', component : <IssuanceForm loadedCompanies={fetchedIssuance?.data?.loaded_companies} update={getIssuance} code={code} end={fetchedIssuance?.data?.form_end} />, isOpen: true})
 				}}>+ Add issuance </Button>
 			</Box> }
 

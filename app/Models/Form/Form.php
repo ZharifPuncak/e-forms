@@ -2,6 +2,7 @@
 
 namespace App\Models\Form;
 
+use App\Models\Form\FormAcknowledgement;
 use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
@@ -18,6 +19,10 @@ class Form extends Model
 
     public function file(){
         return $this->hasOne(FormFile::class);
+    }
+
+    public function acknowledgements(){
+        return $this->hasMany(FormAcknowledgement::class);
     }
 
 }

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('form_id');
             $table->unsignedBigInteger('staff_id');
-            $table->string('status')->comment('pending','completed');
-            $table->timestamp('submitted_at');
+            $table->enum('status', ['pending','completed'])->default('pending');
+            $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
         });
     }

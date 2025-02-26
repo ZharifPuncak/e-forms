@@ -26,10 +26,11 @@ const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
 
 
 
-  const { axiosGet, axiosMutate } = useAxios();
+  const { axiosMutate } = useAxios();
   const appContext = useAppContext(); 
   const theme = useTheme();
-  const [indexUI,setIndexUI] = useState(0);
+  const [formattedCompanies,setFormattedCompanies] = useState([]);
+
   const [initialValues,setInitialValues] = useState({
     id : item?.id || '',
     companies: item?.companies || [],
@@ -80,10 +81,9 @@ const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
         } 
     });
 
-    const { isLoading, data : fetchedCompanies, refetch   }  = axiosGet({  id : 'shared-companies-issuance', url : import.meta.env.VITE_API_BASE_URL + '/shared/companies', cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
     const { mutate : createIssuance , isLoading : submitLoading, isSuccess  } =  axiosMutate({ id: 'issuance-store' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/store', payload : {...values, code ,issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
     const { mutate : updateIssuance, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/update', payload : {...values,  code,  issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
-  
+   
    useEffect(() => {
       if(isSuccess){
          resetForm();
@@ -95,9 +95,21 @@ const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
 
    useEffect(() => {
       if(updateSuccess || updateSuccess){
-        update();
+          update();
       }
-   },[updateSuccess,updateSuccess])
+   },[updateSuccess, updateSuccess])
+
+
+   useEffect(() => {
+
+        if(item?.id){
+          setFormattedCompanies([...item?.companies,...loadedCompanies]);
+        }else{
+          setFormattedCompanies([...loadedCompanies]);
+        }
+       
+      
+   },[item?.companies,loadedCompanies])
 
   return (
   <form onSubmit={handleSubmit}>
@@ -135,7 +147,7 @@ const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
                     return option.id === newValue.id;
                   }}
                   getOptionLabel={(option) => option.code || ''}
-                  options={fetchedCompanies?.data?.companies ?? []}
+                  options={formattedCompanies ?? []}
                   renderInput={(params) => (
                     <TextField
                       placeholder={_.isEmpty(values?.companies) ? "" : ''}
@@ -154,10 +166,11 @@ const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
                           fontSize: "14px", // Custom font size
                           opacity : 0.9
                         },
+
                       }}
                       InputProps={{
                         ...params.InputProps,
-                   
+                        style: { height: 'auto',minHeight : '45px' },
                       }}
                     />
                   )}

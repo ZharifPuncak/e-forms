@@ -105,7 +105,8 @@ export function FormDetails({ updateReady }) {
 																	<Chip
 																		icon={data?.status == 'new' ? 
 																			<CardsThreeIcon color="var(--mui-palette-warning-main) " weight="fill" /> :
-																			data?.status == 'ongoing' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
+																			data?.status == 'pending' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
+																			data?.status == 'ongoing' ? <HourglassHighIcon color="var(--mui-palette-success-main)" /> : 
 																		     data?.status == 'closed' ? <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> :
 																			data?.status == 'confirmed' ? <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> :
 																		''}
@@ -130,7 +131,7 @@ export function FormDetails({ updateReady }) {
 																		  deleteForm();
 																		})
 																		.catch(() => {
-																		  console.log("Deletion canceled");
+																	
 																		});
 																}}>Delete </Button>
 														         {data?.status == 'pending' && <Button disabled={!data?.isFileReady} onClick={confirmForm}  size="small">Confirm </Button>}

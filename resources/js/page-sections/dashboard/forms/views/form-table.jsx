@@ -13,7 +13,7 @@ import TableAG from "@/components/core/table/TableAG";
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-import { CardsThree as CardsThreeIcon } from "@phosphor-icons/react/dist/ssr/CardsThree";
+
  
 import { paths } from "@/paths";
 
@@ -55,7 +55,8 @@ export function FormTable() {
 					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 				},
 				closed: { label: "Closed", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
-				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-error-main)" /> },
+				pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
+				ongoing: { label: "Ongoing", icon: <HourglassHighIcon color="var(--mui-palette-success-main)" /> },
 			};
 			const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 

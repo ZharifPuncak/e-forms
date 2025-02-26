@@ -50,8 +50,9 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
 
     // Acknowledgements 
     Route::prefix('acknowledgements')->group(function () { 
-        Route::get('/{code}',[AcknowledgementController::class,'index']);
         Route::get('/info/{code}',[AcknowledgementController::class,'info']);
+        Route::get('/{code}',[AcknowledgementController::class,'index']);
+
     });
 
     // Shared

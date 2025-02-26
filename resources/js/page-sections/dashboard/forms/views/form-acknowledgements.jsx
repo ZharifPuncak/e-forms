@@ -24,12 +24,18 @@ export function FormAcknowledgements() {
     const appContext = useAppContext();
 
 	const { isLoading : infoLoading, data : fetchedInfo, refetch : getInfo }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/info/' + code  });
-	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/' + code  });
-    
+	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-list' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/' + code  });
+     
+	React.useEffect(() => {
+		getInfo();
+		getAcknowledgements();
+	},[])
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
 		{ field: "name", cellRenderer : (params) => {
 			const rowData = params.data;
+		
+
 			return 	<Box  sx={{ mt : 1 }}>
 				<Typography variant="body2" sx={{ mb : -2.5, whiteSpace: "nowrap"}} fontSize={14}>{rowData?.name}</Typography>
 			
@@ -73,7 +79,7 @@ export function FormAcknowledgements() {
 					<CardSummary  amount={fetchedInfo?.data?.completed ?? 0}  icon={null} title="Completed" />
 				</Grid>
 				<Grid size={{ xs : 12, sm: 12, md : 12 }}>
-					<TableAG row={fetchedAcknowledgements?.data?.acknowledgements} column={colDefs} loading={false} title=''/>
+					<TableAG row={fetchedAcknowledgements?.data?.acknowledgements} column={colDefs} loading={acknowledgementLoading} title=''/>
 				</Grid>
 		</Grid>
 	
