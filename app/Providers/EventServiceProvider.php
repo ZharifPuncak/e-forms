@@ -18,7 +18,7 @@ class EventServiceProvider extends ServiceProvider
         IssuanceDispatched::class => [
             AddUser::class,
             SendAnnoucement::class,
-            SendReminder::class,
+            SendReminder::class
         ],
     ];
 

@@ -14,6 +14,8 @@ use App\Http\Requests\Form\IssuanceRequest;
 use App\Traits\HttpResponses;
 use Carbon\Carbon;
 
+
+
 use App\Events\IssuanceDispatched;
 
 
@@ -189,7 +191,7 @@ class IssuanceController extends Controller
             $issuance->update(['status' => 'dispatched']);
 
             if($issuance->form->status == 'confirmed'){
-                $issuance->form()->update(['status' => 'ongoing']);
+                   $issuance->form()->update(['status' => 'ongoing']);
             }
     
         return $this->success([], 'Issuance Dispatched.');
