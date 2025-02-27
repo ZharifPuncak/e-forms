@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Stack  from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
+import  LoadingButton  from '@mui/lab/LoadingButton';
 
 
 import { useTheme } from '@mui/material/styles';
@@ -12,8 +13,11 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Typography } from '@mui/material';
 
+import useAxios  from "@/hooks/use-axios";
 
 const StaffForm = () => {
+
+  const { axiosGet, axiosMutate } = useAxios();
 
   const theme = useTheme();
   const [initialValues,setInitialValues] = useState({
@@ -65,18 +69,55 @@ const StaffForm = () => {
   <form onSubmit={handleSubmit}>
 
         <Grid container={true} spacing={4}  >
+        <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
+              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Name </Typography>
+              <TextField
+                        fullWidth
+                        name="name"
+                        placeholder=""
+                        autoComplete="off"
+                        onBlur={handleBlur} 
+                        onChange={handleChange} 
+                        value={values.name}  
+                        helperText={touched.name && errors.name} 
+                        type={'text'}
+                        FormHelperTextProps={{
+                          sx: { color: "#f05344" }, // ✅ Change helper text color
+                        }}
+                        InputProps={{
+                     
+                            sx: {
+                                '& input::placeholder': {
+                                    fontSize: '14px',  // Adjust size here
+                                    opacity: 0.9, // Optional: Adjust transparency if needed
+                                },
+                                "& .MuiOutlinedInput-root": {
+                                  height: "50px", // Set the height of the whole input
+                                  display: "flex",
+                                  alignItems: "center", // Ensure text is centered
+                                },
+                            
+                                "& .MuiOutlinedInput-input": {
+                                  paddingY : '10px'
+                                },
+                            },
+                        }}
+                    />
+            </Grid>
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
               <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Staff ID </Typography>
               <TextField
                         fullWidth
                         name="staffID"
-                        placeholder="Enter staff ID"
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
                         value={values.staffID}  
                         helperText={touched.staffID && errors.staffID} 
-                        error={Boolean(touched.staffID && errors.staffID)} 
+                        FormHelperTextProps={{
+                          sx: { color: "#f05344" }, // ✅ Change helper text color
+                        }}
                         type={'text'}
                         InputProps={{
                      
@@ -103,13 +144,15 @@ const StaffForm = () => {
               <TextField
                         fullWidth
                         name="staffIC"
-                        placeholder="Enter staff IC"
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
                         value={values.staffIC}  
                         helperText={touched.staffIC && errors.staffIC} 
-                        error={Boolean(touched.staffIC && errors.staffIC)} 
+                        FormHelperTextProps={{
+                          sx: { color: "#f05344" }, // ✅ Change helper text color
+                        }}
                         type={'text'}
                         InputProps={{
                      
@@ -131,51 +174,21 @@ const StaffForm = () => {
                         }}
                     />
             </Grid>
-            <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Name </Typography>
-              <TextField
-                        fullWidth
-                        name="name"
-                        placeholder="Enter staff name"
-                        autoComplete="off"
-                        onBlur={handleBlur} 
-                        onChange={handleChange} 
-                        value={values.name}  
-                        helperText={touched.name && errors.name} 
-                        error={Boolean(touched.name && errors.name)} 
-                        type={'text'}
-                        InputProps={{
-                     
-                            sx: {
-                                '& input::placeholder': {
-                                    fontSize: '14px',  // Adjust size here
-                                    opacity: 0.9, // Optional: Adjust transparency if needed
-                                },
-                                "& .MuiOutlinedInput-root": {
-                                  height: "50px", // Set the height of the whole input
-                                  display: "flex",
-                                  alignItems: "center", // Ensure text is centered
-                                },
-                            
-                                "& .MuiOutlinedInput-input": {
-                                  paddingY : '10px'
-                                },
-                            },
-                        }}
-                    />
-            </Grid>
+          
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Email </Typography>
               <TextField
                         fullWidth
                         name="email"
-                        placeholder="Enter staff email"
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
                         value={values.email}  
                         helperText={touched.email && errors.email} 
-                        error={Boolean(touched.email && errors.email)} 
+                        FormHelperTextProps={{
+                          sx: { color: "#f05344" }, // ✅ Change helper text color
+                        }}
                         type={'text'}
                         InputProps={{
                      
@@ -220,8 +233,12 @@ const StaffForm = () => {
                   options={companies}
                   renderInput={(params) => (
                     <TextField
-                      placeholder="Select form company"
-                      helperText={touched.company && errors.company}      error={Boolean(touched.company && errors.company)}  {...params}     
+                      placeholder=""
+                      helperText={touched.company && errors.company}    
+                      FormHelperTextProps={{
+                        sx: { color: "#f05344" }, // ✅ Change helper text color
+                      }}  
+                      {...params}     
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
@@ -266,8 +283,11 @@ const StaffForm = () => {
                   options={departments}
                   renderInput={(params) => (
                     <TextField
-                      placeholder="Select form department"
-                      helperText={touched.department && errors.department}      error={Boolean(touched.department && errors.department)}  {...params}     
+                      placeholder=""
+                      FormHelperTextProps={{
+                        sx: { color: "#f05344" }, // ✅ Change helper text color
+                      }}
+                      helperText={touched.department && errors.department}  {...params}     
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
@@ -311,8 +331,11 @@ const StaffForm = () => {
                   options={categories}
                   renderInput={(params) => (
                     <TextField
-                      placeholder="Select form category"
-                      helperText={touched.category && errors.category}      error={Boolean(touched.category && errors.category)}  {...params}     
+                      placeholder=""
+                      FormHelperTextProps={{
+                        sx: { color: "#f05344" }, // ✅ Change helper text color
+                      }}
+                      helperText={touched.category && errors.category}   {...params}     
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
@@ -354,8 +377,11 @@ const StaffForm = () => {
                   options={positions}
                   renderInput={(params) => (
                     <TextField
-                       placeholder="Select form position"
-                    helperText={touched.position && errors.position}      error={Boolean(touched.position && errors.position)}  {...params}  
+                       placeholder=""
+                       FormHelperTextProps={{
+                        sx: { color: "#f05344" }, // ✅ Change helper text color
+                      }}
+                    helperText={touched.position && errors.position}   {...params}  
                       sx={{
                         '& .MuiAutocomplete-input.Mui-disabled': {
                           WebkitTextFillColor: theme.palette.text.primary,
@@ -379,7 +405,7 @@ const StaffForm = () => {
 
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="contained">SUBMIT</Button>
+                <LoadingButton type="submit" variant="contained">SUBMIT</LoadingButton>
               </Box>
             </Grid>
         </Grid>

@@ -7,8 +7,7 @@ import Typography from "@mui/material/Typography";
 
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
-
-import StaffForm from "@/page-sections/dashboard/staff/forms/staff-form";
+import { CreateStaff } from "@/page-sections/dashboard/staff/create";
  
 const metadata = { title: `${appConfig.name}` };
 
@@ -34,7 +33,8 @@ export function Page() {
 						</Box>
 					</Stack>
 					
-					<StaffForm />
+
+					<CreateStaff />
 				</Stack>
 			</Box>
 		</React.Fragment>

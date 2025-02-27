@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
 
 use App\Models\Shared\Company;
+use App\Models\Shared\Department;
+use App\Models\Shared\Position;
+use App\Models\Shared\Grade;
+use App\Models\Shared\Category;
 
 class SharedController extends Controller
 {
@@ -18,4 +22,44 @@ class SharedController extends Controller
             'companies' => $companies,
         ]);
     }
+
+
+    public function departments(){
+
+        $departments = Department::select('id','code','name')->get();
+
+        return $this->success([  
+            'departments' => $departments,
+        ]);
+    }
+
+    public function positions(){
+
+        $positions = Position::select('id','code','name')->get();
+
+        return $this->success([  
+            'positions' => $positions,
+        ]);
+    }
+
+
+    public function grades(){
+
+        $grades = Grade::select('id','code','name')->get();
+
+        return $this->success([  
+            'grades' => $grades,
+        ]);
+    }
+
+
+    public function categories(){
+
+        $categories = Category::select('id','code','name')->get();
+
+        return $this->success([  
+            'categories' => $categories,
+        ]);
+    }
+
 }

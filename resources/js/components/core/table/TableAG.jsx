@@ -1,6 +1,6 @@
 import { useState, useRef, useMemo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { themeQuartz,ModuleRegistry, ClientSideRowModelModule, PaginationModule,   } from 'ag-grid-community'; 
+import { themeQuartz,ModuleRegistry, ClientSideRowModelModule, PaginationModule, QuickFilterModule,   } from 'ag-grid-community'; 
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'; 
 import Box from '@mui/material/Box';
@@ -16,6 +16,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
     
     const [searchTerm, setSearchTerm] = useState('');
     const gridRef = useRef(null);
+    const [gridApi, setGridApi] = useState(null);
   
 
     // sets 10 rows per page (default is 100)
@@ -35,7 +36,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
    
 
     // Register the required modules
-    ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule]);
+    ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule, QuickFilterModule]);
     // Theme config
     const myTheme = themeQuartz.withParams({
         /* Low spacing = very compact */
@@ -51,6 +52,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
     });
 
     const gridOptions = {
+      
         theme: myTheme,
         loading: loading,
         quickFilterText: "",
@@ -58,23 +60,28 @@ export default function TableAG({ row, column, pagination = true, loading = true
             // Resize columns to fit the grid width
             // params.api.sizeColumnsToFit();
           }
+          
     }
 
  
   
-    //Onclicked Cell
-    const onCellClicked = (params) => {
+      //Onclicked Cell
+      const onCellClicked = (params) => {
         params.api.clearFocusedCell();
       };
-    
 
-    // Qucik search value
-    const onSearchChange = (e) => {
-        const value = e.target.value;
-        setSearchTerm(value);
-        gridOptions.api.setQuickFilter(value);  // Use setQuickFilter to trigger global search
+      const onSearch = (event) => {
+        if (gridApi) {
+         
+          gridApi.setGridOption('quickFilterText', event.target.value);
+          // gridApi.setQuickFilter(event.target.value);
+        }
       };
 
+       //Ensure the function is called after AG Grid is ready
+       const onGridReady = (params) => {
+        setGridApi(params.api); // ✅ Set grid API in state
+      };
 
 
     return (
@@ -85,8 +92,8 @@ export default function TableAG({ row, column, pagination = true, loading = true
                         
                             {/* TextField on the right */}
                             {search && <TextField
-                                value={searchTerm}
-                                onChange={onSearchChange}
+                               autoComplete='off'
+                                onChange={onSearch}
                                 type="text"
                                 placeholder="Search"
                                 variant="outlined"
@@ -99,16 +106,17 @@ export default function TableAG({ row, column, pagination = true, loading = true
                                     ),
                                   }}
                                 sx={{
-                                maxWidth: '350px', // Adjust max width as needed
-                                mt: 2,
-                                mb: 2,
-                            
+                                  maxWidth: '350px', // Adjust max width as needed
+                                  mt: 2,
+                                  mb: 2,
                                 }}
                             />}
                         </Box>
                 <div>
                 <AgGridReact  
+        
                        ref={gridRef}
+                       onGridReady={onGridReady}
                        {...gridOptions}
                         rowData={row} 
                         columnDefs={column} 
@@ -122,6 +130,8 @@ export default function TableAG({ row, column, pagination = true, loading = true
                           flex: 1, // Distributes available space evenly
                           minWidth: 200, // Prevents columns from becoming too small
                           resizable: true, // Allows manual resizing
+                          filter: true,
+                          sortable: true,
                         }}
                         overlayLoadingTemplate={`
                             <div style="text-align: center;">

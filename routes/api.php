@@ -63,6 +63,10 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
     // Shared
     Route::prefix('shared')->group(function () { 
         Route::get('/companies',[SharedController::class,'companies']);
+        Route::get('/departments',[SharedController::class,'departments']);
+        Route::get('/positions',[SharedController::class,'positions']);
+        Route::get('/grades',[SharedController::class,'grades']);
+        Route::get('/categories',[SharedController::class,'categories']);
     });
 
     // Staffs
