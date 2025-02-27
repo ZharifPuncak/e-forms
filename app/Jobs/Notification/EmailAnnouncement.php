@@ -26,6 +26,6 @@ class EmailAnnouncement implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->email)->send(new Annoucement($data));
+         Mail::to($this->email)->send(new Annoucement($this->data));
     }
 }

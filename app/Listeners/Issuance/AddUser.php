@@ -63,11 +63,11 @@ class AddUser implements ShouldQueue
 
                                         // Announcement :
                                         if(Carbon::now()->format('Y-m-d') >= Carbon::parse($issuance?->form?->effective_from)->format('Y-m-d')){
-                                              EmailAnnouncement::dispatch($staff?->user?->email, $issuance);
+                                              EmailAnnouncement::dispatch($staff?->user?->email,$issuance);
                                         }
                                         
                                         // Reminder :
-                                        ReminderAnnouncement::dispatch($staff?->user?->email, $issuance);
+                                        EmailReminder::dispatch($staff?->user?->email, $issuance);
                                         
                                 }
 
