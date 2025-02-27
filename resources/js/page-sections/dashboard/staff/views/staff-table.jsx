@@ -17,45 +17,25 @@ import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/C
 import { useAppContext } from "@/contexts/app-context";
 
 import { paths } from "@/paths";
-
+import useAxios  from "@/hooks/use-axios";
 
 
 export function StaffTable() {
 
-    const appContext = useAppContext();
+  
+	const { axiosGet } = useAxios();
 	const navigate = useNavigate();
 
-	const [rowData, setRowData] = React.useState([
-		{
-			id: 1,
-			name: "Ahmad Naqib",
-			staffID: 'PNMS001',
-			email : "naqib@puncakniaga.com.my", 
-			company: "PNMS", 
-			department : "ICTD",
-			position : "Programmer",
-			status: "inactive",
-			action: 1 
-	   },
-	   {
-		   id: 2,
-		   name: "Azrif Roslan",
-		   staffID: 'TRI001',
-		   email : "azrif@triplc.com.my", 
-		   company: "TRIPLC", 
-		   department : "HR",
-		   position : "Admin",
-		   status: "active",
-		   action: 1 
-	  },
-    ]);
+	const { isLoading : staffLoading, data : staffList, refetch : getStaff }  = axiosGet({  id : 'staff-list' , url : import.meta.env.VITE_API_BASE_URL + '/staffs'  });
+
+
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
-		{ field: "name", cellRenderer : (params) => {
+		{ field: "name",minWidth : 320,  cellRenderer : (params) => {
 			const rowData = params.data;
 			return 	<Box  sx={{ mt : 1 }}>
-				<Typography variant="subtitle2" sx={{ mb : -3, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
+				<Typography variant="body2" sx={{ mb : -2.5, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
 			
 				<Typography color="text.secondary" sx={{ mb : 1}} variant="caption">
 					{rowData.email}
@@ -63,9 +43,12 @@ export function StaffTable() {
 		</Box>
 
 		}},
-		{ field: "staffID", label : "staff ID"},
-        { field: "company"},
-		{ field: "department"},
+		{ field: "staff_no", headerName : "Staff ID"},
+        { field: "company", cellRenderer : (params) => {
+			const rowData = params.data;
+			return  rowData?.company
+
+		}},
         { field: "status", 	cellRenderer : (params) => {
 
 			const rowData = params.data;
@@ -98,7 +81,7 @@ export function StaffTable() {
 
 	return <>
 	
-			<TableAG row={rowData} column={colDefs} loading={false} title=''/>
+			<TableAG row={staffList?.data?.staffs} column={colDefs} loading={staffLoading} title=''/>
 	
 	</>;
 }

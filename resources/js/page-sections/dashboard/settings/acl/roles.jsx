@@ -57,7 +57,10 @@ export function Roles({ roles }) {
 												amount={item.totalUser}
 												title={item.name} 
 												action={
-													<Button onClick={() => {
+													<>
+													<Button
+													disabled
+													 onClick={() => {
 														 appContext.setDialog({ 
 															isOpen : true, 
 															title : 'Permissions', 
@@ -73,6 +76,7 @@ export function Roles({ roles }) {
 																Permissions
 														</Typography>
 													</Button>
+													</>
 												}
 											 />
 								        </Grid>

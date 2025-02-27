@@ -11,6 +11,7 @@ use App\Http\Controllers\AcknowledgementController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SharedController;
+use App\Http\Controllers\UserController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -72,6 +73,11 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
     // Notifications
     Route::prefix('notifications')->group(function () { 
         Route::get('/',[NotificationController::class,'index']);
+    });
+
+      // Users
+      Route::prefix('users')->group(function () { 
+        Route::get('/',[UserController::class,'index']);
     });
 });
 

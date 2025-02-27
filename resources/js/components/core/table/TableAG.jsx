@@ -99,7 +99,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                                     ),
                                   }}
                                 sx={{
-                                maxWidth: '320px', // Adjust max width as needed
+                                maxWidth: '350px', // Adjust max width as needed
                                 mt: 2,
                                 mb: 2,
                             

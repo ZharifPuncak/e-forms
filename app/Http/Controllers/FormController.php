@@ -196,9 +196,9 @@ class FormController extends Controller
                 $query->where('code',$code);
         })->orderBy('id','desc');
 
-        $totalCount = $acknowledgements->count();
-        $pendingCount = $acknowledgements->where('status','pending')->count();
-        $completedCount = $acknowledgements->where('status','completed')->count();
+        $totalCount = $acknowledgements?->clone()->count();
+        $pendingCount = $acknowledgements?->clone()->where('status','pending')->count();
+        $completedCount = $acknowledgements?->clone()->where('status','completed')->count();
 
         return $this->success([
             'total' => $totalCount,

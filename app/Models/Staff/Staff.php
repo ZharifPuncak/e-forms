@@ -16,7 +16,7 @@ class Staff extends Model
     }
 
     public function details(){
-        return $this->hasOne(StaffDetail::class,'staff_id');
+        return $this->hasOne(StaffDetail::class);
     }
 
     public function acknowledgements(){
