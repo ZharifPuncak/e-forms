@@ -103,7 +103,7 @@ const InfoForm = ({ item, update })  => {
               <TextField
                         fullWidth
                         name="name"
-                        placeholder="Enter form name"
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
@@ -141,7 +141,7 @@ const InfoForm = ({ item, update })  => {
               <TextField
                         fullWidth
                         name="alias"
-                        placeholder="Enter form alias"
+                        placeholder=""
                         autoComplete="off"
                         onBlur={handleBlur} 
                         onChange={handleChange} 
@@ -192,7 +192,7 @@ const InfoForm = ({ item, update })  => {
                   options={fetchedCategories?.data?.categories ?? []}
                   renderInput={(params) => (
                     <TextField
-                      placeholder="Select form category"
+                      placeholder=""
                       helperText={touched.category && errors.category}   
                          FormHelperTextProps={{
                           sx: { color: "#f05344" }, // ✅ Change helper text color
@@ -240,7 +240,7 @@ const InfoForm = ({ item, update })  => {
                         "& .MuiInputBase-root": { height: "100%" }, // Ensure full height
                         "& .MuiInputBase-input": { padding: "10px" }, // Adjust padding
                       },
-                      placeholder: "Select date", fullWidth: true, variant : "outlined",
+                      placeholder: "", fullWidth: true, variant : "outlined",
                       helperText: touched.effective_from && errors.effective_from, 
                       FormHelperTextProps: {
                         sx: {
@@ -275,7 +275,7 @@ const InfoForm = ({ item, update })  => {
                         "& .MuiInputBase-root": { height: "100%" }, // Ensure full height
                         "& .MuiInputBase-input": { padding: "10px" }, // Adjust padding
                       },
-                      placeholder: "Select date" ,  
+                      placeholder: "" ,  
                       fullWidth: true, variant : "outlined",
                       helperText: touched.effective_to && errors.effective_to, 
                       FormHelperTextProps: {
@@ -301,7 +301,7 @@ const InfoForm = ({ item, update })  => {
                           onUpdate={({ editor }) => {
                               setFieldValue('descriptions',editor.getHTML());
                           }}
-                          placeholder="Description here..."
+                          placeholder=""
                   />
                     {errors.descriptions && touched.descriptions && <Typography variant="caption"  sx={{ ml: 0.5, mt: 0.5, display: "block", color : '#F05344' }}>
                       {errors.descriptions}

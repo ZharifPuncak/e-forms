@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
  
 class Annoucement extends Mailable implements ShouldQueue
@@ -26,7 +27,7 @@ class Annoucement extends Mailable implements ShouldQueue
     {
         return new Envelope(
             from: new Address(env('VITE_EMAIL_SENDER'), 'noreply'),
-            subject: 'Announcement : '. $issuance->form->name.' acknowledgement.',
+            subject: 'Announcement : '.$this->issuance->form->name.' acknowledgement.',
         );
     }
 
@@ -38,12 +39,12 @@ class Annoucement extends Mailable implements ShouldQueue
         return new Content(
             view: 'mails.issuance.announcement',
             with: [
-                'form_name'      => $issuance->form->name,
-                'form_alias'      => $issuance->form->alias,
-                'form_code'      => $issuance->form->code,
-                'effective_from' => $issuance->form->effective_from,
-                'effective_to'   => $issuance->form->effective_to,
-                'deadline'       => $issuance->deadlined_at
+                'form_name'      =>   $this->issuance->form->name,
+                'form_alias'      =>  $this->issuance->form->alias,
+                'form_code'      =>   $this->issuance->form->code,
+                'effective_from' =>   $this->issuance->form->effective_from,
+                'effective_to'   =>   $this->issuance->form->effective_to,
+                'deadline'       =>   $this->issuance->deadlined_at
             ],
         );
     }

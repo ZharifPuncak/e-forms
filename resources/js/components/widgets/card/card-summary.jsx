@@ -23,8 +23,9 @@ export function CardSummary({ amount , icon: Icon , title, action, active }) {
 							color: "var(--mui-palette-text-primary)",
 						}}
 					>
-						<Icon fontSize="var(--icon-fontSize-lg)" />
+						
 					</Avatar>} */}
+					{Icon && <Icon fontSize="var(--icon-fontSize-lg)" />}
 					<div>
 						<Typography sx={{ color : active ? 'white' :'inherit', }}  variant="body1">
 							{title}

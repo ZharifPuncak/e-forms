@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
 
 class Reminder extends Mailable implements ShouldQueue
@@ -16,9 +17,10 @@ class Reminder extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    protected $issuance;
+    public function __construct($issuance)
     {
-        //
+        $this->issuance = $issuance;
     }
 
     /**
@@ -28,7 +30,7 @@ class Reminder extends Mailable implements ShouldQueue
     {
         return new Envelope(
             from: new Address(env('VITE_EMAIL_SENDER'), 'noreply'),
-            subject: 'Reminder : '. $issuance->form->name.' acknowledgement.',
+            subject: 'Reminder : '.$this->issuance->form->name.' acknowledgement.',
         );
     }
 
@@ -40,12 +42,12 @@ class Reminder extends Mailable implements ShouldQueue
         return new Content(
             view: 'mails.issuance.reminder',
             with: [
-                'form_name'      => $issuance->form->name,
-                'form_alias'      => $issuance->form->alias,
-                'form_code'      => $issuance->form->code,
-                'effective_from' => $issuance->form->effective_from,
-                'effective_to'   => $issuance->form->effective_to,
-                'deadline'       => $issuance->deadlined_at
+                'form_name'      =>  $this->issuance->form->name,
+                'form_alias'      => $this->issuance->form->alias,
+                'form_code'      =>  $this->issuance->form->code,
+                'effective_from' =>  $this->issuance->form->effective_from,
+                'effective_to'   =>  $this->issuance->form->effective_to,
+                'deadline'       =>  $this->issuance->deadlined_at
             ],
         );
     }

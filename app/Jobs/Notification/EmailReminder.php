@@ -24,6 +24,6 @@ class EmailReminder implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->email)->send(new Reminder($data));
+        Mail::to($this->email)->send(new Reminder($this->data));
     }
 }
