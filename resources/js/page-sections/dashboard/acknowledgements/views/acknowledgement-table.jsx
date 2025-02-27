@@ -1,9 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 
-import Link from "@mui/material/Link";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -14,40 +12,13 @@ import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/s
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 
-import { useAppContext } from "@/contexts/app-context";
+import useAxios  from "@/hooks/use-axios";
 
 export function AcknowledgementTable() {
 
-    const appContext = useAppContext();
-	const navigate = useNavigate();
+ 	const { axiosGet } = useAxios();
+	 const { isLoading, data : fetchedAcknowledgements, refetch   }  = axiosGet({  id : 'acknowledgements-list' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements' });
 
-	const [rowData, setRowData] = React.useState([
-        {
-			 id: 1,
-			 name: "Personal Data Protection Act",
-			 alias : "PDPA", 
-			 code: "ACK01", 
-			 type : "Acknowledgement",
-			 category : "HR Compliance",
-			 status : 'pending', 
-			 role: 'Admin',
-			 assigned : '8 Jan, 2025',
-			 submitted : '',
-	
-		},
-        {    id: 2,
-			 name: "Integrity Pledge",
-			 alias: "PL",
-			 code: "PL01", 
-			 type : "Pledge",
-			 category : "Onboarding policy",
-			 status : 'completed', 
-			 role: 'Admin-HR',
-			 assigned : '9 Jan, 2025', 
-			 submitted :'10 Jan, 2025',
-			
-		},
-    ]);
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
@@ -63,7 +34,7 @@ export function AcknowledgementTable() {
 
 		}},
 		{ field: "code"},
-        {field: "assigned"},
+        {field: "issued_at"},
 		{field: "submitted"},
         { field: "status", 	cellRenderer : (params) => {
 
@@ -85,7 +56,7 @@ export function AcknowledgementTable() {
 
 	return <>
 	
-			<TableAG row={rowData} column={colDefs} loading={false} title='' search={false} />
+			<TableAG row={fetchedAcknowledgements?.data?.acknowledgements} column={colDefs} loading={isLoading} title='' search={false} />
 	
 	</>;
 }

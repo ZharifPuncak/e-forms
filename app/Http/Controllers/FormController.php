@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Form\Form;
 use App\Models\Form\FormCategory;
+use App\Models\Form\FormAcknowledgement;
 
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Response;
 
 use App\Http\Resources\Form\FormResource;
 use App\Http\Resources\Form\FormListResource;
+use App\Http\Resources\Acknowledgement\AcknowledgementResource;
 
 use App\Http\Requests\Form\FormStoreRequest;
 
@@ -177,5 +179,33 @@ class FormController extends Controller
             'categories' => $categories,
         ]);
     }
+
+
+    public function acknowledgement($code){
+
+        $acknowledgements = FormAcknowledgement::with('staff.user','staff.details')->whereHas('form',function($query) use($code){
+                $query->where('code',$code);
+        })->orderBy('status', 'asc')->get();
+
+       return $this->success(['acknowledgements' => AcknowledgementResource::collection($acknowledgements)]);
+    }
+
+    public function acknowledgementInfo($code){
+
+        $acknowledgements = FormAcknowledgement::whereHas('form',function($query) use($code){
+                $query->where('code',$code);
+        })->orderBy('id','desc');
+
+        $totalCount = $acknowledgements->count();
+        $pendingCount = $acknowledgements->where('status','pending')->count();
+        $completedCount = $acknowledgements->where('status','completed')->count();
+
+        return $this->success([
+            'total' => $totalCount,
+            'pending' => $pendingCount,
+            'completed' => $completedCount
+        ]);
+
+      }
    
 }

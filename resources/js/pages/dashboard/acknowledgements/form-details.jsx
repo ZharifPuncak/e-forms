@@ -18,6 +18,12 @@ const metadata = { title: `${appConfig.name}` };
 export function Page() {
 
 	const { code } = useParams();
+	const [name, setName] = React.useState('');
+
+	const updateName = (value) => {
+		setName(value);
+	}
+	
 	return (
 		<React.Fragment>
 			<Helmet>
@@ -52,7 +58,7 @@ export function Page() {
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Integrity Pledge</Typography>
+							<Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography>
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>
@@ -61,7 +67,7 @@ export function Page() {
 					</Stack>
 
 					{/* Declaration Details */}
-					<AcknowledgementFormDetails />
+					<AcknowledgementFormDetails updateName={updateName}/>
 
 				</Stack>
 			</Box>

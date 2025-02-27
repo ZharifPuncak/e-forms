@@ -6,7 +6,8 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Skeleton from "@mui/material/Skeleton";
+import  LoadingButton  from "@mui/lab/LoadingButton";
+
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -63,7 +64,7 @@ export function PasswordForm() {
 				title={'Change Password'}
 			/>
 			<CardContent>
-		        	{!updateLoading && <form onSubmit={handleSubmit}>
+		        	<form onSubmit={handleSubmit}>
 						<Grid container={true} spacing={4}  >
         		  		  <Grid   size={{ xs : 12, sm: 12, md : 12 }}>
 						
@@ -71,7 +72,7 @@ export function PasswordForm() {
 							    <TextField
 									fullWidth
 									name="password"
-									placeholder="Please enter old password"
+									placeholder=""
 									autoComplete="off"
 									onBlur={handleBlur} 
 									onChange={handleChange} 
@@ -105,7 +106,7 @@ export function PasswordForm() {
 							<TextField
 								fullWidth
 								name="new_password"
-								placeholder="Please enter new password"
+								placeholder=""
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
@@ -140,7 +141,7 @@ export function PasswordForm() {
 								<TextField
 								fullWidth
 								name="confirm_new_password"
-								placeholder="Please enter confirm password"
+								placeholder=""
 								autoComplete="off"
 								onBlur={handleBlur} 
 								onChange={handleChange} 
@@ -172,11 +173,11 @@ export function PasswordForm() {
 				      </Grid>
 					   <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
 							<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-								<Button type="submit" variant="contained">UPDATE</Button>
+								<LoadingButton loading={updateLoading} type="submit" variant="contained">UPDATE</LoadingButton>
 							</Box>
 					  </Grid>
 					</Grid>
-					</form>}
+					</form>
 			</CardContent>
 		</Card>
 	);

@@ -25,7 +25,7 @@ export function CardSummary({ amount , icon: Icon , title, action, active }) {
 					>
 						
 					</Avatar>} */}
-					{Icon && <Icon fontSize="var(--icon-fontSize-lg)" />}
+					{/* {Icon && <Icon fontSize="var(--icon-fontSize-lg)" />} */}
 					<div>
 						<Typography sx={{ color : active ? 'white' :'inherit', }}  variant="body1">
 							{title}

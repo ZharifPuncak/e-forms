@@ -48,8 +48,7 @@ class AddUser implements ShouldQueue
                     // Assign staff with acknowledgements
                         foreach($staffs as $staff){
                             if($staff){
-                                FormAcknowledgement::create(['staff_id' => $staff['id'], 'form_id' => $issuance->form->id]);
-
+                                FormAcknowledgement::create(['staff_id' => $staff['id'], 'form_id' => $issuance->form->id, 'form_issuance_id' => $event->issuanceId ]);
 
                                 // Check if form already closed
                                 if($issuance->form->status == 'closed') return;

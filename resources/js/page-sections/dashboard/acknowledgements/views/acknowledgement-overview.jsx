@@ -7,13 +7,15 @@ import Grid from "@mui/material/Grid2";
 import { CardSummary } from "@/components/widgets/card/card-summary";
 
 import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
-import { PenNibStraight as PenNibStraightIcon } from "@phosphor-icons/react/dist/ssr/PenNibStraight";
 import { Table as TableIcon } from "@phosphor-icons/react/dist/ssr/Table";
 
+import useAxios  from "@/hooks/use-axios";
 
 export function AcknowledgementOverview() {
 
-
+    const { axiosGet } = useAxios();
+	const { isLoading, data : fetchedInfo, refetch   }  = axiosGet({  id : 'acknowledgements-info-staff' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/info' });
+	
 	return <Grid container spacing={4}>
 				    <Grid
 						size={{
@@ -21,7 +23,7 @@ export function AcknowledgementOverview() {
 							xs: 12,
 						}}
 					>
-						<CardSummary  amount={1}  icon={TableIcon} title="Total"  />
+						<CardSummary  amount={fetchedInfo?.data?.total ?? 0}  icon={TableIcon} title="Total"  />
 					</Grid>
 					<Grid
 						size={{
@@ -29,7 +31,7 @@ export function AcknowledgementOverview() {
 							xs: 12,
 						}}
 					>
-						<CardSummary  amount={1}  icon={TableIcon} title="Total Pending"  />
+						<CardSummary  amount={fetchedInfo?.data?.pending ?? 0}  icon={TableIcon} title="Total Pending"  />
 					</Grid>
 					<Grid
 						size={{
@@ -37,7 +39,7 @@ export function AcknowledgementOverview() {
 							xs: 12,
 						}}
 					>
-						<CardSummary  amount={0} icon={UsersIcon} title="Total Completed" />
+						<CardSummary  amount={fetchedInfo?.data?.completed ?? 0} icon={UsersIcon} title="Total Completed" />
 					</Grid>
 				</Grid>				
 					

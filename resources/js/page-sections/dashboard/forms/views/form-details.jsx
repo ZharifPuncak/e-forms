@@ -39,7 +39,7 @@ const HTMLParse = ({ htmlContent })  => {
     );
 }
 
-export function FormDetails({ updateReady }) {
+export function FormDetails({ updateReady, updateName }) {
     
 	const appContext = useAppContext();
 	const confirm = useConfirm();
@@ -77,6 +77,12 @@ export function FormDetails({ updateReady }) {
 			},250)
 		}
 	},[deleteFormSuccess])
+
+	React.useEffect(() => {
+		if(data?.name){
+			updateName(data?.name);
+		}
+	},[data?.name])
 	
 	return  <Grid container spacing={4}>
 	

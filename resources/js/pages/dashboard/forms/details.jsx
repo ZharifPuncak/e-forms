@@ -26,6 +26,11 @@ export function Page() {
 		setIsReady(value);
 	}
 
+	const [name, setName] = React.useState('');
+	const updateName = (value) => {
+		setName(value);
+	}
+
 	return (
 		<React.Fragment>
 			<Helmet>
@@ -60,7 +65,7 @@ export function Page() {
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Personal Data Protection Act</Typography>
+							<Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography>
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>
@@ -69,7 +74,7 @@ export function Page() {
 					</Stack>
 
 					{/* Form View */}
-					<FormDetails updateReady={updateReady} />
+					<FormDetails updateReady={updateReady} updateName={updateName}/>
 
 
 					{/* Form Tabs */}

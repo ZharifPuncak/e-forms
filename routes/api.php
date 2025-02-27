@@ -30,6 +30,9 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
         Route::post('/delete',[FormController::class,'delete']);
         Route::get('/categories',[FormController::class,'categories']);
         Route::get('/details/{code}',[FormController::class,'details']);
+        Route::get('/acknowledgement/info/{code}',[FormController::class,'acknowledgementInfo']);
+        Route::get('/acknowledgement/{code}',[FormController::class,'acknowledgement']);
+   
 
          //Files
         Route::prefix('files')->group(function () { 
@@ -50,9 +53,10 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
 
     // Acknowledgements 
     Route::prefix('acknowledgements')->group(function () { 
-        Route::get('/info/{code}',[AcknowledgementController::class,'info']);
-        Route::get('/{code}',[AcknowledgementController::class,'index']);
-
+        Route::get('/',[AcknowledgementController::class,'index']);
+        Route::get('/info',[AcknowledgementController::class,'info']);
+        Route::get('/details/{code}',[AcknowledgementController::class,'details']);
+        Route::put('/sign',[AcknowledgementController::class,'signature']);
     });
 
     // Shared

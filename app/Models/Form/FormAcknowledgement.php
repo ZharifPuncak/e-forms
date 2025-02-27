@@ -9,7 +9,7 @@ use App\Models\Staff\Staff;
 
 class FormAcknowledgement extends Model
 {
-    protected $fillable = ['form_id','staff_id','status','submitted_at'];
+    protected $fillable = ['form_id','staff_id','form_issuance_id','status','signature','submitted_at'];
     protected $table = 'form_acknowledgements';
 
     public function staff(){
@@ -18,5 +18,9 @@ class FormAcknowledgement extends Model
 
     public function form(){
         return $this->belongsTo(Form::class);
+    }
+
+    public function issuance(){
+        return $this->belongsTo(FormIssuance::class,'form_issuance_id');
     }
 }

@@ -10,15 +10,46 @@ import Button from "@mui/material/Button";
 
 import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
+
+import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
+
 
 import SubmitAcknowledgementForm from "../forms/submit-form";
 import { useAppContext } from '@/contexts/app-context';
 
-export function AcknowledgementFormDetails() {
+import useAxios  from "@/hooks/use-axios";
+import { useParams } from "react-router-dom";
+
+import _ from 'lodash';
+
+const HTMLParse = ({ htmlContent })  => {
+    return (
+        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+    );
+}
+
+
+
+
+export function AcknowledgementFormDetails({ updateName }) {
+
+   
 
     const appContext = useAppContext();
+    const { axiosGet } = useAxios();
+    const { code } = useParams();
+    
+    const {  data : fetchedAcknowledgementsDetails, refetch   }  = axiosGet({  id : 'acknowledgements-form-details' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/details/' + code });
+    const details = fetchedAcknowledgementsDetails?.data?.details;
 
+    React.useEffect(() => {
+        if(details?.name){
+            updateName(details?.name);
+        }
+    },[details?.name])
+
+    
 	return  <Grid container spacing={4}>
 	
 					<Grid 	size={{ md: 12, xs: 12 }} >
@@ -26,46 +57,39 @@ export function AcknowledgementFormDetails() {
 											<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
 												{[
 											
-                                                    { key: "Code", value: <Typography sx={{ ml : 1 }} variant="subtitle2">ACK001</Typography> },
-                                                    { key: "Issued", value: <Typography sx={{ ml : 1 }} variant="subtitle2">9 Jan, 2025</Typography> },
-                                                    { key: "Deadline", value: <Typography sx={{ ml : 1 }} variant="subtitle2">11 Jan, 2025</Typography> },
-                                                    // { key: "Submitted", value: <Typography sx={{ ml : 1 }} variant="subtitle2">ACK001</Typography> },
+                                                    { key: "Code", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.code }</Typography> },
+                                                    { key: "Issued", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.issued }</Typography> },
+                                                    { key: "Deadline", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.deadline }</Typography> },
+                                                    { key: "Submitted", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.submitted }</Typography> },
+                                                    // { key: "Submitted", value: <Typography sx={{ ml : 1 }} variant="body2">ACK001</Typography> },
 													{
 														key: "Status",
 														value: (
-                                                            <>
-                                                                <Chip
-                                                                    icon={<HourglassHighIcon color="var(--mui-palette-warning-main)" weight="fill" />}
-                                                                    label="Pending"
-                                                                    size="small"
-                                                                    variant="outlined"
-                                                                />
-                                                            </>
-														),
+                                                            <Chip
+                                                                icon={
+                                                                    details?.status == 'pending' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
+                                                                    details?.status == 'completed' ? <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> :
+                                                                ''}
+                                                                label={_.capitalize(details?.status)}
+                                                                size="small"
+                                                                variant="outlined"
+                                                            />
+                                                    ),
 													},
                                                     { key: "Details", value: <>
-                                                               <div class="container">
-                                                                    <strong>Integrity Pledge</strong>
-                                                                    <p>An integrity pledge is a commitment to uphold honesty, ethical behavior, and accountability in all actions. 
-                                                                    It signifies a dedication to fairness, respect, and responsibility, ensuring that one acts with integrity in personal, 
-                                                                    academic, or professional settings. By taking this pledge, individuals commit to truthfulness, transparency, and 
-                                                                    upholding moral principles, fostering a culture of trust and ethical conduct.</p>
-
-                                                                    <ul>
-                                                                        <li><strong>Honesty:</strong> Always being truthful in my words and actions.</li>
-                                                                        <li><strong>Accountability:</strong> Taking responsibility for my decisions and their consequences.</li>
-                                                                        <li><strong>Fairness:</strong> Treating others with respect and ensuring fairness in all dealings.</li>
-                                                                        <li><strong>Respect for Others:</strong> Valuing diversity, opinions, and rights of others.</li>
-                                                                        <li><strong>Transparency:</strong> Being open and clear in communication and decision-making.</li>
-                                                                        <li><strong>Academic Integrity:</strong> Avoiding plagiarism, cheating, and dishonest practices in education.</li>
-                                                                        <li><strong>Professional Ethics:</strong> Upholding ethical standards in my workplace and professional life.</li>
-                                                                        <li><strong>Social Responsibility:</strong> Contributing positively to my community and society.</li>
-                                                                    </ul>
-                                                                </div>
+                                                               	<HTMLParse htmlContent={details?.descriptions} />
                                                     </> },
                                                      { key: "Action", value:  	<Grid container spacing={1}>
                                                      <Button size="small" onClick={() => {
-                                                         appContext.setDialog({ isOpen : true , title : 'Integrity Pledge', subtitle:'ACK001', component : <SubmitAcknowledgementForm />})
+                                                         appContext.setDialog({ isOpen : true , title : 'Integrity Pledge', subtitle:'ACK001', component : <SubmitAcknowledgementForm 
+                                                            code={details?.code}
+                                                            title={details?.title}
+                                                            file={details?.file} 
+                                                            status={details?.status}
+                                                            submitted={details?.submitted}
+                                                            signature={details?.sign}
+                                                            update={refetch}
+                                                    />})
                                                      }}>Click here </Button>
                                              </Grid> }
 												

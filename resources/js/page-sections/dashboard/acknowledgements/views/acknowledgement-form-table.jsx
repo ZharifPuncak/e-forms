@@ -13,35 +13,23 @@ import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/s
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 
-import { useAppContext } from "@/contexts/app-context";
-
 import { paths } from "@/paths";
-
-
+import useAxios  from "@/hooks/use-axios";
 
 export function AcknowledgementFormTable() {
 
-    const appContext = useAppContext();
+	
+	const { axiosGet } = useAxios();
+	const { isLoading, data : fetchedAcknowledgements, refetch   }  = axiosGet({  id : 'acknowledgements-list' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements' });
 	const navigate = useNavigate();
 
-	const [rowData, setRowData] = React.useState([
-        {
-			 id: 1,
-			 name: "Integrity Pledge",
-			 alias: 'IP',
-			 code : 'ACK001',
-			 status : "pending",
-			 action: 1 
-		},
-
-    ]);
-
+	
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([
 		{ field: "name", cellRenderer : (params) => {
 			const rowData = params.data;
 			return 	<Box  sx={{ mt : 1 }}>
-				<Typography variant="subtitle2" sx={{ mb : -3, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
+				<Typography variant="body1" sx={{ mb : -2.5, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
 			
 				<Typography color="text.secondary" sx={{ mb : 1}} variant="caption">
 					{rowData.alias}
@@ -78,12 +66,10 @@ export function AcknowledgementFormTable() {
 					Click here
 				</Link>
 			</>
-		} }
+		}}
     ]);
 
-	return <>
-	
-			<TableAG row={rowData} column={colDefs} loading={false} title=''/>
-	
+	return <>	
+		<TableAG row={fetchedAcknowledgements?.data?.acknowledgements} column={colDefs} loading={isLoading} title='' search={false} />
 	</>;
 }

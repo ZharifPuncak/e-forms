@@ -23,8 +23,8 @@ export function FormAcknowledgements() {
 	const { axiosGet } = useAxios();
     const appContext = useAppContext();
 
-	const { isLoading : infoLoading, data : fetchedInfo, refetch : getInfo }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/info/' + code  });
-	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-list' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/' + code  });
+	const { isLoading : infoLoading, data : fetchedInfo, refetch : getInfo }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/info/' + code  });
+	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-list' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/' + code  });
      
 	React.useEffect(() => {
 		getInfo();
