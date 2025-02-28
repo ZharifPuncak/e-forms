@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('gender', ['M', 'F']);
             $table->string('staff_no');
             $table->string('staff_ic_no');
-            $table->string('status')->default('active')->comment('active | inactive');
+            $table->string('status')->default('active')->comment('pending | active | inactive');
             $table->timestamps();
         });
     }

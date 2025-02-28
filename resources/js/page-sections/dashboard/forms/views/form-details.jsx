@@ -45,7 +45,7 @@ export function FormDetails({ updateReady, updateName }) {
 	const confirm = useConfirm();
 	const { code } = useParams();
 	const { axiosGet, axiosMutate } = useAxios();
-	const navigate = useNavigate();
+
 	const { isLoading: getLoading, data : fetchedDetails, refetch   }  = axiosGet({  id : 'forms-details' + code, url : import.meta.env.VITE_API_BASE_URL + '/forms/details/' + code, cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
 	const { mutate : confirmForm, isLoading : confirmLoading, isSuccess : confirmSuccess  } =  axiosMutate({ id: 'forms-confirm' + code, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/confirm', payload : { code } });
 	const { mutate : deleteForm, isLoading : deleteFormLoading, isSuccess : deleteFormSuccess  } =  axiosMutate({ id: 'forms-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/delete', payload : { code } });
@@ -141,7 +141,7 @@ export function FormDetails({ updateReady, updateName }) {
 																		});
 																}}>Delete </Button>
 														         {data?.status == 'pending' && <Button disabled={!data?.isFileReady} onClick={confirmForm}  size="small">Confirm </Button>}
-															     {data?.status != 'pending' && <Button disabled={!data?.isFileReady} onClick={confirmForm}  size="small">Mark as Closed </Button>}
+															     {data?.status != 'pending' && <Button disabled={true}   size="small">Mark as Closed </Button>}
 															     {data?.status == 'ongoing' || data?.status == 'closed' && <Button size="small" >Report </Button>}
 															   </Box>}
 															</>

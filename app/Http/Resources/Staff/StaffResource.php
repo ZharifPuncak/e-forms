@@ -15,17 +15,19 @@ class StaffResource extends JsonResource
 {
    
     
-    $company = Company::where('id',$this->details?->company_id)->value('code');
-    $department = Department::where('id',$this->details?->department_id)->value('name');
-    $position = Position::where('id',$this->details?->position_id)->value('name');
-    $category = Category::where('id',$this->details?->category_id)->value('name');
-    $grade = Grade::where('id',$this->details?->grade_id)->value('name');
-
-
     public function toArray(Request $request): array
     {
+
+        
+            $company = Company::where('id',$this->details?->company_id)->select('id','code','name')->first();
+            $department = Department::where('id',$this->details?->department_id)->select('id','name')->first();
+            $position = Position::where('id',$this->details?->position_id)->select('id','name')->first();
+            $category = Category::where('id',$this->details?->category_id)->select('id','name')->first();
+            $grade = Grade::where('id',$this->details?->grade_id)->select('id','name')->first();
+
         return [
-            'name' => $this->user?->name,
+            'id'    => $this->id,
+             'name' => $this->user?->name,
             'email' => $this->user?->email,
             'staffIcNo' => $this->staff_ic_no,
             'staffId' => $this->staff_no,
@@ -34,7 +36,9 @@ class StaffResource extends JsonResource
             'position' => $position,
             'grade' => $grade,
             'category' => $category,
-            'status'   => $this->status
+            'status'   => $this->status,
+            'gender'   => $this->gender,
+            'dateJoined' => $this?->details?->date_joined
         ];
     }
 }

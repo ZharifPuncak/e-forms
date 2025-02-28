@@ -65,8 +65,8 @@ export function PasswordForm() {
 			/>
 			<CardContent>
 		        	<form onSubmit={handleSubmit}>
-						<Grid container={true} spacing={4}  >
-        		  		  <Grid   size={{ xs : 12, sm: 12, md : 12 }}>
+						<Grid container={true} spacing={2}  >
+        		  		  <Grid   size={{ xs : 12, sm: 12, md : 6 }}>
 						
 							<Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Old Password </Typography>
 							    <TextField
@@ -101,7 +101,7 @@ export function PasswordForm() {
 									}}
 								/>
 				    	  </Grid>
-						  <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
+						  <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
 						  <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >New Password </Typography>
 							<TextField
 								fullWidth
@@ -136,7 +136,7 @@ export function PasswordForm() {
 								}}
 							/>
 					     </Grid>
-						 <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
+						 <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
 						 <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
 								<TextField
 								fullWidth

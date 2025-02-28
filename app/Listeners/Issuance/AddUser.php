@@ -41,7 +41,7 @@ class AddUser implements ShouldQueue
                 foreach($issuance->companies as $company){
 
                    // Get staff for selected companies of the issuance 
-                    $staffs = Staff::with('user')->whereHas('details', function($query) use($company){
+                    $staffs = Staff::with('user')->where('status','active')->whereHas('details', function($query) use($company){
                         return $query->where('company_id',$company->company_id);
                     })->get();
 

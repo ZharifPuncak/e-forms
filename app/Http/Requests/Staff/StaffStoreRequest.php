@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StaffStoreRequest extends FormRequest
 {
@@ -23,6 +24,7 @@ class StaffStoreRequest extends FormRequest
     {
         return [
             'name'       => ['required','string','max:30','min:3'],
+            'gender'     => ['required'],
             'staffId'    => ['required','string','max:12','min:5','unique:staffs,staff_no'],
             'staffIC'    => ['required', 'size:12', 'regex:/^\d{12}$/','unique:staffs,staff_ic_no'],
             'email'      => ['required','email','unique:users,email'],
@@ -30,6 +32,7 @@ class StaffStoreRequest extends FormRequest
             'department' => ['required'],
             'category'   => ['required'],
             'position'   => ['required'],
+            'dateJoined' => ['required','date']
         ];
     }
 }

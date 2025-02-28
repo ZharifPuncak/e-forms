@@ -72,6 +72,11 @@ Route::group(['middleware' => ['auth:sanctum']] ,function () {
     // Staffs
     Route::prefix('staffs')->group(function () { 
         Route::get('/',[StaffController::class,'index']);
+        Route::get('/details/{staffNo}',[StaffController::class,'details']);
+        Route::post('/store',[StaffController::class,'store']);
+        Route::put('/update',[StaffController::class,'update']);
+        Route::put('/confirm',[StaffController::class,'confirm']);
+        Route::post('/delete',[StaffController::class,'delete']);
     });
 
     // Notifications

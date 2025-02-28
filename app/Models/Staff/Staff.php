@@ -10,6 +10,7 @@ use App\Models\Form\FormAcknowledgement;
 class Staff extends Model
 {
     protected $table = 'staffs';
+    protected $fillable = ['user_id','gender','staff_no','staff_ic_no','status'];
     
     public function user(){
         return $this->belongsTo(User::class);

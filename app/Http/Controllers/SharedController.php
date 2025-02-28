@@ -26,7 +26,7 @@ class SharedController extends Controller
 
     public function departments(){
 
-        $departments = Department::select('id','code','name')->get();
+        $departments = Department::select('id','name')->get();
 
         return $this->success([  
             'departments' => $departments,
@@ -35,7 +35,7 @@ class SharedController extends Controller
 
     public function positions(){
 
-        $positions = Position::select('id','code','name')->get();
+        $positions = Position::select('id','name')->get();
 
         return $this->success([  
             'positions' => $positions,
@@ -45,7 +45,7 @@ class SharedController extends Controller
 
     public function grades(){
 
-        $grades = Grade::select('id','code','name')->get();
+        $grades = Grade::select('id','name')->get();
 
         return $this->success([  
             'grades' => $grades,
@@ -55,7 +55,7 @@ class SharedController extends Controller
 
     public function categories(){
 
-        $categories = Category::select('id','code','name')->get();
+        $categories = Category::select('id','name')->get();
 
         return $this->success([  
             'categories' => $categories,

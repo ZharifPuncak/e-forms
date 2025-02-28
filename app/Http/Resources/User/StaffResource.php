@@ -25,7 +25,7 @@ class StaffResource extends JsonResource
             'status' => $this->status,
             'staff_no' => $this->staff_no,
             'staff_ic_no' => $this->staff_ic_no,
-            'role' => $this?->user?->roles->first()->name,
+            'role' => $this?->user?->roles->first()?->name,
             'company' => $company
         ];
     }

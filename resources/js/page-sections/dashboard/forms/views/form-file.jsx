@@ -43,9 +43,9 @@ export function FormFile({ status, update }) {
 				return <>
 				   {status == 'pending' && <Box>
 
-						<Link  sx={{ cursor : 'pointer', mr : 2 }} > 
+						{/* <Link  sx={{ cursor : 'pointer', mr : 2 }} > 
 						     	View
-						</Link>
+						</Link> */}
 						<Link 
 	
 						  sx={{ cursor : 'pointer', mr : 2 }}

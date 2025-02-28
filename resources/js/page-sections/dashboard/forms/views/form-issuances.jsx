@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
@@ -16,13 +15,13 @@ import IssuanceForm from "../forms/issuance-form";
 import useAxios  from "@/hooks/use-axios";
 
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
-import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 
-
+import { useConfirm } from "material-ui-confirm";
 
 export function FormIssuances() {
      
+	const confirm = useConfirm();
 	const [selectedId,setSelectedId] = React.useState(null);
 	const { code } = useParams();
     const appContext = useAppContext();
@@ -34,8 +33,6 @@ export function FormIssuances() {
 
     const [colDefs, setColDefs] = React.useState([]);
     React.useEffect(() => {
-
-
 		setColDefs([
 
 		
@@ -82,11 +79,25 @@ export function FormIssuances() {
 						<Button 
 							disabled={rowData?.status == 'dispatched'} 	
 							onClick={async () => {
-								await setSelectedId(rowData?.id);
-								setTimeout(async () => {
-									await deleteIssuance();
-									await getIssuance();
-								},200)						}}  
+								confirm({
+									title: "Are you sure?",
+									description: "This action cannot be undone.",
+									confirmationText: "Yes, delete it",
+									cancellationText: "Cancel",
+								  })
+									.then(async () => {
+
+
+											await setSelectedId(rowData?.id);
+											setTimeout(async () => {
+												await deleteIssuance();
+												await getIssuance();
+											},200)	
+									})
+									.catch(() => {
+								
+									});
+								}}  
 							size="small">
 							Delete 
 						</Button>
@@ -94,11 +105,24 @@ export function FormIssuances() {
 						{rowData?.status == 'pending' && <Button 
 						 
 							onClick={async () => {
-								await setSelectedId(rowData?.id);
-								setTimeout(async () => {
-									await dispatchIssuance();
-									await getIssuance();
-								},200)						}}  
+
+								confirm({
+									title: "Are you sure?",
+									description: "This action cannot be undone.",
+									confirmationText: "Yes, dispatch it",
+									cancellationText: "Cancel",
+								  })
+									.then(async () => {
+										await setSelectedId(rowData?.id);
+										setTimeout(async () => {
+											await dispatchIssuance();
+											await getIssuance();
+										},200)	
+									})
+									.catch(() => {
+								
+									});
+												}}  
 							size="small">
 							Dispatch 
 						</Button>}

@@ -13,6 +13,7 @@ class StaffDetail extends Model
 {
 
    protected $table = 'staff_details';
+   protected $fillable = ['staff_id','company_id','department_id','category_id','grade_id','position_id','date_joined'];
    
    public function company(){
       $this->belongsTo(Company::class,'company_id');
