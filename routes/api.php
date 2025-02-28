@@ -12,6 +12,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SharedController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -20,6 +21,12 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 // Authenticated routes
 Route::group(['middleware' => ['auth:sanctum']] ,function () {
+
+
+    // Dashboard
+    Route::prefix('dashboard')->group(function () { 
+        Route::get('/acknowledgements',[DashboardController::class,'acknowledgements']);
+    });
 
     // Forms
     Route::prefix('forms')->group(function () { 

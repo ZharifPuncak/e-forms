@@ -78,7 +78,8 @@ function Legend({ payload }) {
 						<Typography variant="body2">{entry.name}</Typography>
 					</Stack>
 					<Typography variant="h5">
-						{new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 2 }).format(entry.value / 100)}
+						{/* {new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 2 }).format(entry.value / 100)} */}
+						{entry.value}
 					</Typography>
 				</div>
 			))}

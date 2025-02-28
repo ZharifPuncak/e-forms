@@ -30,11 +30,8 @@ const HTMLParse = ({ htmlContent })  => {
 }
 
 
-
-
 export function AcknowledgementFormDetails({ updateName }) {
 
-   
 
     const appContext = useAppContext();
     const { axiosGet } = useAxios();
@@ -51,7 +48,6 @@ export function AcknowledgementFormDetails({ updateName }) {
 
     
 	return  <Grid container spacing={4}>
-	
 					<Grid 	size={{ md: 12, xs: 12 }} >
                     <Card sx={{ borderRadius: 1 }} variant="outlined">
 											<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>

@@ -66,7 +66,7 @@ class AddUser implements ShouldQueue
                                         }
                                         
                                         // Reminder :
-                                        EmailReminder::dispatch($staff?->user?->email, $issuance);
+                                        EmailReminder::dispatch($staff?->user?->email, $issuance)->delay(Carbon::parse($issuance?->deadlined_at));
                                         
                                 }
 

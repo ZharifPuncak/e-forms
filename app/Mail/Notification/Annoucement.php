@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;
  
 class Annoucement extends Mailable implements ShouldQueue
 {
@@ -44,8 +45,9 @@ class Annoucement extends Mailable implements ShouldQueue
                 'form_code'      =>   $this->issuance->form->code,
                 'effective_from' =>   $this->issuance->form->effective_from,
                 'effective_to'   =>   $this->issuance->form->effective_to,
-                'deadline'       =>   $this->issuance->deadlined_at
-            ],
+                'deadline'       =>   $this->issuance->deadlined_at,
+                'url'            =>    url('/')
+             ],
         );
     }
 

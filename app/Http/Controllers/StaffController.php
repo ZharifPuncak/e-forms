@@ -147,6 +147,10 @@ class StaffController extends Controller
             return $this->error(null, 'Staff not found', 422);
         }
 
+        if($staff->status != 'pending'){
+            return $this->error(null, 'Staff already confirmed', 422);
+        }
+
         $issuances = FormIssuance::with('form')->whereHas('companies',function($query) use($staff){
             $query->where('company_id',$staff->details?->company_id);
         })->get();

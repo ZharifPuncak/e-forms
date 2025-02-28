@@ -140,7 +140,20 @@ export function FormDetails({ updateReady, updateName }) {
 																	
 																		});
 																}}>Delete </Button>
-														         {data?.status == 'pending' && <Button disabled={!data?.isFileReady} onClick={confirmForm}  size="small">Confirm </Button>}
+														         {data?.status == 'pending' && <Button disabled={!data?.isFileReady} onClick={() => {
+																	confirm({
+																		title: "Are you sure?",
+																		description: "This action cannot be undone.",
+																		confirmationText: "Yes, confirm it",
+																		cancellationText: "Cancel",
+																	  })
+																		.then(() => {
+																		  confirmForm();
+																		})
+																		.catch(() => {
+																	
+																		});
+																 }}  size="small">Confirm </Button>}
 															     {data?.status != 'pending' && <Button disabled={true}   size="small">Mark as Closed </Button>}
 															     {data?.status == 'ongoing' || data?.status == 'closed' && <Button size="small" >Report </Button>}
 															   </Box>}
