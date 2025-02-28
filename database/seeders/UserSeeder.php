@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
 
         //Create User Staff by File
         ImportData('seeder/shared/users.csv',  function ($row) {
+
             //Create User
             $user = User::create([
                 'name' => $row[0],
@@ -58,8 +59,6 @@ class UserSeeder extends Seeder
             $category = Category::where('name','like','%'.$row[8].'%')->first();
 
          
-        
-
             // Create Staff Details
             StaffDetail::create([
                 'staff_id' => $staff->id,

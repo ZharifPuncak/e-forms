@@ -38,10 +38,8 @@ export function StaffTable() {
 			{ field: "name",minWidth : 320,  cellRenderer : (params) => {
 				const rowData = params.data;
 				return 	<Box  sx={{ mt : 1 }}>
-					<Typography variant="body2" sx={{ mb : -2.5, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>
-				
-					
-			</Box>
+					        <Typography variant="body2" sx={{ mb : -2.5, whiteSpace: "nowrap"}} fontSize={14}>{rowData.name}</Typography>	
+			            </Box>
 	
 			}},
 			{ field: "email", headerName : "Email"},

@@ -134,7 +134,7 @@ export function FormDetails({ updateReady, updateName }) {
 																		cancellationText: "Cancel",
 																	  })
 																		.then(() => {
-																		  deleteForm();
+																		     deleteForm();
 																		})
 																		.catch(() => {
 																	
@@ -148,7 +148,7 @@ export function FormDetails({ updateReady, updateName }) {
 																		cancellationText: "Cancel",
 																	  })
 																		.then(() => {
-																		  confirmForm();
+																		     confirmForm();
 																		})
 																		.catch(() => {
 																	

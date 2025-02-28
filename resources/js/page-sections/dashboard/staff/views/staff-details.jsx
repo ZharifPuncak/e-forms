@@ -87,8 +87,8 @@ export function StaffDetails({  updateName  }) {
 													},
 													// { key: "Remarks", value: <Typography sx={{ ml : 1 }} variant="body2"></Typography> },
 													{ key: "Action", value:  	<Grid container spacing={1}>
-														<Button size="small" onClick={() => {  appContext.setDialog({ isOpen : true, title : `${details?.name}`, subtitle : `${details?.staffId}`,component : <StaffForm update={getDetail} item={details}  /> })}} >Edit </Button>
-														<Button size="small" onClick={async () => {
+														{details?.status == 'pending' && <Button size="small" onClick={() => {  appContext.setDialog({ isOpen : true, title : `${details?.name}`, subtitle : `${details?.staffId}`,component : <StaffForm update={getDetail} item={details}  /> })}} >Edit </Button>}
+														{details?.status == 'pending' && <Button size="small" onClick={async () => {
 														
 															confirm({
 																title: "Are you sure?",
@@ -102,8 +102,8 @@ export function StaffDetails({  updateName  }) {
 																.catch(() => {
 															
 																});
-														}} >Delete </Button>
-														<Button size="small" onClick={async () => {
+														}} >Delete </Button>}
+														{details?.status == 'pending' && <Button size="small" onClick={async () => {
 														
 
 															confirm({
@@ -119,7 +119,7 @@ export function StaffDetails({  updateName  }) {
 																.catch(() => {
 															
 																});
-														}} >Confirm </Button>
+														}} >Confirm </Button>}
                                                         {/* <Button size="small"  >Activate </Button>
                                                         <Button size="small"  >Deactivate </Button> */}
 												</Grid> },
