@@ -6,7 +6,7 @@
 /storage/*.key
 /storage/pail
 /storage/seeder
-/vendor
+vendor
 .env
 .env.backup
 .env.production
