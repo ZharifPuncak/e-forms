@@ -15,7 +15,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 
 
-Route::prefix('e-forms/api')->group(function () {
     
         Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
             return $request->user();
@@ -104,4 +103,4 @@ Route::prefix('e-forms/api')->group(function () {
             Route::post('/login/admin',[AuthController::class, 'adminLogin']);
             Route::post('/logout',[AuthController::class, 'logout']);
             Route::post('/password/update',[AuthController::class,'update']);
-    });
+ 
