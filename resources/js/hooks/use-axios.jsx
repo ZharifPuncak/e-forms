@@ -12,6 +12,7 @@ const useAxios = () => {
   const getAuthHeaders = (isFileUpload = false, isFileDownload = false) => {
     let headers = isAuthenticated ? { Authorization: `Bearer ${token}` } : {};
     headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/json";
     if (isFileUpload) headers["Content-Type"] = "multipart/form-data";
     return isFileDownload ? { ...headers, responseType: "arraybuffer" } : headers;
   };
