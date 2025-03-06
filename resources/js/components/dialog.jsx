@@ -44,7 +44,7 @@ export default function CustomDialog(){
 				</IconButton>
 			</Stack>
 			<Divider />
-        <DialogContent sx={{ mt : 5 }}>
+        <DialogContent sx={{ mt : 5, p : 0 }}>
           <DialogContentText>
                 {appContext.state.dialog.description}
           </DialogContentText>

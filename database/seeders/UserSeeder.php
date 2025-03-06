@@ -52,11 +52,11 @@ class UserSeeder extends Seeder
             ]);
 
             //Get shared data
-            $company = Company::where('code','like','%'.$row[4].'%')->first();
-            $department = Department::where('name','like','%'.$row[5].'%')->first();
-            $grade = Grade::where('name','like','%'.$row[6].'%')->first();
-            $position = Position::where('name','like','%'.$row[7].'%')->first();
-            $category = Category::where('name','like','%'.$row[8].'%')->first();
+            $company = Company::where('code','like',$row[4])->first();
+            $department = Department::where('name','like',$row[5])->first();
+            $grade = Grade::where('name','like',$row[6])->first();
+            $position = Position::where('name','like',$row[7])->first();
+            $category = Category::where('name','like',$row[8])->first();
 
          
             // Create Staff Details

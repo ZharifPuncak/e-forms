@@ -6,6 +6,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Badge from '@mui/material/Badge';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 
@@ -26,6 +27,10 @@ import { useFormik } from 'formik';
 import useAuth from "@/hooks/use-auth";
 import { toast } from 'sonner';
 
+import { useLongPress } from 'use-long-press';
+import { paths } from "@/paths";
+
+
 const metadata = { title: `${appConfig.name}` };
 
 export function SignInStaff() {
@@ -36,6 +41,10 @@ export function SignInStaff() {
 	const [showPassword, setShowPassword] = React.useState(false);
 	const [isLoading,setIsLoading] = React.useState(false);
 	const navigate = useNavigate();
+
+	const bind = useLongPress(() => {
+	navigate(paths.auth.signInAdmin);
+	  },{ threshold: 1200 });
 
 
 
@@ -94,7 +103,7 @@ export function SignInStaff() {
 				<Box>
 				<form onSubmit={handleSubmit}>
 				<Stack direction="row" alignItems="center" spacing={2} sx={{ mb : 2}}> 
-			    	<Box sx={{ display: "inline-block", fontSize: 0 }}>
+			    	<Box {...bind()} sx={{ display: "inline-block", fontSize: 0 }}>
 						<DynamicLogo colorDark="light" colorLight="dark" height={100} width={100} />
 					</Box>
 					
@@ -151,10 +160,13 @@ export function SignInStaff() {
 
 							</FormControl>
 							<FormControl>
-									<InputLabel sx={{ mb : 0.3 }}>Password</InputLabel>
+							
+									<InputLabel sx={{ mb : 0.3 }}>	Password</InputLabel>
+							
+									
 									<TextField fullWidth  type={showPassword ? 'text' : 'password'} name="password"
 									autoComplete="off"
-									placeholder='' 
+									placeholder="Default Password : 'abcd1234'"
 									onBlur={handleBlur} 
 									onChange={handleChange} 
 									value={values.password}  
@@ -183,7 +195,6 @@ export function SignInStaff() {
 											{showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
 											</ButtonBase>
 									}} />
-
 
 							</FormControl>
 							{isError && <Alert severity="error">{ errMessage }</Alert>}

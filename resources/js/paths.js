@@ -6,12 +6,16 @@ export const paths = {
 	pricing: "/pricing",
 	auth: {
 		signIn: "/auth/sign-in",
+		signInAdmin : "/auth/sign-in/?key=admin",
 		signUp: "/auth/sign-up",
 		resetPassword: "/auth/reset-password",
 		updatePassword: "/auth/update-password",
 	},
 	dashboard: {
 		overview: "/dashboard",
+		manual: {
+			list: "/dashboard/manual/list"
+		},
 		settings: {
 			profile: "/dashboard/settings/profile",
 			users: "/dashboard/settings/users",

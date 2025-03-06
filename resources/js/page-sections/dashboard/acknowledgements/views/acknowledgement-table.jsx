@@ -18,7 +18,11 @@ export function AcknowledgementTable() {
 
  	const { axiosGet } = useAxios();
 	 const { isLoading, data : fetchedAcknowledgements, refetch   }  = axiosGet({  id : 'acknowledgements-list' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements' });
+      
 
+	 React.useEffect(() => {
+		refetch();
+	 },[]);
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([

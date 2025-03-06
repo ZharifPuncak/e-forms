@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 		),
 		children: [...routes],
 	},
-]);
+],{basename : "/e-forms"});
 
 root.render(
 	<React.StrictMode>

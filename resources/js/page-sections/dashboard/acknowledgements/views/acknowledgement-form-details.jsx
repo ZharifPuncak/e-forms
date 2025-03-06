@@ -21,7 +21,9 @@ import { useAppContext } from '@/contexts/app-context';
 import useAxios  from "@/hooks/use-axios";
 import { useParams } from "react-router-dom";
 
+import { useMediaQuery } from "@/hooks/use-media-query";
 import _ from 'lodash';
+import Accordion1 from "@/components/widgets/accordions/accordion-1";
 
 const HTMLParse = ({ htmlContent })  => {
     return (
@@ -32,7 +34,7 @@ const HTMLParse = ({ htmlContent })  => {
 
 export function AcknowledgementFormDetails({ updateName }) {
 
-
+    const smDown = useMediaQuery("down", "sm");
     const appContext = useAppContext();
     const { axiosGet } = useAxios();
     const { code } = useParams();
@@ -72,9 +74,17 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                             />
                                                     ),
 													},
-                                                    { key: "Details", value: <>
-                                                               	<HTMLParse htmlContent={details?.descriptions} />
-                                                    </> },
+                                                    { key: "Details", value: 
+                                                    <Accordion1 details={
+                                                        <HTMLParse htmlContent={details?.descriptions} />
+                                                                                                            } title={
+                                                                                                                <>
+                                                                                                                    { <Button size="small" variant="text">View details</Button>}			
+                                                                                                                </>
+                                                                                                                } />
+                                                    
+                                                    
+                                                   },
                                                      { key: "Action", value:  	<Grid container spacing={1}>
                                                      <Button size="small" onClick={() => {
                                                          appContext.setDialog({ isOpen : true , title : 'Integrity Pledge', subtitle:'ACK001', component : <SubmitAcknowledgementForm 

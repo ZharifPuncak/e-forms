@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }) => {
 
     let loadedData = {};
 
-    const endpoint = role === "staff" ? "/api/login" : "/api/login/admin";
+    const endpoint = role === "staff" ?  import.meta.env.VITE_API_BASE_URL + "/login" : import.meta.env.VITE_API_BASE_URL + "/login/admin";
     const payload = role === "staff" 
       ? { staff_ic_no: loginCred, password } 
       : { email: loginCred, password };
@@ -149,7 +149,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password, confirm_password) => {
        
-  const { data } = await axios.post("/api/register", {
+  const { data } = await axios.post(import.meta.env.VITE_API_BASE_URL + "/register", {
       email,
       name,
       password,
@@ -171,7 +171,7 @@ export const AuthProvider = ({ children }) => {
       });
 
       await localStorage.removeItem("auth");
-      await axios.post("/api/logout", {});
+      await axios.post(import.meta.env.VITE_API_BASE_URL + "/logout", {});
 
   };
 

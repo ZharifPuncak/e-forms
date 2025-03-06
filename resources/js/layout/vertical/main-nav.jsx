@@ -65,7 +65,7 @@ export function MainNav({ items }) {
 						>
 							<ListIcon />
 						</IconButton>
-						<SearchButton />
+						{/* <SearchButton /> */}
 					</Stack>
 					<Stack
 						direction="row"

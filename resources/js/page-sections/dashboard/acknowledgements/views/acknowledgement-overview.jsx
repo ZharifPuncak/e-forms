@@ -14,8 +14,13 @@ import useAxios  from "@/hooks/use-axios";
 export function AcknowledgementOverview() {
 
     const { axiosGet } = useAxios();
-	const { isLoading, data : fetchedInfo, refetch   }  = axiosGet({  id : 'acknowledgements-info-staff' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/info' });
+	const { isLoading, data : fetchedInfo, refetch  }  = axiosGet({  id : 'acknowledgements-info-staff' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/info' });
 	
+
+	React.useEffect(() => {
+		refetch();
+	},[]);
+
 	return <Grid container spacing={4}>
 				    <Grid
 						size={{

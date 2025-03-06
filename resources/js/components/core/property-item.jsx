@@ -2,14 +2,18 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+import { useMediaQuery } from "@/hooks/use-media-query";
+
 export function PropertyItem({ name, value }) {
+
+	const smDown = useMediaQuery("down", "sm");
 	return (
 		<Box
 			sx={{
 				alignItems: "center",
 				display: "grid",
 				gridGap: "var(--PropertyItem-gap, 8px)",
-				gridTemplateColumns: "var(--PropertyItem-columns)",
+			    gridTemplateColumns: !smDown ? "var(--PropertyItem-columns)" : 'inherit',
 				p: "var(--PropertyItem-padding, 8px)",
 			}}
 		>

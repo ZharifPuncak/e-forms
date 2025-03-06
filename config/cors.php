@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*','https://localhost','http://10.16.1.151/','https://localhost/e-forms','http://10.16.1.151/e-forms'],
 
     'allowed_origins_patterns' => [],
 

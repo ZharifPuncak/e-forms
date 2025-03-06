@@ -19,6 +19,7 @@ class Annoucement extends Mailable implements ShouldQueue
     public function __construct($issuance)
     {
         $this->issuance = $issuance;
+       
     }
 
     /**
@@ -37,6 +38,9 @@ class Annoucement extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
+
+      
+
         return new Content(
             view: 'mails.issuance.announcement',
             with: [
