@@ -103,14 +103,14 @@ export function SignInStaff() {
 				<Box>
 				<form onSubmit={handleSubmit}>
 				<Stack direction="row" alignItems="center" spacing={2} sx={{ mb : 2}}> 
-			    	<Box {...bind()} sx={{ display: "inline-block", fontSize: 0 }}>
+			    	<Box  sx={{ display: "inline-block", fontSize: 0 }}>
 						<DynamicLogo colorDark="light" colorLight="dark" height={100} width={100} />
 					</Box>
 					
 					<Stack sx={{ mt  : 1, mb : 4  }} spacing={1}>
 						<Typography variant="h5">Sign in</Typography>
 						<Typography sx={{ mt : -1, fontSize : '18px' }} color="text.secondary" variant="caption">
-							 e-FORM MANAGEMENT SYSTEM
+						e-FORM <span {...bind()}>MANAGEMENT</span> SYSTEM
 						</Typography>
 					</Stack>
 				</Stack>
@@ -128,7 +128,7 @@ export function SignInStaff() {
 										inputProps={{ maxLength: 12 }}
 										type="text" 
 										name="staffIcNo"
-										autoFocus
+										
 										onBlur={handleBlur} 
 										onChange={handleChange} 
 										value={values.staffIcNo}  

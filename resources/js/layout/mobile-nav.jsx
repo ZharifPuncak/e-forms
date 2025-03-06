@@ -113,18 +113,29 @@ function renderNavGroups({ items, onClose, pathname }) {
 }
 
 function renderNavItems({ depth = 0, items = [], onClose, pathname }) {
+
+	let formatedChildItems = false;
+	const { cans } = useAuth();
 	const children = items.reduce((acc, curr) => {
 		const { items: childItems, key, ...item } = curr;
 
-		const forceOpen = childItems
-			? childItems.some((childItem) => childItem.href && pathname.startsWith(childItem.href))
-			: false;
 
-		acc.push(
-			<NavItem depth={depth} forceOpen={forceOpen} key={key} onClose={onClose} pathname={pathname} {...item}>
-				{childItems ? renderNavItems({ depth: depth + 1, items: childItems, onClose, pathname }) : null}
-			</NavItem>
-		);
+		const forceOpen = childItems
+		? childItems.some((childItem) => childItem.href && pathname.startsWith(childItem.href))
+		: false;
+
+		
+		if(childItems){
+			formatedChildItems = childItems.filter((el) => cans(el?.permissions) || curr?.permissions?.includes('all'));
+	   }
+
+	   if(cans(curr?.permissions) || curr?.permissions?.includes('all')){
+			acc.push(
+				<NavItem depth={depth} forceOpen={forceOpen} key={key} onClose={onClose} pathname={pathname} {...item}>
+					{childItems ? renderNavItems({ depth: depth + 1, items: childItems, onClose, pathname }) : null}
+				</NavItem>
+			);
+		}
 
 		return acc;
 	}, []);
