@@ -41,7 +41,7 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
   ];
 
   const theme = useTheme();
-  const mdDown = useMediaQuery("down", "md");
+  const smDown = useMediaQuery("down", "sm");
 
   //Stepper
   const [activeStep, setActiveStep] = React.useState(0);
@@ -136,13 +136,13 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
   return (
  
 
-        <Grid container={true} spacing={4}  >
-            <Grid 	size={{ md: 12, xs: 12 }} >
+        <Grid  container={true} spacing={2}  >
+            <Grid  	size={{ md: 12, xs: 12 }} >
 				
 
-          <Stepper activeStep={activeStep} orientation="vertical">
+          <Stepper  activeStep={activeStep} orientation="vertical">
                     {steps.map((step, index) => (
-                    <Step key={step.label}>
+                    <Step  key={step.label}>
                         <StepLabel
                         optional={
                             index === steps.length - 1 ? (
@@ -152,14 +152,17 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
                         >
                         {step.label}
                         </StepLabel>
-                        <StepContent>
+                        <StepContent sx={{ width: '100%'}}>
 
                             
                         {/* <Typography>{step.description}</Typography> */}
                         {index == 0 &&  <Box sx={{ mt : 2, mb : 2 }}>
-                        {!mdDown ? 
+                        {!smDown ? 
                               <embed  src={file + '#zoom=100&toolbar=0'} type="application/pdf" width="100%" height={"600px"}  /> :
-                              <embed  src={file + '#zoom=50&toolbar=0'} type="application/pdf" width="100%" height={"600px"}  />}
+                              <Button onClick={() => {
+                                   window.open(file, "_blank")
+                              }}>View Document</Button>
+                              }
                           
                         </Box>}
                         {index == 1 &&  status == 'pending' && <Grid container={true} sx={{ mt : 2, mb : 2 }}>
@@ -213,7 +216,7 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
                                           <SignatureCanvas 
                                               ref={signatureRef}
                                               penColor='black'
-                                              canvasProps={{width: 500, height: 200, className: 'sigCanvas'}} 
+                                              canvasProps={{width: 500, height: 300, className: 'sigCanvas'}} 
                                               onEnd={handleEnd} 
                                             />
                                         </Box>

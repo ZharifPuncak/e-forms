@@ -53,7 +53,7 @@ export function Page() {
 				<div>
 						<Link
 							color="text.primary"
-							href={paths.dashboard.forms.list}
+							href={window.location.origin + '/e-forms' + paths.dashboard.forms.list}
 							sx={{ alignItems: "center", display: "inline-flex", gap: 1 }}
 							variant="subtitle2"
 						>

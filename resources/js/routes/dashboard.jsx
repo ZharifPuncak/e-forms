@@ -7,6 +7,7 @@ import { Layout as DashboardLayout } from "@/layout/layout";
 import { Layout as SettingsLayout } from "@/layout/setting-layout";
 
 
+
 export const route = {
 	path: "dashboard",
 	element: (
@@ -104,6 +105,19 @@ export const route = {
 			],
 		},
 		{
+				path: "manual",
+				children: [
+					{
+						path: "list",
+						lazy: async () => {
+							const { Page } = await import("@/pages/dashboard/manual/list");
+							return { Component: (props) => <Page {...props} /> };
+						},
+					},
+
+				],
+			},
+		{
 			path: "settings",
 			element: (
 				<SettingsLayout>
@@ -136,3 +150,4 @@ export const route = {
 		},
 	],
 };
+

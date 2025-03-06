@@ -25,6 +25,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import useAuth from "@/hooks/use-auth";
 import { toast } from 'sonner';
+import { useLongPress } from 'use-long-press';
 
 const metadata = { title: `${appConfig.name}` };
 
@@ -37,7 +38,9 @@ export function SignInAdmin() {
 	const [isLoading,setIsLoading] = React.useState(false);
 	const navigate = useNavigate();
 
-
+	const bind = useLongPress(() => {
+		navigate('/auth/sign-in');
+	  },{ threshold: 1200 });
 
 	const [initialValues,setInitialValues] = React.useState({
 		email :  '',
@@ -94,7 +97,7 @@ export function SignInAdmin() {
 				<Box>
 				<form onSubmit={handleSubmit}>
 				<Stack direction="row" alignItems="center" spacing={2} sx={{ mb : 2}}> 
-			    	<Box sx={{ display: "inline-block", fontSize: 0 }}>
+			    	<Box {...bind()} sx={{ display: "inline-block", fontSize: 0 }}>
 						<DynamicLogo colorDark="light" colorLight="dark" height={100} width={100} />
 					</Box>
 					

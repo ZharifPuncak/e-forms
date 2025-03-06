@@ -44,6 +44,7 @@ export const dashboardConfig = {
 			title: "General",
 			permissions : ['all'],
 			items: [
+				{ key: "manual", title: "Manual", href: paths.dashboard.manual.list, icon: "file" , permissions: ['all']},
 				{
 					key: "staff",
 					title: "Staff",
@@ -66,3 +67,6 @@ export const dashboardConfig = {
 		},
 	]
 };
+
+
+

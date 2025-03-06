@@ -17,7 +17,7 @@ import { RouterLink } from "@/components/core/link";
 import { Logo } from "@/components/core/logo";
 
 import { icons } from "./nav-icons";
-
+import useAuth from "@/hooks/use-auth";
 
 export function MobileNav({ items = [], open, onClose }) {
 	const pathname = usePathname();
@@ -80,19 +80,27 @@ export function MobileNav({ items = [], open, onClose }) {
 }
 
 function renderNavGroups({ items, onClose, pathname }) {
+
+
+   const { cans } = useAuth();
 	const children = items.reduce((acc, curr) => {
-		acc.push(
-			<Stack component="li" key={curr.key} spacing={1.5}>
-				{curr.title ? (
-					<div>
-						<Typography sx={{ color: "var(--NavGroup-title-color)", fontSize: "0.875rem", fontWeight: 500 }}>
-							{curr.title}
-						</Typography>
-					</div>
-				) : null}
-				<div>{renderNavItems({ depth: 0, items: curr.items, onClose, pathname })}</div>
-			</Stack>
-		);
+
+		if(cans(curr?.permissions) || curr?.permissions?.includes('all')){	
+
+			acc.push(
+				<Stack component="li" key={curr.key} spacing={1.5}>
+					{curr.title ? (
+						<div>
+							<Typography sx={{ color: "var(--NavGroup-title-color)", fontSize: "0.875rem", fontWeight: 500 }}>
+								{curr.title}
+							</Typography>
+						</div>
+					) : null}
+					<div>{renderNavItems({ depth: 0, items: curr.items, onClose, pathname })}</div>
+				</Stack>
+			);
+		}
+	
 
 		return acc;
 	}, []);

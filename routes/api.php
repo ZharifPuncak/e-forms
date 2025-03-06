@@ -13,6 +13,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SharedController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManualController;
 
 
     
@@ -96,6 +97,10 @@ use App\Http\Controllers\DashboardController;
             // Users
             Route::prefix('users')->group(function () { 
                 Route::get('/',[UserController::class,'index']);
+            });
+
+            Route::prefix('manual')->group(function () { 
+                Route::get('/',[ManualController::class,'index']);
             });
         });
 
