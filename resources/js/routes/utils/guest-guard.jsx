@@ -13,7 +13,7 @@ export default function GuestGuard({ children }) {
   useEffect(() => {
 
       if(isAuthenticated ){
-            navigate(paths.dashboard.overview);
+         window.location.href = window.location.origin + '/e-forms/dashboard';
       }
 
   },[isAuthenticated]);
