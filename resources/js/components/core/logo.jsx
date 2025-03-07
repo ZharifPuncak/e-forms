@@ -11,18 +11,6 @@ const HEIGHT = 60;
 const WIDTH = 60;
 
 export function Logo({ color = "dark", emblem, height = HEIGHT, width = WIDTH, isSignInPage = false }) {
-	let url;
-	
-	// if (emblem) {
-	// 	url = color === "light" ? "/assets/logo-emblem.svg" : "/assets/logo-emblem--dark.svg";
-	// } else {
-	// 	url = color === "light" ? "/assets/logo.svg" : "/assets/logo--dark.svg";
-	// }
-	// if(isSignInPage){
-	// 	url = "/assets/logo/e-FORM.png";
-	// }else{
-	// 	url = "/assets/logo/logo-puncak.png";
-	// }
 	
 	return <Box alt="logo" component="img" height={height} src={PuncakLogo} width={width} />;
 }

@@ -27,6 +27,8 @@ import useAuth from "@/hooks/use-auth";
 import { toast } from 'sonner';
 import { useLongPress } from 'use-long-press';
 
+
+
 const metadata = { title: `${appConfig.name}` };
 
 export function SignInAdmin() {
@@ -95,23 +97,24 @@ export function SignInAdmin() {
 			</Helmet>
 			<CenteredLayout>
 				<Box>
+				
 				<form onSubmit={handleSubmit}>
-				<Stack direction="row" alignItems="center" spacing={2} sx={{ mb : 2}}> 
-			    	<Box  sx={{ display: "inline-block", fontSize: 0 }}>
+				<Stack direction="row" alignItems="center" spacing={2} sx={{ mb : 2, zIndex : 10}}> 
+			    	<Box sx={{ display: "inline-block", fontSize: 0 }}>
 						<DynamicLogo colorDark="light" colorLight="dark" height={100} width={100} />
 					</Box>
 					
 					<Stack sx={{ mt  : 1, mb : 4  }} spacing={1}>
 						<Typography variant="h5">Sign in</Typography>
 						<Typography sx={{ mt : -1, fontSize : '18px' }} color="text.secondary" variant="caption">
-							 e-FORM <span {...bind()}>MANAGEMENT</span> SYSTEM
+								e-FORMS <span {...bind()}>MANAGEMENT</span> SYSTEM
 						</Typography>
 					</Stack>
 				</Stack>
 				
 		
 					<Stack sx={{ p : 2}} spacing={4}>
-			
+				
 						<Stack spacing={2}>
 						<FormControl>
 									<InputLabel sx={{ mb : 0.3 }}>Email</InputLabel>
@@ -121,7 +124,6 @@ export function SignInAdmin() {
 										placeholder='' 
 										type="email" 
 										name="email"
-										
 										onBlur={handleBlur} 
 										onChange={handleChange} 
 										value={values.email}  
@@ -191,11 +193,14 @@ export function SignInAdmin() {
 							</FormControl>
 							{isError && <Alert severity="error">{ errMessage }</Alert>}
 							<div >
-							<LoadingButton color="secondary" sx={{ letterSpacing : '1.2px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
+							<LoadingButton color="secondary" sx={{ letterSpacing : '1px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
 								SIGN IN
 							</LoadingButton>
 
 							</div>
+							<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+								<Typography variant="caption">© ICTD Puncak Niaga Management Services Sdn. Bhd. </Typography>
+							</Box>
 						</Stack>
 					
 					</Stack>

@@ -110,7 +110,7 @@ export function SignInStaff() {
 					<Stack sx={{ mt  : 1, mb : 4  }} spacing={1}>
 						<Typography variant="h5">Sign in</Typography>
 						<Typography sx={{ mt : -1, fontSize : '18px' }} color="text.secondary" variant="caption">
-						e-FORM <span {...bind()}>MANAGEMENT</span> SYSTEM
+						e-FORMS <span {...bind()}>MANAGEMENT</span> SYSTEM
 						</Typography>
 					</Stack>
 				</Stack>
@@ -178,8 +178,9 @@ export function SignInStaff() {
 											
 										sx: {
 											'& input::placeholder': {
-												fontSize: '14px',  // Adjust size here
+												fontSize: '12px',  // Adjust size here
 												opacity: 0.9, // Optional: Adjust transparency if needed
+												fontStyle: 'italic'
 											},
 											"& .MuiOutlinedInput-root": {
 											height: "50px", // Set the height of the whole input
@@ -199,11 +200,14 @@ export function SignInStaff() {
 							</FormControl>
 							{isError && <Alert severity="error">{ errMessage }</Alert>}
 							<div >
-							<LoadingButton sx={{ letterSpacing : '1.2px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
+							<LoadingButton sx={{ letterSpacing : '1px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
 								SIGN IN
 							</LoadingButton>
 
 							</div>
+							<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+								<Typography variant="caption">© ICTD Puncak Niaga Management Services Sdn. Bhd. </Typography>
+							</Box>
 						</Stack>
 					
 					</Stack>
