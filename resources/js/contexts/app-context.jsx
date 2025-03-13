@@ -4,6 +4,20 @@ const AppContext = createContext();
 
 const initialState = {
 
+    parentDialog: {
+      isCloseable : false,
+      isDisabled : false,
+      maxWidth : 'md',
+      confirmText : 'PROCEED',
+      isOpen: false,
+      title : 'Are you sure ?',
+      content : '',
+      description : '',
+      cancel : '',
+      isAction : true,
+      action : () => {  },
+    },
+
     dialog: {
       isDisabled : false,
       maxWidth : 'xs',
@@ -16,6 +30,7 @@ const initialState = {
       isAction : true,
       action : () => {  },
     },
+   
     
     drawer: {
       isOpen: false,
@@ -41,6 +56,17 @@ const reducer = (state, action) => {
             ...state,
             dialog: {
               ...state.dialog,
+              ...action.payload,
+            },
+          };
+    
+
+
+         case 'SET_PARENT_DIALOG':
+          return {
+            ...state,
+            parentDialog: {
+              ...state.parentDialog,
               ...action.payload,
             },
           };
@@ -71,12 +97,21 @@ export const  AppProvider = ({ children }) => {
           payload: dialogState,
       });
   };
+
+
+  const setParentDialog = (dialogState) => {
+      dispatch({
+          type: 'SET_PARENT_DIALOG',
+          payload: dialogState,
+      });
+ };
   
     
       
  
-  return <AppContext.Provider value={{ needUpdate, setNeedUpdate ,state, setDrawer, setDialog}}>
-    {children}
+  return <AppContext.Provider 
+          value={{ needUpdate, setNeedUpdate ,state, setDrawer, setDialog, setParentDialog}}>
+          {children}
     </AppContext.Provider>;
 };
 

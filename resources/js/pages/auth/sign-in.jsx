@@ -1,4 +1,5 @@
 import * as React from "react";
+import Box from "@mui/material/Box";
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
 
@@ -22,7 +23,7 @@ export function Page() {
 			<Helmet>
 				<title>{metadata.title}</title>
 			</Helmet>
-					{key && key == 'admin'  ?  <SignInAdmin /> : <SignInStaff />}
+				{key && key == 'admin'  ?  <SignInAdmin /> : <SignInStaff />}
 		</React.Fragment>
 	);
 }

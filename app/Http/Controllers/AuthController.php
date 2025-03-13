@@ -89,26 +89,5 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out.'],200);
     }
 
-    public function update(Request $request){
 
-        $validated = $request->validate([
-            'password' => 'required|min:6',
-            'new_password' => 'required|min:6',
-            'confirm_new_password' => 'required|min:6',
-        ]);
-
-        if (!Hash::check($request['password'], Auth::user()->password)) {
-            return response()->json(['status' => 'The old password does not match our records.'],422);
-        }
-
-        if($request['new_password'] != $request['confirm_new_password']){
-            return response()->json(['status' => 'The confirm password does not match new password.'],422);
-        }
-
-
-        Auth::user()->update(['password' => Hash::make($request->new_password)]);
-
-        return response()->json(['message' => 'Password updated.'],200);
-
-      }
 }

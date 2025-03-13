@@ -2,10 +2,10 @@ import * as React from "react";
 import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
-// import { ResetPasswordForm } from "@/components/auth/custom/reset-password-form";
-import { SplitLayout } from "./components/split-layout";
+import { ResetPassword } from "@/page-sections/dashboard/auth/reset-password";
 
-const metadata = { title: `Reset password | Custom | Auth | ${appConfig.name}` };
+
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 	return (
@@ -13,9 +13,8 @@ export function Page() {
 			<Helmet>
 				<title>{metadata.title}</title>
 			</Helmet>
-			<SplitLayout>
-				{/* <ResetPasswordForm /> */}
-			</SplitLayout>
+		
+			<ResetPassword />
 		</React.Fragment>
 	);
 }

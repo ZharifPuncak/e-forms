@@ -1,19 +1,23 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet  } from 'react-router-dom';
+import { useAppContext } from "@/contexts/app-context";
 
 import useAuth from '@/hooks/use-auth';
-import { paths } from "@/paths"; // Ensure correct import path
+
 
 export default function GuestGuard({ children }) {
 
-  const location = useLocation();
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const appContext = useAppContext(); 
+
+  
 
   useEffect(() => {
 
       if(isAuthenticated ){
          window.location.href = window.location.origin + '/e-forms/dashboard';
+      }else{
+        appContext.setParentDialog({ title : null, subtitle : null, isOpen : false, component : false });
       }
 
   },[isAuthenticated]);

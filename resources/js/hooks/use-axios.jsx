@@ -6,6 +6,9 @@ import { toast } from 'sonner';
 
 
 
+
+
+
 const useAxios = () => {
   const { logout, isAuthenticated, token } = useAuth();
   
@@ -31,14 +34,16 @@ const useAxios = () => {
 
   const axiosMutate = ({ id = null, method, url, payload = {}, isFileDownload = false, isFileUpload = false }) => {
     const { isLoading, isError, isSuccess, error, data, mutate } = useMutation(
-      async () => mutationFn({ method, url, payload, isFileUpload, isFileDownload }),
+      async () => {
+       return mutationFn({ method, url, payload, isFileUpload, isFileDownload })
+      },
       { cacheTime: Infinity, mutationKey: id },
       
     );
 
     useEffect(() => {
       if (!isFileDownload && isSuccess && data) {
-          toast.success(data?.message,{
+          toast.success(data?.message || data?.status,{
             style: {
               background: 'green',
               color: 'white'

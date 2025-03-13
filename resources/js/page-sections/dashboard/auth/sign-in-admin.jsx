@@ -27,8 +27,6 @@ import useAuth from "@/hooks/use-auth";
 import { toast } from 'sonner';
 import { useLongPress } from 'use-long-press';
 
-
-
 const metadata = { title: `${appConfig.name}` };
 
 export function SignInAdmin() {
@@ -42,7 +40,7 @@ export function SignInAdmin() {
 
 	const bind = useLongPress(() => {
 		navigate('/auth/sign-in');
-	  },{ threshold: 1200 });
+	  },{ threshold: 1000 });
 
 	const [initialValues,setInitialValues] = React.useState({
 		email :  '',
@@ -67,16 +65,13 @@ export function SignInAdmin() {
 		validationSchema,
 		onSubmit: async values => {
 		  try {
-
-		    
-			setIsLoading(true);
-			await login( values.email,values.password, 'admin');
-			navigate(0);
-
+ 
+				setIsLoading(true);
+				await login( values.email,values.password, 'admin');
+				navigate(0);
 
 		  } catch (error) {
 
-		
 			setIsLoading(false);
 			toast(error?.message,{
 				style: {
@@ -92,15 +87,13 @@ export function SignInAdmin() {
 
 	return (
 		<React.Fragment>
-			<Helmet>
-				<title>{metadata.title}</title>
-			</Helmet>
 			<CenteredLayout>
-				<Box>
-				
+			   <Box>
 				<form onSubmit={handleSubmit}>
 				<Stack direction="row" alignItems="center" spacing={2} sx={{ mb : 2, zIndex : 10}}> 
-			    	<Box sx={{ display: "inline-block", fontSize: 0 }}>
+			    	<Box onClick={() => {
+						navigate('/');
+					}} sx={{ display: "inline-block", fontSize: 0 }}>
 						<DynamicLogo colorDark="light" colorLight="dark" height={100} width={100} />
 					</Box>
 					
@@ -117,7 +110,7 @@ export function SignInAdmin() {
 				
 						<Stack spacing={2}>
 						<FormControl>
-									<InputLabel sx={{ mb : 0.3 }}>Email</InputLabel>
+									<InputLabel sx={{ mb : 0.5 }}>Email</InputLabel>
 									<TextField 
 									    autoComplete='off'
 										fullWidth 
@@ -155,7 +148,7 @@ export function SignInAdmin() {
 
 							</FormControl>
 							<FormControl>
-									<InputLabel sx={{ mb : 0.3 }}>Password</InputLabel>
+									<InputLabel sx={{ mb : 0.5 }}>Password</InputLabel>
 									<TextField fullWidth  type={showPassword ? 'text' : 'password'} name="password"
 									autoComplete="off"
 									placeholder='' 
@@ -193,11 +186,11 @@ export function SignInAdmin() {
 							</FormControl>
 							{isError && <Alert severity="error">{ errMessage }</Alert>}
 							<div >
-							<LoadingButton color="secondary" sx={{ letterSpacing : '1px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
-								SIGN IN
-							</LoadingButton>
-
+								<LoadingButton color="secondary" sx={{ letterSpacing : '1px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
+									SIGN IN
+								</LoadingButton>
 							</div>
+	
 							<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
 								<Typography variant="caption">© ICTD Puncak Niaga Management Services Sdn. Bhd. </Typography>
 							</Box>

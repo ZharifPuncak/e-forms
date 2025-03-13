@@ -23,8 +23,8 @@ export function Page() {
 				
 					<Roles
 						roles={[
-							{ id: "INV-002", name: "Admin", totalUser: 5 },
-							{ id: "INV-001", name: "Admin-HR", totalUser: 7 },
+							{ id: "INV-002", name: "Admin", totalUser: 1 },
+							{ id: "INV-001", name: "Admin-HR", totalUser: 1 },
 						]}
 					/>
 				</Stack>

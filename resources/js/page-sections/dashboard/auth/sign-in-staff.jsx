@@ -6,11 +6,9 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Badge from '@mui/material/Badge';
+import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
-
-
-import { Helmet } from "react-helmet-async";
+import { RouterLink } from "@/components/core/link";
 
 import { appConfig } from "@/config/app";
 import { CenteredLayout } from "./components/centered-layout";
@@ -44,7 +42,7 @@ export function SignInStaff() {
 
 	const bind = useLongPress(() => {
 	navigate(paths.auth.signInAdmin);
-	  },{ threshold: 1200 });
+	  },{ threshold: 1000 });
 
 
 
@@ -96,31 +94,30 @@ export function SignInStaff() {
 
 	return (
 		<React.Fragment>
-			<Helmet>
-				<title>{metadata.title}</title>
-			</Helmet>
 			<CenteredLayout>
-				<Box>
+			 <Box>
 				<form onSubmit={handleSubmit}>
 				<Stack direction="row" alignItems="center" spacing={2} sx={{ mb : 2}}> 
-			    	<Box  sx={{ display: "inline-block", fontSize: 0 }}>
+			    	<Box onClick={() => {
+						navigate('/');
+					}}   sx={{ display: "inline-block", fontSize: 0 }}>
 						<DynamicLogo colorDark="light" colorLight="dark" height={100} width={100} />
 					</Box>
 					
 					<Stack sx={{ mt  : 1, mb : 4  }} spacing={1}>
 						<Typography variant="h5">Sign in</Typography>
 						<Typography sx={{ mt : -1, fontSize : '18px' }} color="text.secondary" variant="caption">
-						e-FORMS <span {...bind()}>MANAGEMENT</span> SYSTEM
+						    e-FORMS <span {...bind()}>MANAGEMENT</span> SYSTEM
 						</Typography>
 					</Stack>
 				</Stack>
 				
 		
 					<Stack sx={{ p : 2}} spacing={4}>
-			
+			   
 						<Stack spacing={2}>
 						<FormControl>
-									<InputLabel sx={{ mb : 0.3 }}>Staff IC</InputLabel>
+									<InputLabel sx={{ mb : 0.5 }}>Staff IC</InputLabel>
 									<TextField 
 									    autoComplete='off'
 										fullWidth  
@@ -161,12 +158,12 @@ export function SignInStaff() {
 							</FormControl>
 							<FormControl>
 							
-									<InputLabel sx={{ mb : 0.3 }}>	Password</InputLabel>
+									<InputLabel sx={{ mb : 0.5 }}>	Password</InputLabel>
 							
 									
 									<TextField fullWidth  type={showPassword ? 'text' : 'password'} name="password"
 									autoComplete="off"
-									placeholder="Default Password : 'abcd1234'"
+									placeholder=""
 									onBlur={handleBlur} 
 									onChange={handleChange} 
 									value={values.password}  
@@ -200,11 +197,30 @@ export function SignInStaff() {
 							</FormControl>
 							{isError && <Alert severity="error">{ errMessage }</Alert>}
 							<div >
-							<LoadingButton sx={{ letterSpacing : '1px' }} onClick={handleSubmit} fullWidth  loading={isLoading} type="submit" variant="contained" >
+							<Box sx={{ mb : 1 }}>
+								<Link  component={RouterLink} href={paths.auth.resetPassword} variant="body2">
+									Forgot password ?
+								</Link>
+							</Box>
+							<LoadingButton 
+								sx={{ letterSpacing : '1px' }} 
+								onClick={handleSubmit} 
+								fullWidth  
+								loading={isLoading} 
+								type="submit" 
+								variant="contained" 
+							>
 								SIGN IN
 							</LoadingButton>
+						
 
 							</div>
+							<Alert color="warning">
+								Default password{" "}
+								<Typography component="span" sx={{ fontWeight: 700 }} variant="inherit">
+									abcd1234
+								</Typography>
+							</Alert>
 							<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
 								<Typography variant="caption">© ICTD Puncak Niaga Management Services Sdn. Bhd. </Typography>
 							</Box>

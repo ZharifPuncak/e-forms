@@ -37,15 +37,11 @@ export function Page() {
 				}}
 			>
 
-
-
-				<Stack spacing={4}>
-
-					
+			<Stack spacing={4}>
 				<div>
 						<Link
 							color="text.primary"
-							href={paths.dashboard.staff.list}
+							href={window.location.origin + '/e-forms' + paths.dashboard.staff.list}
 							sx={{ alignItems: "center", display: "inline-flex", gap: 1 }}
 							variant="subtitle2"
 						>

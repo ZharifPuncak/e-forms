@@ -31,6 +31,7 @@ import { Rtl } from "@/components/core/rtl";
 
 import DrawerSlider from '@/components/drawer';
 import CustomDialog from '@/components/dialog';
+import ParentDialog from "./components/parent-dialog.jsx";
 import { Toaster } from "@/components/core/toaster";
 
 import { AuthProvider } from './contexts/auth-context.jsx';
@@ -68,6 +69,7 @@ export function Root({ children }) {
 													{children}
 													<Toaster position="bottom-right" />
 													<DrawerSlider />
+													 <ParentDialog />
 													<CustomDialog />
 												</ThemeProvider>
 											</Rtl>

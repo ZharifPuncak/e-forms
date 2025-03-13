@@ -16,13 +16,7 @@ export const route = {
 				return { Component: (props) => <GuestGuard><Page {...props} /></GuestGuard> };
 			},
 		},
-		{
-			path: "sign-up",
-			lazy: async () => {
-				const { Page } = await import("@/pages/auth/sign-up");
-				return { Component: (props) => <GuestGuard><Page {...props} /></GuestGuard> };
-			},
-		},
+		
 		{
 			path: "update-password",
 			lazy: async () => {

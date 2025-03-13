@@ -14,6 +14,9 @@ use App\Http\Controllers\SharedController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManualController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\ProfileController;
 
 
     
@@ -102,10 +105,16 @@ use App\Http\Controllers\ManualController;
             Route::prefix('manual')->group(function () { 
                 Route::get('/',[ManualController::class,'index']);
             });
+
+
+            // Update password
+            Route::post('/password/update',[ProfileController::class,'updatePassword']);
+            Route::put('/email/update',[ProfileController::class,'updateEmail']);
         });
 
             Route::post('/login',[AuthController::class, 'staffLogin']);
             Route::post('/login/admin',[AuthController::class, 'adminLogin']);
             Route::post('/logout',[AuthController::class, 'logout']);
-            Route::post('/password/update',[AuthController::class,'update']);
- 
+            Route::post('/password/reset',[PasswordResetLinkController::class,'store']);
+            Route::post('/password/reset/update',[NewPasswordController::class,'store']);
+         

@@ -4,8 +4,6 @@ import * as React from "react";
 import { Card, CardHeader, CardContent, Stack, Button  } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useAxios  from "@/hooks/use-axios";
-import { LoginHistory } from "@/page-sections/dashboard/settings/profile/login-history";
-
 import { DataTable } from "@/components/core/data-table";
 
 

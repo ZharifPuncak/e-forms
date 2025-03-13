@@ -109,6 +109,7 @@ export const AuthProvider = ({ children }) => {
       payload: payload
     });
 
+
     setUserAuth({...initialState, user : payload.user});
 
   }
@@ -146,6 +147,8 @@ export const AuthProvider = ({ children }) => {
 
 
   };
+
+ 
 
   const register = async (name, email, password, confirm_password) => {
        
