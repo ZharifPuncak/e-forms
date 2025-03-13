@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
 
 import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
@@ -28,7 +29,9 @@ import { FormFile } from "./form-file";
 
 import { useAppContext } from "@/contexts/app-context";
 import { useConfirm } from "material-ui-confirm";
-import { useNavigate } from "react-router-dom";
+
+import Alert from '@mui/material/Alert';
+
 
 
 import _ from 'lodash';
@@ -90,25 +93,25 @@ export function FormDetails({ updateReady, updateName }) {
 						<Card sx={{ borderRadius: 1 }} variant="outlined">
 												<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
 													{[
-														{ key: "Name", value: <Typography sx={{ ml : 1 }} variant="body2">{ data?.name }</Typography> },
-														{ key: "Alias", value: <Typography sx={{ ml : 1 }} variant="body2">{ data?.alias }</Typography> },
-														{ key: "Code", value: <Typography sx={{ ml : 1 }} variant="body2">{ data?.code }</Typography> },
-														{ key: "Category", value: <Typography sx={{ ml : 1 }} variant="body2">{ data?.category?.name }</Typography> },
-														{ key: "Effective", value: <Typography sx={{ ml : 1 }} variant="body2">{ data?.effective_from } - { data?.effective_to }</Typography> },
-														{ key: "Details", value: <Accordion1 details={
+														{ key: "Name", value:  data?.name ? <Typography sx={{ ml : 1 }} variant="body2">{ data?.name }</Typography> : <Skeleton width={200} height={25} />},
+														{ key: "Alias", value: data?.alias ? <Typography sx={{ ml : 1 }} variant="body2">{ data?.alias }</Typography> : <Skeleton width={150} height={25} /> },
+														{ key: "Code", value:  data?.code ?  <Typography sx={{ ml : 1 }} variant="body2">{ data?.code }</Typography> : <Skeleton width={50} height={25} /> },
+														{ key: "Category", value: data?.category?.name ? <Typography sx={{ ml : 1 }} variant="body2">{ data?.category?.name }</Typography> : <Skeleton width={70} height={25} /> },
+														{ key: "Effective", value: data?.effective_from && data?.effective_to ? <Typography sx={{ ml : 1 }} variant="body2">{ data?.effective_from } - { data?.effective_to }</Typography> : <Skeleton width={200} height={25} /> },
+														{ key: "Details", value: data?.descriptions ? <Accordion1 details={
 															<HTMLParse htmlContent={data?.descriptions} />
-														} title={ <Typography sx={{ color : '#4DADDE' }} variant="body2">View details</Typography>} />},
-														{ key: "File", value: <Accordion1 details={
+														} title={ <Typography sx={{ color : '#4DADDE' }} variant="body2">View details</Typography>} /> : <Skeleton width={200} height={25} />},
+														{ key: "File", value: data?.status ? <Accordion1 details={
 															 <FormFile update={refetch} status={data?.status} />
 														} title={
 															<>
 																{!data?.isFileReady ? <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}><ExclamationMarkIcon color="var(--mui-palette-error-main)" /> <Typography sx={{ color : '#4DADDE' }} variant="body2">Add File</Typography></Box> : <Typography sx={{ color : '#4DADDE' }} variant="body2">View file details</Typography>}			
 															</>
-															} />},
+															} /> :  <Skeleton width={200} height={25} />  },
 														{
 															key: "Status",
 															value: (
-																	<Chip
+																data?.status ? 	<Chip
 																		icon={data?.status == 'new' ? 
 																			<CardsThreeIcon color="var(--mui-palette-warning-main) " weight="fill" /> :
 																			data?.status == 'pending' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
@@ -119,7 +122,7 @@ export function FormDetails({ updateReady, updateName }) {
 																		label={_.capitalize(data?.status)}
 																		size="small"
 																		variant="outlined"
-																	/>
+																	/> : <Skeleton width={100} height={25} />
 															),
 														},
 														{ key: "Action", value:  	<Grid container spacing={1}>
@@ -128,10 +131,18 @@ export function FormDetails({ updateReady, updateName }) {
 																<Button disabled={data?.status != 'pending'} onClick={() => {  appContext.setDialog({ isOpen : true, title : `${data?.name}`, subtitle : `${data?.code}`,component : <InfoForm update={refetch} item={data}  /> })}} size="small">Edit </Button>
 																<Button disabled={data?.status != 'pending'} size="small" onClick={async () => {
 																	confirm({
-																		title: "Are you sure?",
-																		description: "This action cannot be undone.",
-																		confirmationText: "Yes, delete it",
-																		cancellationText: "Cancel",
+																		title: <Typography variant="body1">Are you sure ?</Typography>,
+																		description: <Box>
+																		             	<Alert severity="error">This action cannot be undone.</Alert>
+																		            </Box>,
+																		confirmationText: 'Yes, delete it',
+																		cancellationText: 'Cancel',
+																		confirmationButtonProps: {
+																			sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' }
+																		  },
+																		  cancellationButtonProps: {
+																			sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' },
+																		  },
 																	  })
 																		.then(() => {
 																		     deleteForm();
@@ -142,10 +153,18 @@ export function FormDetails({ updateReady, updateName }) {
 																}}>Delete </Button>
 														         {data?.status == 'pending' && <Button disabled={!data?.isFileReady} onClick={() => {
 																	confirm({
-																		title: "Are you sure?",
-																		description: "This action cannot be undone.",
-																		confirmationText: "Yes, confirm it",
-																		cancellationText: "Cancel",
+																		title: <Typography variant="body1">Are you sure ?</Typography>,
+																		description: <Box>
+																		             	<Alert severity="warning">This action cannot be undone.</Alert>
+																		            </Box>,
+																		confirmationText: 'Yes, confirm it',
+																		cancellationText: 'Cancel',
+																		confirmationButtonProps: {
+																			sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' }
+																		  },
+																		  cancellationButtonProps: {
+																			sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' },
+																		  },
 																	  })
 																		.then(() => {
 																		     confirmForm();

@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Skeleton from "@mui/material/Skeleton";
+
+
 
 import { ArrowLeft as ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr/ArrowLeft";
 
@@ -65,7 +68,7 @@ export function Page() {
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography>
+							{name ? <Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography> : <Skeleton width={250} height={50} /> }
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>

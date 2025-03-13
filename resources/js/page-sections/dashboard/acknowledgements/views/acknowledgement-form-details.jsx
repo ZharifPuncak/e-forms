@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
 
 import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
@@ -55,9 +56,9 @@ export function AcknowledgementFormDetails({ updateName }) {
 											<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
 												{[
 											
-                                                    { key: "Code", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.code }</Typography> },
-                                                    { key: "Issued", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.issued }</Typography> },
-                                                    { key: "Deadline", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.deadline }</Typography> },
+                                                    { key: "Code",      value:<Typography sx={{ ml : 1 }} variant="body2">{ details?.code }</Typography> },
+                                                    { key: "Issued",    value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.issued }</Typography> },
+                                                    { key: "Deadline",  value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.deadline }</Typography> },
                                                     { key: "Submitted", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.submitted }</Typography> },
                                                     // { key: "Submitted", value: <Typography sx={{ ml : 1 }} variant="body2">ACK001</Typography> },
 													{
