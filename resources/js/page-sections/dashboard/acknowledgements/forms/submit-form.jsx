@@ -41,7 +41,7 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
   ];
 
   const theme = useTheme();
-  const smDown = useMediaQuery("down", "sm");
+  const mdDown = useMediaQuery("down", "md");
 
   //Stepper
   const [activeStep, setActiveStep] = React.useState(0);
@@ -157,11 +157,11 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
                             
                         {/* <Typography>{step.description}</Typography> */}
                         {index == 0 &&  <Box sx={{ mt : 2, mb : 2 }}>
-                        {!smDown ? 
+                        {!mdDown ? 
                               <embed  src={file + '#zoom=100&toolbar=0'} type="application/pdf" width="100%" height={"600px"}  /> :
                               <Button onClick={() => {
                                    window.open(file, "_blank")
-                              }}>View Document</Button>
+                                }}>View Document</Button>
                               }
                           
                         </Box>}

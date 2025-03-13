@@ -13,6 +13,7 @@ import _ from 'lodash';
 import UploadFile from "../forms/upload-file";
 import useAxios  from "@/hooks/use-axios";
 
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export function FormFile({ status, update }) {
 
@@ -23,6 +24,8 @@ export function FormFile({ status, update }) {
 	const { isLoading, data : fetchedFile, refetch : getFile }  = axiosGet({  id : 'form-file' + code , url : import.meta.env.VITE_API_BASE_URL + '/forms/files/' + code  });
     const { mutate : deleteFile, isLoading : deleteFileLoading } =  axiosMutate({ id: 'forms-file-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/files/delete', payload : { code } });
   
+	const mdDown = useMediaQuery("down", "md");
+
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([]);
@@ -30,18 +33,24 @@ export function FormFile({ status, update }) {
 		setColDefs([
 
 			{ field: "title", label : "Title"},
-			{ field: "name", label : "Name"},
-			{ field: 'size' ,label: "Size", cellRenderer : ( params ) => {
+			{ field: "name", label : "Name" , hide : mdDown ? true : false},
+			{ field: 'size' ,label: "Size", hide : mdDown ? true : false ,cellRenderer : ( params ) => {
 
 				const rowData = params.data;
 				return rowData?.size + ' MB';
 			}},
-			{ field: "extension", label : "Extension"},
+			{ field: "extension", label : "Extension" , hide : mdDown ? true : false},
 			{ field: "action", cellRenderer : (params) => {
 				
 				const rowData = params.data;
 				return <>
+
+					<Button onClick={() => { window.open(rowData?.file, "_blank") }}>
+						View
+					</Button>
 				   {status == 'pending' && <Box>
+
+					
 
 						{/* <Link  sx={{ cursor : 'pointer', mr : 2 }} > 
 						     	View
@@ -67,7 +76,7 @@ export function FormFile({ status, update }) {
 				</>
 			} }
 		])
-	},[status])
+	},[status,mdDown])
 
 	return <>
 			{_.isEmpty(fetchedFile?.data?.files) && !isLoading  && <Box style={{ display: "flex", justifyContent: "flex-end" }}>

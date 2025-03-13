@@ -4,7 +4,7 @@ import { themeQuartz,ModuleRegistry, ClientSideRowModelModule, PaginationModule,
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'; 
 import Box from '@mui/material/Box';
-
+import { useMediaQuery } from "@/hooks/use-media-query";
 import './Table.css';
 
 
@@ -15,6 +15,7 @@ import logoPuncak from "@/assets/images/logo/logo-puncak.png";
 export default function TableAG({ row, column, pagination = true, loading = true , title = '', search = true}){  
     
     const [searchTerm, setSearchTerm] = useState('');
+    const mdDown = useMediaQuery("down", "md");
     const gridRef = useRef(null);
     const [gridApi, setGridApi] = useState(null);
   
@@ -127,11 +128,12 @@ export default function TableAG({ row, column, pagination = true, loading = true
                         paginationPageSizeSelector={false}
                         autoGroupColumnDef={autoGroupColumnDef}
                         defaultColDef={{
-                          flex: 1, // Distributes available space evenly
-                          minWidth: 200, // Prevents columns from becoming too small
-                          resizable: true, // Allows manual resizing
-                          filter: true,
-                          sortable: true,
+                            flex: 1, // Distributes available space evenly
+                            minWidth: 200, // Prevents columns from becoming too small
+                            resizable: true, // Allows manual resizing
+                            filter: true,
+                            sortable: true,
+                            suppressMovable: true,
                         }}
                         overlayLoadingTemplate={`
                             <div style="text-align: center;">
@@ -143,6 +145,14 @@ export default function TableAG({ row, column, pagination = true, loading = true
                                 '<span>No Data Available</span>'
                           }> 
                     </AgGridReact> 
+
+                    <style>
+                {`
+                  .ag-paging-panel .ag-paging-row-summary-panel {
+                    display: ${mdDown ? "none" : ""} !important;
+                  }
+                `}
+              </style>
             
                 </div>
         </div>

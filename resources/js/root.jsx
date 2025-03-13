@@ -13,9 +13,7 @@ import "@fontsource/poppins/700.css"
 import "@fontsource/poppins/800.css"
 import "@fontsource/poppins/900.css"
 
-
 import "@/styles/global.css";
-import "nprogress/nprogress.css";
 
 import { appConfig } from "@/config/app";
 import { getSettings as getPersistedSettings } from "@/lib/settings";
@@ -56,6 +54,7 @@ export function Root({ children }) {
 					<title>{metadata.title}</title>
 					<meta content={appConfig.themeColor} name="theme-color" />
 				</Helmet>
+			
 				<ConfirmProvider >
 				<AuthProvider>
 				<AppProvider>
@@ -81,6 +80,7 @@ export function Root({ children }) {
 					</AppProvider>
 				</AuthProvider>
 			 </ConfirmProvider>
+		
 			</HelmetProvider>
 		</QueryClientProvider>
 	);
