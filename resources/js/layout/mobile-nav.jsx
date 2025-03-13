@@ -69,6 +69,11 @@ export function MobileNav({ items = [], open, onClose }) {
 					  }}>
 						<Logo color="light" height={100} width={100} />
 					</Box>
+					<Box display="flex" justifyContent="center" alignItems="center">
+						<Typography variant="caption" align="center">
+							   E-FORMS MANAGEMENT SYSTEM
+						</Typography>
+					</Box>
 				</div>
 			
 			</Stack>

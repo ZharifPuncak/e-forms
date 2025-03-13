@@ -64,6 +64,11 @@ export function SideNav({ color = "evident", items = [] }) {
 					>
 						<Logo color={logoColor}  height={100} width={100}  />
 					</Box>
+					<Box display="flex" justifyContent="center" alignItems="center">
+						<Typography variant="caption" align="center">
+							   E-FORMS MANAGEMENT SYSTEM
+						</Typography>
+					</Box>
 				</div>
 				{/* <WorkspacesSwitch /> */}
 			</Stack>
