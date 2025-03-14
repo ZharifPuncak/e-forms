@@ -67,6 +67,7 @@
     "mui-file-input": "^6.0.0",
     "oidc-client-ts": "3.1.0",
     "openid-client": "6.1.7",
+    "puppeteer": "^24.4.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-dropzone": "14.3.5",

@@ -17,6 +17,7 @@ use App\Http\Controllers\ManualController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 
 
     
@@ -101,11 +102,15 @@ use App\Http\Controllers\ProfileController;
             Route::prefix('users')->group(function () { 
                 Route::get('/',[UserController::class,'index']);
             });
-
+    
+            // Manual
             Route::prefix('manual')->group(function () { 
                 Route::get('/',[ManualController::class,'index']);
             });
 
+            Route::prefix('report')->group(function () { 
+                Route::post('/form',[ReportController::class,'form']);
+            });
 
             // Update password
             Route::post('/password/update',[ProfileController::class,'updatePassword']);

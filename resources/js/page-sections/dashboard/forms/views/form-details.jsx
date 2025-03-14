@@ -9,6 +9,7 @@ import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
 import Skeleton from "@mui/material/Skeleton";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
@@ -52,8 +53,50 @@ export function FormDetails({ updateReady, updateName }) {
 	const { isLoading: getLoading, data : fetchedDetails, refetch   }  = axiosGet({  id : 'forms-details' + code, url : import.meta.env.VITE_API_BASE_URL + '/forms/details/' + code, cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
 	const { mutate : confirmForm, isLoading : confirmLoading, isSuccess : confirmSuccess  } =  axiosMutate({ id: 'forms-confirm' + code, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/confirm', payload : { code } });
 	const { mutate : deleteForm, isLoading : deleteFormLoading, isSuccess : deleteFormSuccess  } =  axiosMutate({ id: 'forms-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/delete', payload : { code } });
-
+	const { mutate : downloadReport, isLoading : downloadLoading, data : reportData, isSuccess : dowloadSuccess, dataUpdatedAt  } =  axiosMutate({ id: 'report-forms-download' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/report/form', payload : { code }, isFileDownload : true });
 	let data = fetchedDetails?.data?.data;
+
+
+
+	React.useEffect(() => {
+	if(dowloadSuccess){    
+
+		     // Convert response to blob
+
+			 const blob = new Blob([reportData],{ type : 'application/pdf'});
+			 console.log("Blob Size:", blob.size); // Should be > 0
+			 console.log("Blob Type:", blob.type); 
+			 blob.text().then(text => console.log("Blob Content (as text):", text));
+			//  var fileURL = window.URL.createObjectURL(blob);
+
+			//  var fileLink = document.createElement('a');
+			//  fileLink.href = fileURL;
+			//  fileLink.setAttribute('download',Date.now());
+			//  document.body.appendChild(fileLink);
+			//  fileLink.click();
+	   
+			//  window.URL.revokeObjectURL(fileURL);
+			//  document.body.removeChild(fileLink);
+
+	
+			//  console.log(JSON.stringify(reportData));
+			//  const url = window.URL.createObjectURL(blob);
+
+			//  // Open PDF in a new tab for debugging
+			//  window.open(url, "_blank");
+
+			 // Create a link element
+			//  const link = document.createElement("a");
+			//  link.href = window.URL.createObjectURL(blob);
+			//  link.download = "invoice.pdf";
+			//  document.body.appendChild(link);
+			//  link.click();
+	 
+			//  // Clean up
+			//  document.body.removeChild(link);
+
+	}
+	},[dowloadSuccess,dataUpdatedAt]);
 
 	React.useEffect(() => {
 		if(confirmSuccess){
@@ -174,7 +217,9 @@ export function FormDetails({ updateReady, updateName }) {
 																		});
 																 }}  size="small">Confirm </Button>}
 															     {data?.status != 'pending' && <Button disabled={true}   size="small">Mark as Closed </Button>}
-															     {data?.status == 'ongoing' || data?.status == 'closed' && <Button size="small" >Report </Button>}
+															     {<LoadingButton loading={downloadLoading} onClick={() => {
+																	downloadReport()
+																 }} size="small" >Report </LoadingButton>}
 															   </Box>}
 															</>
 															    
