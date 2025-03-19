@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Traits\HttpResponses;
 use App\Models\Form\Form;
+
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use function Spatie\LaravelPdf\Support\pdf;
 // use Barryvdh\DomPDF\Facade\Pdf;
-use Spatie\LaravelPdf\Facades\Pdf;
+// use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -23,47 +26,19 @@ class ReportController extends Controller
             return $this->error(null, 'Form not found', 422);
         }
 
-        $tempFilePath = storage_path('app/temp_invoice.pdf');
-        $pdf = Pdf::view('reports.form',['data' => $form ])
-        ->format('A4')
-        ->save($tempFilePath);
+        // $tempFilePath = storage_path('app/temp_form.pdf');
+        // $pdf = Pdf::view('reports.form',['data' => $form ])
+        // ->format('A4')
+        // ->save($tempFilePath);
 
-        // Return the file as a download
-        return response()->download($tempFilePath, 'invoice.pdf', [
-            'Content-Type' => 'application/pdf',
-        ]); 
-     
+        // return response()->download($pdf, 'downloaded_file.pdf', [
+        //     'Content-Type' => 'application/pdf; charset=UTF-8'
+        // ]);
 
-    //     $pageData = ['form' => $form];
-    //     $pdf = Pdf::loadView('reports.form', $pageData);
-    //     $pdf->render();
-
-    //     $pdfWidth = $pdf->getDomPDF()->getCanvas()->get_width();
-    //     $pdfHeight = $pdf->getDomPDF()->getCanvas()->get_height();
-    //     $totalPages = $pdf->getDomPDF()->getCanvas()->get_page_count();
-
-    //     //Setting for included image
-    //     Pdf::setOption(['isRemoteEnabled' => false,'isHtml5ParserEnabled' => true]);
-
-    //     //Load view 
-    //    $data = [
-    //         'form' => $form, 
-    //         'total_pages' => $totalPages, 
-    //         'date' => Carbon::now()->format('d/m/Y'),
-    //         'width' => $pdfWidth,
-    //         'height' => $pdfHeight
-    //    ];
-
-       
-    //    $formReport = Pdf::loadView('reports.form', $data)->setPaper('a4');
-   
-    //    //Create temp files
-    //    $tempFilePath = tempnam(sys_get_temp_dir(), 'dompdf_');
-    //    file_put_contents($tempFilePath, $formReport->output());
-
-    //    return response()->download($tempFilePath, $form->code.'.pdf',[
-    //         'Content-Type' => 'application/pdf',
-    //    ]);
+        return pdf()
+            ->view('reports.form', compact('form'))
+            ->name('invoice-2023-04-10.pdf')
+            ->download();
 
     }
       

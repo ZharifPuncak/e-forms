@@ -49,6 +49,7 @@ export function FormDetails({ updateReady, updateName }) {
 	const confirm = useConfirm();
 	const { code } = useParams();
 	const { axiosGet, axiosMutate } = useAxios();
+	const [pdfUrl, setPdfUrl] = React.useState(null);
 
 	const { isLoading: getLoading, data : fetchedDetails, refetch   }  = axiosGet({  id : 'forms-details' + code, url : import.meta.env.VITE_API_BASE_URL + '/forms/details/' + code, cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
 	const { mutate : confirmForm, isLoading : confirmLoading, isSuccess : confirmSuccess  } =  axiosMutate({ id: 'forms-confirm' + code, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/confirm', payload : { code } });
@@ -61,13 +62,25 @@ export function FormDetails({ updateReady, updateName }) {
 	React.useEffect(() => {
 	if(dowloadSuccess){    
 
-		     // Convert response to blob
-
+		     //Convert response to blob
 			 const blob = new Blob([reportData],{ type : 'application/pdf'});
-			 console.log("Blob Size:", blob.size); // Should be > 0
-			 console.log("Blob Type:", blob.type); 
-			 blob.text().then(text => console.log("Blob Content (as text):", text));
+
+			 var fileURL = window.URL.createObjectURL(blob);
+			 var fileLink = document.createElement('a');
+			 fileLink.href = fileURL;
+			 fileLink.setAttribute('download',Date.now());
+			 document.body.appendChild(fileLink);
+			 fileLink.click();
+	   
+			 window.URL.revokeObjectURL(fileURL);
+			 document.body.removeChild(fileLink);
+
+			//  const blob = new Blob([reportData],{ type : 'application/pdf'});
+			//  console.log("Blob Size:", blob.size); // Should be > 0
+			//  console.log("Blob Type:", blob.type); 
+			//  blob.text().then(text => console.log("Blob Content (as text):", text));
 			//  var fileURL = window.URL.createObjectURL(blob);
+			//  setPdfUrl(fileURL)
 
 			//  var fileLink = document.createElement('a');
 			//  fileLink.href = fileURL;
@@ -129,9 +142,10 @@ export function FormDetails({ updateReady, updateName }) {
 			updateName(data?.name);
 		}
 	},[data?.name])
+
 	
 	return  <Grid container spacing={4}>
-	
+		<iframe src={pdfUrl}></iframe>
 					<Grid 	size={{ md: 12, xs: 12 }} >
 						<Card sx={{ borderRadius: 1 }} variant="outlined">
 												<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
