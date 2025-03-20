@@ -57,56 +57,34 @@ export function FormDetails({ updateReady, updateName }) {
 	const { mutate : downloadReport, isLoading : downloadLoading, data : reportData, isSuccess : dowloadSuccess, dataUpdatedAt  } =  axiosMutate({ id: 'report-forms-download' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/report/form', payload : { code }, isFileDownload : true });
 	let data = fetchedDetails?.data?.data;
 
-
+	const blobToText = (blob) => {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = (error) => reject(error);
+			reader.readAsText(blob); // Read as text
+		});
+	};
 
 	React.useEffect(() => {
 	if(dowloadSuccess){    
 
-		     //Convert response to blob
-			 const blob = new Blob([reportData],{ type : 'application/pdf'});
+		//Create a Blob from Base64
+		const byteCharacters = atob(reportData.base64);
+		const byteNumbers = new Array(byteCharacters.length);
+		for (let i = 0; i < byteCharacters.length; i++) {
+			byteNumbers[i] = byteCharacters.charCodeAt(i);
+		}
+		const byteArray = new Uint8Array(byteNumbers);
+		const blob = new Blob([byteArray], { type: "application/pdf" });
 
-			 var fileURL = window.URL.createObjectURL(blob);
-			 var fileLink = document.createElement('a');
-			 fileLink.href = fileURL;
-			 fileLink.setAttribute('download',Date.now());
-			 document.body.appendChild(fileLink);
-			 fileLink.click();
-	   
-			 window.URL.revokeObjectURL(fileURL);
-			 document.body.removeChild(fileLink);
-
-			//  const blob = new Blob([reportData],{ type : 'application/pdf'});
-			//  console.log("Blob Size:", blob.size); // Should be > 0
-			//  console.log("Blob Type:", blob.type); 
-			//  blob.text().then(text => console.log("Blob Content (as text):", text));
-			//  var fileURL = window.URL.createObjectURL(blob);
-			//  setPdfUrl(fileURL)
-
-			//  var fileLink = document.createElement('a');
-			//  fileLink.href = fileURL;
-			//  fileLink.setAttribute('download',Date.now());
-			//  document.body.appendChild(fileLink);
-			//  fileLink.click();
-	   
-			//  window.URL.revokeObjectURL(fileURL);
-			//  document.body.removeChild(fileLink);
-
-	
-			//  console.log(JSON.stringify(reportData));
-			//  const url = window.URL.createObjectURL(blob);
-
-			//  // Open PDF in a new tab for debugging
-			//  window.open(url, "_blank");
-
-			 // Create a link element
-			//  const link = document.createElement("a");
-			//  link.href = window.URL.createObjectURL(blob);
-			//  link.download = "invoice.pdf";
-			//  document.body.appendChild(link);
-			//  link.click();
-	 
-			//  // Clean up
-			//  document.body.removeChild(link);
+		// Create Download Link
+		const link = document.createElement("a");
+		link.href = window.URL.createObjectURL(blob);
+		link.setAttribute("download", 'form_report');
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
 
 	}
 	},[dowloadSuccess,dataUpdatedAt]);
@@ -145,7 +123,7 @@ export function FormDetails({ updateReady, updateName }) {
 
 	
 	return  <Grid container spacing={4}>
-		<iframe src={pdfUrl}></iframe>
+
 					<Grid 	size={{ md: 12, xs: 12 }} >
 						<Card sx={{ borderRadius: 1 }} variant="outlined">
 												<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>

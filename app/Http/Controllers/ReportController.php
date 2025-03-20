@@ -9,9 +9,10 @@ use App\Traits\HttpResponses;
 use App\Models\Form\Form;
 
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use function Spatie\LaravelPdf\Support\pdf;
-// use Barryvdh\DomPDF\Facade\Pdf;
-// use Barryvdh\DomPDF\Facade\Pdf;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Illuminate\Support\Facades\Response;
+use Spatie\Browsershot\Browsershot;
+
 
 class ReportController extends Controller
 {
@@ -26,19 +27,19 @@ class ReportController extends Controller
             return $this->error(null, 'Form not found', 422);
         }
 
-        // $tempFilePath = storage_path('app/temp_form.pdf');
-        // $pdf = Pdf::view('reports.form',['data' => $form ])
-        // ->format('A4')
-        // ->save($tempFilePath);
+        $filePath = storage_path('app/public/report.pdf');
+        $pdf = Pdf::view('reports.form',['data' => $form ])
+        ->withBrowsershot(function (Browsershot $browsershot) {
+            $browsershot->scale(1)->setOption('debug', true);
+        })->save($filePath);
 
-        // return response()->download($pdf, 'downloaded_file.pdf', [
-        //     'Content-Type' => 'application/pdf; charset=UTF-8'
-        // ]);
 
-        return pdf()
-            ->view('reports.form', compact('form'))
-            ->name('invoice-2023-04-10.pdf')
-            ->download();
+        $fileContents = base64_encode(file_get_contents($filePath));
+    
+        return response()->json([
+            "base64" => $fileContents
+        ]);
+
 
     }
       

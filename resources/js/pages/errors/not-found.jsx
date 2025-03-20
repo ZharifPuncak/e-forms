@@ -52,7 +52,7 @@ export function Page() {
 							</Typography>
 						</Stack>
 						<Box sx={{ display: "flex", justifyContent: "center" }}>
-							<Button onClick={() => { navigate('/')}}variant="contained">
+							<Button onClick={() => { navigate('/')}}variant="outlined">
 								Back to home
 							</Button>
 						</Box>
