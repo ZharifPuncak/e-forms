@@ -28,7 +28,9 @@ class ReportController extends Controller
         }
 
         $filePath = storage_path('app/public/report.pdf');
-        $pdf = Pdf::view('reports.form',['data' => $form ])
+
+        
+        $pdf = Pdf::view('reports.form',['form' => $form , 'date' => Carbon::now()->format('d/m/Y H:i')])
         ->withBrowsershot(function (Browsershot $browsershot) {
             $browsershot->scale(1)->setOption('debug', true);
         })->save($filePath);
