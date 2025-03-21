@@ -37,6 +37,10 @@
                 <th class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Status</small></span></th>
                 <td class="w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $formattedForm['status']}}</small></td>
             </tr>
+            <tr>
+                <th class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Remarks</small></span></th>
+                <td class="w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $formattedForm['remarks']}}</small></td>
+            </tr>
           
    
         </tbody>

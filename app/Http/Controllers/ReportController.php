@@ -25,7 +25,7 @@ class ReportController extends Controller
 
         //Data to pass
         $code = $request->code;
-        $form = Form::with('acknowledgements.staff.user','issuance.companies.company')->where('code',$code)->first();
+        $form = Form::with('acknowledgements.staff.user','issuance')->where('code',$code)->first();
         
         if(!$form){
             return $this->error(null, 'Form not found', 422);
@@ -33,7 +33,9 @@ class ReportController extends Controller
 
         $filePath = storage_path('app/public/report.pdf');
         $formattedForm = (new FormResource($form))->toArray(request());
- 
+
+        return $formattedForm;
+
         
         $pdf = Pdf::view('reports.form.main',['formattedForm' => $formattedForm])
         ->headerView('reports.form.header',['formattedForm' => $formattedForm])

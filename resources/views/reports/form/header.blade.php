@@ -16,6 +16,6 @@
             <small class="mt-4" style="color: grey;margin-top : 6px;"> ( {{$formattedForm['alias'] }} / {{ $formattedForm['code'] }} )</small>
     </div>
     <div>
-            <small class="mt-2" style="margin-top : 4px !important;font-style:italic;color : 'grey' !important;">  <span style="color: grey;">{{ $formattedForm['date'] }}</span></small>
+            <small class="mt-2" style="margin-top : 4px !important;font-style:italic;color : 'grey' !important;"> Generated :  <span style="color: grey;">{{ $formattedForm['date'] }}</span></small>
     </div>
 <div>

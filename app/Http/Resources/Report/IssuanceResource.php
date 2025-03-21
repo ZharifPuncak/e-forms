@@ -5,6 +5,8 @@ namespace App\Http\Resources\Report;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use Carbon\Carbon;
+
 class IssuanceResource extends JsonResource
 {
     /**
@@ -15,7 +17,14 @@ class IssuanceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'company' => $this?->name
+            'company' => $this?->company?->code,
+            'issued'  => Carbon::parse($this?->issuance)->format('M d, Y'),
+            'deadline' => Carbon::parse($this?->issuance)->format('M d, Y'),
+            'total'    => '',
+            'pending' => '',
+            'completed' => '',
+            'submission' => ''
+ 
         ];
     }
 }

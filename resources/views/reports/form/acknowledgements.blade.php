@@ -20,7 +20,7 @@
 
             @foreach($formattedForm['acknowledgements'] as $item)
                 <tr>
-                   <td class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>{{ $loop->iteration }}</small></span></td>
+                   <td class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>{{  $loop->iteration }}</small></span></td>
                     <td class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>{{ $item->name }}</small></span></td>
                     <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2"></small></td>
                     <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2"></small></td>
