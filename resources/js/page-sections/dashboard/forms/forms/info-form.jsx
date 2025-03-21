@@ -312,7 +312,7 @@ const InfoForm = ({ item, update })  => {
 
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <LoadingButton loading={submitLoading || updateLoading} type="submit" size='medium'  variant="contained">SUBMIT</LoadingButton>
+                <LoadingButton loading={submitLoading || updateLoading} type="submit" size='medium'  variant="outlined">SUBMIT</LoadingButton>
               </Box>
             </Grid>
         </Grid>

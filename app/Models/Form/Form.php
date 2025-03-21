@@ -14,7 +14,7 @@ class Form extends Model
     }
 
     public function issuance(){
-        return $this->hasMany(FormIssuance::class);
+        return $this->hasMany(FormIssuance::class,'form_id');
     }
 
     public function file(){

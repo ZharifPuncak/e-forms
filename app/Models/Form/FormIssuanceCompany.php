@@ -3,6 +3,7 @@
 namespace App\Models\Form;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Shared\Company;
 
 class FormIssuanceCompany extends Model
 {
