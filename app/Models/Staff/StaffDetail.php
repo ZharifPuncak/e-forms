@@ -16,14 +16,14 @@ class StaffDetail extends Model
    protected $fillable = ['staff_id','company_id','department_id','category_id','grade_id','position_id','date_joined'];
    
    public function company(){
-      $this->belongsTo(Company::class,'company_id');
+      return $this->belongsTo(Company::class,'company_id');
    }
 
    public function department(){
-      $this->belongsTo(Department::class,'department_id');
+      return $this->belongsTo(Department::class,'department_id');
    }
 
    public function position(){
-      $this->belongsTo(Position::class,'position_id');
+      return $this->belongsTo(Position::class,'position_id');
    }
 }

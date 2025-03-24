@@ -11,7 +11,7 @@ class FormIssuanceCompany extends Model
     protected $table = 'form_issuance_companies';
 
     public function issuance(){
-       return $this->belongsTo(FormIssuance::class);
+       return $this->belongsTo(FormIssuance::class,'form_issuance_id');
     }
 
     public function company(){

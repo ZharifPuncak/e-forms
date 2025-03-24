@@ -17,11 +17,11 @@ class FormResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $total   = $this->acknowledgements;
-        $pending = $this->acknowledgements->where('status','pending');
-        $completed = $this->acknowledgements->where('status','completed');
+        $total   = $this->acknowledgements->count();
+        $pending = $this->acknowledgements->where('status','pending')->count();
+        $completed = $this->acknowledgements->where('status','completed')->count();
 
-        $issuances = FormIssuanceCompany::with('company','issuance')->where('form_issuance_id',$this->issuance->pluck('id'))->get();
+        $issuances = FormIssuanceCompany::with('company','issuance')->whereIn('form_issuance_id',$this->issuance->pluck('id'))->get();
 
         return [
             'date' => Carbon::now()->format('M d, Y H:i'),
@@ -32,12 +32,12 @@ class FormResource extends JsonResource
             'effective_from' => Carbon::parse($this->effective_from)->format('M d, Y'),
             'effective_to' => Carbon::parse($this->effective_to)->format('M d, Y'),
             'status' => Str::title($this?->status),
-            'total'  => count($total),
-            'pending'  => count($pending),
-            'completed'  => count($completed),
+            'total'  => $total,
+            'pending'  => $pending,
+            'completed'  => $completed,
             'remarks' => '',
-            'submission' => number_format(count($completed) / count($total),2),
-            'acknowledgements' => AcknowledgementResource::collection($this->acknowledgements),
+            'submission' => $total != 0 ? number_format($completed / $total,3) : 0,
+            'acknowledgements' => AcknowledgementResource::collection($this->acknowledgements->where('status','completed')),
             'issuance' => IssuanceResource::collection($issuances),
         ];
     }

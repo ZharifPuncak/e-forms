@@ -69,24 +69,23 @@ export function FormDetails({ updateReady, updateName }) {
 	React.useEffect(() => {
 	if(dowloadSuccess){    
 
-		console.log(reportData)
 
 		//Create a Blob from Base64
-		// const byteCharacters = atob(reportData.base64);
-		// const byteNumbers = new Array(byteCharacters.length);
-		// for (let i = 0; i < byteCharacters.length; i++) {
-		// 	byteNumbers[i] = byteCharacters.charCodeAt(i);
-		// }
-		// const byteArray = new Uint8Array(byteNumbers);
-		// const blob = new Blob([byteArray], { type: "application/pdf" });
+		const byteCharacters = atob(reportData.base64);
+		const byteNumbers = new Array(byteCharacters.length);
+		for (let i = 0; i < byteCharacters.length; i++) {
+			byteNumbers[i] = byteCharacters.charCodeAt(i);
+		}
+		const byteArray = new Uint8Array(byteNumbers);
+		const blob = new Blob([byteArray], { type: "application/pdf" });
 
-		// // Create Download Link
-		// const link = document.createElement("a");
-		// link.href = window.URL.createObjectURL(blob);
-		// link.setAttribute("download", 'form_report');
-		// document.body.appendChild(link);
-		// link.click();
-		// document.body.removeChild(link);
+		// Create Download Link
+		const link = document.createElement("a");
+		link.href = window.URL.createObjectURL(blob);
+		link.setAttribute("download", 'form_report');
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
 
 	}
 	},[dowloadSuccess,dataUpdatedAt]);

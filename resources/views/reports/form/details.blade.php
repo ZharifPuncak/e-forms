@@ -1,9 +1,9 @@
 
 
-<div style="padding : 30px; margin-top : 100px;">
+<div style="padding-left : 30px;padding-right : 30px;">
 
          
-    <div class="mb-2 mt-5" style="text-decoration: underline;text-underline-offset: 2px;">
+    <div class="mb-2" style="text-decoration: underline;text-underline-offset: 2px;">
           <small > Report Details </small>
     </div>
   
@@ -46,34 +46,6 @@
         </tbody>
     </table>
 
-    @if($formattedForm['issuance'])
-    <div class="mb-2 mt-2" style="text-decoration: underline;text-underline-offset: 2px;">
-          <small > Issuance Details  </small>
-    </div>
-    <table class="w-full text-left mb-8 border border-gray-100">
-        <tbody>
-             <tr>
-                <th class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Company</small></span></th>
-                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Issued </small></th>
-                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Deadline </small></th>
-                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Pending</small></th>
-                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Completed</small></th>
-                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Submission (%)</small></th>
-            </tr>
-            @foreach($formattedForm['issuance'] as $item)
-            <tr>
-                <td class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>{{ $item['name'] }}</small></span></td>
-                <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2"></small></td>
-                <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2"></small></td>
-                <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2"></small></td>
-                <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2"></small></td>
-                <td class="py-2 text-gray-700 border  border-gray-100"><small class="ml-2"></small></td>
-            </tr>
-            @endforeach
-       
-        </tbody>
-    </table>
-    @endif
 
 
 
@@ -103,6 +75,47 @@
             </tr>
         </tbody>
     </table>
+
+
+    
+    @if($formattedForm['issuance'])
+    <div class="mb-2 mt-2" style="text-decoration: underline;text-underline-offset: 2px;">
+          <small > Issuance Details  </small>
+    </div>
+    <table class="w-full text-left mb-8 border border-gray-100">
+        <tbody>
+             <tr>
+             <th class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>No</small></span></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Company</small></span></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Issued </small></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Deadline </small></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Total</small></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Pending</small></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Completed</small></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Submission (%)</small></th>
+            </tr>
+            @foreach($formattedForm['issuance'] as $item)
+                <?php
+
+                    $data = json_encode($item);
+                    $data = json_decode($data, true);
+
+                    ?>
+                <tr>
+                <td class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>{{ $loop->iteration }}</small></span></td>
+                    <td class="py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>{{ $data['company'] }}</small></span></td>
+                    <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $data['issued'] }}</small></td>
+                    <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $data['deadline'] }}</small></td>
+                    <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $data['total'] }}</small></td>
+                    <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $data['pending'] }}</small></td>
+                    <td class="py-2 text-gray-700 border  border-gray-100"><small class="ml-2">{{ $data['completed'] }}</small></td>
+                    <td class="py-2 text-gray-700 border  border-gray-100"><small class="ml-2">{{ $data['submission'] }}</small></td>
+                </tr>
+            @endforeach
+       
+        </tbody>
+    </table>
+    @endif
 
  
  </div>

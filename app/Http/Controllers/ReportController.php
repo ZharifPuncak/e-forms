@@ -33,9 +33,6 @@ class ReportController extends Controller
 
         $filePath = storage_path('app/public/report.pdf');
         $formattedForm = (new FormResource($form))->toArray(request());
-
-        return $formattedForm;
-
         
         $pdf = Pdf::view('reports.form.main',['formattedForm' => $formattedForm])
         ->headerView('reports.form.header',['formattedForm' => $formattedForm])
