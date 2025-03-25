@@ -7,12 +7,11 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { TrendDown as TrendDownIcon } from "@phosphor-icons/react/dist/ssr/TrendDown";
-import { TrendUp as TrendUpIcon } from "@phosphor-icons/react/dist/ssr/TrendUp";
+import Tooltip from '@mui/material/Tooltip';
 
-export function CardSummary({ amount , icon: Icon , title, action, active }) {
+export function CardSummary({ amount , icon: Icon , title, action, active, tooltip }) {
 	return (<>
-		<Card elevation={active ? 6 : 1} sx={{  backgroundColor : active ? '#007FAB' : 'inherit' }}>
+		<Card elevation={active ? 6 : 1} sx={{  border : active ? '1px solid #007FAB' : 'inherit' }}>
 			<CardContent>
 				<Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
 					{/* {Icon && <Avatar
@@ -27,10 +26,10 @@ export function CardSummary({ amount , icon: Icon , title, action, active }) {
 					</Avatar>} */}
 					{/* {Icon && <Icon fontSize="var(--icon-fontSize-lg)" />} */}
 					<div>
-						<Typography sx={{ color : active ? 'white' :'inherit', }}  variant="body1">
-							{title}
+						<Typography sx={{ color : active ? 'inherit' :'inherit', }}  variant="body1">
+							{title} {tooltip && <Tooltip title={tooltip}> <Icon fontSize="var(--icon-fontSize-sm)" /></Tooltip>}
 						</Typography>
-						<Typography sx={{ color : active ? 'white' :'inherit'}} variant="h3">{new Intl.NumberFormat("en-US").format(amount)}</Typography>
+						<Typography sx={{ color : active ? 'inherit' :'inherit'}} variant="h3">{new Intl.NumberFormat("en-US").format(amount)}</Typography>
 					</div>
 				</Stack>
 			</CardContent>

@@ -24,12 +24,9 @@ export function FormTable() {
 
     const { axiosGet, axiosMutate } = useAxios();
 	const navigate = useNavigate();
-	const { isLoading, data : forms, refetch   }  = axiosGet({  id : 'forms' , url : import.meta.env.VITE_API_BASE_URL + '/forms' });
+	const { isLoading, data : forms   }  = axiosGet({  id : 'forms' , url : import.meta.env.VITE_API_BASE_URL + '/forms', refetchOnMount : true });
      const mdDown = useMediaQuery("down", "md");
-	//useEffect
-	React.useEffect(() => {
-		refetch();
-	},[]);
+	
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([]);

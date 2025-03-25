@@ -10,6 +10,7 @@
 <div class="pdf-header w-full" style="padding : 30px;margin-bottom : 2px !important;">
 <small class="mt-4 text-gray-500" style="opacity:0.4">E-forms Management System</small>
     <div class="text-gray-900" style="display: grid; place-items: center; text-align: center;">
+
           
             <h3 class="mt-2" style="max-width: 600px;margin-bottom : 0px;">
                {{ $formattedForm['name'] }} Report
@@ -20,7 +21,7 @@
     </br>
     <div style="display: flex; justify-content: flex-end; align-items: center;margin-bottom : 2px !important;">
         <small style="font-style: italic; color: grey !important;">
-            Generated: <span style="color: grey;">{{ $formattedForm['date'] }}</span>
+               Generated: <span style="color: grey;">{{ $formattedForm['date'] }}</span>
         </small>
     </div>
 <div>

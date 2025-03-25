@@ -26,6 +26,8 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import _ from 'lodash';
 import Accordion1 from "@/components/widgets/accordions/accordion-1";
 
+import { ShortSkeleton, MedSkeleton, LongSkeleton } from "@/components/loader/loading-skeleton";
+
 const HTMLParse = ({ htmlContent })  => {
     return (
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
@@ -40,7 +42,7 @@ export function AcknowledgementFormDetails({ updateName }) {
     const { axiosGet } = useAxios();
     const { code } = useParams();
     
-    const {  data : fetchedAcknowledgementsDetails, refetch   }  = axiosGet({  id : 'acknowledgements-form-details' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/details/' + code });
+    const {  data : fetchedAcknowledgementsDetails, refetch , isLoading  }  = axiosGet({  id : 'acknowledgements-form-details' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/details/' + code });
     const details = fetchedAcknowledgementsDetails?.data?.details;
 
     React.useEffect(() => {
@@ -56,15 +58,15 @@ export function AcknowledgementFormDetails({ updateName }) {
 											<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
 												{[
 											
-                                                    { key: "Code",      value:<Typography sx={{ ml : 1 }} variant="body2">{ details?.code }</Typography> },
-                                                    { key: "Issued",    value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.issued }</Typography> },
-                                                    { key: "Deadline",  value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.deadline }</Typography> },
-                                                    { key: "Submitted", value: <Typography sx={{ ml : 1 }} variant="body2">{ details?.submitted }</Typography> },
+                                                    { key: "Code",      value: !isLoading ? <Typography sx={{ ml : 1 }} variant="body2">{ details?.code }</Typography> : <ShortSkeleton /> },
+                                                    { key: "Issued",    value: !isLoading ? <Typography sx={{ ml : 1 }} variant="body2">{ details?.issued }</Typography> : <MedSkeleton /> },
+                                                    { key: "Deadline",  value: !isLoading ? <Typography sx={{ ml : 1 }} variant="body2">{ details?.deadline }</Typography> : <ShortSkeleton /> },
+                                                    { key: "Submitted", value: !isLoading ? <Typography sx={{ ml : 1 }} variant="body2">{ details?.submitted }</Typography> : <LongSkeleton /> },
                                                     // { key: "Submitted", value: <Typography sx={{ ml : 1 }} variant="body2">ACK001</Typography> },
 													{
 														key: "Status",
 														value: (
-                                                            <Chip
+                                                            !isLoading ?  <Chip
                                                                 icon={
                                                                     details?.status == 'pending' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
                                                                     details?.status == 'completed' ? <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> :
@@ -72,21 +74,21 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                                 label={_.capitalize(details?.status)}
                                                                 size="small"
                                                                 variant="outlined"
-                                                            />
+                                                            /> : <ShortSkeleton />
                                                     ),
 													},
                                                     { key: "Details", value: 
-                                                    <Accordion1 details={
+                                                        !isLoading ?  <Accordion1 details={
                                                         <HTMLParse htmlContent={details?.descriptions} />
                                                                                                             } title={
                                                                                                                 <>
-                                                                                                                    { <Button size="small" variant="text">View details</Button>}			
+                                                                                                                    {     <Button size="small" variant="text">View details</Button> }			
                                                                                                                 </>
-                                                                                                                } />
+                                                                                                                } />: <ShortSkeleton />
                                                     
                                                     
                                                    },
-                                                     { key: "Action", value:  	<Grid container spacing={1}>
+                                                     { key: "Action", value:  !isLoading ?	<Grid container spacing={1}>
                                                      <Button size="small" onClick={() => {
                                                          appContext.setDialog({ isOpen : true , title : 'Integrity Pledge', subtitle:'ACK001', component : <SubmitAcknowledgementForm 
                                                             code={details?.code}
@@ -98,7 +100,7 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                             update={refetch}
                                                     />})
                                                      }}>Click here </Button>
-                                             </Grid> }
+                                             </Grid> : <ShortSkeleton /> }
 												
 												].map((item) => (
 													<PropertyItem key={item.key} name={item.key} value={item.value} />

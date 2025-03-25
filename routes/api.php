@@ -91,6 +91,7 @@ use App\Http\Controllers\ReportController;
                 Route::put('/update',[StaffController::class,'update']);
                 Route::put('/confirm',[StaffController::class,'confirm']);
                 Route::post('/delete',[StaffController::class,'delete']);
+                Route::get('/info',[StaffController::class,'info']);
             });
 
             // Notifications

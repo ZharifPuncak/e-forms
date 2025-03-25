@@ -40,11 +40,13 @@ class AcknowledgementController extends Controller
         $totalCount = $acknowledgements->clone()->count();
         $pendingCount = $acknowledgements->clone()->where('status','pending')->count();
         $completedCount = $acknowledgements->clone()->where('status','completed')->count();
+        $incompletedCount = $acknowledgements->clone()->where('status','incompleted')->count();
 
         return $this->success([
             'total' => $totalCount,
             'pending' => $pendingCount,
-            'completed' => $completedCount
+            'completed' => $completedCount,
+            'incompleted' => $incompletedCount
         ]);
 
     }

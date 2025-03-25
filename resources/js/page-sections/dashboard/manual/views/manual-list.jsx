@@ -5,7 +5,7 @@ import { Card, CardHeader, CardContent, Stack, Button  } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useAxios  from "@/hooks/use-axios";
 import { DataTable } from "@/components/core/data-table";
-
+import { Skeleton1 } from "@/components/loader/loading-skeleton";
 
 
 export function ManualList() {
@@ -14,7 +14,7 @@ export function ManualList() {
 	const { axiosGet } = useAxios();
 	const navigate = useNavigate();
     const [manual,setManual] = React.useState([]);
-	const { isLoading : mnanualLoading, data : manualList, refetch : getManual }  = axiosGet({  id : 'manual-list' , url : import.meta.env.VITE_API_BASE_URL + '/manual'  });
+	const { isLoading : manualLoading, data : manualList, refetch : getManual }  = axiosGet({  id : 'manual-list' , url : import.meta.env.VITE_API_BASE_URL + '/manual'  });
 
     const columns = [
        
@@ -47,11 +47,11 @@ export function ManualList() {
         title=""
     />
     <CardContent>
-        <Stack spacing={3}>
-            <Card sx={{ overflowX: "auto" }} variant="outlined">
-                <DataTable columns={columns} rows={manual} />
+    {!manualLoading ? <Stack spacing={3}>
+       <Card sx={{ overflowX: "auto" }} variant="outlined">
+            <DataTable columns={columns} rows={manual} /> 
             </Card>
-       </Stack>
+       </Stack> : <Skeleton1 />}
     </CardContent>
 </Card>;
 }

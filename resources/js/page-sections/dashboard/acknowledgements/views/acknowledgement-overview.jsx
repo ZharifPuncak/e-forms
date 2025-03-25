@@ -8,7 +8,8 @@ import { CardSummary } from "@/components/widgets/card/card-summary";
 
 import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
 import { Table as TableIcon } from "@phosphor-icons/react/dist/ssr/Table";
-
+import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
+import { Skeleton1 } from "@/components/loader/loading-skeleton";
 import useAxios  from "@/hooks/use-axios";
 
 export function AcknowledgementOverview() {
@@ -24,27 +25,39 @@ export function AcknowledgementOverview() {
 	return <Grid container spacing={4}>
 				    <Grid
 						size={{
+							lg: 3,
 							md: 4,
-							xs: 12,
+							xs: 6,
 						}}
 					>
-						<CardSummary  amount={fetchedInfo?.data?.total ?? 0}  icon={TableIcon} title="Total"  />
+						{!isLoading ? <CardSummary  amount={fetchedInfo?.data?.total ?? 0}  icon={InfoIcon} tooltip="Total acknowledgement" title="Total"  /> : <Skeleton1 />}
 					</Grid>
 					<Grid
 						size={{
+							lg: 3,
 							md: 4,
-							xs: 12,
+							xs: 6,
 						}}
 					>
-						<CardSummary  amount={fetchedInfo?.data?.pending ?? 0}  icon={TableIcon} title="Total Pending"  />
+						{!isLoading  ? <CardSummary  amount={fetchedInfo?.data?.pending ?? 0}  icon={InfoIcon} tooltip="Acknowledgement that need to be submitted" title="Pending"  />: <Skeleton1 />}
 					</Grid>
 					<Grid
 						size={{
+							lg: 3,
 							md: 4,
-							xs: 12,
+							xs: 6,
 						}}
 					>
-						<CardSummary  amount={fetchedInfo?.data?.completed ?? 0} icon={UsersIcon} title="Total Completed" />
+						{!isLoading  ? <CardSummary  amount={fetchedInfo?.data?.completed ?? 0} icon={InfoIcon} tooltip="Acknowledgement that already submitted" title="Completed" />: <Skeleton1 />}
+					</Grid>
+					<Grid
+						size={{
+							lg: 3,
+							md: 4,
+							xs: 6,
+						}}
+					>
+						{!isLoading  ?<CardSummary  amount={fetchedInfo?.data?.incompleted ?? 0} icon={InfoIcon} tooltip="Acknowledgement that are not longer able to submit" title="Incompleted" /> : <Skeleton1 />}
 					</Grid>
 				</Grid>				
 					

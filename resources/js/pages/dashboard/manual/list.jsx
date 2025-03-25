@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
-import dayjs from "dayjs";
+
 
 import { ManualList } from "@/page-sections/dashboard/manual/views/manual-list";
 

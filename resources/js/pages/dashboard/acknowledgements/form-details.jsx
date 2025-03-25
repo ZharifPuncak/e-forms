@@ -12,6 +12,8 @@ import { useParams } from "react-router"
 import { paths } from "@/paths";
 
 import { AcknowledgementFormDetails } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-form-details";
+import { ShortSkeleton } from "@/components/loader/loading-skeleton";
+
 
 const metadata = { title: `${appConfig.name}` };
 
@@ -58,7 +60,7 @@ export function Page() {
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography>
+							{name ? <Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography> : <ShortSkeleton />}
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>

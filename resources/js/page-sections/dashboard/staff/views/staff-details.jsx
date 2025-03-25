@@ -24,6 +24,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "@/contexts/app-context";
 import { useConfirm } from "material-ui-confirm";
 
+import {  ShortSkeleton, MedSkeleton, LongSkeleton } from "@/components/loader/loading-skeleton";
+
 export function StaffDetails({  updateName  }) {
 
 
@@ -61,17 +63,17 @@ export function StaffDetails({  updateName  }) {
                     <Card sx={{ borderRadius: 1 }} variant="outlined">
 											<PropertyList divider={<Divider />} sx={{ "--PropertyItem-padding": "12px 24px" }}>
 												{[
-													{ key: "Name", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.name}</Typography> },
-                                                    { key: "Staff ID", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.staffId}</Typography> },
-													{ key: "Staff IC", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.staffIcNo}</Typography> },
-                                                    { key: "Company", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.company?.code}</Typography> },
-                                                    { key: "Department", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.department?.name}</Typography> },
-                                                    { key: "Position", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.position?.name}</Typography> },
-                                                    { key: "Category", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.category?.name}</Typography> },
-													{ key: "Grade", value: <Typography sx={{ ml : 1 }} variant="body2">{details?.grade?.name}</Typography> },
+													{ key: "Name", value: details?.name ? <Typography sx={{ ml : 1 }} variant="body2">{details?.name}</Typography> : <MedSkeleton  />},
+                                                    { key: "Staff ID", value: details?.staffId ? <Typography sx={{ ml : 1 }} variant="body2">{details?.staffId}</Typography> : <ShortSkeleton  />  },
+													{ key: "Staff IC", value: details?.staffIcNo ?  <Typography sx={{ ml : 1 }} variant="body2">{details?.staffIcNo}</Typography> : <ShortSkeleton  />},
+                                                    { key: "Company", value: details?.department?.name?  <Typography sx={{ ml : 1 }} variant="body2">{details?.company?.code}</Typography> : <MedSkeleton  />},
+                                                    { key: "Department", value:  details?.company?.code ?  <Typography sx={{ ml : 1 }} variant="body2">{details?.department?.name}</Typography> : <MedSkeleton  /> },
+                                                    { key: "Position", value: details?.position?.name ?  <Typography sx={{ ml : 1 }} variant="body2">{details?.position?.name}</Typography> : <MedSkeleton  /> },
+                                                    { key: "Category", value: details?.category?.name ?  <Typography sx={{ ml : 1 }} variant="body2">{details?.category?.name}</Typography> : <LongSkeleton  /> },
+													{ key: "Grade", value: details?.grade?.name?   <Typography sx={{ ml : 1 }} variant="body2">{details?.grade?.name}</Typography> : <LongSkeleton  /> },
 													{
 														key: "Status",
-														value:  (
+														value: details?.status ? (
 															<Chip
 																icon={
 																	details?.status == 'pending' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
@@ -83,7 +85,7 @@ export function StaffDetails({  updateName  }) {
 																size="small"
 																variant="outlined"
 															/>
-													),
+													) : <ShortSkeleton  />,
 													},
 													// { key: "Remarks", value: <Typography sx={{ ml : 1 }} variant="body2"></Typography> },
 													{ key: "Action", value:  	<Grid container spacing={1}>

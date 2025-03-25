@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
 import { useParams } from "react-router"
 import { paths } from "@/paths";
+import { ShortSkeleton } from "@/components/loader/loading-skeleton";
 
 import { StaffDetails } from "@/page-sections/dashboard/staff/views/staff-details";
 
@@ -53,7 +54,7 @@ export function Page() {
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography>
+							{name ? <Typography variant="h5" sx={{ fontWeight: "bold" }}>{name}</Typography> : <ShortSkeleton></ShortSkeleton>}
 							<Typography color="text.secondary" variant="caption">
 							     	{ code } 
 							</Typography>

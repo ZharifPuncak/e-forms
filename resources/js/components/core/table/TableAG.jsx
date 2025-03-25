@@ -1,8 +1,9 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { themeQuartz,ModuleRegistry, ClientSideRowModelModule, PaginationModule, QuickFilterModule,   } from 'ag-grid-community'; 
-import { TextField, InputAdornment } from '@mui/material';
+import { themeQuartz,ModuleRegistry, ClientSideRowModelModule, PaginationModule, QuickFilterModule, CsvExportModule   } from 'ag-grid-community'; 
+import { TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'; 
+import DownloadIcon from '@mui/icons-material/Download';
 import Box from '@mui/material/Box';
 import { useMediaQuery } from "@/hooks/use-media-query";
 import './Table.css';
@@ -12,7 +13,7 @@ import './Table.css';
 import logoPuncak from "@/assets/images/logo/logo-puncak.png";
 
 
-export default function TableAG({ row, column, pagination = true, loading = true , title = '', search = true}){  
+export default function TableAG({ row, column, pagination = true, loading = true , title = '', search = true, csv = false }){  
     
     const [searchTerm, setSearchTerm] = useState('');
     const mdDown = useMediaQuery("down", "md");
@@ -37,7 +38,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
    
 
     // Register the required modules
-    ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule, QuickFilterModule]);
+    ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule, QuickFilterModule, CsvExportModule]);
     // Theme config
     const myTheme = themeQuartz.withParams({
         /* Low spacing = very compact */
@@ -64,16 +65,13 @@ export default function TableAG({ row, column, pagination = true, loading = true
           
     }
 
- 
-  
-      //Onclicked Cell
+     //Onclicked Cell
       const onCellClicked = (params) => {
         params.api.clearFocusedCell();
       };
 
       const onSearch = (event) => {
         if (gridApi) {
-         
           gridApi.setGridOption('quickFilterText', event.target.value);
           // gridApi.setQuickFilter(event.target.value);
         }
@@ -81,17 +79,22 @@ export default function TableAG({ row, column, pagination = true, loading = true
 
        //Ensure the function is called after AG Grid is ready
        const onGridReady = (params) => {
-        setGridApi(params.api); // ✅ Set grid API in state
-      };
+         setGridApi(params.api); // ✅ Set grid API in state
+       };
+
+
+      
+        const onBtnExport = useCallback(() => {
+          gridRef.current.api.exportDataAsCsv();
+        }, []);
 
 
     return (
         <div style={{  width: 'auto' }}>
-                        <Box sx={{ display: 'flex',justifyContent: 'space-between',  alignItems: 'center', mb: 1 }}>
+                      <Box sx={{ display: "flex", alignItems: "center",  gap:1,  justifyContent: "flex-end"  }}>
                         {/* Title on the left */}
                             <Box sx={{ ml : 2, fontWeight: 'bold' }}>{title}</Box>
                         
-                            {/* TextField on the right */}
                             {search && <TextField
                                autoComplete='off'
                                 onChange={onSearch}
@@ -110,8 +113,14 @@ export default function TableAG({ row, column, pagination = true, loading = true
                                   maxWidth: '350px', // Adjust max width as needed
                                   mt: 2,
                                   mb: 2,
+                                  ml : -3
                                 }}
                             />}
+
+                            {
+                              csv && <Button variant="outlined" onClick={() => onBtnExport()} startIcon={<DownloadIcon />}>{mdDown ? '' : 'Export'} Data</Button>
+                            }
+
                         </Box>
                 <div>
                 <AgGridReact  
@@ -123,7 +132,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                         columnDefs={column} 
                         domLayout='autoHeight' 
                         onCellClicked={onCellClicked}
-                        pagination={true}
+                        pagination={pagination}
                         paginationPageSize={10} // Fixed page size, user can't change it
                         paginationPageSizeSelector={false}
                         autoGroupColumnDef={autoGroupColumnDef}

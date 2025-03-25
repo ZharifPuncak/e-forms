@@ -183,4 +183,16 @@ class StaffController extends Controller
        ]);
 
     }
+
+    public function info(){
+
+            $active = Staff::where('status','active')->count();
+            $inactive = Staff::where('status','inactive')->count();
+        
+            return $this->success([
+                'active' => $active,
+                'inactive' => $inactive
+            ]);
+
+      }
 }

@@ -69,14 +69,14 @@ const useAxios = () => {
     return { mutate, isLoading, isError, data, isSuccess };
   };
 
-  const axiosGet = ({ id = null, url, staleTime, cacheTime, needUpdate, enabled = true }) => {
+  const axiosGet = ({ id = null, url, staleTime, cacheTime, needUpdate, enabled = true, refetchOnMount = false }) => {
     const { isLoading, isError, isSuccess, dataUpdatedAt, error, data, refetch } = useQuery(
       id,
       async () => {
         await new Promise((resolve) => setTimeout(resolve, 250));
         return axios.get(url, { headers: getAuthHeaders() });
       },
-      { enabled, staleTime, retry: false, refetchOnMount: false, refetchOnWindowFocus: false, cacheTime }
+      { enabled, staleTime, retry: false, refetchOnMount, refetchOnWindowFocus: false, cacheTime }
     );
 
     useEffect(() => {

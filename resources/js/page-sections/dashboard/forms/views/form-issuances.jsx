@@ -18,10 +18,12 @@ import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/s
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 
 import { useConfirm } from "material-ui-confirm";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export function FormIssuances() {
      
 	const confirm = useConfirm();
+	const mdDown = useMediaQuery("down", "md");
 	const [selectedId,setSelectedId] = React.useState(null);
 	const { code } = useParams();
     const appContext = useAppContext();
@@ -47,9 +49,9 @@ export function FormIssuances() {
 			
 				</>
 			} },
-			{ field: "issued_at", headerName : 'Issued Date'},
-			{ field: "deadlined_at", headerName : 'Deadline Date'},
-			{ field: "status", 	cellRenderer : (params) => {
+			{ field: "issued_at", headerName : 'Issued Date',  hide : mdDown ? true : false},
+			{ field: "deadlined_at", headerName : 'Deadline Date',  hide : mdDown ? true : false},
+			{ field: "status", hide : mdDown ? true : false , cellRenderer : (params) => {
 	
 				const rowData = params.data;
 				const mapping = {
@@ -131,14 +133,14 @@ export function FormIssuances() {
 			} }
 		])
 
-	},[fetchedIssuance?.data]);
+	},[fetchedIssuance?.data,mdDown]);
 
 	
 	return <>
 	
 
 		{ !isLoading   && <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-				<Button variant="outlined" onClick={() => {
+				<Button variant="outlined" sx={{ mb : 2 }} onClick={() => {
 					appContext.setDialog({ title : 'Add issuance', subtitle : fetchedIssuance?.data?.form_name + ' ('+ code + ')', component : <IssuanceForm loadedCompanies={fetchedIssuance?.data?.loaded_companies} update={getIssuance} code={code} end={fetchedIssuance?.data?.form_end} />, isOpen: true})
 				}}>+ Add issuance </Button>
 			</Box> }

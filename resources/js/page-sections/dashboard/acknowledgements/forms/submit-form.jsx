@@ -266,7 +266,7 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
                         <LoadingButton
                             loading={signLoading}
                             disabled={index === steps.length - 1 && !checked  }
-                            variant="contained"
+                            variant="outlined"
                             onClick={() => {
                               index === steps.length - 1 ?  submit() : handleNext()
                             }}

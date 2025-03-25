@@ -561,7 +561,7 @@ const StaffForm = ({ item }) => {
 
             <Grid  size={{xs : 12, sm: 12, md : 12 }}>
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <LoadingButton loading={createLoading || updateLoading} type="submit" variant="contained">SUBMIT</LoadingButton>
+                  <LoadingButton loading={createLoading || updateLoading} type="submit" variant="outlined">SUBMIT</LoadingButton>
               </Box>
             </Grid>
         </Grid>

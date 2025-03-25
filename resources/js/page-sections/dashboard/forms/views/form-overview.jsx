@@ -6,42 +6,29 @@ import  Skeleton  from "@mui/material/Skeleton";
 
 
 import { CardSummary } from "@/components/widgets/card/card-summary";
-
-import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
-import { PenNibStraight as PenNibStraightIcon } from "@phosphor-icons/react/dist/ssr/PenNibStraight";
-import { Table as TableIcon } from "@phosphor-icons/react/dist/ssr/Table";
-
+import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
+import { Skeleton1 } from "@/components/loader/loading-skeleton";
 import useAxios  from "@/hooks/use-axios";
-
+ 
 export function FormOverview() {
 
 	const { axiosGet } = useAxios();
-	const { data : info, refetch }  = axiosGet({  id : 'form-info' , url : import.meta.env.VITE_API_BASE_URL + '/forms/info'  });
+	const { data : info  }  = axiosGet({  id : 'form-info' , url : import.meta.env.VITE_API_BASE_URL + '/forms/info', refetchOnMount : true  });
 
 
-    // useEffect
-	React.useEffect(() => {
-		refetch();
-	},[]);
+
 	
 	return <Grid container spacing={2}>
-				    <Grid
-						size={{
-							md: 3,
-							xs: 12,
-						}}
-					>
-						{info?.data?.pending === undefined ? (<>
-							<Skeleton height={30} width="100%" /> 
-							<Skeleton height={40} width="60%" /> 
-							<Skeleton height={40} width="60%" /> 
-						</>
+				    <Grid size={{ md: 3, xs: 6 }}
+>
+						{info?.data?.pending === undefined ? (<Skeleton1 />
 					
 							) : (
 							<CardSummary 
+							    tooltip='Form that are created and basic info editable.'
+								icon={InfoIcon} 
 								amount={info.data.pending} 
-								icon={TableIcon} 
-								title="Total Pending"  
+								title="Pending"  
 							/>
 							)}
 												
@@ -49,20 +36,17 @@ export function FormOverview() {
 						<Grid
 						size={{
 							md: 3,
-							xs: 12,
+							xs: 6,
 						}}
 					>
-						{info?.data?.confirmed === undefined ? (<>
-							<Skeleton height={30} width="100%" /> 
-							<Skeleton height={40} width="60%" /> 
-							<Skeleton height={40} width="60%" /> 
-						</>
+						{info?.data?.confirmed === undefined ? (<Skeleton1 />
 					
 							) : (
 							<CardSummary 
+							    tooltip='Form that are confirmed is ready for issuance.'
 								amount={info.data.confirmed} 
-								icon={TableIcon} 
-								title="Total Confirmed"  
+								icon={InfoIcon} 
+								title="Confirmed"  
 							/>
 							)}
 												
@@ -70,20 +54,17 @@ export function FormOverview() {
 					<Grid 	
 						size={{
 							md: 3,
-							xs: 12,
+							xs: 6,
 						}}
 					>
-						{info?.data?.ongoing === undefined ? (<>
-							<Skeleton height={30} width="100%" /> 
-							<Skeleton height={40} width="60%" /> 
-							<Skeleton height={40} width="60%" /> 
-						</>
+						{info?.data?.ongoing === undefined ? (<Skeleton1 />
 					
 							) : (
 							<CardSummary 
+								tooltip='Form that are already issued to staff.'
 								amount={info.data.ongoing} 
-								icon={PenNibStraightIcon} 
-								title="Total Ongoing"  
+								icon={InfoIcon} 
+								title="Ongoing"  
 							/>
 							)}
 			       </Grid>
@@ -91,20 +72,17 @@ export function FormOverview() {
 					<Grid
 						size={{
 							md: 3,
-							xs: 12,
+							xs: 6,
 						}}
 					>
-						{info?.data?.closed === undefined ? (<>
-							<Skeleton height={30} width="100%" /> 
-							<Skeleton height={40} width="60%" /> 
-							<Skeleton height={40} width="60%" /> 
-						</>
+						{info?.data?.closed === undefined ? (<Skeleton1 />
 					
 							) : (
 							<CardSummary 
+							    tooltip='Form that are closed with remarks.'
 								amount={info.data.closed} 
-								icon={UsersIcon} 
-								title="Total Closed"  
+								icon={InfoIcon} 
+								title="Closed"  
 							/>
 							)}
 					</Grid>
