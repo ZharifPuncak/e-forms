@@ -48,7 +48,7 @@ export function ManualList() {
     />
     <CardContent>
     {!manualLoading ? <Stack spacing={3}>
-       <Card sx={{ overflowX: "auto" }} variant="outlined">
+       <Card sx={{ overflowX: "auto", borderRadius : '5px' }} variant="outlined">
             <DataTable columns={columns} rows={manual} /> 
             </Card>
        </Stack> : <Skeleton1 />}
