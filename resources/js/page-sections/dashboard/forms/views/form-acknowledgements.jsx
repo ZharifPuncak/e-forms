@@ -32,6 +32,7 @@ export function FormAcknowledgements() {
 	const [acknowledgement,setAcknowledgement] = React.useState([]);
    
 
+	
 	const { isLoading : infoLoading, data : fetchedInfo, refetch : getInfo }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/info/' + code  });
 	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-list' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/' + code  });
     const allAcknowledgements = fetchedAcknowledgements?.data?.acknowledgements;
@@ -59,7 +60,8 @@ export function FormAcknowledgements() {
 							label: "Completed",
 							icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 						},
-						new: { label: "New", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
+						cancelled: { label: "Cancelled", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
+						incompleted: { label: "Incompleted", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
 						pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
 					};
 					const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };

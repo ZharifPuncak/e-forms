@@ -23,6 +23,7 @@ return new class extends Migration
             ->comment('Status of the forms:  pending, confirmed, ongoing, completed','closed');
             $table->timestamp('effective_from');
             $table->timestamp('effective_to');
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@ import { use } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 
 import { appConfig } from "@/config/app";
-import { logger } from "@/lib/default-logger";
+
 import { de } from "@/locales/de";
 import { en } from "@/locales/en";
 import { es } from "@/locales/es";
@@ -28,7 +28,7 @@ use(initReactI18next)
 	})
 	// eslint-disable-next-line unicorn/prefer-top-level-await
 	.catch((error) => {
-		logger.error("[I18nProvider] Failed to initialize i18n", error);
+	
 	});
 
 export function I18nProvider({ children }) {

@@ -14,11 +14,13 @@ class EmailAnnouncement implements ShouldQueue
 
 
     public $email;
+    public $name;
     public $data;
-    public function __construct($email, $data)
+    public function __construct($email, $data, $name)
     {
         $this->email = $email;
-        $this->data = $data;
+        $this->name  = $name;
+        $this->data  = $data;
     }
 
     /**
@@ -26,6 +28,6 @@ class EmailAnnouncement implements ShouldQueue
      */
     public function handle(): void
     {
-         Mail::to($this->email)->send(new Annoucement($this->data));
+         Mail::to($this->email)->send(new Annoucement($this->data,$this->name));
     }
 }

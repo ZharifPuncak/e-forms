@@ -40,6 +40,7 @@ use App\Http\Controllers\ReportController;
             Route::get('/',[FormController::class,'index']);
             Route::get('/info',[FormController::class,'info']);
             Route::post('/store',[FormController::class,'store']);
+            Route::post('/close',[FormController::class,'close']);
             Route::put('/confirm',[FormController::class,'confirm']);
             Route::put('/update',[FormController::class,'update']);
             Route::post('/delete',[FormController::class,'delete']);

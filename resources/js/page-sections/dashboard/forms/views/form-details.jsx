@@ -26,6 +26,7 @@ import useAxios  from "@/hooks/use-axios";
 import { useParams } from "react-router-dom";
 
 import InfoForm from "../forms/info-form";
+import CloseForm from "../forms/close-form";
 import { FormFile } from "./form-file";
 
 import { useAppContext } from "@/contexts/app-context";
@@ -48,23 +49,16 @@ export function FormDetails({ updateReady, updateName }) {
 	const appContext = useAppContext();
 	const confirm = useConfirm();
 	const { code } = useParams();
+	const [remarks,setRemarks] = React.useState('');
 	const { axiosGet, axiosMutate } = useAxios();
-	const [pdfUrl, setPdfUrl] = React.useState(null);
+
 
 	const { isLoading: getLoading, data : fetchedDetails, refetch   }  = axiosGet({  id : 'forms-details' + code, url : import.meta.env.VITE_API_BASE_URL + '/forms/details/' + code, cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
 	const { mutate : confirmForm, isLoading : confirmLoading, isSuccess : confirmSuccess  } =  axiosMutate({ id: 'forms-confirm' + code, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/confirm', payload : { code } });
 	const { mutate : deleteForm, isLoading : deleteFormLoading, isSuccess : deleteFormSuccess  } =  axiosMutate({ id: 'forms-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/delete', payload : { code } });
 	const { mutate : downloadReport, isLoading : downloadLoading, data : reportData, isSuccess : dowloadSuccess, dataUpdatedAt  } =  axiosMutate({ id: 'report-forms-download' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/report/form', payload : { code }, isFileDownload : true });
+	const { mutate : closeForm, isLoading : closeLoading, isSuccess : closeSuccess  } =  axiosMutate({ id: 'forms-close' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/close', payload : { code, remarks } });
 	let data = fetchedDetails?.data?.data;
-
-	const blobToText = (blob) => {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.onload = () => resolve(reader.result);
-			reader.onerror = (error) => reject(error);
-			reader.readAsText(blob); // Read as text
-		});
-	};
 
 	React.useEffect(() => {
 	if(dowloadSuccess){    
@@ -91,10 +85,10 @@ export function FormDetails({ updateReady, updateName }) {
 	},[dowloadSuccess,dataUpdatedAt]);
 
 	React.useEffect(() => {
-		if(confirmSuccess){
+		if(confirmSuccess || closeSuccess){
 			refetch()
 		}
-	},[confirmSuccess])
+	},[confirmSuccess,closeSuccess])
 
 	React.useEffect(() => {
 
@@ -111,7 +105,7 @@ export function FormDetails({ updateReady, updateName }) {
 	React.useEffect(() => {
 		if(deleteFormSuccess){
 			setTimeout(() => {
-				window.location.href = window.location.origin + '/dashboard/forms';
+				window.location.href = window.location.origin + '/e-forms/dashboard/forms';
 			},250)
 		}
 	},[deleteFormSuccess])
@@ -192,6 +186,7 @@ export function FormDetails({ updateReady, updateName }) {
 																		title: <Typography variant="body1">Are you sure ?</Typography>,
 																		description: <Box>
 																		             	<Alert severity="warning">This action cannot be undone.</Alert>
+																				
 																		            </Box>,
 																		confirmationText: 'Yes, confirm it',
 																		cancellationText: 'Cancel',
@@ -209,8 +204,13 @@ export function FormDetails({ updateReady, updateName }) {
 																	
 																		});
 																 }}  size="small">Confirm </Button>}
-															     {data?.status != 'pending' && <Button disabled={true}   size="small">Mark as Closed </Button>}
-															     {<LoadingButton loading={downloadLoading} onClick={() => {
+															      {<LoadingButton loading={closeLoading} disabled={data?.status != 'ongoing'} onClick={() => {
+
+																		appContext.setDialog({title: 'Close Form',subtitle: data?.name + '  |  ' + data?.alias + '  |  ' + data?.code, isOpen : true, component : <Box>	<Alert sx={{ mb : 4 }} severity="warning">This action cannot be undone.</Alert>
+																				<CloseForm code={data?.code} update={refetch} /></Box> })
+
+																    }} size="small">Mark as Closed </LoadingButton>}
+															     {<LoadingButton disabled={data?.status != 'closed'} loading={downloadLoading} onClick={() => {
 																	downloadReport()
 																 }} size="small" >Report </LoadingButton>}
 															   </Box>}

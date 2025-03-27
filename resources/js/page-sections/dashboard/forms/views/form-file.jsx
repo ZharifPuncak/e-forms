@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
-import Link from "@mui/material/Link";
+import Alert from '@mui/material/Alert';
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import TableAG from "@/components/core/table/TableAG";
 import { useAppContext } from "@/contexts/app-context";
@@ -14,6 +15,7 @@ import UploadFile from "../forms/upload-file";
 import useAxios  from "@/hooks/use-axios";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { useConfirm } from "material-ui-confirm";
 
 export function FormFile({ status, update }) {
 
@@ -23,7 +25,7 @@ export function FormFile({ status, update }) {
 	const { axiosGet, axiosMutate } = useAxios();
 	const { isLoading, data : fetchedFile, refetch : getFile }  = axiosGet({  id : 'form-file' + code , url : import.meta.env.VITE_API_BASE_URL + '/forms/files/' + code  });
     const { mutate : deleteFile, isLoading : deleteFileLoading } =  axiosMutate({ id: 'forms-file-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/files/delete', payload : { code } });
-  
+     const confirm = useConfirm();
 	const mdDown = useMediaQuery("down", "md");
 
 
@@ -46,32 +48,46 @@ export function FormFile({ status, update }) {
 				return <>
 
 					<Button onClick={() => { window.open(rowData?.file, "_blank") }}>
-						View
+					   View
 					</Button>
-				   {status == 'pending' && <Box>
 
+					{ status == 'pending' && <Button 
+						onClick={() => {
+						appContext.setDialog({ title : 'Upload file', subtitle : code, component : <UploadFile data={rowData} update={getFile} code={code} />, isOpen: true})}}
+					>  Edit
+					</Button> }
+
+					{ status == 'pending' && <Button 
+				
+					onClick={async () => {
+
+						confirm({
+							title: <Typography variant="body1">Are you sure ?</Typography>,
+							description: <Box>
+											 <Alert severity="error">This action cannot be undone.</Alert>
+										</Box>,
+							confirmationText: 'Yes, delete it',
+							cancellationText: 'Cancel',
+							confirmationButtonProps: {
+								sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' }
+							  },
+							  cancellationButtonProps: {
+								sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' },
+							  },
+						  })
+							.then(async () => {
+								await deleteFile();
+								getFile();
+								update();
+							})
+							.catch(() => {
+						
+							});
 					
-
-						{/* <Link  sx={{ cursor : 'pointer', mr : 2 }} > 
-						     	View
-						</Link> */}
-						<Link 
-	
-						  sx={{ cursor : 'pointer', mr : 2 }}
-						  onClick={() => {
-							appContext.setDialog({ title : 'Upload file', subtitle : code, component : <UploadFile data={rowData} update={getFile} code={code} />, isOpen: true})}}
-						>Edit
-						</Link>
-						<Link 
-	
-						sx={{ cursor : 'pointer', mr : 2 }}
-						onClick={async () => {
-							await deleteFile();
-							getFile();
-							update();
-						}}> Delete
-						</Link>
-					</Box>}
+					}}>
+						 Delete
+					</Button> }
+				 
 			
 				</>
 			} }
@@ -80,7 +96,7 @@ export function FormFile({ status, update }) {
 
 	return <>
 			{_.isEmpty(fetchedFile?.data?.files) && !isLoading  && <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-				<Button variant="outlined" onClick={() => {
+				<Button sx={{ mb : 1 }} variant="outlined" onClick={() => {
 					appContext.setDialog({ title : 'Upload file', subtitle : code, component : <UploadFile update={() => {
 						getFile();
 						update();

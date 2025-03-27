@@ -182,8 +182,12 @@ class IssuanceController extends Controller
                 return $this->error(null, 'Cannot dispatched. Form already closed.', 422);
             }
 
-            if(Carbon::now() > $issuance->form->effective_to){
+            if(Carbon::now()->format('Y-m-d') >  Carbon::parse($issuance->form->effective_to)->format('Y-m-d')){
                 return $this->error(null, 'Cannot dispatched. Form already effective ended.', 422);
+            }
+
+            if(Carbon::now()->format('Y-m-d') > Carbon::parse($issuance->issued_at)->format('Y-m-d')){
+                return $this->error(null, 'Cannot dispatched. Issued date already past.Please change issued date.', 422);
             }
 
             event(new IssuanceDispatched($issuance->id));
@@ -194,7 +198,7 @@ class IssuanceController extends Controller
                    $issuance->form()->update(['status' => 'ongoing']);
             }
     
-        return $this->success([], 'Issuance Dispatched.');
+            return $this->success([], 'Issuance Dispatched.');
     }
       
 }

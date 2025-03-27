@@ -87,6 +87,10 @@ class AcknowledgementController extends Controller
             return $this->error(null, 'Form acknowledgement already submitted', 422);
         }
 
+        if($acknowledgement->status == 'closed'){
+            return $this->error(null, 'Form acknowledgement already closed', 422);
+        }
+
         $acknowledgement->update(['signature' => $request->signature, 'status' => 'completed', 'submitted_at' =>  Carbon::now()]);
 
         return $this->success([], 'Acknowledgement Submitted.');

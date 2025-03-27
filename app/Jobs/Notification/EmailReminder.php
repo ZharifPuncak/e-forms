@@ -13,10 +13,12 @@ class EmailReminder implements ShouldQueue
     use Queueable;
 
     public $email;
+    public $name;
     public $data;
-    public function __construct($email, $data)
+    public function __construct($email, $data, $name)
     {
         $this->email = $email;
+        $this->name = $name;
         $this->data = $data;
     }
     /**
@@ -24,6 +26,6 @@ class EmailReminder implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->email)->send(new Reminder($this->data));
+        Mail::to($this->email)->send(new Reminder($this->data,$this->name));
     }
 }

@@ -126,7 +126,7 @@ class FormController extends Controller
         $form = Form::where('code', $request->code)->first();
         
         if(!$form){
-            return $this->error(null, 'form not found', 404);
+            return $this->error(null, 'Form not found', 404);
         }
 
         if($form->status != 'pending'){
@@ -136,10 +136,50 @@ class FormController extends Controller
         if(empty($form->file)){
             return $this->error(null, 'Cannot confirm. Form file not exist', 422);
         }
+
+        if(Carbon::now()->addDay(2)->format('Y-m-d') >=  Carbon::parse($form->effective_to)->format('Y-m-d')){
+            return $this->error(null, 'Cannot confirm. Form confirm at least two day before effective end', 422);
+        }
     
         $form->update(['status' => 'confirmed']);
 
         return $this->success([], 'Form Confirmed.');
+    }
+
+
+    public function close(Request $request){
+
+     
+        $validated = $request->validate([
+            'code' => 'required',
+            'reason' => 'required',
+            'remarks' => 'required_if:reason,cancelled',
+        ]);
+
+        $reason = $request->reason;
+        $remarks = $request->remarks;
+        $form = Form::with('issuance')->where('code', $request->code)->first();
+        
+        if(!$form){
+            return $this->error(null, 'Form not found', 404);
+        }
+
+        if($form->status != 'ongoing'){
+            return $this->error(null, 'Form cannot closed.', 422);
+        }
+
+        // Update remarks 
+        $form->update(['status' => 'closed', 'remarks' => $reason == 'cancelled' ? $remarks : null]);
+
+        //Update status for acknowledgement : Cancelled
+        $acknowledgements = FormAcknowledgement::where('form_id',$form->id)->where('status','pending')->get(); 
+
+        foreach($acknowledgements as $acknowledgement){
+            $acknowledgement->update(['status' => $reason]);
+        }
+
+        return $this->success([], 'Form Closed.');
+
     }
 
     public function info(){

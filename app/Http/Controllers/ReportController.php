@@ -31,6 +31,10 @@ class ReportController extends Controller
             return $this->error(null, 'Form not found', 422);
         }
 
+        if($form->status != 'closed'){
+            return $this->error(null, 'Report cannot be generated', 422);
+        }
+
         $filePath = storage_path('app/public/report.pdf');
         $formattedForm = (new FormResource($form))->toArray(request());
         

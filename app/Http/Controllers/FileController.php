@@ -20,7 +20,7 @@ class FileController extends Controller
 
     public function index($code){
 
-        $files = FormFile::whereHas('form',function($query) use($code){
+        $files = FormFile::with('form')->whereHas('form',function($query) use($code){
              $query->where('code',$code);
         })->orderBy('id','desc')->get();
 

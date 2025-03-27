@@ -20,6 +20,7 @@ class FileResource extends JsonResource
             'name' => $this->file_name,
             'size' =>  $this->file_size,
             'extension'   => $this->file_ext,
+            'status'    => $this->form->status,
             'file'        => asset('storage/' . $this->file_path),
         ];
     }

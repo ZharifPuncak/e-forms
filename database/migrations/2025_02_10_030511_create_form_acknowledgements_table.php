@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('form_id');
             $table->unsignedBigInteger('staff_id');
             $table->unsignedBigInteger('form_issuance_id');
-            $table->enum('status', ['pending','completed'])->default('pending');
+            $table->enum('status', ['pending','completed','incompleted'])->default('pending');
             $table->text('signature')->nullable();
             $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
