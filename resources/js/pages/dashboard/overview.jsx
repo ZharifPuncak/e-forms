@@ -48,7 +48,7 @@ export function Page() {
 				
 					</Stack>
 					<Grid container spacing={2}>
-						<Grid 
+						{/* <Grid 
 							// onClick={() => setTab('acknowledgement')}
 							// sx={{ cursor : 'pointer' }}
 							size={{
@@ -58,7 +58,7 @@ export function Page() {
 							
 						>
 							<CardSummary active={tab == 'acknowledgement'} amount={acknowledgement?.total ?? 0}  icon={PenNibStraightIcon} title="Total Acknowledgements" />
-						</Grid>
+						</Grid> */}
 						{/* <Grid
 							// onClick={() => setTab('forms')}
 							// sx={{ cursor : 'pointer' }}
@@ -78,10 +78,13 @@ export function Page() {
 							 }}
 						 >
 							<CardChart
+							    total={acknowledgement?.total}
 								title='Acknowledgement Status'
 								data={[
 									{ name: "Pending", value: acknowledgement?.pending, percent : '', color: "var(--mui-palette-warning-main)" },
 									{ name: "Completed", value: acknowledgement?.completed,percent : '', color: "var(--mui-palette-success-main)" },
+									{ name: "Incompleted", value: acknowledgement?.incompleted,percent : '', color: "var(--mui-palette-error-main)" },
+									{ name: "Cancelled", value: acknowledgement?.cancelled,percent : '', color: "var(--mui-palette-secondary-main)" },
 								]}
 							/>
 						</Grid>

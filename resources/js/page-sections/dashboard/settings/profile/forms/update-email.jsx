@@ -16,7 +16,7 @@ import useAuth from "@/hooks/use-auth";
 export function UpdateEmail() {
 
 	  const appContext = useAppContext();
-	  const { profile } = useAuth();
+	  const { profile, logout } = useAuth();
 	  const {  axiosMutate } = useAxios();
 	  const [ initialValues, setInitialValues ] = React.useState({
 			email:  '',
@@ -103,7 +103,10 @@ export function UpdateEmail() {
 				    	  </Grid>
 							<Grid  size={{ xs : 12, sm: 12, md : 12 }}>
 									<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-										<LoadingButton loading={updateLoading} type="submit" variant="contained">UPDATE</LoadingButton>
+										<LoadingButton sx={{ mr : 1 }} disabled={updateLoading} onClick={() => {
+											logout();
+										}} variant="outlined">Cancel</LoadingButton>
+										<LoadingButton loading={updateLoading} type="submit" variant="outlined">Update</LoadingButton>
 									</Box>
 							</Grid>
 					</Grid>

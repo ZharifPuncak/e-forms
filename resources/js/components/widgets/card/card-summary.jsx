@@ -9,10 +9,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Tooltip from '@mui/material/Tooltip';
 
-export function CardSummary({ amount , icon: Icon , title, action, active, tooltip }) {
+export function CardSummary({ amount , icon: Icon , title, action, active, tooltip, bColor }) {
 	return (<>
 		<Card elevation={active ? 6 : 1} sx={{  border : active ? '1px solid #007FAB' : 'inherit' }}>
-			<CardContent>
+			<CardContent sx={{ backgroundColor : bColor ?? 'inherit'}}>
 				<Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
 					{/* {Icon && <Avatar
 						sx={{
@@ -26,10 +26,10 @@ export function CardSummary({ amount , icon: Icon , title, action, active, toolt
 					</Avatar>} */}
 					{/* {Icon && <Icon fontSize="var(--icon-fontSize-lg)" />} */}
 					<div>
-						<Typography sx={{ color : active ? 'inherit' :'inherit', }}  variant="body1">
+						<Typography sx={{ color : bColor ? 'white' :'inherit', }}  variant="body1">
 							{title} {tooltip && <Tooltip title={tooltip}> <Icon fontSize="var(--icon-fontSize-sm)" /></Tooltip>}
 						</Typography>
-						<Typography sx={{ color : active ? 'inherit' :'inherit'}} variant="h3">{new Intl.NumberFormat("en-US").format(amount)}</Typography>
+						<Typography sx={{ color : bColor ? 'white' :'inherit'}} variant="h3">{amount}</Typography>
 					</div>
 				</Stack>
 			</CardContent>

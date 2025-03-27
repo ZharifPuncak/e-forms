@@ -90,7 +90,7 @@ const CloseForm = ({ code, update })  => {
               { errors.reason }
             </FormHelperText>
           </Grid>
-          {values.reason == 'cancelled' && <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
+          {values.reason == 'cancelled' && <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
               <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Remarks </Typography>
               <TextField
                         fullWidth

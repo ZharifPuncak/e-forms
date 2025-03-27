@@ -28,7 +28,8 @@ class DashboardController extends Controller
             'total' => $acknowledgements->clone()->count(),
             'pending' => $acknowledgements->clone()->where('status','pending')->count(),
             'completed' => $acknowledgements->clone()->where('status','completed')->count(),
-             
+            'incompleted' => $acknowledgements->clone()->where('status','incompleted')->count(),
+            'cancelled' => $acknowledgements->clone()->where('status','cancelled')->count(),
         ]);
 
     }

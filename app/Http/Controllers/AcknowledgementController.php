@@ -41,12 +41,14 @@ class AcknowledgementController extends Controller
         $pendingCount = $acknowledgements->clone()->where('status','pending')->count();
         $completedCount = $acknowledgements->clone()->where('status','completed')->count();
         $incompletedCount = $acknowledgements->clone()->where('status','incompleted')->count();
+        $cancelledCount = $acknowledgements->clone()->where('status','cancelled')->count();
 
         return $this->success([
-            'total' => $totalCount,
-            'pending' => $pendingCount,
-            'completed' => $completedCount,
-            'incompleted' => $incompletedCount
+            'total'        => $totalCount,
+            'pending'      => $pendingCount,
+            'completed'    => $completedCount,
+            'incompleted'  => $incompletedCount,
+            'cancelled'     => $cancelledCount
         ]);
 
     }
@@ -89,6 +91,10 @@ class AcknowledgementController extends Controller
 
         if($acknowledgement->status == 'closed'){
             return $this->error(null, 'Form acknowledgement already closed', 422);
+        }
+
+        if(Carbon::now()->format('Y-m-d') > Carbon::parse($acknowledgement?->form?->effective_to)->format('Y-m-d')){
+            return $this->error(null, 'Cannot submitted.Form already effective ended', 422);
         }
 
         $acknowledgement->update(['signature' => $request->signature, 'status' => 'completed', 'submitted_at' =>  Carbon::now()]);

@@ -23,8 +23,9 @@ class IssuanceResource extends JsonResource
         $total =  $acknowledgementByCompany->clone()->count();
         $pending = $acknowledgementByCompany->clone()->where('status','pending')->count();
         $completed = $acknowledgementByCompany->clone()->where('status','completed')->count();
+        $incompleted = $acknowledgementByCompany->clone()->where('status','incompleted')->count();
+        $cancelled = $acknowledgementByCompany->clone()->where('status','cancelled')->count();
 
-        
         return [
             'company' => $this?->company?->code,
             'issued'  => Carbon::parse($this?->issuance?->issued_at)->format('M d, Y'),
@@ -32,6 +33,8 @@ class IssuanceResource extends JsonResource
             'total'    =>  $total,
             'pending' => $pending,
             'completed' => $completed,
+            'incompleted' => $incompleted,
+            'cancelled'  => $cancelled,
             'submission' => $total != 0 ? number_format($completed / $total,2) : 0
         ];
     }

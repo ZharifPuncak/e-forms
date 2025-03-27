@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {   
-    protected $fillable = ['name','alias','code','form_category_id','descriptions','status','effective_from','effective_to'];
+    protected $fillable = ['name','alias','code','form_category_id','descriptions','status','effective_from','effective_to','closed_status','remarks'];
    
     public function category(){
         return $this->belongsTo(FormCategory::class,'form_category_id','id');

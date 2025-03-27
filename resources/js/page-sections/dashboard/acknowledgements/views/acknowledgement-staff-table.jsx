@@ -24,32 +24,7 @@ export function AcknowledgementStaffTable() {
     const appContext = useAppContext();
 	const navigate = useNavigate();
 
-	const [rowData, setRowData] = React.useState([
-        {
-			 id: 1,
-			 name: "Ahmad Naqib",
-			 staffID: 'PNMS001',
-			 email : "naqib@puncakniaga.com.my", 
-			 company: "PNMS", 
-			 department : "ICTD",
-			 position : "Programmer",
-			 pending : 1, 
-			 completed: 2,
-			 action: 1 
-		},
-        {
-			id: 2,
-			name: "Azrif Roslan",
-			staffID: 'TRI001',
-			email : "azrif@triplc.com.my", 
-			company: "TRIPLC", 
-			department : "HR",
-			position : "Admin",
-			pending : 0, 
-			completed: 2,
-			action: 1 
-	   },
-    ]);
+	const [rowData, setRowData] = React.useState([]);
 
     // Column Definitions: Defines the columns to be displayed.
     const [colDefs, setColDefs] = React.useState([

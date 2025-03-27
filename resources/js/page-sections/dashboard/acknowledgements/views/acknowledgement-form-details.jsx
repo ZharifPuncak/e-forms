@@ -14,7 +14,7 @@ import { PropertyList } from "@/components/core/property-list";
 
 import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 import { HourglassHigh as HourglassHighIcon } from "@phosphor-icons/react/dist/ssr/HourglassHigh";
-
+import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 
 import SubmitAcknowledgementForm from "../forms/submit-form";
 import { useAppContext } from '@/contexts/app-context';
@@ -70,6 +70,8 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                                 icon={
                                                                     details?.status == 'pending' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
                                                                     details?.status == 'completed' ? <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> :
+                                                                    details?.status == 'incompleted' ? <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> :
+                                                                    details?.status == 'cancelled' ? <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> :
                                                                 ''}
                                                                 label={_.capitalize(details?.status)}
                                                                 size="small"
@@ -77,6 +79,7 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                             /> : <ShortSkeleton />
                                                     ),
 													},
+                                                    { key: "Remarks", value: !isLoading ? <Typography sx={{ ml : 1 }} variant="body2">{ details?.remarks }</Typography> : <ShortSkeleton /> },
                                                     { key: "Details", value: 
                                                         !isLoading ?  <Accordion1 details={
                                                         <HTMLParse htmlContent={details?.descriptions} />
@@ -89,7 +92,7 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                     
                                                    },
                                                      { key: "Action", value:  !isLoading ?	<Grid container spacing={1}>
-                                                     <Button size="small" onClick={() => {
+                                                  { details?.status != 'cancelled' &&  <Button size="small" onClick={() => {
                                                          appContext.setDialog({ isOpen : true , title : 'Integrity Pledge', subtitle:'ACK001', component : <SubmitAcknowledgementForm 
                                                             code={details?.code}
                                                             title={details?.title}
@@ -99,7 +102,7 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                             signature={details?.sign}
                                                             update={refetch}
                                                     />})
-                                                     }}>Click here </Button>
+                                                     }}>Click here </Button>}
                                              </Grid> : <ShortSkeleton /> }
 												
 												].map((item) => (

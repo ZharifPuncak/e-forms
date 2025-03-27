@@ -16,6 +16,7 @@ class FormResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $status = $this->status;
         return [
             
             'id'  => $this->id,
@@ -23,7 +24,9 @@ class FormResource extends JsonResource
             'alias' => $this->alias,
             'code' =>  $this->code,
             'category' => $this->category,
-            'status'   => $this->status,
+            'closed_status' => $this->closed_status,
+            'status'   => $status,
+            'remarks'   => $this->remarks,
             'descriptions' => $this->descriptions,
             'effective_from' => Carbon::parse($this->effective_from)->format('d M, Y'),
             'effective_to' => Carbon::parse($this->effective_to)->format('d M, Y'),

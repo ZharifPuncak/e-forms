@@ -91,9 +91,9 @@ export default function TableAG({ row, column, pagination = true, loading = true
 
     return (
         <div style={{  width: 'auto' }}>
-                      <Box sx={{ display: "flex", alignItems: "center",  gap:1,  justifyContent: "flex-end"  }}>
+                      <Box sx={{ display: "flex", alignItems: "center",  gap:1,  justifyContent: "flex-end", mt : 2 }}>
                         {/* Title on the left */}
-                            <Box sx={{ ml : 2, fontWeight: 'bold' }}>{title}</Box>
+                            <Box sx={{ mb : 0.5,  fontWeight: 'bold' }}>{title}</Box>
                         
                             {search && <TextField
                                autoComplete='off'

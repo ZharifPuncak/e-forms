@@ -20,6 +20,8 @@ class FormResource extends JsonResource
         $total   = $this->acknowledgements->count();
         $pending = $this->acknowledgements->where('status','pending')->count();
         $completed = $this->acknowledgements->where('status','completed')->count();
+        $incompleted = $this->acknowledgements->where('status','incompleted')->count();
+        $cancelled = $this->acknowledgements->where('status','cancelled')->count();
 
         $issuances = FormIssuanceCompany::with('company','issuance')->whereIn('form_issuance_id',$this->issuance->pluck('id'))->get();
 
@@ -35,7 +37,10 @@ class FormResource extends JsonResource
             'total'  => $total,
             'pending'  => $pending,
             'completed'  => $completed,
-            'remarks' => '',
+            'cancelled' => $cancelled,
+            'incompleted' => $incompleted,
+            'remarks' => $this->remarks,
+            'closed_status' => $this->closed_status,
             'submission' => $total != 0 ? number_format($completed / $total,3) : 0,
             'acknowledgements' => AcknowledgementResource::collection($this->acknowledgements->where('status','completed')),
             'issuance' => IssuanceResource::collection($issuances),

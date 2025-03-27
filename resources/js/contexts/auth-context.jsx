@@ -69,12 +69,12 @@ const reducer = (state, action) => {
 };
 
 const AuthContext = createContext({ ...initialState,
-  method: "JWT",
-  can: () => {},
-  is: () => {},
-  logout: () => {},
-  login: (email, password) => Promise.resolve(),
-  register: (email, password, username) => Promise.resolve()
+    method: "JWT",
+    can: () => {},
+    is: () => {},
+    logout: () => {},
+    login: (email, password) => Promise.resolve(),
+    register: (email, password, username) => Promise.resolve()
 });
 
 
@@ -159,22 +159,23 @@ export const AuthProvider = ({ children }) => {
       confirm_password,
     }); 
 
-    dispatch({
-      type: "REGISTER",
-      payload: {
-        user: data.user
-      }
-    });
+      dispatch({
+        type: "REGISTER",
+        payload: {
+          user: data.user
+        }
+      });
   };
 
   const logout = async () => {
 
+      await localStorage.removeItem("auth");
       dispatch({
-        type: "LOGOUT"
+         type: "LOGOUT"
       });
 
-      await localStorage.removeItem("auth");
       await axios.post(import.meta.env.VITE_API_BASE_URL + "/logout", {});
+  
 
   };
 

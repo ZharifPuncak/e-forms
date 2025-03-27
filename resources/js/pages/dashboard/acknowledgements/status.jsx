@@ -2,17 +2,20 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid2";
 
 import { AcknowledgementOverview } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-overview";
-import { AcknowledgementStaffTable } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-staff-table";
 import { AcknowledgementFormTable } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-form-table";
 
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
- 
+
+import { useMediaQuery } from "@/hooks/use-media-query";
+
 const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
+	const mdDown = useMediaQuery("down", "md");
 
 	return (
 		<React.Fragment>
@@ -33,10 +36,18 @@ export function Page() {
 								<Typography variant="h5" sx={{ fontWeight : 'bold' }}>List Acknowledgements</Typography>
 							</Box>
 						</Stack>
-	
-						<AcknowledgementOverview />
-						{/* <AcknowledgementStaffTable /> */}
-						<AcknowledgementFormTable />
+						<Grid container spacing={2}>
+							{!mdDown && <Grid size={{ xs : 12 }}>
+								<AcknowledgementOverview />
+							</Grid>}
+
+					
+							<Grid size={{  xs: 12 }}>
+								<AcknowledgementFormTable />
+							</Grid>
+							
+						</Grid>
+					
 				</Stack>
 			</Box>
 		</React.Fragment>

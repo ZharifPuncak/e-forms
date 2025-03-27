@@ -17,10 +17,23 @@ import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
 import { NoSsr } from "@/components/core/no-ssr";
 
-export function CardChart({ data, title, icon }) {
+export function CardChart({ data, title, icon, total }) {
+
 	const chartSize = 200;
 	const chartTickness = 30;
+	const [chartData,setChartData] = React.useState([]);
 
+	React.useEffect(() => {
+		if(total && data){
+
+			let calculatedChartData = data?.map((item) => {
+				return  { ...item, value:  (item.value / total) * 100 }
+			});
+
+			setChartData(calculatedChartData)
+		}
+	},[total,data])
+	
 	return (
 		<Card>
 			<CardHeader
@@ -30,11 +43,14 @@ export function CardChart({ data, title, icon }) {
 					// </IconButton>
                     null
 				}
-				avatar={
-					<Avatar>
-						<ChartPieSliceIcon fontSize="var(--Icon-fontSize)" />
-					</Avatar>
-				}
+				// avatar={
+				// 	<>
+				// 	{/* <Avatar>
+				// 		<ChartPieSliceIcon fontSize="var(--Icon-fontSize)" />
+				// 	</Avatar> */}
+				// 	</>
+					
+				// }
 				title={title}
 			/>
 			<CardContent>
@@ -43,17 +59,17 @@ export function CardChart({ data, title, icon }) {
 						<NoSsr fallback={<Box sx={{ height: `${chartSize}px`, width: `${chartSize}px` }} />}>
 							<PieChart height={chartSize} margin={{ top: 0, right: 0, bottom: 0, left: 0 }} width={chartSize}>
 								<Pie
-									animationDuration={300}
+									animationDuration={100}
 									cx={chartSize / 2}
 									cy={chartSize / 2}
-									data={data}
+									data={chartData}
 									dataKey="value"
 									innerRadius={chartSize / 2 - chartTickness}
 									nameKey="name"
 									outerRadius={chartSize / 2}
 									strokeWidth={0}
 								>
-									{data.map((entry) => (
+									{chartData.map((entry) => (
 										<Cell fill={entry.color} key={entry.name} />
 									))}
 								</Pie>

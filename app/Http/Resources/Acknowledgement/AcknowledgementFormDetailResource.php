@@ -27,6 +27,7 @@ class AcknowledgementFormDetailResource extends JsonResource
             'file'        => asset('storage/' . $file->path),
             'submitted'   => $this?->submitted_at,
             'sign'        => $this->signature,
+            'remarks'     => $this->form?->remarks
         ];
     }
 }

@@ -169,10 +169,10 @@ class FormController extends Controller
         }
 
         // Update remarks 
-        $form->update(['status' => 'closed', 'remarks' => $reason == 'cancelled' ? $remarks : null]);
+        $form->update(['status' => 'closed','closed_status' => $reason, 'remarks' => $reason == 'cancelled' ? $remarks : null]);
 
         //Update status for acknowledgement : Cancelled
-        $acknowledgements = FormAcknowledgement::where('form_id',$form->id)->where('status','pending')->get(); 
+        $acknowledgements = FormAcknowledgement::where('form_id',$form->id)->get(); 
 
         foreach($acknowledgements as $acknowledgement){
             $acknowledgement->update(['status' => $reason]);
@@ -240,12 +240,14 @@ class FormController extends Controller
         $pendingCount = $acknowledgements?->clone()->where('status','pending')->count();
         $completedCount = $acknowledgements?->clone()->where('status','completed')->count();
         $incompletedCount = $acknowledgements?->clone()->where('status','incompleted')->count();
+        $cancelledCount = $acknowledgements?->clone()->where('status','cancelled')->count();
 
         return $this->success([
             'total' => $totalCount,
             'pending' => $pendingCount,
             'completed' => $completedCount,
-            'incompleted' => $incompletedCount
+            'incompleted' => $incompletedCount,
+            'cancelled'   => $cancelledCount
         ]);
 
       }

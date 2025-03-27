@@ -62,12 +62,20 @@
                     <small class="ml-2">{{ $formattedForm['total']}}</small>
                 </td>
             <tr>
-                <th style="background-color: '#FAFAFA' !important;"  class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Pending / Uncompleted</small></span></th>
+                <th style="background-color: '#FAFAFA' !important;"  class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Pending</small></span></th>
                 <td class="w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $formattedForm['pending']}}</small></td>
+            </tr>
+            <tr>
+                <th style="background-color: '#FAFAFA' !important;" class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Incompleted</small></span></th>
+                <td class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $formattedForm['incompleted']}}</small></td>
             </tr>
             <tr>
                 <th style="background-color: '#FAFAFA' !important;" class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Completed</small></span></th>
                 <td class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $formattedForm['completed']}}</small></td>
+            </tr>
+            <tr>
+                <th style="background-color: '#FAFAFA' !important;" class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Cancelled</small></span></th>
+                <td class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $formattedForm['cancelled']}}</small></td>
             </tr>
             <tr>
                 <th style="background-color: '#FAFAFA' !important;" class=" w-1/2 py-2 py-2 text-gray-700 border border-gray-100"><span class="ml-2"><small>Submission (%)</small></span></th>
@@ -92,6 +100,8 @@
                 <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Total</small></th>
                 <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Pending</small></th>
                 <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Completed</small></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Incompleted</small></th>
+                <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Cancelled</small></th>
                 <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">Submission (%)</small></th>
             </tr>
             @foreach($formattedForm['issuance'] as $item)
@@ -109,6 +119,8 @@
                     <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $data['total'] }}</small></td>
                     <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-2">{{ $data['pending'] }}</small></td>
                     <td class="py-2 text-gray-700 border  border-gray-100"><small class="ml-2">{{ $data['completed'] }}</small></td>
+                    <td class="py-2 text-gray-700 border  border-gray-100"><small class="ml-2">{{ $data['incompleted'] }}</small></td>
+                    <td class="py-2 text-gray-700 border  border-gray-100"><small class="ml-2">{{ $data['cancelled'] }}</small></td>
                     <td class="py-2 text-gray-700 border  border-gray-100"><small class="ml-2">{{ $data['submission'] }}</small></td>
                 </tr>
             @endforeach

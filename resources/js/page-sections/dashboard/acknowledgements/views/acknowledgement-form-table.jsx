@@ -41,7 +41,8 @@ export function AcknowledgementFormTable() {
 						label: "Completed",
 						icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 					},
-					new: { label: "New", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
+					cancelled: { label: "Cancelled", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
+					incompleted: { label: "Incompleted", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
 					pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
 				};
 				const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
@@ -64,7 +65,8 @@ export function AcknowledgementFormTable() {
 						label: "Completed",
 						icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
 					},
-					new: { label: "New", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
+					cancelled: { label: "Cancelled", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
+					incompleted: { label: "Incompleted", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
 					pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
 				};
 				const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };

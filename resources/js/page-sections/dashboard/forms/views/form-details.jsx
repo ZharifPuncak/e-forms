@@ -141,7 +141,7 @@ export function FormDetails({ updateReady, updateName }) {
 														{
 															key: "Status",
 															value: (
-																data?.status ? 	<Chip
+																data?.status ? 	<><Chip
 																		icon={data?.status == 'new' ? 
 																			<CardsThreeIcon color="var(--mui-palette-warning-main) " weight="fill" /> :
 																			data?.status == 'pending' ? <HourglassHighIcon color="var(--mui-palette-warning-main)" /> : 
@@ -149,12 +149,14 @@ export function FormDetails({ updateReady, updateName }) {
 																		     data?.status == 'closed' ? <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> :
 																			data?.status == 'confirmed' ? <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> :
 																		''}
-																		label={_.capitalize(data?.status)}
+																		label={_.capitalize(data?.status == 'closed' ? data?.status + ' - ' + data?.closed_status : data?.status)}
 																		size="small"
 																		variant="outlined"
-																	/> : <Skeleton width={100} height={25} />
+																	/> </> : <Skeleton width={100} height={25} />
 															),
 														},
+														{ key: "Remarks", value: !getLoading ? <Typography sx={{ ml : 1 }} variant="body2">{ data?.remarks }</Typography> : <Skeleton width={70} height={25} /> },
+
 														{ key: "Action", value:  	<Grid container spacing={1}>
 														       <>
 															   {!getLoading && !confirmLoading && <Box>
