@@ -7,6 +7,8 @@ use App\Traits\HttpResponses;
 
 use App\Models\Form\FormAcknowledgement;
 use App\Models\Form\Form;
+
+use App\Http\Resources\Dashboard\AcknowledgementResource;
 use Carbon\Carbon;
 use Auth;
 
@@ -18,11 +20,14 @@ class DashboardController extends Controller
 
  
 
-        $acknowledgements = FormAcknowledgement::when(Auth::user()->hasRole('Staff'), function ($query){
+        $acknowledgements = FormAcknowledgement::with('form')->when(Auth::user()->hasRole('Staff'), function ($query){
             return $query->whereHas('staff', function($query){
                return $query->where('user_id', Auth::user()->id);
             });
         });
+
+        $loadedAcknowledgements = $acknowledgements->clone()->whereIn('status',['ongoing','completed'])->get();
+
      
         return $this->success([
             'today' => Carbon::now()->format('M d, Y'),
@@ -31,6 +36,8 @@ class DashboardController extends Controller
             'completed' => $acknowledgements->clone()->where('status','completed')->count(),
             'incompleted' => $acknowledgements->clone()->where('status','incompleted')->count(),
             'cancelled' => $acknowledgements->clone()->where('status','cancelled')->count(),
+            'acknowledgements' => AcknowledgementResource::collection($loadedAcknowledgements)
+            
         ]);
 
     }

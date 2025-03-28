@@ -5,17 +5,14 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Tooltip from '@mui/material/Tooltip';
 
-import { useMediaQuery } from "@/hooks/use-media-query";
-
 export function CardSummary({ amount , icon: Icon , title, action, active, tooltip, bColor }) {
-
-	  const mdDown = useMediaQuery("down", "md");
 	return (<>
 		<Card elevation={active ? 6 : 1} sx={{  border : active ? '1px solid #007FAB' : 'inherit' }}>
-			<CardContent sx={{ borderColor : bColor ?? 'inherit'}}>
+			<CardContent sx={{ backgroundColor : 'inherit' ?? 'inherit'}}>
 				<Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
 					{/* {Icon && <Avatar
 						sx={{
@@ -29,10 +26,10 @@ export function CardSummary({ amount , icon: Icon , title, action, active, toolt
 					</Avatar>} */}
 					{/* {Icon && <Icon fontSize="var(--icon-fontSize-lg)" />} */}
 					<div>
-						<Typography   variant="body2">
-							{title} {tooltip && !mdDown && <Tooltip title={tooltip}> <Icon fontSize="var(--icon-fontSize-sm)" /></Tooltip>}
+						<Typography sx={{ color : bColor ? 'inherit' :'inherit', }}  variant="body2">
+							{title} {tooltip && <Tooltip title={tooltip}> <Icon fontSize="var(--icon-fontSize-xs)" /></Tooltip>}
 						</Typography>
-						<Typography  variant="h5">{amount}</Typography>
+						<Typography sx={{ color : bColor ? 'inherit' :'inherit'}} variant="h6">{amount}</Typography>
 					</div>
 				</Stack>
 			</CardContent>

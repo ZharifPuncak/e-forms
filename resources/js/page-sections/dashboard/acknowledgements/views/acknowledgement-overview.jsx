@@ -7,20 +7,14 @@ import { CardSummary } from "@/components/widgets/card/card-summary";
 
 import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
 import { Skeleton1 } from "@/components/loader/loading-skeleton";
-import useAxios  from "@/hooks/use-axios";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 
-export function AcknowledgementOverview() {
+export function AcknowledgementOverview({ acknowledgement, isLoading }) {
 
-      const { axiosGet } = useAxios();
-	  const smDown = useMediaQuery("down", "sm");
-	  const {  data : fetchedAcknowledgement, isLoading  }  = axiosGet({  id : 'acknowledgements-dashboard-overview' , url : import.meta.env.VITE_API_BASE_URL + '/dashboard/acknowledgements', refetchOnMount : true });
-	  const acknowledgement = fetchedAcknowledgement?.data;
-   
-   
-   
-
+    
+   const smDown = useMediaQuery("down", "sm");
+	
 	return <Grid  container spacing={2}>
 				    <Grid size={{	xs: 6, sm: 4 }}>
 						{!isLoading ? <CardSummary bColor={'#007FAB'}  amount={'Status'}  icon={InfoIcon}  title="Acknowledgement"  /> : <Skeleton1 />}

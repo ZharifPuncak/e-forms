@@ -19,6 +19,8 @@ function customCreateTheme(config) {
 		shadows,
 		shape: { borderRadius: 8 },
 		typography,
+		
+	
 	});
 
 	return theme;

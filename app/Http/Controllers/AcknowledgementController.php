@@ -33,7 +33,7 @@ class AcknowledgementController extends Controller
 
     public function info(){
 
-        $acknowledgements = FormAcknowledgement::whereHas('staff', function($query){
+        $acknowledgements = FormAcknowledgement::with('issuance')->whereHas('staff', function($query){
             $query->where('user_id', Auth::user()->id);
         })->orderBy('id','desc');
 
@@ -42,6 +42,7 @@ class AcknowledgementController extends Controller
         $completedCount = $acknowledgements->clone()->where('status','completed')->count();
         $incompletedCount = $acknowledgements->clone()->where('status','incompleted')->count();
         $cancelledCount = $acknowledgements->clone()->where('status','cancelled')->count();
+    
 
         return $this->success([
             'total'        => $totalCount,
