@@ -30,7 +30,7 @@ export function AuthGuard({ children }) {
 	// Check for user email
 	React.useEffect(() => {
 	
-		if(!isValidEmail(user?.email)){
+		if(!isValidEmail(user?.email) && isAuthenticated){
 			 appContext.setParentDialog({ title : 'Alert', subtitle : 'Please update your email below to continue', isOpen : true, component : <UpdateEmail /> });
 		}else{
 			 appContext.setParentDialog({ title : null, subtitle : null, isOpen : false, component : false });

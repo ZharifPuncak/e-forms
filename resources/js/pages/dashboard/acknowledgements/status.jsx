@@ -4,18 +4,15 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
 
-import { AcknowledgementOverview } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-overview";
 import { AcknowledgementFormTable } from "@/page-sections/dashboard/acknowledgements/views/acknowledgement-form-table";
 
 import { Helmet } from "react-helmet-async";
 import { appConfig } from "@/config/app";
 
-import { useMediaQuery } from "@/hooks/use-media-query";
 
 const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
-	const mdDown = useMediaQuery("down", "md");
 
 	return (
 		<React.Fragment>
@@ -37,11 +34,7 @@ export function Page() {
 							</Box>
 						</Stack>
 						<Grid container spacing={2}>
-							{!mdDown && <Grid size={{ xs : 12 }}>
-								<AcknowledgementOverview />
-							</Grid>}
 
-					
 							<Grid size={{  xs: 12 }}>
 								<AcknowledgementFormTable />
 							</Grid>

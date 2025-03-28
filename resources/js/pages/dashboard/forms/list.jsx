@@ -37,11 +37,7 @@ export function Page() {
 							<Typography variant="h5" sx={{ fontWeight: "bold" }}>List Form</Typography>
 						</Box>
 					</Stack>
-
-				
-					<FormOverview />
-					<FormTable />
-				
+				    	<FormTable />
 				</Stack>
 			</Box>
 		</React.Fragment>

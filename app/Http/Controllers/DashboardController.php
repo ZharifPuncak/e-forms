@@ -7,7 +7,7 @@ use App\Traits\HttpResponses;
 
 use App\Models\Form\FormAcknowledgement;
 use App\Models\Form\Form;
-
+use Carbon\Carbon;
 use Auth;
 
 class DashboardController extends Controller
@@ -25,6 +25,7 @@ class DashboardController extends Controller
         });
      
         return $this->success([
+            'today' => Carbon::now()->format('M d, Y'),
             'total' => $acknowledgements->clone()->count(),
             'pending' => $acknowledgements->clone()->where('status','pending')->count(),
             'completed' => $acknowledgements->clone()->where('status','completed')->count(),
