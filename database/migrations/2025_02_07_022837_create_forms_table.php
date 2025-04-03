@@ -21,8 +21,8 @@ return new class extends Migration
             $table->enum('status', ['pending','confirmed', 'ongoing', 'completed','closed'])
             ->default('pending')
             ->comment('Status of the forms:  pending, confirmed, ongoing, completed','closed');
-            $table->timestamp('effective_from');
-            $table->timestamp('effective_to');
+            $table->timestamp('effective_from')->nullable();
+            $table->timestamp('effective_to')->nullable();
             $table->string('closed_status')->nullable()->comment('ended | cancelled');
             $table->text('remarks')->nullable();
             $table->timestamps();
