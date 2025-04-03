@@ -12,11 +12,10 @@ import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
 import { paths } from "@/paths";
-import { CenteredLayout } from "./components/centered-layout";
 import { RouterLink } from "@/components/core/link";
 import { DynamicLogo } from "@/components/core/logo";
 
-const metadata = { title: `Verify code | Samples | Auth | ${appConfig.name}` };
+const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 	return (
@@ -24,7 +23,7 @@ export function Page() {
 			<Helmet>
 				<title>{metadata.title}</title>
 			</Helmet>
-			<CenteredLayout>
+		
 				<Stack spacing={4}>
 			
 					<div>
@@ -43,7 +42,7 @@ export function Page() {
 						</Button>
 					</Stack>
 				</Stack>
-			</CenteredLayout>
+		
 		</React.Fragment>
 	);
 }
