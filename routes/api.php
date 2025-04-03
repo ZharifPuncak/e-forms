@@ -41,8 +41,8 @@ use App\Http\Controllers\ReportController;
             Route::get('/info',[FormController::class,'info']);
             Route::post('/store',[FormController::class,'store']);
             Route::post('/close',[FormController::class,'close']);
-            Route::put('/confirm',[FormController::class,'confirm']);
-            Route::put('/update',[FormController::class,'update']);
+            Route::post('/confirm',[FormController::class,'confirm']);
+            Route::post('/update',[FormController::class,'update']);
             Route::post('/delete',[FormController::class,'delete']);
             Route::get('/categories',[FormController::class,'categories']);
             Route::get('/details/{code}',[FormController::class,'details']);
@@ -61,9 +61,9 @@ use App\Http\Controllers\ReportController;
             Route::prefix('issuances')->group(function () { 
                 Route::get('/{code}',[IssuanceController::class,'index']);
                 Route::post('/store',[IssuanceController::class,'store']);
-                Route::put('/update',[IssuanceController::class,'update']);
+                Route::post('/update',[IssuanceController::class,'update']);
                 Route::post('/delete',[IssuanceController::class,'delete']);
-                Route::put('/dispatch',[IssuanceController::class,'dispatch']);
+                Route::post('/dispatch',[IssuanceController::class,'dispatch']);
             });
         });
 
@@ -72,7 +72,7 @@ use App\Http\Controllers\ReportController;
                 Route::get('/',[AcknowledgementController::class,'index']);
                 Route::get('/info',[AcknowledgementController::class,'info']);
                 Route::get('/details/{code}',[AcknowledgementController::class,'details']);
-                Route::put('/sign',[AcknowledgementController::class,'signature']);
+                Route::post('/sign',[AcknowledgementController::class,'signature']);
             });
 
             // Shared
@@ -89,8 +89,8 @@ use App\Http\Controllers\ReportController;
                 Route::get('/',[StaffController::class,'index']);
                 Route::get('/details/{staffNo}',[StaffController::class,'details']);
                 Route::post('/store',[StaffController::class,'store']);
-                Route::put('/update',[StaffController::class,'update']);
-                Route::put('/confirm',[StaffController::class,'confirm']);
+                Route::post('/update',[StaffController::class,'update']);
+                Route::post('/confirm',[StaffController::class,'confirm']);
                 Route::post('/delete',[StaffController::class,'delete']);
                 Route::get('/info',[StaffController::class,'info']);
             });
@@ -116,7 +116,7 @@ use App\Http\Controllers\ReportController;
 
             // Update password
             Route::post('/password/update',[ProfileController::class,'updatePassword']);
-            Route::put('/email/update',[ProfileController::class,'updateEmail']);
+            Route::post('/email/update',[ProfileController::class,'updateEmail']);
         });
 
             Route::post('/login',[AuthController::class, 'staffLogin']);

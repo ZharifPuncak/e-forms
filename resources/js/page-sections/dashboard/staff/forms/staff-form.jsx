@@ -83,7 +83,7 @@ const StaffForm = ({ item }) => {
     });
 
   const { mutate : createStaff , isLoading : createLoading, isSuccess  } =  axiosMutate({ id: 'staffs-store', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/staffs/store', payload : {...values, staffId : values.staffID, dateJoined : dayjs(values.dateJoined).format('YYYY-MM-DD')}});
-  const { mutate : updateStaff , isLoading : updateLoading  } =  axiosMutate({ id: 'staffs-update', method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/staffs/update', payload : {...values, staffId : values.staffID, dateJoined : dayjs(values.dateJoined).format('YYYY-MM-DD')}});
+  const { mutate : updateStaff , isLoading : updateLoading  } =  axiosMutate({ id: 'staffs-update', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/staffs/update', payload : {...values, staffId : values.staffID, dateJoined : dayjs(values.dateJoined).format('YYYY-MM-DD')}});
 
   useEffect(() => {
     if(isSuccess){

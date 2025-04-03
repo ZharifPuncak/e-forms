@@ -44,7 +44,7 @@ export function UpdateEmail() {
      } 
     });
 
-	const { mutate, isLoading : updateLoading, data : fetchedData, isSuccess  } =  axiosMutate({ id: 'email-update', method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/email/update', payload : {...values} });
+	const { mutate, isLoading : updateLoading, data : fetchedData, isSuccess  } =  axiosMutate({ id: 'email-update', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/email/update', payload : {...values} });
 
 
 	React.useEffect(() => {

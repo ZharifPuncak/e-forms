@@ -54,7 +54,7 @@ export function FormDetails({ updateReady, updateName }) {
 
 
 	const { isLoading: getLoading, data : fetchedDetails, refetch   }  = axiosGet({  id : 'forms-details' + code, url : import.meta.env.VITE_API_BASE_URL + '/forms/details/' + code, cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
-	const { mutate : confirmForm, isLoading : confirmLoading, isSuccess : confirmSuccess  } =  axiosMutate({ id: 'forms-confirm' + code, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/confirm', payload : { code } });
+	const { mutate : confirmForm, isLoading : confirmLoading, isSuccess : confirmSuccess  } =  axiosMutate({ id: 'forms-confirm' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/confirm', payload : { code } });
 	const { mutate : deleteForm, isLoading : deleteFormLoading, isSuccess : deleteFormSuccess  } =  axiosMutate({ id: 'forms-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/delete', payload : { code } });
 	const { mutate : downloadReport, isLoading : downloadLoading, data : reportData, isSuccess : dowloadSuccess, dataUpdatedAt  } =  axiosMutate({ id: 'report-forms-download' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/report/form', payload : { code }, isFileDownload : true });
 	const { mutate : closeForm, isLoading : closeLoading, isSuccess : closeSuccess  } =  axiosMutate({ id: 'forms-close' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/close', payload : { code, remarks } });

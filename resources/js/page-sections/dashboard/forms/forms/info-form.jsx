@@ -78,7 +78,7 @@ const InfoForm = ({ item, update })  => {
 
     const { isLoading, data : fetchedCategories, refetch   }  = axiosGet({  id : 'forms-categories', url : import.meta.env.VITE_API_BASE_URL + '/forms/categories', cacheTime : 1 * 60 * 1000, staleTime :  1 * 60 * 1000 });
     const { mutate : createForm , isLoading : submitLoading, isSuccess  } =  axiosMutate({ id: 'forms-store', method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/store', payload : {...values,  effective_from : dayjs(values.effective_from).format('YYYY-MM-DD'),effective_to : dayjs(values.effective_to).format('YYYY-MM-DD')} });
-    const { mutate : updateForm, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/update', payload : {...values, effective_from : dayjs(values.effective_from).format('YYYY-MM-DD'),effective_to : dayjs(values.effective_to).format('YYYY-MM-DD')} });
+    const { mutate : updateForm, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/update', payload : {...values, effective_from : dayjs(values.effective_from).format('YYYY-MM-DD'),effective_to : dayjs(values.effective_to).format('YYYY-MM-DD')} });
   
    useEffect(() => {
       if(isSuccess){

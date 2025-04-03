@@ -82,7 +82,7 @@ const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
     });
 
     const { mutate : createIssuance , isLoading : submitLoading, isSuccess  } =  axiosMutate({ id: 'issuance-store' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/store', payload : {...values, code ,issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
-    const { mutate : updateIssuance, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/update', payload : {...values,  code,  issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
+    const { mutate : updateIssuance, isLoading : updateLoading, isSuccess : updateSuccess  } =  axiosMutate({ id: 'forms-update' + item?.id, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/update', payload : {...values,  code,  issued_at : dayjs(values.issued_at).format('YYYY-MM-DD'),deadlined_at : dayjs(values.deadlined_at).format('YYYY-MM-DD')} });
    
    useEffect(() => {
       if(isSuccess){

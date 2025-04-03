@@ -86,7 +86,7 @@ const SubmitAcknowledgementForm = ({ code, file, title, submitted, status, updat
 
  
 
-  const { mutate : signForm, isLoading : signLoading, isSuccess : signSuccess  } =  axiosMutate({ id: 'acknowledgement-signature' + code, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/sign', payload : { code , signature : sign } });
+  const { mutate : signForm, isLoading : signLoading, isSuccess : signSuccess  } =  axiosMutate({ id: 'acknowledgement-signature' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements/sign', payload : { code , signature : sign } });
     
   const submit = () => {
 

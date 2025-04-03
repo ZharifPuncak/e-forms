@@ -30,7 +30,7 @@ export function FormIssuances() {
 	const { axiosGet, axiosMutate } = useAxios();
 	const { isLoading, data : fetchedIssuance, refetch : getIssuance }  = axiosGet({  id : 'form-issuances' + code , url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/' + code  });
 	const { mutate : deleteIssuance, isLoading : deleteIssuanceLoading } =  axiosMutate({ id: 'forms-issuance-delete' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/delete', payload : { id : selectedId } });
-	const { mutate : dispatchIssuance, isLoading : dispatchIssuanceLoading  } =  axiosMutate({ id: 'forms-issuance-dispatch' + code, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/dispatch', payload : { id : selectedId } });
+	const { mutate : dispatchIssuance, isLoading : dispatchIssuanceLoading  } =  axiosMutate({ id: 'forms-issuance-dispatch' + code, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/forms/issuances/dispatch', payload : { id : selectedId } });
 
 
     const [colDefs, setColDefs] = React.useState([]);

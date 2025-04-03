@@ -38,7 +38,7 @@ export function StaffDetails({  updateName  }) {
 	const {  data : fetchedDetails, refetch : getDetail }  = axiosGet({  id : 'staff-list' + code , url : import.meta.env.VITE_API_BASE_URL + '/staffs/details/' + code  });
     const details = fetchedDetails?.data?.details;
 	
-	const { mutate : confirmStaff , isLoading : confirmLoading  } =  axiosMutate({ id: 'staffs-confirm' + details?.id, method : 'put', url : import.meta.env.VITE_API_BASE_URL + '/staffs/confirm', payload : { staffId : details?.staffId }});
+	const { mutate : confirmStaff , isLoading : confirmLoading  } =  axiosMutate({ id: 'staffs-confirm' + details?.id, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/staffs/confirm', payload : { staffId : details?.staffId }});
 	const { mutate : deleteStaff, isLoading : deleteStaffLoading, isSuccess : deleteStaffSuccess  } =  axiosMutate({ id: 'staffs-delete' + details?.id, method : 'post', url : import.meta.env.VITE_API_BASE_URL + '/staffs/delete', payload : { staffId : details?.staffId } });
 
 
