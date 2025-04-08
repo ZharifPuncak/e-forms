@@ -111,7 +111,7 @@ export function FormAcknowledgements() {
 
 	return <>
 		<Grid container={true} spacing={4}>
-			   <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('total')} size={{ xs : 6, sm: 6, md : 3, lg : 2}}>
+			   <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('total')} size={{ xs : 6, sm: 6, lg : 3}}>
 					 {!infoLoading ? <CardSummary  
 					    active={active == 'total'}
 					    amount={fetchedInfo?.data?.total ?? 0}  
@@ -119,7 +119,7 @@ export function FormAcknowledgements() {
 						icon={InfoIcon}  
 						title="Total" /> : <Skeleton1 />}
 				</Grid> 
-			   <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('pending')} size={{ xs : 6, sm: 6, md : 3, lg : 2}}>
+			   <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('pending')} size={{ xs : 6, sm: 6, lg : 3}}>
 			   {!infoLoading ? <CardSummary  
 			            active={active == 'pending'}  
 						amount={fetchedInfo?.data?.pending ?? 0}  
@@ -127,7 +127,7 @@ export function FormAcknowledgements() {
 						icon={InfoIcon} 
 					    title="Pending" />  : <Skeleton1 />}
 				</Grid>
-			  <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('completed')} size={{ xs : 6, sm: 6, md : 3, lg : 2}}>
+			  <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('completed')} size={{ xs : 6, sm: 6, lg : 3}}>
 			{!infoLoading ? <CardSummary 
 			            active={active == 'completed'} 
 						amount={fetchedInfo?.data?.completed ?? 0}  
@@ -135,7 +135,7 @@ export function FormAcknowledgements() {
 						icon={InfoIcon} 
 						title="Completed" /> : <Skeleton1 />}
 				</Grid> 
-				<Grid style={{ cursor : 'pointer'}}  onClick={() =>setActive('cancelled')} size={{ xs : 6, sm: 6, md :3, lg : 2}}>
+				<Grid style={{ cursor : 'pointer'}}  onClick={() =>setActive('cancelled')} size={{ xs : 6, sm: 6, lg :3}}>
 				 {!infoLoading ? <CardSummary 
 				 		active={active == 'cancelled'} 
 					    amount={fetchedInfo?.data?.cancelled ?? 0}  
@@ -143,7 +143,7 @@ export function FormAcknowledgements() {
 						icon={InfoIcon} 
 						title="Cancelled" /> : <Skeleton1 />}
 				</Grid> 
-				 <Grid style={{ cursor : 'pointer'}}  onClick={() =>setActive('incompleted')} size={{ xs : 6, sm: 6, md :3, lg : 2}}>
+				 <Grid style={{ cursor : 'pointer'}}  onClick={() =>setActive('incompleted')} size={{ xs : 6, sm: 6, lg :3}}>
 				 {!infoLoading ? <CardSummary 
 				 		active={active == 'incompleted'} 
 					    amount={fetchedInfo?.data?.incompleted ?? 0}  

@@ -29,6 +29,7 @@
     "@fontsource/poppins": "^5.1.1",
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/multimonth": "^6.1.17",
     "@fullcalendar/react": "^6.1.15",
     "@hookform/resolvers": "3.10.0",
     "@iconify/icons-lucide": "^1.2.135",

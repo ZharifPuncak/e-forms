@@ -20,8 +20,8 @@ class AcknowledgementResource extends JsonResource
             'title' => $this->form?->name,
             'alias' => $this->form?->alias,
             'code'  => $this->form?->code,
-            'start' =>  Carbon::parse($this->effective_from)->toDateString(), 
-            'end'   =>  Carbon::parse($this->effective_to)->toDateString(), 
+            'start' =>  Carbon::parse($this->form?->effective_from)->toDateString(), 
+            'end'   =>  Carbon::parse($this->form?->effective_to)->addDay(1)->toDateString(), 
             'color' => $this?->status == 'completed' ? '#81D6CE' : '#fff4e5',
             'textColor' => "#ffffff"
         ];

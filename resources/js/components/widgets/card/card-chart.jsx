@@ -35,7 +35,7 @@ export function CardChart({ data, title, icon, total }) {
 	},[total,data])
 	
 	return (
-		<Card>
+		<Card sx={{ height : { xs :  '410px', md : '465px' }}}>
 			<CardHeader
 				action={
 					// <IconButton>
@@ -51,7 +51,7 @@ export function CardChart({ data, title, icon, total }) {
 				// 	</>
 					
 				// }
-				title={title}
+				title={<Typography variant="h6" sx={{ fontWeight : 'bold' }}>{title}</Typography>}
 			/>
 			<CardContent>
 				<Stack divider={<Divider />} spacing={3}>

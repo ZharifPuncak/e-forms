@@ -7,22 +7,19 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
-import { ContactlessPayment as ContactlessPaymentIcon } from "@phosphor-icons/react/dist/ssr/ContactlessPayment";
-import { DotsThree as DotsThreeIcon } from "@phosphor-icons/react/dist/ssr/DotsThree";
+
 
 export function ListStatus({ data, title, type }) {
 	return (
 		<Card>
-			<CardHeader
-				
-				title={	<Typography variant="h5" sx={{ fontWeight : 'bold' }}>{title}</Typography>}
+			<CardHeader		
+				title={	<Typography variant="h6" sx={{ fontWeight : 'bold' }}>{title}</Typography>}
 			/>
 			<CardContent sx={{ pb: "8px" }}>
 				<List disablePadding>

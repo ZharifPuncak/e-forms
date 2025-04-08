@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 export function CardSummary({ amount , icon: Icon , title, action, active, tooltip, bColor }) {
 	return (<>
-		<Card elevation={active ? 6 : 1} sx={{  borderBottom : bColor ? '1px solid black' : 'inherit' }}>
+		<Card elevation={active ? 6 : 1} >
 			<CardContent sx={{ backgroundColor : 'inherit' ?? 'inherit'}}>
 				<Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
 					{/* {Icon && <Avatar
