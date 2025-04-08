@@ -7,7 +7,7 @@ import useAuth from '@/hooks/use-auth';
 
 export default function GuestGuard({ children }) {
 
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, is } = useAuth();
   const appContext = useAppContext(); 
 
   
@@ -15,7 +15,7 @@ export default function GuestGuard({ children }) {
   useEffect(() => {
 
       if(isAuthenticated ){
-         window.location.href = window.location.origin + '/e-forms/dashboard';
+         window.location.href = is('Staff') ? window.location.origin + '/e-forms/dashboard/acknowledgements' : window.location.origin + '/e-forms/dashboard';
       }else{
         appContext.setParentDialog({ title : null, subtitle : null, isOpen : false, component : false });
       }

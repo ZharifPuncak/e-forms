@@ -22,6 +22,7 @@ class PermissionSeeder extends Seeder
     {
         //Run seeder for respective permissions
         $this->call([
+            DashboardSeeder::class,
             ProfileSeeder::class,
             ACLSeeder::class,
             StaffSeeder::class,
@@ -46,6 +47,13 @@ class PermissionSeeder extends Seeder
         $HR    = Role::where('name','Admin-HR')->first();
         $staff = Role::where('name','Staff')->first();
 
+        // Dashboard
+        $dashboardPermission = $permissionModule->clone()->whereHas('module',function($query){
+            $query->where('name','Dashboard');
+        })->pluck('prefix');
+
+        $admin->givePermissionTo($dashboardPermission);
+        $HR->givePermissionTo($dashboardPermission);
         
 
         // 1. Profile

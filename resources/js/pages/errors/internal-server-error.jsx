@@ -11,11 +11,14 @@ import { paths } from "@/paths";
 import { RouterLink } from "@/components/core/link";
 
 import { useNavigate } from "react-router-dom";
+import useAuth from "@/hooks/use-auth";
 
 const metadata = { title: `${appConfig.name}` };
 
 export function Page() {
 
+	
+	const { is } = useAuth();
 	const navigate = useNavigate();
 
 	return (
@@ -36,14 +39,14 @@ export function Page() {
 			>
 				<Container maxWidth="lg">
 					<Stack spacing={6}>
-						<Box sx={{ display: "flex", justifyContent: "center" }}>
+						{/* <Box sx={{ display: "flex", justifyContent: "center" }}>
 							<Box
 								alt="Internal server error"
 								component="img"
 								src="/assets/error.svg"
 								sx={{ height: "auto", maxWidth: "100%", width: "200px" }}
 							/>
-						</Box>
+						</Box> */}
 						<Stack spacing={1} sx={{ textAlign: "center" }}>
 							<Typography variant="h4">500: Internal server error</Typography>
 							<Typography color="text.secondary">
@@ -52,7 +55,7 @@ export function Page() {
 							</Typography>
 						</Stack>
 						<Box sx={{ display: "flex", justifyContent: "center" }}>
-							<Button onClick={() => { navigate('/')}} variant="outlined">
+						<Button  onClick={() => { is('Staff') ? navigate('/dashboard/acknowledgements') :  navigate('/')}} variant="outlined">
 								Back to home
 							</Button>
 						</Box>

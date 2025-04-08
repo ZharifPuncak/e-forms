@@ -22,7 +22,7 @@ export const route = {
 			index: true,
 			lazy: async () => {
 				const { Page } = await import("@/pages/dashboard/overview");
-				return { Component: (props) => <AuthorizeGuard permission='all'><Page {...props} /></AuthorizeGuard> };
+				return { Component: (props) => <AuthorizeGuard permission='dashboard.view_overview'><Page {...props} /></AuthorizeGuard> };
 			},
 		},
 		{

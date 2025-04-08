@@ -173,7 +173,7 @@ export function PasswordForm() {
 				      </Grid>
 					   <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
 							<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-								<LoadingButton loading={updateLoading} type="submit" variant="contained">UPDATE</LoadingButton>
+								<LoadingButton loading={updateLoading} type="submit" variant="outlined">UPDATE</LoadingButton>
 							</Box>
 					  </Grid>
 					</Grid>

@@ -7,9 +7,9 @@ export const dashboardConfig = {
 		{
 			key: "dashboards",
 			title: "Dashboards",
-			permissions: ['all'],
+			permissions: ['dashboard.view_overview'],
 			items: [
-				{ key: "overview", title: "Overview", href: paths.dashboard.overview, icon: "house" , 	permissions: ['all']},
+				{ key: "overview", title: "Overview", href: paths.dashboard.overview, icon: "house" , 	permissions: ['dashboard.view_overview']},
 			],
 		},
 		{
@@ -42,9 +42,9 @@ export const dashboardConfig = {
 		{
 			key: "general",
 			title: "General",
-			permissions : ['all'],
+			permissions : ['stf.view_staff'],
 			items: [
-				{ key: "manual", title: "Manual", href: paths.dashboard.manual.list, icon: "file" , permissions: ['all']},
+				// { key: "manual", title: "Manual", href: paths.dashboard.manual.list, icon: "file" , permissions: ['all']},
 				{
 					key: "staff",
 					title: "Staff",

@@ -7,12 +7,22 @@ import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
-import { paths } from "@/paths";
-import { RouterLink } from "@/components/core/link";
+
+
+import useAuth from "@/hooks/use-auth";
+
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const metadata = { title: `Not found | ${appConfig.name}` };
 
 export function Page() {
+
+	const navigate = useNavigate();
+	const { is } = useAuth();
+
 	return (
 		<React.Fragment>
 			<Helmet>
@@ -47,8 +57,8 @@ export function Page() {
 							</Typography>
 						</Stack>
 						<Box sx={{ display: "flex", justifyContent: "center" }}>
-							<Button component={RouterLink} href={paths.home} variant="contained">
-								Back to home
+						<Button  onClick={() => { is('Staff') ? navigate('/dashboard/acknowledgements') :  navigate('/')}} variant="outlined">
+						Back to home
 							</Button>
 						</Box>
 					</Stack>
