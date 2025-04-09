@@ -71,7 +71,7 @@ class FormController extends Controller
 
         $form = Form::where('id', $request->id)->first();
 
-        if($form->status != 'new'){
+        if($form->status != 'pending'){
             return $this->error(null, 'Cannot update. Form already confirmed', 422);
         }
 

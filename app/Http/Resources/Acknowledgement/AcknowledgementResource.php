@@ -9,6 +9,8 @@ use App\Models\Shared\Company;
 use App\Models\Shared\Department;
 use App\Models\Shared\Position;
 
+use Carbon\Carbon;
+
 class AcknowledgementResource extends JsonResource
 {
  
@@ -22,7 +24,8 @@ class AcknowledgementResource extends JsonResource
             'company' => Company::where('id',$this->staff?->details?->company_id)->value('code'),
             'department' => Department::where('id',$this->staff?->details?->department_id)->value('name'),
             'position' => Position::where('id',$this->staff?->details?->position_id)->value('name'),
-            'status'  => $this?->status
+            'status'  => $this?->status,
+            'submitted_at'  => $this?->submitted_at ? Carbon::parse($this?->submitted_at)->format('d M, Y H:i') : ''
         ];
     }
 }

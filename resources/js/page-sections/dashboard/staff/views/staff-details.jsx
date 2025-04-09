@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
 
 import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
@@ -51,7 +53,7 @@ export function StaffDetails({  updateName  }) {
 	React.useEffect(() => {
 			if(deleteStaffSuccess){
 				setTimeout(() => {
-					window.location.href = window.location.origin + '/dashboard/staffs';
+					window.location.href = window.location.origin + '/e-forms/dashboard/staff';
 				},250)
 			}
 		},[deleteStaffSuccess])
@@ -93,10 +95,18 @@ export function StaffDetails({  updateName  }) {
 														{details?.status == 'pending' && <Button size="small" onClick={async () => {
 														
 															confirm({
-																title: "Are you sure?",
-																description: "This action cannot be undone.",
-																confirmationText: "Yes, delete it",
-																cancellationText: "Cancel",
+																title: <Typography variant="body1">Are you sure ?</Typography>,
+																description: <Box>
+																				<Alert severity="error">This action cannot be undone.</Alert>
+																			</Box>,
+																confirmationText: 'Yes, delete it',
+																cancellationText: 'Cancel',
+																confirmationButtonProps: {
+																	sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' }
+																},
+																cancellationButtonProps: {
+																	sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' },
+																},
 															  })
 																.then(async () => {
 																	await deleteStaff();
@@ -109,10 +119,18 @@ export function StaffDetails({  updateName  }) {
 														
 
 															confirm({
-																title: "Are you sure?",
-																description: "This action cannot be undone.",
-																confirmationText: "Yes, confirm it",
-																cancellationText: "Cancel",
+																title: <Typography variant="body1">Are you sure ?</Typography>,
+																description: <Box>
+																				<Alert severity="warning">This action cannot be undone.</Alert>
+																			</Box>,
+																confirmationText: 'Yes, confirm it',
+																cancellationText: 'Cancel',
+																confirmationButtonProps: {
+																	sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' }
+																},
+																cancellationButtonProps: {
+																	sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' },
+																},
 															  })
 																.then(async () => {
 																	await confirmStaff();

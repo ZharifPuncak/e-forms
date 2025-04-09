@@ -5,7 +5,7 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
-
+import Tooltip from "@mui/material/Tooltip";
 
 import TableAG from "@/components/core/table/TableAG";
 
@@ -14,7 +14,6 @@ import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/C
 import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
 
-import { CardSummary } from "@/components/widgets/card/card-summary";
 import { useParams } from "react-router-dom";
 import { Skeleton1 } from "@/components/loader/loading-skeleton";
 import useAxios  from "@/hooks/use-axios";
@@ -35,8 +34,8 @@ export function FormAcknowledgements() {
    
 
 	
-	const { isLoading : infoLoading, data : fetchedInfo, refetch : getInfo }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/info/' + code  });
-	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-list' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/' + code  });
+	const { isLoading : infoLoading, data : fetchedInfo, refetch : getInfo }  = axiosGet({  id : 'acknowledgement-info' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/info/' + code , refetchOnMount : true  });
+	const { isLoading : acknowledgementLoading , data : fetchedAcknowledgements, refetch : getAcknowledgements }  = axiosGet({  id : 'acknowledgement-list' , url : import.meta.env.VITE_API_BASE_URL + '/forms/acknowledgement/' + code, refetchOnMount : true  });
     const allAcknowledgements = fetchedAcknowledgements?.data?.acknowledgements;
 
 	
@@ -66,7 +65,7 @@ export function FormAcknowledgements() {
 						incompleted: { label: "Incompleted", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
 						pending: { label: "Pending", icon: <HourglassHighIcon color="var(--mui-palette-warning-main)" /> },
 					};
-					const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
+					const {  icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 
 					return 	<Box  sx={{ mt : 1 }}>
 						{!mdDown ? <Box  sx={{ mt : 1 }}>
@@ -104,8 +103,12 @@ export function FormAcknowledgements() {
 				};
 				const { label, icon } = mapping[rowData.status] ?? { label: "Unknown", icon: null };
 	
-				return <Chip icon={icon} label={label} size="small" variant="outlined" />;
+				return rowData.status != 'completed' ? <Chip icon={icon} label={label} size="small" variant="outlined" /> : 
+				<Tooltip arrow title={"Submission : " + rowData?.submitted_at}>
+						<Chip icon={icon} label={label} size="small" variant="outlined" />
+				</Tooltip>;
 			}},
+			{ field: "submitted_at",  hide : mdDown ?  true : false , headerName : 'Details' },
 		
 			
 		])
@@ -158,7 +161,7 @@ export function FormAcknowledgements() {
 					  />
 				 
 			 : <Skeleton1 />}
-				</Grid> 
+			</Grid> 
 				<Grid size={{ xs : 12, sm: 12, md : 12 }}>
 					<TableAG row={acknowledgement} column={colDefs} loading={acknowledgementLoading} title='' csv={!_.isEmpty(acknowledgement)}/>
 				</Grid>

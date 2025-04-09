@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { dayjs } from "@/lib/dayjs";
 import { DataTable } from "@/components/core/data-table";
 import { useMediaQuery } from "@/hooks/use-media-query";
-
+import { purple } from '@mui/material/colors';
 
 
 
@@ -75,7 +75,7 @@ export function FormRecentList({ data }) {
             {
                 formatter: (row) => (
                     <Typography
-                        color={row.subtitle2 === "ongoing" ? "success.main" : row.subtitle2 === "closed" ?  "error.main" :  row.subtitle2 === "pending" ? "warning.main" : "error.main"}
+                        color={row.subtitle2 === "ongoing" ? "success.main" : row.subtitle2 === "closed" ?  "error.main" :  row.subtitle2 === "pending" ? "warning.main" : purple[500]}
                         sx={{ whiteSpace: "nowrap", }}
                         variant="subtitle2"
                     >

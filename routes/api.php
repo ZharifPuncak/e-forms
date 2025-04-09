@@ -32,39 +32,52 @@ use App\Http\Controllers\ReportController;
 
         // Dashboard
         Route::prefix('dashboard')->group(function () { 
-            Route::get('/acknowledgements',[DashboardController::class,'acknowledgements']);
+            Route::get('/acknowledgements',[DashboardController::class,'acknowledgements'])->middleware(['permission:dashboard.view_overview']);
         });
 
         // Forms
         Route::prefix('forms')->group(function () { 
-            Route::get('/',[FormController::class,'index']);
-            Route::get('/info',[FormController::class,'info']);
-            Route::post('/store',[FormController::class,'store']);
-            Route::post('/close',[FormController::class,'close']);
-            Route::post('/confirm',[FormController::class,'confirm']);
-            Route::post('/update',[FormController::class,'update']);
-            Route::post('/delete',[FormController::class,'delete']);
-            Route::get('/categories',[FormController::class,'categories']);
-            Route::get('/details/{code}',[FormController::class,'details']);
-            Route::get('/acknowledgement/info/{code}',[FormController::class,'acknowledgementInfo']);
-            Route::get('/acknowledgement/{code}',[FormController::class,'acknowledgement']);
-    
+            
+            //Forms
+            Route::middleware(['permission:form.view_form'])->group(function () { 
+                Route::get('/',[FormController::class,'index']);
+                Route::get('/info',[FormController::class,'info']);
+                Route::get('/categories',[FormController::class,'categories']);
+                Route::get('/details/{code}',[FormController::class,'details']);
+                Route::get('/acknowledgement/info/{code}',[FormController::class,'acknowledgementInfo']);
+                Route::get('/acknowledgement/{code}',[FormController::class,'acknowledgement']);
+            });
+            
+            //Forms
+            Route::post('/store',[FormController::class,'store'])->middleware(['permission:form.create_form']);
+            Route::post('/delete',[FormController::class,'delete'])->middleware(['permission:form.delete_form']);
+       
+            Route::middleware(['permission:form.update_form'])->group(function () { 
+                 
+               //Forms
+                Route::post('/confirm',[FormController::class,'confirm']);
+                Route::post('/update',[FormController::class,'update']);
+                Route::post('/close',[FormController::class,'close']);
 
-            //Files
-            Route::prefix('files')->group(function () { 
-                Route::get('/{code}',[FileController::class,'index']);
-                Route::post('/upload',[FileController::class,'upload']);
-                Route::post('/delete',[FileController::class,'delete']);
+                //Files
+                Route::prefix('files')->group(function () { 
+                    Route::get('/{code}',[FileController::class,'index']);
+                    Route::post('/upload',[FileController::class,'upload']);
+                    Route::post('/delete',[FileController::class,'delete']);
+                });
+
+                
+                //Issuances
+                Route::prefix('issuances')->group(function () { 
+                    Route::get('/{code}',[IssuanceController::class,'index']);
+                    Route::post('/store',[IssuanceController::class,'store']);
+                    Route::post('/update',[IssuanceController::class,'update']);
+                    Route::post('/delete',[IssuanceController::class,'delete']);
+                    Route::post('/dispatch',[IssuanceController::class,'dispatch']);
+                });
             });
 
-            //Issuances
-            Route::prefix('issuances')->group(function () { 
-                Route::get('/{code}',[IssuanceController::class,'index']);
-                Route::post('/store',[IssuanceController::class,'store']);
-                Route::post('/update',[IssuanceController::class,'update']);
-                Route::post('/delete',[IssuanceController::class,'delete']);
-                Route::post('/dispatch',[IssuanceController::class,'dispatch']);
-            });
+
         });
 
             // Acknowledgements 
@@ -75,24 +88,48 @@ use App\Http\Controllers\ReportController;
                 Route::post('/sign',[AcknowledgementController::class,'signature']);
             });
 
+      
+
+            // Staffs
+            Route::prefix('staffs')->group(function () { 
+
+                Route::middleware(['permission:stf.view_staff'])->group(function () { 
+                    Route::get('/',[StaffController::class,'index']);
+                    Route::get('/details/{staffNo}',[StaffController::class,'details']);
+                    Route::get('/info',[StaffController::class,'info']);
+                });
+
+                Route::middleware(['permission:stf.create_staff'])->group(function () { 
+                    Route::post('/store',[StaffController::class,'store']);
+                });
+
+
+                Route::middleware(['permission:stf.update_staff'])->group(function () { 
+                    Route::post('/update',[StaffController::class,'update']);
+                    Route::post('/confirm',[StaffController::class,'confirm']);
+                });
+
+                Route::middleware(['permission:stf.delete_staff'])->group(function () { 
+                    Route::post('/delete',[StaffController::class,'delete']);
+                });
+
+            });
+
+            //Report
+            Route::prefix('report')->middleware(['role:Admin|Admin-HR'])->group(function () { 
+                Route::post('/form',[ReportController::class,'form']);
+            });
+
+
+
+
             // Shared
-            Route::prefix('shared')->group(function () { 
+                Route::prefix('shared')->group(function (){ 
                 Route::get('/companies',[SharedController::class,'companies']);
                 Route::get('/departments',[SharedController::class,'departments']);
                 Route::get('/positions',[SharedController::class,'positions']);
                 Route::get('/grades',[SharedController::class,'grades']);
                 Route::get('/categories',[SharedController::class,'categories']);
-            });
-
-            // Staffs
-            Route::prefix('staffs')->group(function () { 
-                Route::get('/',[StaffController::class,'index']);
-                Route::get('/details/{staffNo}',[StaffController::class,'details']);
-                Route::post('/store',[StaffController::class,'store']);
-                Route::post('/update',[StaffController::class,'update']);
-                Route::post('/confirm',[StaffController::class,'confirm']);
-                Route::post('/delete',[StaffController::class,'delete']);
-                Route::get('/info',[StaffController::class,'info']);
             });
 
             // Notifications
@@ -108,10 +145,6 @@ use App\Http\Controllers\ReportController;
             // Manual
             Route::prefix('manual')->group(function () { 
                 Route::get('/',[ManualController::class,'index']);
-            });
-
-            Route::prefix('report')->group(function () { 
-                Route::post('/form',[ReportController::class,'form']);
             });
 
             // Update password

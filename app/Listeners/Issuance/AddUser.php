@@ -13,6 +13,7 @@ use App\Models\Form\FormAcknowledgement;
 
 use App\Jobs\Notification\EmailAnnouncement;
 use App\Jobs\Notification\EmailReminder;
+use App\Jobs\Notification\InitiateNotification;
 
 use Carbon\Carbon;
 
@@ -45,34 +46,29 @@ class AddUser implements ShouldQueue
                         return $query->where('company_id',$company->company_id);
                     })->get();
 
+                    // Check if form already closed
+                    if($issuance->form->status == 'closed') return;
+
                     // Assign staff with acknowledgements
                         foreach($staffs as $staff){
                             if($staff){
                                 FormAcknowledgement::create(['staff_id' => $staff['id'], 'form_id' => $issuance->form->id, 'form_issuance_id' => $event->issuanceId ]);
 
-                                // Check if form already closed
-                                if($issuance->form->status == 'closed') return;
-
                                 // Check effective end.
                                 if(Carbon::now()->format('Y-m-d') > Carbon::parse($issuance->form->effective_to)->format('Y-m-d')) return;
-
-
-                              
-                                if($staff->user->email){
-
-                                        // Schedule Announcement :
-                                        if(Carbon::now()->format('Y-m-d') >= Carbon::parse($issuance?->form?->effective_from)->format('Y-m-d')){
-                                             EmailAnnouncement::dispatch($staff?->user?->email,$issuance, $staff?->user?->name)->delay(Carbon::parse($issuance?->issued_at));
-                                        }
-                                        
-                                        // Schedule Reminder :
-                                        EmailReminder::dispatch($staff?->user?->email, $issuance, $staff?->user?->name)->delay(Carbon::parse($issuance?->deadlined_at));     
-                                }
 
                             }
                         }
                 }
             }
+
+             // Initiate Announcement :
+             if(Carbon::now()->format('Y-m-d') >= Carbon::parse($issuance?->form?->effective_from)->format('Y-m-d')){
+                InitiateNotification::dispatch($issuance,'announcement')->delay(Carbon::parse($issuance?->issued_at));
+             }
+                    
+             // Initiate Reminder :
+             InitiateNotification::dispatch($issuance,'reminder')->delay(Carbon::parse($issuance?->deadlined_at));     
 
         }
 

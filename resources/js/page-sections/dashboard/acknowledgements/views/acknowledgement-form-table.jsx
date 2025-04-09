@@ -31,12 +31,16 @@ export function AcknowledgementFormTable() {
 	const navigate = useNavigate();
 	const smDown = useMediaQuery("down", "sm");
 	const [isPendingExist,setIsPendingExist] = React.useState();
+	const [pendingCount,setPendingCount] = React.useState();
 
 
 	React.useEffect(() => {
 
 		let x = fetchedAcknowledgements?.data?.acknowledgements?.filter((item) => item.status == 'pending');
 		setIsPendingExist(!_.isEmpty(x));
+		if(!_.isEmpty(x)){
+			setPendingCount(x?.length);
+		}
 
 	},[fetchedAcknowledgements?.data?.acknowledgements])
 
@@ -112,7 +116,7 @@ export function AcknowledgementFormTable() {
 					 window.open(manual, "_blank")
 		}}>here </Link> if you need for your reference.</Alert>} */}
 		{!isPendingExist  && !isLoading && <Alert severity="info">You have no pending acknowledgement to submit.</Alert>}
-		{isPendingExist  && !isLoading && <Alert severity="warning">You have pending acknowledgement(s) to submit.</Alert>}
+		{isPendingExist  && !isLoading && <Alert severity="warning">You have {pendingCount} pending acknowledgement(s) to submit.</Alert>}
 		<TableAG row={fetchedAcknowledgements?.data?.acknowledgements} column={colDefs} loading={isLoading} title='' search={false} />
 	</>;
 }

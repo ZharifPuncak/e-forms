@@ -20,6 +20,7 @@ import { CardSummary } from "@/components/widgets/card/card-summary";
 import { paths } from "@/paths";
 import useAxios  from "@/hooks/use-axios";
 import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
+import { CardStats } from "@/components/widgets/card/card-stats";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
 
@@ -103,7 +104,7 @@ export function StaffTable() {
 							xs: 4,
 						}}
 					>
-							{!overviewLoading ? <CardSummary 
+							{!overviewLoading ? <CardStats 
 							    tooltip='Staff that still working and bounded to company.'
 								icon={InfoIcon} 
 								amount={staffOverview?.data?.active ?? 0} 
@@ -117,7 +118,7 @@ export function StaffTable() {
 							xs: 4,
 						}}
 					>
-							{!overviewLoading ? <CardSummary 
+							{!overviewLoading ? <CardStats 
 						
 							    tooltip='Staff that no longer with the company.'
 								icon={InfoIcon} 
