@@ -7,12 +7,15 @@ import { useSettings } from "@/contexts/settings-context";
 
 import { HorizontalLayout } from "./horizontal/horizontal-layout";
 import { VerticalLayout } from "./vertical/vertical-layout";
+import useAuth from "@/hooks/use-auth";
 
 export function Layout(props) {
 	const { settings } = useSettings();
-	const layout = settings.dashboardLayout ?? dashboardConfig.layout;
+	const { is } = useAuth();
 
-	if (layout === "horizontal") {
+	const layout = settings.dashboardLayout ?? dashboardConfig.layout;
+	
+	if (is('Staff')) {
 		return <HorizontalLayout {...props} />;
 	}
 

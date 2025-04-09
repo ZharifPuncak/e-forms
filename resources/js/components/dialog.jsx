@@ -25,7 +25,8 @@ export default function CustomDialog(){
   return (
     <React.Fragment>
       <Dialog
-        fullScreen={true}
+        fullScreen={appContext.state.dialog.fullWidth}
+        maxWidth="md"
         open={appContext.state.dialog.isOpen}
       >
         <Stack direction="row" spacing={3} sx={{ alignItems: "center", justifyContent: "space-between", px: 2, py: 1 }}>
@@ -35,12 +36,12 @@ export default function CustomDialog(){
 						{appContext.state.dialog.subtitle}
 					</Typography> }
 				</Box>
-				<IconButton onClick={() => { appContext.setDialog({ isOpen : false }) }}>
+				<IconButton onClick={() => { appContext.setDialog({ isOpen : false, fullWidth : false  }) }}>
 					<XIcon />
 				</IconButton>
 			</Stack>
 			<Divider />
-        <DialogContent sx={{ mt : 5, p : 0 }}>
+        <DialogContent sx={{ mt : 5, px : {  xs : 0 } }}>
           <DialogContentText>
                 {appContext.state.dialog.description}
           </DialogContentText>

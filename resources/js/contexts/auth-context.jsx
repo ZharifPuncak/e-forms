@@ -169,13 +169,13 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
 
+  
+      await axios.post(import.meta.env.VITE_API_BASE_URL + "/logout", {});
       await localStorage.removeItem("auth");
+
       dispatch({
          type: "LOGOUT"
       });
-
-      await axios.post(import.meta.env.VITE_API_BASE_URL + "/logout", {});
-  
 
   };
 

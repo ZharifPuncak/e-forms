@@ -9,7 +9,7 @@ import TabPanel from '@mui/lab/TabPanel';
 
 import { FormAcknowledgements } from "./form-acknowledgements";
 import { FormIssuances } from "./form-issuances";
-import { FormFile } from "./form-file";
+
 
 
 export function FormTabs() {

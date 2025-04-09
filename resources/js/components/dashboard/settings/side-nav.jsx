@@ -19,16 +19,7 @@ import { RouterLink } from "@/components/core/link";
 import useAuth from "@/hooks/use-auth";
 
 const navItems = [
-
 	{
-		key: "personal",
-		title: "Personal",
-		permissions : ['all'],
-		items: [
-			{ key: "profile", title: "Profile", href: paths.dashboard.settings.profile, icon: "user-circle", permissions : ['all'] },
-		],
-	},
-		{
 		key: "acl",
 		title: "Access Control List",
 		permissions : ['acl.view_user','acl.view_permission','acl.view_role'],
@@ -37,7 +28,6 @@ const navItems = [
 			{ key: "roles", title: "Roles and Permissions", href: paths.dashboard.settings.roles, icon: "users-three",permissions : ['acl.view_permission','acl.view_role'] },
 		],
 	},
-
 ];
 
 const icons = {

@@ -67,7 +67,7 @@ const UploadFile = ({ data, code, update })  => {
   return (
   <form onSubmit={handleSubmit}>
         <Grid container={true} sx={{ padding : 2 }} spacing={1}  >
-            <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
+            <Grid  size={{ xs : 12, sm: 12, md : 12 }}>
             <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Title </Typography>
               <TextField
                         fullWidth
@@ -107,7 +107,7 @@ const UploadFile = ({ data, code, update })  => {
                     />
             </Grid>
             <br></br>
-            <Grid  size={{xs : 12, sm: 12, md : 6}} >
+            <Grid  size={{xs : 12, sm: 12, md : 12}} >
             <Typography variant='subtitle2'   sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >File </Typography>
                 <FileUploader  progress={uploadProgress} loading={uploadLoading} update={updateFile}/>
                 {errors.file_path  && <Typography variant="caption"  sx={{ ml: 0.5, mt: 0.5, display: "block", color : '#F05344' }}>

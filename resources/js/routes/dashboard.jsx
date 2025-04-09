@@ -105,19 +105,6 @@ export const route = {
 			],
 		},
 		{
-				path: "manual",
-				children: [
-					{
-						path: "list",
-						lazy: async () => {
-							const { Page } = await import("@/pages/dashboard/manual/list");
-							return { Component: (props) => <Page {...props} /> };
-						},
-					},
-
-				],
-			},
-		{
 			path: "settings",
 			element: (
 				<SettingsLayout>

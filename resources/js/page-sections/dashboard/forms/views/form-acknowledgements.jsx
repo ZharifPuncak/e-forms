@@ -20,6 +20,8 @@ import { Skeleton1 } from "@/components/loader/loading-skeleton";
 import useAxios  from "@/hooks/use-axios";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
+import { CardStats } from "@/components/widgets/card/card-stats";
+
 import _ from 'lodash';
 
 
@@ -109,47 +111,53 @@ export function FormAcknowledgements() {
 		])
 	},[mdDown])
 
+
 	return <>
 		<Grid container={true} spacing={4}>
 			   <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('total')} size={{ xs : 6, sm: 6, lg : 3}}>
-					 {!infoLoading ? <CardSummary  
-					    active={active == 'total'}
-					    amount={fetchedInfo?.data?.total ?? 0}  
-					    tooltip='Total of Acknowledgements.'
-						icon={InfoIcon}  
-						title="Total" /> : <Skeleton1 />}
+					 {!infoLoading ? 
+						<CardStats  amount={fetchedInfo?.data?.total ?? 0}  tooltip='Total of Acknowledgements.'
+						icon={InfoIcon}   title="Total" />
+						: <Skeleton1 />}
 				</Grid> 
 			   <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('pending')} size={{ xs : 6, sm: 6, lg : 3}}>
-			   {!infoLoading ? <CardSummary  
-			            active={active == 'pending'}  
-						amount={fetchedInfo?.data?.pending ?? 0}  
-						 tooltip='Acknowledgement that are not yet submitted.'
-						icon={InfoIcon} 
-					    title="Pending" />  : <Skeleton1 />}
+			   {!infoLoading ? 
+			   <CardStats  	amount={fetchedInfo?.data?.pending ?? 0}  
+			  				 tooltip='Acknowledgement that are not yet submitted.'
+							  icon={InfoIcon} 
+							  title="Pending"  /> : <Skeleton1 />}
 				</Grid>
 			  <Grid style={{ cursor : 'pointer'}} onClick={() => setActive('completed')} size={{ xs : 6, sm: 6, lg : 3}}>
-			{!infoLoading ? <CardSummary 
-			            active={active == 'completed'} 
-						amount={fetchedInfo?.data?.completed ?? 0}  
-						tooltip='Submitted acknowledgement.'
-						icon={InfoIcon} 
-						title="Completed" /> : <Skeleton1 />}
+			{!infoLoading ?
+
+			<CardStats  	
+				amount={fetchedInfo?.data?.completed ?? 0}  
+				tooltip='Submitted acknowledgement.'
+				icon={InfoIcon} 
+				title="Completed"
+			 /> : <Skeleton1 />}
 				</Grid> 
 				<Grid style={{ cursor : 'pointer'}}  onClick={() =>setActive('cancelled')} size={{ xs : 6, sm: 6, lg :3}}>
-				 {!infoLoading ? <CardSummary 
-				 		active={active == 'cancelled'} 
-					    amount={fetchedInfo?.data?.cancelled ?? 0}  
-						tooltip='Acknowledgement that are not submitted after form cancelled.'
-						icon={InfoIcon} 
-						title="Cancelled" /> : <Skeleton1 />}
+				 {!infoLoading ? 
+				 
+				 <CardStats  	
+				 amount={fetchedInfo?.data?.cancelled ?? 0}  
+				 tooltip='Acknowledgement that are not submitted after form cancelled.'
+				 icon={InfoIcon} 
+				 title="Cancelled"
+		    	 />
+				: <Skeleton1 />}
 				</Grid> 
 				 <Grid style={{ cursor : 'pointer'}}  onClick={() =>setActive('incompleted')} size={{ xs : 6, sm: 6, lg :3}}>
-				 {!infoLoading ? <CardSummary 
-				 		active={active == 'incompleted'} 
-					    amount={fetchedInfo?.data?.incompleted ?? 0}  
+				 {!infoLoading ? 
+				 	 <CardStats  	
+						amount={fetchedInfo?.data?.incompleted ?? 0}  
 						tooltip='Acknowledgement that are not submitted after the form effective end.'
 						icon={InfoIcon} 
-						title="Incompleted" /> : <Skeleton1 />}
+						title="Incompleted" 
+					  />
+				 
+			 : <Skeleton1 />}
 				</Grid> 
 				<Grid size={{ xs : 12, sm: 12, md : 12 }}>
 					<TableAG row={acknowledgement} column={colDefs} loading={acknowledgementLoading} title='' csv={!_.isEmpty(acknowledgement)}/>

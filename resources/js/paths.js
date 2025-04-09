@@ -10,11 +10,7 @@ export const paths = {
 	},
 	dashboard: {
 		overview: "/dashboard",
-		manual: {
-			list: "/dashboard/manual/list"
-		},
 		settings: {
-			profile: "/dashboard/settings/profile",
 			users: "/dashboard/settings/users",
 			roles: "/dashboard/settings/roles",		
 		},

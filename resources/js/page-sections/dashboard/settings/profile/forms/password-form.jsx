@@ -59,18 +59,15 @@ export function PasswordForm() {
 	},[isSuccess])
 
 	return (
-		<Card>
-			<CardHeader
-				title={'Change Password'}
-			/>
-			<CardContent>
+		<>
+		
 		        	<form onSubmit={handleSubmit}>
 						<Grid container={true} spacing={2}  >
         		  		  <Grid   size={{ xs : 12, sm: 12, md : 6 }}>
 						
-							<Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Old Password </Typography>
+							<Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Old Password </Typography>
 							    <TextField
-									fullWidth
+									fullWidth	
 									name="password"
 									placeholder=""
 									autoComplete="off"
@@ -102,7 +99,7 @@ export function PasswordForm() {
 								/>
 				    	  </Grid>
 						  <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-						  <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >New Password </Typography>
+						  <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >New Password </Typography>
 							<TextField
 								fullWidth
 								name="new_password"
@@ -137,7 +134,7 @@ export function PasswordForm() {
 							/>
 					     </Grid>
 						 <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-						 <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
+						 <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Confirm Password </Typography>
 								<TextField
 								fullWidth
 								name="confirm_new_password"
@@ -178,7 +175,7 @@ export function PasswordForm() {
 					  </Grid>
 					</Grid>
 					</form>
-			</CardContent>
-		</Card>
+	
+		</>
 	);
 }

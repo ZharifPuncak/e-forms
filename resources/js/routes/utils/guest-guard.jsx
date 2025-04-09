@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet  } from 'react-router-dom';
 import { useAppContext } from "@/contexts/app-context";
+import { paths } from "@/paths";
 
 import useAuth from '@/hooks/use-auth';
 
@@ -8,8 +9,9 @@ import useAuth from '@/hooks/use-auth';
 export default function GuestGuard({ children }) {
 
   const { isAuthenticated, is } = useAuth();
-  const appContext = useAppContext(); 
-
+  const appContext = useAppContext();
+  
+   
   
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function GuestGuard({ children }) {
       if(isAuthenticated ){
          window.location.href = is('Staff') ? window.location.origin + '/e-forms/dashboard/acknowledgements' : window.location.origin + '/e-forms/dashboard';
       }else{
-        appContext.setParentDialog({ title : null, subtitle : null, isOpen : false, component : false });
+         appContext.setParentDialog({ title : null, subtitle : null, isOpen : false, component : false });
       }
 
   },[isAuthenticated]);

@@ -21,6 +21,7 @@ const initialState = {
     dialog: {
       isDisabled : false,
       maxWidth : 'xs',
+      fullWidth : false,
       confirmText : 'PROCEED',
       isOpen: false,
       title : 'Are you sure ?',

@@ -4,6 +4,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
+import Alert from "@mui/material/Alert";
+import Typography from "@mui/material/Typography";
 
 import TableAG from "@/components/core/table/TableAG";
 
@@ -82,10 +84,18 @@ export function FormIssuances() {
 							disabled={rowData?.status == 'dispatched'} 	
 							onClick={async () => {
 								confirm({
-									title: "Are you sure?",
-									description: "This action cannot be undone.",
-									confirmationText: "Yes, delete it",
-									cancellationText: "Cancel",
+									title: <Typography variant="body1">Are you sure ?</Typography>,
+									description: <Box>
+													 <Alert severity="error">This action cannot be undone.</Alert>
+												</Box>,
+									confirmationText: 'Yes, delete it',
+									cancellationText: 'Cancel',
+									confirmationButtonProps: {
+										sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' }
+									  },
+									  cancellationButtonProps: {
+										sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' },
+									  },
 								  })
 									.then(async () => {
 
@@ -109,10 +119,18 @@ export function FormIssuances() {
 							onClick={async () => {
 
 								confirm({
-									title: "Are you sure?",
-									description: "This action cannot be undone.",
-									confirmationText: "Yes, dispatch it",
-									cancellationText: "Cancel",
+									title: <Typography variant="body1">Are you sure ?</Typography>,
+																		description: <Box>
+																		             	<Alert severity="warning">This action cannot be undone.</Alert>
+																		            </Box>,
+																		confirmationText: 'Yes, dispatch it',
+																		cancellationText: 'Cancel',
+																		confirmationButtonProps: {
+																			sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' }
+																		  },
+																		  cancellationButtonProps: {
+																			sx: {  border: "none", fontSize : '14px',textTransform: "capitalize", fontWeight : '400' },
+																		  },
 								  })
 									.then(async () => {
 										await setSelectedId(rowData?.id);

@@ -78,12 +78,12 @@ class AuthController extends Controller
 
     public function logout(Request $request){
 
-
         $user = request()->user();
+        
+        if($user && $user->currentAccessToken()){
 
-        if($user){
             // Revoke current user token
-            $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+            $user->currentAccessToken()->delete();
         }
   
         return response()->json(['message' => 'Logged out.'],200);

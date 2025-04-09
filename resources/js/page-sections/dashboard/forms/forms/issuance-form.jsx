@@ -121,10 +121,10 @@ const IssuanceForm = ({ item, update, code, end, loadedCompanies })  => {
               <Box sx={{ px : 1, pt : 1}}>
                    <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Info </Typography>
               </Box>
-              <ol>
+              <ul>
                  <li style={{ marginBottom : '20px'}}><Chip size='small' color='soft' label="Issue Date" /><Box sx={{ mt : 0.5 , ml: 1.5 }}><Typography variant='body2'> The form  will be issued at selected date with annoucement notification.</Typography></Box> </li>
                  <li><Chip  size='small' color='soft' label="Deadline Date" /><Box sx={{ mt : 0.5, ml : 1.5 }}><Typography variant='body2'>  The reminder notification will be sent to employee on deadline date.</Typography> </Box></li>
-              </ol>
+              </ul>
             </Card>
                       
           </Grid> 

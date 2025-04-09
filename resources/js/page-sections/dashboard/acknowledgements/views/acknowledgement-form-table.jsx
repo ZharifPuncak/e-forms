@@ -24,10 +24,14 @@ export function AcknowledgementFormTable() {
 
 	
 	const { axiosGet } = useAxios();
+
+	// const { isLoading : manualLoading, data : manual, refetch : getManual }  = axiosGet({  id : 'manual-list' , url : import.meta.env.VITE_API_BASE_URL + '/manual'  });
 	const { isLoading, data : fetchedAcknowledgements, refetch   }  = axiosGet({  id : 'acknowledgements-list' , url : import.meta.env.VITE_API_BASE_URL + '/acknowledgements' });
+
 	const navigate = useNavigate();
 	const smDown = useMediaQuery("down", "sm");
 	const [isPendingExist,setIsPendingExist] = React.useState();
+
 
 	React.useEffect(() => {
 
@@ -35,6 +39,9 @@ export function AcknowledgementFormTable() {
 		setIsPendingExist(!_.isEmpty(x));
 
 	},[fetchedAcknowledgements?.data?.acknowledgements])
+
+
+	
 
 	
     // Column Definitions: Defines the columns to be displayed.
@@ -101,6 +108,9 @@ export function AcknowledgementFormTable() {
 	},[fetchedAcknowledgements?.data?.acknowledgements, smDown])
 
 	return <>	
+		{/* {!manualLoading && manual && <Alert sx={{ mb : 1 }} severity="warning">Download the manual <Link style={{ cursor : 'pointer' }} onClick={() => {
+					 window.open(manual, "_blank")
+		}}>here </Link> if you need for your reference.</Alert>} */}
 		{!isPendingExist  && !isLoading && <Alert severity="info">You have no pending acknowledgement to submit.</Alert>}
 		{isPendingExist  && !isLoading && <Alert severity="warning">You have pending acknowledgement(s) to submit.</Alert>}
 		<TableAG row={fetchedAcknowledgements?.data?.acknowledgements} column={colDefs} loading={isLoading} title='' search={false} />

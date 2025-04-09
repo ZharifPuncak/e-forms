@@ -13,11 +13,13 @@ class ManualController extends Controller
     use HttpResponses;
     public function index(){
 
-        $manuals = ManualFile::orderBy('id','desc')->get();
+        $manual = ManualFile::orderBy('id','desc')->first();
 
-        return $this->success([
-            'data' =>  FileResource::collection($manuals)
-        ]);
+        return  asset('storage/' .$manual->file_path);
+
+        // return $this->success([
+        //     // 'data' =>  new FileResource($manuals)
+        // ]);
 
     }
 }

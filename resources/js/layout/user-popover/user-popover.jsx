@@ -17,6 +17,8 @@ import { paths } from "@/paths";
 import { RouterLink } from "@/components/core/link";
 import useAuth from "@/hooks/use-auth";
 
+import { useAppContext } from '@/contexts/app-context';
+import { PasswordForm } from "@/page-sections/dashboard/settings/profile/forms/password-form";
 
 
 
@@ -39,7 +41,7 @@ function SignOutButton() {
 					<ListItemIcon>
 						<SignOutIcon  /> 
 					</ListItemIcon>
-					<Typography  fontSize={14}>Sign out</Typography>	
+					<Typography sx={{ ml : -1 }}  variant="body2">Sign out</Typography>	
 		</MenuItem>
 	);
 }
@@ -47,6 +49,7 @@ function SignOutButton() {
 export function UserPopover({ anchorEl, onClose, open }) {
 
 	const { user } = useAuth();
+	const appContext = useAppContext();
 
 	return (
 		<Popover
@@ -57,19 +60,21 @@ export function UserPopover({ anchorEl, onClose, open }) {
 			slotProps={{ paper: { sx: { width: "280px" } } }}
 			transformOrigin={{ horizontal: "right", vertical: "top" }}
 		>
-			<Box sx={{ p: 2 }}>
-				<Typography sx={{ mb : -1}} fontSize={14}>{user.name}</Typography>
+			<Box sx={{ px: 2, py : 1 }}>
+				<Typography variant="body2" sx={{ mb : -1}} >{user.name}</Typography>
 				<Typography color="text.secondary" variant="caption">
 					{user?.staff_ic_no ?? user?.email}
 				</Typography>
 			</Box>
 			<Divider />
 			<List sx={{ p: 1 }}>
-				<MenuItem component={RouterLink} href={paths.dashboard.settings.profile} onClick={onClose}>
-					<ListItemIcon>
+				<MenuItem  onClick={() => {
+					appContext.setDialog({ fullWidth:false, isOpen : true, title : 'Profile', subtitle : user?.name, component : <PasswordForm /> }); 
+				}}>
+					<ListItemIcon >
 						<UserIcon />
 					</ListItemIcon>
-					<Typography  fontSize={14}>Profile</Typography>
+					<Typography sx={{ ml : -1 }} variant="body2">Profile</Typography>
 				</MenuItem>
 			</List>
 			<Divider />

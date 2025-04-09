@@ -101,7 +101,7 @@ const InfoForm = ({ item, update })  => {
         <Grid container={true} sx={{ p : 1 }} spacing={2}  >
  
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Name </Typography>
+              <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Name </Typography>
               <TextField
                         fullWidth
                         name="name"
@@ -139,7 +139,7 @@ const InfoForm = ({ item, update })  => {
                     />
             </Grid>
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Alias </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Alias </Typography>
               <TextField
                         fullWidth
                         name="alias"
@@ -174,7 +174,7 @@ const InfoForm = ({ item, update })  => {
                     />
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Category </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Category </Typography>
               <Stack spacing={1}>
                  <Autocomplete
 
@@ -221,7 +221,7 @@ const InfoForm = ({ item, update })  => {
               </Stack>         
           </Grid>
           <Grid size={{xs : 12, sm: 6, md : 3 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Effective From </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Effective From </Typography>
             <DatePicker
                   sx={{ height : 45}}
                   minDate={item?.id ? dayjs(item?.effective_from)  : dayjs()}
@@ -257,7 +257,7 @@ const InfoForm = ({ item, update })  => {
             </Grid>
 
             <Grid size={{xs : 12, sm: 6, md : 3 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Effective To </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Effective To </Typography>
             <DatePicker 
                     fullWidth
                     minDate={item?.id ? dayjs(item?.effective_from)  : dayjs()}
@@ -295,7 +295,7 @@ const InfoForm = ({ item, update })  => {
 
             
           	<Grid size={{xs : 12, sm: 12, md : 12 }}> 
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Description </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Description </Typography>
                   <TextEditor
                           key={indexUI}
                           rows={5}

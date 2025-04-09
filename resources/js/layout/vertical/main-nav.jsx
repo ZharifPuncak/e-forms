@@ -4,20 +4,14 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
-import { List as ListIcon } from "@phosphor-icons/react/dist/ssr/List";
-import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
-import { CaretDown as CaretDownIcon } from "@phosphor-icons/react/dist/ssr/CaretDown";
-import { useTranslation } from "react-i18next";
-import { Typography } from "@mui/material";
 
-import { useDialog } from "@/hooks/use-dialog";
+import { List as ListIcon } from "@phosphor-icons/react/dist/ssr/List";
+import { CaretDown as CaretDownIcon } from "@phosphor-icons/react/dist/ssr/CaretDown";
+
+import { Typography } from "@mui/material";
 import { usePopover } from "@/hooks/use-popover";
 
-
-import { languageFlags, LanguagePopover } from "../language-popover";
 import { MobileNav } from "../mobile-nav";
-import { SearchDialog } from "../search-dialog";
 import { UserPopover } from "../user-popover/user-popover";
 
 import useAuth from "@/hooks/use-auth";
@@ -91,46 +85,6 @@ export function MainNav({ items }) {
 	);
 }
 
-function SearchButton() {
-	const dialog = useDialog();
-
-	return (
-		<React.Fragment>
-			<Tooltip title="Search">
-				<IconButton onClick={dialog.handleOpen} sx={{ display: { xs: "none", lg: "inline-flex" } }}>
-					<MagnifyingGlassIcon />
-				</IconButton>
-			</Tooltip>
-			<SearchDialog onClose={dialog.handleClose} open={dialog.open} />
-		</React.Fragment>
-	);
-}
-
-
-
-function LanguageSwitch() {
-	const { i18n } = useTranslation();
-	const popover = usePopover();
-	const language = i18n.language || "en";
-	const flag = languageFlags[language];
-
-	return (
-		<React.Fragment>
-			<Tooltip title="Language">
-				<IconButton
-					onClick={popover.handleOpen}
-					ref={popover.anchorRef}
-					sx={{ display: { xs: "none", lg: "inline-flex" } }}
-				>
-					<Box sx={{ height: "24px", width: "24px" }}>
-						<Box alt={language} component="img" src={flag} sx={{ height: "auto", width: "100%" }} />
-					</Box>
-				</IconButton>
-			</Tooltip>
-			<LanguagePopover anchorEl={popover.anchorRef.current} onClose={popover.handleClose} open={popover.open} />
-		</React.Fragment>
-	);
-}
 
 
 function UserButton() {

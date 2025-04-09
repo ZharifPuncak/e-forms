@@ -28,9 +28,7 @@ export function SideNav({ color = "evident", items = [] }) {
 
 	const pathname = usePathname();
 
-
 	const { colorScheme = "light" } = useColorScheme();
-
 	const styles = navColorStyles[colorScheme][color];
 	const logoColor = logoColors[colorScheme][color];
 

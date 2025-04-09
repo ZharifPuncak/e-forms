@@ -96,7 +96,7 @@ const StaffForm = ({ item }) => {
 
         <Grid container={true} spacing={2} sx={{ px : 1}}  >
         <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Name </Typography>
+              <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Name </Typography>
               <TextField
                         fullWidth
                         name="name"
@@ -131,7 +131,7 @@ const StaffForm = ({ item }) => {
                     />
             </Grid>
             <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Gender </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Gender </Typography>
               <Stack spacing={1}>
                  <Autocomplete
 
@@ -178,7 +178,7 @@ const StaffForm = ({ item }) => {
               </Stack>         
           </Grid>
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Staff ID </Typography>
+              <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Staff ID </Typography>
               <TextField
                         fullWidth
                         name="staffID"
@@ -213,7 +213,7 @@ const StaffForm = ({ item }) => {
                     />
             </Grid>
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-              <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Staff IC </Typography>
+              <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Staff IC </Typography>
               <TextField
                         fullWidth
                         name="staffIC"
@@ -249,7 +249,7 @@ const StaffForm = ({ item }) => {
             </Grid>
           
             <Grid  size={{ xs : 12, sm: 12, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Email </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Email </Typography>
               <TextField
                         fullWidth
                         name="email"
@@ -285,7 +285,7 @@ const StaffForm = ({ item }) => {
             </Grid>
 
           <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Company </Typography>
+            <Typography variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Company </Typography>
               <Stack spacing={1}>
                  <Autocomplete
           
@@ -337,7 +337,7 @@ const StaffForm = ({ item }) => {
 
 
           <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Department </Typography>
+            <Typography  variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }}>Department </Typography>
               <Stack spacing={1}>
                  <Autocomplete
           
@@ -385,7 +385,7 @@ const StaffForm = ({ item }) => {
           </Grid>
 
           <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Category </Typography>
+            <Typography  variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Category </Typography>
               <Stack spacing={1}>
                  <Autocomplete
           
@@ -433,7 +433,7 @@ const StaffForm = ({ item }) => {
           </Grid>
 
           <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-          <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Position </Typography>
+          <Typography  variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Position </Typography>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{
@@ -479,7 +479,7 @@ const StaffForm = ({ item }) => {
             </Grid>
 
          <Grid  size={{xs : 12, sm: 12, md : 6 }}>
-          <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Grade </Typography>
+          <Typography  variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }} >Grade </Typography>
               <Stack spacing={1}>
                   <Autocomplete
                   sx={{
@@ -526,7 +526,7 @@ const StaffForm = ({ item }) => {
 
 
             <Grid size={{xs : 12, sm: 6, md : 6 }}>
-            <Typography variant='subtitle2' sx={{ fontWeight : 'bold', mb : 0.5, ml : 0.5 }} >Date Joined </Typography>
+            <Typography  variant='body2' sx={{ fontWeight : 500, mb : 0.5, ml : 0.5 }}>Date Joined </Typography>
             <DatePicker
                   sx={{ height : 45}}
           

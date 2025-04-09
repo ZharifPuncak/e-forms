@@ -7,8 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet-async";
 
 import { appConfig } from "@/config/app";
-import { paths } from "@/paths";
-import { RouterLink } from "@/components/core/link";
+
 
 import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/use-auth";

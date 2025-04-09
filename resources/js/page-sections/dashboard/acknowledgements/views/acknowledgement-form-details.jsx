@@ -93,7 +93,7 @@ export function AcknowledgementFormDetails({ updateName }) {
                                                    },
                                                      { key: "Action", value:  !isLoading ?	<Grid container spacing={1}>
                                                   { details?.status != 'cancelled' &&  <Button size="small" onClick={() => {
-                                                         appContext.setDialog({ isOpen : true , title : 'Integrity Pledge', subtitle:'ACK001', component : <SubmitAcknowledgementForm 
+                                                         appContext.setDialog({ fullWidth : true, isOpen : true , title : 'Integrity Pledge', subtitle:'ACK001', component : <SubmitAcknowledgementForm 
                                                             code={details?.code}
                                                             title={details?.title}
                                                             file={details?.file} 

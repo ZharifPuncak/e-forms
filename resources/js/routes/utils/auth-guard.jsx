@@ -19,10 +19,11 @@ export function AuthGuard({ children }) {
 	//Check for authentication
 	React.useEffect(() => {
 		if(!isAuthenticated ) navigate(paths.auth.signIn);
+	
 	}, [isAuthenticated]);
 
 	// Check for email
-	const  isValidEmail = (email) =>  {
+	const  isValidEmail = (email) => {
 		return _.isString(email) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 	  }
 	
@@ -35,9 +36,7 @@ export function AuthGuard({ children }) {
 		}else{
 			 appContext.setParentDialog({ title : null, subtitle : null, isOpen : false, component : false });
 		}
-
-	
-			
+		
 	},[user?.email])
 
 
