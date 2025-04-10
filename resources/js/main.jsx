@@ -25,6 +25,8 @@ const router = createBrowserRouter([
 
 root.render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<React.Suspense fallback={<h1>Loading...</h1>}>
+				<RouterProvider router={router} />
+		</React.Suspense>
 	</React.StrictMode>
 );
