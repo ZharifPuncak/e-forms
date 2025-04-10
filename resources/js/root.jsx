@@ -48,7 +48,7 @@ export function Root({ children }) {
 	const settings = getPersistedSettings();
 
 	return (
-
+	
 		<QueryClientProvider client={queryClient}>
 			<HelmetProvider>
 				<Helmet>
