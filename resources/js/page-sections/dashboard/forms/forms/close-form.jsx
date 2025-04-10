@@ -82,8 +82,8 @@ const CloseForm = ({ code, update })  => {
                 value={values.reason} 
                 onChange={handleChange}
               >
-                <FormControlLabel sx={{ mb : 2 }} value="incompleted" control={<Radio size='small' />} label={<Typography variant='body2'>End form  <br></br><small>Acknowledgement status will be incompleted.</small></Typography>} />
-                <FormControlLabel value="cancelled" control={<Radio size='small' />} label={<Typography variant='body2'>Cancel form  <br></br><small>Acknowledgement status will be cancelled.</small></Typography>} />
+                <FormControlLabel sx={{ mb : 2 }} value="ended" control={<Radio size='small' />} label={<Typography variant='body2'>End form  <br></br><small>Acknowledgement status will be incompleted for unsubmitted.</small></Typography>} />
+                <FormControlLabel value="cancelled" control={<Radio size='small' />} label={<Typography variant='body2'>Cancel form  <br></br><small>All acknowledgement status will be cancelled.</small></Typography>} />
               </RadioGroup>
             </FormControl>
             <FormHelperText sx={{ color : '#f26558'}}>

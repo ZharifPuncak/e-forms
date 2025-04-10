@@ -41,7 +41,6 @@ class FormController extends Controller
         $request->validated($request->all());
 
      
-
         //Generate form code
         $day = Carbon::now()->format('d');
         $year = Carbon::now()->format('Y');
@@ -158,6 +157,7 @@ class FormController extends Controller
 
         $reason = $request->reason;
         $remarks = $request->remarks;
+
         $form = Form::with('issuance')->where('code', $request->code)->first();
         
         if(!$form){
@@ -175,7 +175,18 @@ class FormController extends Controller
         $acknowledgements = FormAcknowledgement::where('form_id',$form->id)->get(); 
 
         foreach($acknowledgements as $acknowledgement){
-            $acknowledgement->update(['status' => $reason]);
+
+            if($reason == 'cancelled'){
+
+                $acknowledgement->update(['status' => 'cancelled']);
+
+            }else if($reason == 'ended'){
+
+                if($acknowledgement->status == 'pending'){
+                    $acknowledgement->update(['status' => 'incompleted']);
+                }
+            }
+        
         }
 
         return $this->success([], 'Form Closed.');
