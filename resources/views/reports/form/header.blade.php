@@ -9,7 +9,6 @@
 
 <div class="pdf-header w-full" style="padding : 30px;margin-bottom : 2px !important;">
 
-<!-- <img src="{{'data:image/png;base64,'.base64_encode(file_get_contents(public_path('assets/logo/logo-puncak.png')))}}"> -->
 <small class="mt-4 text-gray-500" style="opacity:0.4">E-forms Management System</small>
     <div class="text-gray-900" style="display: grid; place-items: center; text-align: center;">
 
