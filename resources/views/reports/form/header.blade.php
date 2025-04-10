@@ -1,8 +1,8 @@
 <style>
     .pdf-header {
-        font-size: 14px; /* Adjust font size */
+        font-size: 14px; 
         text-align: center;
-        height: '100%'; /* Adjust height */
+        height: '100%'; 
         width: 100vw;
     }
 </style>
