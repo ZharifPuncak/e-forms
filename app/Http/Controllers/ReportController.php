@@ -41,7 +41,17 @@ class ReportController extends Controller
         $pdf = Pdf::view('reports.form.main',['formattedForm' => $formattedForm])
         ->headerView('reports.form.header',['formattedForm' => $formattedForm])
         ->footerView('reports.form.footer')
-        ->save($filePath);
+        ->withBrowsershot(function (Browsershot $browsershot) {
+
+            $puppeteerCacheDir = env('PUPPETEER_CACHE_DIR');
+            if ($puppeteerCacheDir) {
+                // Set the user data directory if the environment variable is found
+                $browsershot->setOption('userDataDir', $puppeteerCacheDir);
+                $browsershot->setChromePath('C:/Program Files/Google/Chrome/Application/chrome.exe');
+            }
+          
+        })->save($filePath);
+        
 
 
         $fileContents = base64_encode(file_get_contents($filePath));
