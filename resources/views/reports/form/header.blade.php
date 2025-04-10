@@ -2,12 +2,12 @@
     .pdf-header {
         font-size: 14px; 
         text-align: center;
-        height: '100%'; 
+        height: 100%; 
         width: 100vw;
     }
 </style>
 
-<div class="pdf-header w-full" style="padding : 30px;margin-bottom : 2px !important;">
+<div class="pdf-header w-full" style="padding : 30px;margin-bottom : 2px;">
 
 <small class="mt-4 text-gray-500" style="opacity:0.4">E-forms Management System</small>
     <div class="text-gray-900" style="display: grid; place-items: center; text-align: center;">

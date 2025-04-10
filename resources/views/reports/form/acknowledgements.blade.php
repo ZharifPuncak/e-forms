@@ -13,7 +13,6 @@
                 <th class="py-2 text-gray-700 border border-gray-100"><span class="ml-1 mr-1"><small>Name</small></span></th>
                 <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">Company </small></th>
                 <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">Department </small></th>
-                <!-- <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">Status </small></th> -->
                 <th class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">Submitted</small></th>
             </tr>
    
@@ -28,7 +27,6 @@
                         <td class="py-2 text-gray-700 border border-gray-100"><span class="ml-1 mr-1"><small>{{ $data['name'] }}</small></span></td>
                         <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">{{ $data['company'] }}</small></td>
                         <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">{{ $data['department'] }}</small></td>
-                        <!-- <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">{{ $data['status'] }}</small></td> -->
                         <td class="py-2 text-gray-700 border border-gray-100"><small class="ml-1 mr-1">{{ $data['submitted'] }}</small></td>
                     </tr>
                 @endforeach
