@@ -11,10 +11,6 @@ import Typography from "@mui/material/Typography";
 
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 import { SignOut as SignOutIcon } from "@phosphor-icons/react/dist/ssr/SignOut";
-
-
-import { paths } from "@/paths";
-import { RouterLink } from "@/components/core/link";
 import useAuth from "@/hooks/use-auth";
 
 import { useAppContext } from '@/contexts/app-context';
@@ -63,13 +59,15 @@ export function UserPopover({ anchorEl, onClose, open }) {
 			<Box sx={{ px: 2, py : 1 }}>
 				<Typography variant="body2" sx={{ mb : -1}} >{user.name}</Typography>
 				<Typography color="text.secondary" variant="caption">
-					{user?.staff_ic_no ?? user?.email}
+					{user?.staff_ic_no ? <span> { user?.staff_ic_no } </span>  : user?.email}
 				</Typography>
 			</Box>
 			<Divider />
-			<List sx={{ p: 1 }}>
+			<List sx={{ p: 0.5 }}>
 				<MenuItem  onClick={() => {
+				
 					appContext.setDialog({ fullWidth:false, isOpen : true, title : 'Profile', subtitle : user?.name, component : <PasswordForm /> }); 
+					onClose();
 				}}>
 					<ListItemIcon >
 						<UserIcon />
@@ -78,7 +76,7 @@ export function UserPopover({ anchorEl, onClose, open }) {
 				</MenuItem>
 			</List>
 			<Divider />
-			<List sx={{ p: 1 }}>
+			<List sx={{ p: 0.5 }}>
 				<SignOutButton />
 			</List>
 		</Popover>

@@ -29,7 +29,7 @@ use App\Http\Controllers\ReportController;
         // Authenticated routes
         Route::group(['middleware' => ['auth:sanctum']] ,function () {
 
-
+            
         // Dashboard
         Route::prefix('dashboard')->group(function () { 
             Route::get('/acknowledgements',[DashboardController::class,'acknowledgements'])->middleware(['permission:dashboard.view_overview']);

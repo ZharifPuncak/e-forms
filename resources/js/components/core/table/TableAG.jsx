@@ -93,7 +93,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
         <div style={{  width: 'auto' }}>
                       <Box sx={{ display: "flex", alignItems: "center",  gap:1,  justifyContent: "flex-end", mt : 2 }}>
                         {/* Title on the left */}
-                            <Box sx={{ mb : 0.5,  fontWeight: 'bold' }}>{title}</Box>
+                            <Box sx={{ mb : 0.5,  fontWeight: 'bold', p : 1 }}>{title}</Box>
                         
                             {search && <TextField
                                autoComplete='off'
@@ -110,7 +110,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                                     ),
                                   }}
                                 sx={{
-                                  maxWidth: '350px', // Adjust max width as needed
+                                 
                                   mt: 2,
                                   mb: 2,
                                   ml : -3
@@ -118,7 +118,7 @@ export default function TableAG({ row, column, pagination = true, loading = true
                             />}
 
                             {
-                              csv && <Button variant="outlined" onClick={() => onBtnExport()} startIcon={<DownloadIcon />}>{mdDown ? '' : 'Export'} Data</Button>
+                              csv && <Button variant="outlined" onClick={() => onBtnExport()} startIcon={<DownloadIcon />}>{mdDown ? '' : ''} Excel</Button>
                             }
 
                         </Box>

@@ -23,7 +23,7 @@ export const dashboardConfig = {
 					icon: "file",
 					permissions : ['form.view_form'],
 					items: [
-						{ key: "forms:list", title: "List forms", href: paths.dashboard.forms.list, permissions : ['form.view_form'] },
+						{ key: "forms:list", title: "Form list", href: paths.dashboard.forms.list, permissions : ['form.view_form'] },
 						{ key: "forms:create", title: "Create form", href: paths.dashboard.forms.create, permissions : ['form.create_form'] },
 					],
 				},
@@ -51,7 +51,7 @@ export const dashboardConfig = {
 					icon: "users",
 					permissions : ['stf.view_staff'],
 					items: [
-						{ key: "staff:list", title: "List staff", href: paths.dashboard.staff.list, permissions : ['stf.view_staff'] },
+						{ key: "staff:list", title: "Staff List", href: paths.dashboard.staff.list, permissions : ['stf.view_staff'] },
 						{ key: "staff:create", title: "Create Staff", href: paths.dashboard.staff.create, permissions : ['stf.create_staff'] },
 					],
 				},

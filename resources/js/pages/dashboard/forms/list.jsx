@@ -32,11 +32,11 @@ export function Page() {
 				}}
 			>
 				<Stack spacing={4}>
-					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
+					{/* <Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>List Form</Typography>
+							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Form List</Typography>
 						</Box>
-					</Stack>
+					</Stack> */}
 				    	<FormTable />
 				</Stack>
 			</Box>

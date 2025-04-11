@@ -46,19 +46,11 @@ export function Page() {
 			>
 			
 					<Stack  spacing={4}>
-						<Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
-							<Box sx={{ flex: "1 1 auto" }}>
-								<Typography variant="h5" sx={{ fontWeight : 'bold' }}>Overview</Typography>
-							</Box>
-					
-						</Stack>
 						<Grid container spacing={2}>
-							
-						
 
 						<Grid size={{ xs : 12 , lg : 7 }}>
 								<Box>
-								   <Card sx={{ height : { xs :  '410px', md : '465px' }}}>
+								   <Card>
 										<CardHeader title={<Typography variant="h6" sx={{ fontWeight : 'bold' }}>Recent Forms</Typography>} />
 										<CardContent>
 											<FormRecentList data={acknowledgement?.forms} />
@@ -75,7 +67,7 @@ export function Page() {
 										{ name: "Pending", value: acknowledgement?.formStats?.pending, percent : '', color: "var(--mui-palette-warning-main)" },
 										{ name: "Confirmed", value: acknowledgement?.formStats?.confirmed, percent : '', color: purple['500'] },
 										{ name: "Ongoing", value: acknowledgement?.formStats?.ongoing ,percent : '', color: "var(--mui-palette-success-main)" },
-										{ name: "Closed", value: acknowledgement?.formStats?.closed,percent : '', color: "var(--mui-palette-secondary-main)" },
+										{ name: "Closed", value: acknowledgement?.formStats?.closed,percent : '', color: "var(--mui-palette-error-main)" },
 									 ]}/>
 								</Box>
 							</Grid> 

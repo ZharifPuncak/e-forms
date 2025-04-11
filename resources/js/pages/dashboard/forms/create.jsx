@@ -28,11 +28,11 @@ export function Page() {
 				}}
 			>
 				<Stack spacing={4}>
-					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
+					{/* <Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
 						<Box sx={{ flex: "1 1 auto" }}>
 							<Typography variant="h5" sx={{ fontWeight: "bold" }}>Create Form</Typography>
 						</Box>
-					</Stack>
+					</Stack> */}
 					<CreateForm />
 				</Stack>
 			</Box>

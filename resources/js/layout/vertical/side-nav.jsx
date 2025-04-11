@@ -36,10 +36,11 @@ export function SideNav({ color = "evident", items = [] }) {
 		<Box
 			sx={{
 				...styles,
+				// borderTop : '5px solid #06B6D4',
 				bgcolor: "var(--SideNav-background)",
 				borderRight: "var(--SideNav-border)",
 				color: "var(--SideNav-color)",
-				display: { xs: "none", lg: "flex" },
+				display: { xs: "none", md: "flex" },
 				flexDirection: "column",
 				height: "100%",
 				left: 0,
@@ -47,6 +48,7 @@ export function SideNav({ color = "evident", items = [] }) {
 				top: 0,
 				width: "var(--SideNav-width)",
 				zIndex: "var(--SideNav-zIndex)",
+				padding : '10px'
 			}}
 		>
 			<Stack spacing={2} sx={{ p: 2 }}>
@@ -63,7 +65,7 @@ export function SideNav({ color = "evident", items = [] }) {
 						<Logo color={logoColor}  height={100} width={100}  />
 					</Box>
 					<Box display="flex" justifyContent="center" alignItems="center">
-						<Typography variant="caption" align="center">
+						<Typography variant="caption"  fontWeight={'bold'} align="center">
 							   E-FORMS MANAGEMENT SYSTEM
 						</Typography>
 					</Box>
